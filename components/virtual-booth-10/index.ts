@@ -16,3 +16,4 @@ export * from "./BoothChat";
 export * from "./ButtonVideo";
 
 export * from "./PosterModal";
+export * from "./NameCardModal";

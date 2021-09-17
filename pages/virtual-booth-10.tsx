@@ -22,6 +22,7 @@ import {
   BoothChat,
   ButtonVideo,
   PosterModal,
+  NameCardModal,
 } from "@/components/virtual-booth-10";
 import { Poster } from "@/components/virtual-booth-10/type";
 
@@ -78,10 +79,17 @@ const posters = {
   },
 };
 
+const card = {
+  src: "/name-card-example.jpg",
+};
+
+const catalogSrc = "/catalog-example.pdf";
+
 const Home: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openPosterModal, setOpenPosterModal] = useState(false);
+  const [openNameCardModal, setOpenNameCardModal] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<Poster>();
 
   return (
@@ -117,11 +125,16 @@ const Home: NextPage = () => {
             setOpen={setOpenPosterModal}
             selectedPoster={selectedPoster}
           />
+          <NameCardModal
+            open={openNameCardModal}
+            setOpen={setOpenNameCardModal}
+            card={card}
+          />
         </main>
 
         {/* Absolute Position */}
-        <Banner1 />
-        <Banner2 />
+        <Banner1 onClick={() => setOpenNameCardModal(true)} card={card} />
+        <Banner2 src={catalogSrc} />
         <Poster1
           poster={posters.poster1}
           onClick={() => {

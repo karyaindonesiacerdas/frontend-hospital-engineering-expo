@@ -235,7 +235,7 @@ const ChatItemBuddy = () => {
 const ChatItemYou = () => {
   return (
     <li className="group cursor-pointer max-w-[95%] sm:max-w-[60%] self-end">
-      <div className="flex-1 space-y-0.5 bg-primary-200 rounded-md shadow px-3 py-2">
+      <div className="flex-1 space-y-0.5 bg-primary-50 rounded-md shadow px-3 py-2">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-medium">You</h3>
           <p className="text-sm text-gray-500">1h</p>

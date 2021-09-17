@@ -1,14 +1,16 @@
 import React from "react";
 import styles from "./Banner2.module.css";
 
-export const Banner2 = () => {
+type Props = {
+  src?: string;
+};
+
+export const Banner2 = ({ src }: Props) => {
   return (
     <div className="group">
       <div className={styles.bannerWrapper}>
         <a
-          href="https://img.freepik.com/free-vector/product-catalogue-design-template_158274-283.jpg?size=626&ext=jpg"
-          target="_blank"
-          rel="noreferrer"
+          href={src}
           download
           className={styles.banner}
           style={{ backgroundImage: "url('/catalog-example.PNG')" }}

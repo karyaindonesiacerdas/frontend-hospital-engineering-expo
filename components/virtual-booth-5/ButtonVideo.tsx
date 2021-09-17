@@ -32,7 +32,7 @@ export const ButtonVideo = ({ onClick }: Props) => {
               style={{ fontSize: "0.85vw", maxWidth: "25vw" }}
               className="text-gray-500"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              https://karya-indonesia-cerdas.com/
             </div>
           </div>
         </div>
