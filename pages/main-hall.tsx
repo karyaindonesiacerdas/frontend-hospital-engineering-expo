@@ -14,7 +14,7 @@ import {
   Advertisement2,
 } from "@/components/main-hall";
 
-const Home: NextPage = () => {
+const MainHall: NextPage = () => {
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
 
@@ -59,4 +59,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MainHall;

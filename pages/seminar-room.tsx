@@ -1,19 +1,16 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-import dynamic from "next/dynamic";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import {
-  BoardHeader,
-  // Board,
-  SearchAndFilter,
-} from "@/components/exhibitor-list";
+  SeminarScreen,
+  SeminarLink,
+  SeminarTitle,
+} from "@/components/seminar-room";
 
-const Board = dynamic(() => import("@/components/exhibitor-list/Board"));
-
-const Home: NextPage = () => {
+const SeminarRoom: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
 
   return (
@@ -28,12 +25,12 @@ const Home: NextPage = () => {
 
       <div
         style={{
-          backgroundImage: "url('/exhibitor-list.jpg')",
+          backgroundImage: "url('/seminar-room.jpeg')",
           aspectRatio: "2 / 1",
         }}
         className="relative bg-center bg-cover bg-no-repeat w-full h-full"
       >
-        <Navbar variant="dark" />
+        <Navbar />
 
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
@@ -42,12 +39,12 @@ const Home: NextPage = () => {
         </main>
 
         {/* Absolute Position */}
-        <BoardHeader />
-        <Board />
-        <SearchAndFilter />
+        <SeminarTitle />
+        <SeminarLink />
+        <SeminarScreen />
       </div>
     </>
   );
 };
 
-export default Home;
+export default SeminarRoom;

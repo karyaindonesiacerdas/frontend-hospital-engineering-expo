@@ -13,7 +13,7 @@ import {
 
 const Board = dynamic(() => import("@/components/exhibitor-list/Board"));
 
-const Home: NextPage = () => {
+const Exhibitors: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
 
   return (
@@ -50,4 +50,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Exhibitors;

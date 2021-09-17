@@ -27,7 +27,11 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Navbar = () => {
+type Props = {
+  variant?: "dark" | "light";
+};
+
+export const Navbar = ({ variant = "light" }: Props) => {
   return (
     <header className="bg-transparent z-10 sticky">
       <Disclosure
@@ -75,7 +79,11 @@ export const Navbar = () => {
                           className={classNames(
                             item.current
                               ? "text-primary-500"
-                              : "text-gray-300 hover:text-white",
+                              : `${
+                                  variant === "light"
+                                    ? "text-gray-300 hover:text-white"
+                                    : "text-gray-700 hover:text-primary-500"
+                                }`,
                             "px-3 py-2 rounded-md font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -92,7 +100,7 @@ export const Navbar = () => {
                   <div className="ml-4 flex items-center lg:ml-6">
                     <button
                       type="button"
-                      className="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-primary-500"
+                      className="p-1 rounded-full text-gray-400 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-primary-500"
                     >
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />

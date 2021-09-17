@@ -8,7 +8,7 @@ export const ChatButton = ({ onClick }: Props) => {
   return (
     <button
       onClick={onClick}
-      className=" bg-primary-100 hover:bg-primary-200 transition-all duration-200 p-4 rounded-full shadow-2xl animate-bounce"
+      className=" bg-white bg-opacity-30 hover:bg-primary-200 transition-all duration-200 p-4 rounded-full shadow-2xl animate-bounce border-4 border-primary-500 backdrop-filter backdrop-blur-lg"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
