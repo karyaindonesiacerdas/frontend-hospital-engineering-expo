@@ -1,0 +1,31 @@
+.posterWrapper {
+  perspective: 1000px;
+  position: absolute;
+  top: 50.5%;
+  left: 16.75%;
+  width: 6.75%;
+  height: 15.5%;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  border-width: 4px;
+  border-color: #00b4bf;
+  transform: rotateY(50deg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.poster:hover {
+  animation: none;
+}
+
+.poster span {
+  font-size: 1vw;
+}

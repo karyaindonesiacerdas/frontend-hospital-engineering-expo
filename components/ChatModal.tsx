@@ -77,7 +77,7 @@ export const ChatModal = ({ open, setOpen }: Props) => {
                 {/* Right Panel */}
                 <div className="w-3/4 relative chat-bg">
                   {/* <!-- Chat Header --> */}
-                  <ChatMessageHeader />
+                  <ChatMessageHeader setOpen={setOpen} />
 
                   <div className="flex flex-col max-h-[456px] h-full">
                     {/* <!-- Chat Body --> */}
@@ -166,7 +166,11 @@ const ChatListItem = () => {
   );
 };
 
-const ChatMessageHeader = () => {
+type MessageHeaderProps = {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+const ChatMessageHeader = ({ setOpen }: MessageHeaderProps) => {
   return (
     <div className="py-2 px-4 border-b border-gray-200 h-12 flex justify-between items-center bg-white">
       <div className="flex items-center space-x-3">
@@ -179,7 +183,10 @@ const ChatMessageHeader = () => {
         />
         <h3 className="text-xl font-medium text-gray-600 mr-20">John Doe</h3>
       </div>
-      <button className="p-1 hover:bg-gray-100 rounded-md">
+      <button
+        onClick={() => setOpen(false)}
+        className="p-1 hover:bg-gray-100 rounded-md"
+      >
         <svg
           className="w-8 h-8"
           width="24"
