@@ -1,16 +1,27 @@
 import React from "react";
 import styles from "./Poster6.module.css";
+import type { Poster } from "./type";
 
-export const Poster6 = () => {
+type Props = {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  poster?: Poster;
+};
+
+export const Poster6 = ({ onClick, poster }: Props) => {
   return (
     <div className="group">
       <div className={styles.posterWrapper}>
         <button
+          onClick={onClick}
           className={styles.poster}
-          style={{ backgroundImage: "url('/brosur1.jpg')" }}
+          style={{
+            backgroundImage: poster?.src ? `url(${poster?.src})` : "none",
+          }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-80"></div>
-          <span className="text-white z-10 font-bold">Product 5</span>
+          <span className="text-white z-10 font-bold">
+            {poster?.title || "Empty"}
+          </span>
         </button>
       </div>
     </div>

@@ -1,7 +1,5 @@
-import { Fragment, useState, useRef, Dispatch, SetStateAction } from "react";
-import type { NextPage } from "next";
+import { Fragment, useRef, Dispatch, SetStateAction } from "react";
 import { Transition, Dialog } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
 import Plyr from "plyr-react";
 import "plyr-react/dist/plyr.css";
 

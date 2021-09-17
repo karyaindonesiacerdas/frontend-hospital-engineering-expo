@@ -13,12 +13,17 @@ import {
   Poster3,
   Poster4,
   Poster5,
+  Poster6,
+  Poster7,
+  Poster8,
+  Poster9,
+  Poster10,
   BookingConsultation,
   BoothChat,
   ButtonVideo,
   PosterModal,
-} from "@/components/virtual-booth-5";
-import { Poster } from "@/components/virtual-booth-5/type";
+} from "@/components/virtual-booth-10";
+import { Poster } from "@/components/virtual-booth-10/type";
 
 const posters = {
   poster1: {
@@ -46,6 +51,31 @@ const posters = {
     src: "/brosur5.jpg",
     title: "Product 5",
   },
+  poster6: {
+    number: 6,
+    src: "/brosur1.jpg",
+    title: "Product 6",
+  },
+  poster7: {
+    number: 7,
+    src: "/brosur2.jpg",
+    title: "Product 7",
+  },
+  poster8: {
+    number: 8,
+    src: "/brosur3.jpg",
+    title: "Product 8",
+  },
+  poster9: {
+    number: 9,
+    src: "/brosur4.jpg",
+    title: "Product 9",
+  },
+  poster10: {
+    number: 10,
+    src: "/brosur5.jpg",
+    title: "Product 10",
+  },
 };
 
 const Home: NextPage = () => {
@@ -66,7 +96,7 @@ const Home: NextPage = () => {
 
       <div
         style={{
-          backgroundImage: "url('/virtual-booth-5-min.jpg')",
+          backgroundImage: "url('/virtual-booth-10.jpg')",
           aspectRatio: "2 / 1",
         }}
         className="relative bg-center bg-cover bg-no-repeat w-full h-full"
@@ -125,6 +155,41 @@ const Home: NextPage = () => {
           onClick={() => {
             setOpenPosterModal(true);
             setSelectedPoster(posters.poster5);
+          }}
+        />
+        <Poster6
+          poster={posters.poster6}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedPoster(posters.poster6);
+          }}
+        />
+        <Poster7
+          poster={posters.poster7}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedPoster(posters.poster7);
+          }}
+        />
+        <Poster8
+          poster={posters.poster8}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedPoster(posters.poster8);
+          }}
+        />
+        <Poster9
+          poster={posters.poster9}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedPoster(posters.poster9);
+          }}
+        />
+        <Poster10
+          poster={posters.poster10}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedPoster(posters.poster10);
           }}
         />
         <BookingConsultation />
