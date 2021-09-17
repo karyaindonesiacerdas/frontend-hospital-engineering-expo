@@ -6,6 +6,13 @@ import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { VideoModal } from "@/components/VideoModal";
 import { ChatModal } from "@/components/ChatModal";
+import {
+  ExhibitorListLink,
+  SeminarRoomLink,
+  OpenVideoButton,
+  Advertisement1,
+  Advertisement2,
+} from "@/components/main-hall";
 
 const Home: NextPage = () => {
   const [openVideoModal, setOpenVideoModal] = useState(false);
@@ -39,6 +46,13 @@ const Home: NextPage = () => {
           />
           <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
         </main>
+
+        {/* Button Absolute Position */}
+        <ExhibitorListLink />
+        <SeminarRoomLink />
+        <OpenVideoButton onClick={() => setOpenVideoModal(true)} />
+        <Advertisement1 />
+        <Advertisement2 />
       </div>
     </>
   );
