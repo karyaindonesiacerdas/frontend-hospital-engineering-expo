@@ -1,11 +1,11 @@
 .button {
   position: absolute;
-  top: 32.5%;
+  top: 31%;
   left: 49.9%;
   transform: translateX(-50%);
   perspective: 1000px;
   width: 15.5%;
-  height: 18%;
+  height: 19.5%;
 }
 
 .button svg {

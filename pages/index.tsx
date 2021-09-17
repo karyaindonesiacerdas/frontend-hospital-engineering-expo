@@ -31,8 +31,9 @@ const Home: NextPage = () => {
       <div
         style={{
           backgroundImage: "url('/main-hall.jpg')",
+          aspectRatio: "2 / 1",
         }}
-        className="relative bg-center bg-cover bg-no-repeat w-full h-full aspect-w-2 aspect-h-1"
+        className="relative bg-center bg-cover bg-no-repeat w-full h-full"
       >
         <Navbar />
 

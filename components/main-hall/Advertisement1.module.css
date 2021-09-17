@@ -1,10 +1,10 @@
 .advertisement {
   position: absolute;
-  top: 32.6%;
+  top: 31%;
   left: 22.5%;
   perspective: 600px;
   width: 19.5%;
-  height: 23%;
+  height: 25%;
 }
 
 .advertisement div {

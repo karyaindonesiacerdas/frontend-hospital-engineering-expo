@@ -1,8 +1,7 @@
 .link {
   position: absolute;
   top: 42%;
-  left: 78.5%;
-  /* right: 7.6%; */
+  right: 7.6%;
   perspective: 1000px;
   width: 14%;
   height: 17%;
