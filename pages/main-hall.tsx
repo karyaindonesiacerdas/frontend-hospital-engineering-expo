@@ -1,12 +1,21 @@
 import { useState } from "react";
 import type { NextPage } from "next";
+import "plyr-react/dist/plyr.css";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
+import { VideoModal } from "@/components/VideoModal";
 import { ChatModal } from "@/components/ChatModal";
-import { SeminarScreen, SeminarLink } from "@/components/seminar-room";
+import {
+  ExhibitorListLink,
+  SeminarRoomLink,
+  OpenVideoButton,
+  Advertisement1,
+  Advertisement2,
+} from "@/components/main-hall";
 
 const Home: NextPage = () => {
+  const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
 
   return (
@@ -21,7 +30,7 @@ const Home: NextPage = () => {
 
       <div
         style={{
-          backgroundImage: "url('/seminar-room.jpeg')",
+          backgroundImage: "url('/main-hall.jpg')",
           aspectRatio: "2 / 1",
         }}
         className="relative bg-center bg-cover bg-no-repeat w-full h-full"
@@ -31,12 +40,20 @@ const Home: NextPage = () => {
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
+          <VideoModal
+            open={openVideoModal}
+            setOpen={setOpenVideoModal}
+            videoId="3u_vIdnJYLc"
+          />
           <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
         </main>
 
-        {/* Absolute Position */}
-        <SeminarLink />
-        <SeminarScreen />
+        {/* Button Absolute Position */}
+        <ExhibitorListLink />
+        <SeminarRoomLink />
+        <OpenVideoButton onClick={() => setOpenVideoModal(true)} />
+        <Advertisement1 />
+        <Advertisement2 />
       </div>
     </>
   );

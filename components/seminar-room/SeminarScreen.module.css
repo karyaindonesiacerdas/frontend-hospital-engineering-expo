@@ -1,0 +1,32 @@
+.seminar {
+  position: absolute;
+  top: 24%;
+  left: 50.6%;
+  width: 47.3%;
+  height: 40.5%;
+}
+
+.seminar div {
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+.seminar-link {
+  position: absolute;
+  top: 15%;
+  left: 27%;
+  width: 47.3%;
+}
+
+.seminar-link svg {
+  width: 4vw;
+  height: auto;
+  margin-right: 0.5vw;
+}
+
+.seminar-link img {
+  width: 2.5vw;
+  height: auto;
+  margin-right: 0.5vw;
+}
