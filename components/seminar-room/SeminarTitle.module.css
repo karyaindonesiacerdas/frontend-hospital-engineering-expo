@@ -1,0 +1,14 @@
+.title {
+  position: absolute;
+  top: 10%;
+  left: 27%;
+  width: 47.3%;
+}
+
+/* .title div {
+  padding: 0.4vw;
+} */
+
+.title h2 {
+  font-size: 1.8vw;
+}

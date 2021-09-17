@@ -4,7 +4,11 @@ import type { NextPage } from "next";
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
-import { SeminarScreen, SeminarLink } from "@/components/seminar-room";
+import {
+  SeminarScreen,
+  SeminarLink,
+  SeminarTitle,
+} from "@/components/seminar-room";
 
 const Home: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
@@ -35,6 +39,7 @@ const Home: NextPage = () => {
         </main>
 
         {/* Absolute Position */}
+        <SeminarTitle />
         <SeminarLink />
         <SeminarScreen />
       </div>

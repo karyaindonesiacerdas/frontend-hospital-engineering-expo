@@ -37,10 +37,10 @@ export const Navbar = () => {
         {({ open }) => (
           <>
             <div
-              className={`max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 bg-white   md:bg-opacity-10 shadow rounded-t-lg ${
+              className={`max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 bg-white   lg:bg-opacity-10 shadow rounded-t-lg ${
                 open
                   ? "bg-opacity-70 backdrop-filter backdrop-blur-lg"
-                  : "md:backdrop-blur-lg bg-opacity-0 rounded-b-lg"
+                  : "lg:backdrop-blur-lg bg-opacity-0 rounded-b-lg"
               }`}
             >
               {/* Navbar */}
@@ -49,7 +49,7 @@ export const Navbar = () => {
                 <div className="flex items-center">
                   <div className="flex-shrink-0 flex items-center space-x-3">
                     <div
-                      className={`p-0.5 md:bg-transparent flex items-center justify-center rounded-full ${
+                      className={`p-0.5 lg:bg-transparent flex items-center justify-center rounded-full ${
                         open
                           ? "backdrop-filter backdrop-blur-lg bg-transparent"
                           : "bg-white bg-opacity-90"
@@ -66,7 +66,7 @@ export const Navbar = () => {
                       HEF 2021
                     </div>
                   </div>
-                  <div className="hidden md:block">
+                  <div className="hidden lg:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
                         <a
@@ -88,8 +88,8 @@ export const Navbar = () => {
                 </div>
 
                 {/* Right Nav */}
-                <div className="hidden md:block">
-                  <div className="ml-4 flex items-center md:ml-6">
+                <div className="hidden lg:block">
+                  <div className="ml-4 flex items-center lg:ml-6">
                     <button
                       type="button"
                       className="p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-primary-500"
@@ -144,12 +144,12 @@ export const Navbar = () => {
                 </div>
 
                 {open ? (
-                  <div className="-ml-3 block md:hidden text-2xl font-bold text-primary-500">
+                  <div className="-ml-3 block lg:hidden text-2xl font-bold text-primary-500">
                     HEF 2021
                   </div>
                 ) : null}
                 {/* Toggle Mobile Nav Button */}
-                <div className="-mr-2 flex md:hidden">
+                <div className="-mr-2 flex lg:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button
                     className={`bg-white inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-500 focus:ring-white ${
@@ -168,7 +168,7 @@ export const Navbar = () => {
             </div>
 
             {/* Mobile Nav Panel */}
-            <Disclosure.Panel className="md:hidden bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
+            <Disclosure.Panel className="lg:hidden bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
                   <a
