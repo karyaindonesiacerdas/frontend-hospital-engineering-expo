@@ -44,7 +44,7 @@ const schedules = [
   },
 ];
 
-const Home: NextPage = () => {
+const WebinarSchedule: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
 
   return (
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
         <ChatButton onClick={() => setOpenChatModal(true)} />
       </div>
 
-      <Navbar variant="dark" />
+      <Navbar variant="dark" currentHref="webinar-schedule" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
@@ -174,4 +174,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default WebinarSchedule;

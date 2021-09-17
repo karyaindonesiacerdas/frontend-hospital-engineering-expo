@@ -33,7 +33,7 @@ const Exhibitors: NextPage = () => {
         }}
         className="relative bg-center bg-cover bg-no-repeat w-full h-full"
       >
-        <Navbar variant="dark" />
+        <Navbar variant="dark" currentHref="exhibitors" />
 
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">

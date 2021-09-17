@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
@@ -10,11 +11,11 @@ const userNavigation = [
 ];
 
 const navigation = [
-  { name: "Main Hall", href: "#", current: true },
-  { name: "Seminar", href: "#", current: false },
-  { name: "Exhibitors", href: "#", current: false },
-  { name: "Consultation", href: "#", current: false },
-  { name: "Webinar Schedule", href: "#", current: false },
+  { name: "Main Hall", href: "main-hall" },
+  { name: "Seminar", href: "seminar-room" },
+  { name: "Exhibitors", href: "exhibitors" },
+  { name: "Consultation", href: "consultation" },
+  { name: "Webinar Schedule", href: "webinar-schedule" },
 ];
 
 const user = {
@@ -29,9 +30,10 @@ function classNames(...classes: string[]) {
 
 type Props = {
   variant?: "dark" | "light";
+  currentHref?: string;
 };
 
-export const Navbar = ({ variant = "light" }: Props) => {
+export const Navbar = ({ variant = "light", currentHref }: Props) => {
   return (
     <header className="bg-transparent z-10 sticky">
       <Disclosure
@@ -73,23 +75,25 @@ export const Navbar = ({ variant = "light" }: Props) => {
                   <div className="hidden lg:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "text-primary-500"
-                              : `${
-                                  variant === "light"
-                                    ? "text-gray-300 hover:text-white"
-                                    : "text-gray-700 hover:text-primary-500"
-                                }`,
-                            "px-3 py-2 rounded-md font-medium"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a
+                            className={classNames(
+                              item.href === currentHref
+                                ? "text-primary-500"
+                                : `${
+                                    variant === "light"
+                                      ? "text-gray-300 hover:text-white"
+                                      : "text-gray-700 hover:text-primary-500"
+                                  }`,
+                              "px-3 py-2 rounded-md font-medium"
+                            )}
+                            aria-current={
+                              item.href === currentHref ? "page" : undefined
+                            }
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -179,19 +183,21 @@ export const Navbar = ({ variant = "light" }: Props) => {
             <Disclosure.Panel className="lg:hidden bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "text-primary-500"
-                        : "text-gray-700 hover:text-primary-500",
-                      " block px-3 py-2 rounded-md text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </a>
+                  <Link key={item.name} href={item.href}>
+                    <a
+                      className={classNames(
+                        item.href === currentHref
+                          ? "text-primary-500"
+                          : "text-gray-700 hover:text-primary-500",
+                        " block px-3 py-2 rounded-md text-base font-medium"
+                      )}
+                      aria-current={
+                        item.href === currentHref ? "page" : undefined
+                      }
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
               </div>
               <div className="pt-4 pb-3 border-t border-gray-300">
