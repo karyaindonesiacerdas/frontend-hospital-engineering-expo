@@ -17,6 +17,7 @@ import {
   BoothChat,
   ButtonVideo,
   PosterModal,
+  BoothCS,
 } from "@/components/virtual-booth-5";
 import { Poster } from "@/components/virtual-booth-5/type";
 
@@ -130,6 +131,7 @@ const Home: NextPage = () => {
         <BookingConsultation />
         <BoothChat onClick={() => setOpenChatModal(true)} />
         <ButtonVideo onClick={() => setOpenVideoModal(true)} />
+        <BoothCS />
       </div>
     </>
   );
