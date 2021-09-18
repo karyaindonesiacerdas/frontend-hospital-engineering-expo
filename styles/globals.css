@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .main-area {
+    height: calc(100vh - theme("spacing.16") - theme("spacing.2"));
+  }
+
+  .hero-image-height {
+    height: calc(100vh - 70px);
+  }
+}
+
 :root {
   --plyr-color-main: #00b4bf;
 }
@@ -34,4 +44,21 @@
   background-clip: padding-box;
   border-radius: 9999px;
   background-color: #aaaaaa;
+}
+
+.swiper-pagination-bullet {
+  border-radius: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fff !important;
+}
+
+.swiper-pagination {
+  text-align: left !important;
+  margin-left: 3vw !important;
+  margin-bottom: 1vw !important;
 }
