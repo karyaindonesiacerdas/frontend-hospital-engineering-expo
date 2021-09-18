@@ -66,3 +66,15 @@
 .overlay-nav {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.faq-answer a {
+  color: #00b4bf;
+}
+
+.faq-answer a:hover {
+  text-decoration: underline;
+}
+
+.faq-answer p {
+  line-height: 1.8;
+}
