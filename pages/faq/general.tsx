@@ -1,19 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import type { NextPage } from "next";
+import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
-
-// const faqs = [
-//   {
-//     question: "What's the best thing about Switzerland?",
-//     answer:
-//       "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-//   },
-//   // More questions...
-// ];
 
 const faqs = [
   {
@@ -81,7 +73,9 @@ const faqs = [
           Once you have registered on our website, you can immediately login
           with your email and password that you input during the registration
           process here:{" "}
-          <a href="/login">https://hospital-engineering-expo.com/login</a>
+          <Link href="/login">
+            <a>https://hospital-engineering-expo.com/login</a>
+          </Link>
         </p>
       </>
     ),
