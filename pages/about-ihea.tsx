@@ -16,7 +16,7 @@ const AboutIHEA: NextPage = () => {
         <div className="mt-4 text-[#00B4BF] uppercase text-xl font-bold text-center">
           About
         </div>
-        <h3 className="mt-2 mb-10 text-4xl font-bold text-gray-700 text-center">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
           Indonesian Hospital Engineering Association
         </h3>
         <p className="max-w-4xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600">

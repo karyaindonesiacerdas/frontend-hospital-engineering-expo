@@ -12,11 +12,11 @@ const Packages: NextPage = () => {
         <Navbar variant="dark" />
       </div>
 
-      <section className="max-w-7xl mx-auto py-10 px-2 bg-white mb-10">
+      <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
           Packages
         </div>
-        <h3 className="mt-2 mb-6 text-4xl font-bold text-gray-700 text-center">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
           Virtual Exhibition Package List
         </h3>
         <div className="max-w-5xl mx-auto">

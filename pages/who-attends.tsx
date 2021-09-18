@@ -6,7 +6,7 @@ import { CheckCircleIcon } from "@heroicons/react/outline";
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
-const WhoAttend: NextPage = () => {
+const WhoAttends: NextPage = () => {
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -14,11 +14,11 @@ const WhoAttend: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
+        <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
+          Who Attend
+        </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-14 items-center">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center lg:text-left px-2 mb-6">
-              Who Attend
-            </h3>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
               With over 8000 registered members from Indonesia, PTPI is
               recognised nationally for conducting webinars focusing in hospital
@@ -97,4 +97,4 @@ const WhoAttend: NextPage = () => {
   );
 };
 
-export default WhoAttend;
+export default WhoAttends;

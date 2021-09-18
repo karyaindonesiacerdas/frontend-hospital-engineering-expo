@@ -1,91 +1,92 @@
 import { Fragment, useEffect } from "react";
+import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const overview = [
   {
     name: "About HEF",
-    href: "about-hef",
+    href: "/about-hef",
   },
   {
-    name: "About IAHE",
-    href: "about-iahe",
+    name: "About IHEA",
+    href: "/about-ihea",
   },
   {
     name: "Programs",
-    href: "programs",
+    href: "/programs",
   },
   {
     name: "Webinar Rundown",
-    href: "webinar-rundown",
+    href: "/webinar-rundown",
   },
   {
     name: "News",
-    href: "news",
+    href: "/news",
   },
   {
     name: "Important Dates",
-    href: "important-dates",
+    href: "/important-dates",
   },
 ];
 
 const visitor = [
   {
     name: "Visitor Guideline",
-    href: "visitor-guideline",
+    href: "/visitor-guideline",
   },
   {
     name: "Who Attends",
-    href: "who-attends",
+    href: "/who-attends",
   },
   {
     name: "Why Attend",
-    href: "why attend",
+    href: "/why-attend",
   },
 ];
 
 const exhibitor = [
   {
     name: "Exhibitor Guideline",
-    href: "exhibitor-guideline",
+    href: "/exhibitor-guideline",
   },
   {
     name: "Who Exhibit",
-    href: "who-exhibit",
+    href: "/who-exhibit",
   },
   {
     name: "Why Exhibit",
-    href: "why-exhibit",
+    href: "/why-exhibit",
   },
   {
     name: "Packages",
-    href: "packages",
+    href: "/packages",
   },
 ];
 
 const faq = [
   {
     name: "FAQ General & Technical",
-    href: "faq",
+    href: "/faq/general",
   },
   {
     name: "FAQ Visitor",
-    href: "faq/visitor",
+    href: "/faq/visitor",
   },
   {
     name: "FAQ Exhibitor",
-    href: "faq/exhibitor",
+    href: "/faq/exhibitor",
   },
 ];
 
 const register = [
   {
     name: "Register as Visitor",
-    href: "register/visitor",
+    href: "/register/visitor",
   },
   {
     name: "Register as Exhibitor",
-    href: "register/exhibitor",
+    href: "/register/exhibitor",
   },
 ];
 
@@ -131,13 +132,14 @@ export const Navbar = ({ variant }: Props) => {
         <ul className="flex space-x-4 lg:space-x-12 font-medium items-center">
           {/* <!-- Home --> */}
           <li>
-            <a
-              href="index.html"
-              className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase"
-              style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
-            >
-              Home
-            </a>
+            <Link href="/">
+              <a
+                className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase"
+                style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
+              >
+                Home
+              </a>
+            </Link>
           </li>
 
           {/* <!-- Overview --> */}
@@ -163,13 +165,11 @@ export const Navbar = ({ variant }: Props) => {
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                       {overview.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -201,13 +201,11 @@ export const Navbar = ({ variant }: Props) => {
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                       {visitor.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -239,13 +237,11 @@ export const Navbar = ({ variant }: Props) => {
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                       {exhibitor.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -277,13 +273,11 @@ export const Navbar = ({ variant }: Props) => {
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                       {faq.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -315,13 +309,11 @@ export const Navbar = ({ variant }: Props) => {
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                       {register.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -330,13 +322,14 @@ export const Navbar = ({ variant }: Props) => {
             </>
           </Popover>
           <li>
-            <a
-              href="login.html"
-              className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold border border-gray-200 hover:border-white rounded-md uppercase"
-              style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
-            >
-              Login
-            </a>
+            <Link href="/login">
+              <a
+                className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold border border-gray-200 hover:border-white rounded-md uppercase"
+                style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
+              >
+                Login
+              </a>
+            </Link>
           </li>
         </ul>
       </div>

@@ -14,11 +14,11 @@ const WhyExhibit: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-6 lg:py-10 px-4 bg-white mb-10">
+        <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
+          Why Exhibit
+        </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-10">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center lg:text-left px-2 mb-6">
-              Why Exhibit
-            </h3>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-relaxed text-gray-600 px-2">
               In HEF 2021 you get the chance to meet potential clients in a one
               one meeting through our online booking system and business

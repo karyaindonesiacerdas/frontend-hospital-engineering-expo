@@ -13,14 +13,14 @@ const VisitorGuideline: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
-        <div className="mt-4 text-[#00B4BF] uppercase text-xl font-bold text-center lg:text-left">
+        <div className="mt-4 text-[#00B4BF] uppercase text-xl font-bold text-center">
           Guideline
         </div>
-        <h3 className="mt-2 mb-10 text-4xl font-bold text-gray-700 text-center lg:text-left">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
           Visitor Guideline
         </h3>
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
-          <div className="space-y-2 shadow-xl p-4 rounded-xl">
+          <div className="space-y-2 shadow-xl rounded-xl">
             <div className="mb-4">
               <img src="/visitor-guideline-1.png" alt="Guideline 1" />
             </div>

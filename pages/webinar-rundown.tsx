@@ -12,8 +12,8 @@ const WebinarRundown: NextPage = () => {
         <Navbar variant="dark" />
       </div>
 
-      <section className="max-w-7xl mx-auto py-10 px-2 bg-white mb-10">
-        <h3 className="mt-2 mb-6 text-4xl font-bold text-gray-700 text-center">
+      <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
           Webinar Rundown
         </h3>
         <div className="space-y-10 max-w-5xl mx-auto">

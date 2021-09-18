@@ -14,11 +14,11 @@ const WhyAttend: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
+        <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
+          Why Attend
+        </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-14">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center lg:text-left px-2 mb-6">
-              Why Attend
-            </h3>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-relaxed text-gray-600 px-2">
               Visitors of HEF 2021 can look forward to joining a free of charge
               3 days online event, ranging from a series of webinars to

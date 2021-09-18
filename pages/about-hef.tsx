@@ -12,10 +12,10 @@ const AboutHEF: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
-        <div className="text-[#00B4BF] uppercase text-xl font-bold text-center lg:text-left">
+        <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
           About
         </div>
-        <h3 className="mt-2 mb-6 text-4xl font-bold text-gray-700 up text-center lg:text-left">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 up text-center">
           Hospital Engineering Forum 2021
         </h3>
         <div className="mt-4 grid lg:grid-cols-2 gap-10 items-center">

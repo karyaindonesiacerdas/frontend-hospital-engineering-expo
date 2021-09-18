@@ -16,10 +16,10 @@ const ImportantDates: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
-        <h3 className="mt-2 mb-6 text-4xl font-bold text-gray-700 text-center">
+        <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
           Important Dates
         </h3>
-        <div className="rounded-xl max-w-4xl mx-auto w-full h-full py-6 md:p-12">
+        <div className="rounded-xl max-w-4xl mx-auto w-full h-full py-2 md:p-6">
           <div className="relative wrap overflow-hidden h-full">
             <div
               className="border-2-2 absolute border-opacity-20 border-gray-700 h-full border"

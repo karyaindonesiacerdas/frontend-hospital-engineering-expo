@@ -40,11 +40,11 @@ const WhoExhibit: NextPage = () => {
       </div>
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
-        <div className="lg:mt-4 grid lg:grid-cols-2 gap-14 items-center">
+        <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
+          Who Exhibit
+        </h3>
+        <div className="lg:mt-4 grid lg:grid-cols-2 gap-14 items-start">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center lg:text-left px-2 mb-6">
-              Who Exhibit
-            </h3>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
               There will be Medical Devices Manufacturer & Distributor, Hospital
               Equipment and Material Manufacturer & Distributor, Hospital
@@ -120,7 +120,7 @@ const WhoExhibit: NextPage = () => {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 md:gap-4">
+          <div className="grid grid-cols-2 gap-2 md:gap-4 py-4">
             {engineeringAreas.map((item) => (
               <div
                 key={item.name}

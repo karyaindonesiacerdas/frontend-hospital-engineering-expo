@@ -12,8 +12,8 @@ const Programs: NextPage = () => {
         <Navbar variant="dark" />
       </div>
 
-      <section className="max-w-7xl mx-auto py-10 px-2 bg-white mb-10">
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center lg:text-left px-2 mb-6">
+      <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
           Programs
         </h2>
         {/* <!-- Programs 1 --> */}
