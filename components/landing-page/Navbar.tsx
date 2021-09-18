@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useTranslation } from "next-i18next";
 
 const overview = [
   {
@@ -96,6 +97,8 @@ type Props = {
 };
 
 export const Navbar = ({ variant }: Props) => {
+  const { t } = useTranslation("common");
+
   useEffect(() => {
     const navigation = document.getElementById("navigation");
 
@@ -110,8 +113,6 @@ export const Navbar = ({ variant }: Props) => {
         navigation?.classList.add("absolute");
       }
     };
-
-    console.log({ y: window.scrollY });
 
     window.addEventListener("scroll", handleScroll);
 
@@ -137,7 +138,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                Home
+                {t("home")}
               </a>
             </Link>
           </li>
@@ -149,7 +150,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                <span>Overview</span>
+                <span>{t("overview")}</span>
                 <ChevronDownIcon className="ml-1.5 w-5 h-5 text-white" />
               </Popover.Button>
               <Transition
@@ -185,7 +186,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                <span>Visitor</span>
+                <span>{t("visitor")}</span>
                 <ChevronDownIcon className="ml-1.5 w-5 h-5 text-white" />
               </Popover.Button>
               <Transition
@@ -221,7 +222,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                <span>Exhibitor</span>
+                <span>{t("exhibitor")}</span>
                 <ChevronDownIcon className="ml-1.5 w-5 h-5 text-white" />
               </Popover.Button>
               <Transition
@@ -257,7 +258,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                <span>FAQ</span>
+                <span>{t("faq")}</span>
                 <ChevronDownIcon className="ml-1.5 w-5 h-5 text-white" />
               </Popover.Button>
               <Transition

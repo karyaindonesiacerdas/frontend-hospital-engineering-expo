@@ -1,5 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Image from "next/image";
+import router, { useRouter } from "next/router";
 import { Popover, Transition, Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import {
@@ -12,6 +13,7 @@ import {
   QuestionMarkCircleIcon,
   TranslateIcon,
 } from "@heroicons/react/outline";
+import { useTranslation } from "next-i18next";
 
 const overview = [
   {
@@ -98,6 +100,9 @@ function classNames(...classes: string[]) {
 // };
 
 export const Header = () => {
+  const { t } = useTranslation("common");
+  const { asPath, locale } = useRouter();
+
   return (
     <Popover className="sticky z-40 md:z-auto top-0 sm:top-auto bg-white sm:bg-transparent flex sm:flex h-[50px] sm:h-[70px] max-w-7xl mx-auto px-4 md:px-2 items-center justify-between">
       {/* <!-- Logo --> */}
@@ -111,10 +116,10 @@ export const Header = () => {
         />
         <div>
           <div className="text-sm sm:text-lg xl:text-2xl uppercase font-bold text-gray-800 tracking-wider">
-            Hospital Engineering Forum 2021
+            {t("event-title")}
           </div>
           <div className="hidden sm:block text-xs xl:text-md uppercase text-gray-600 tracking-wider">
-            Plan Your Hospital with The Most Cost Effective Technology!
+            {t("event-tagline")}
           </div>
         </div>
       </div>
@@ -130,10 +135,13 @@ export const Header = () => {
             name="Language"
             id="language"
             className="block appearance-none pl-3 pr-8 py-1.5 sm:py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-xs sm:text-sm border-gray-300 w-20"
-            defaultValue="ID"
+            value={locale}
+            onChange={(e) =>
+              router.push(asPath, asPath, { locale: e.target.value })
+            }
           >
-            <option value="EN">EN</option>
-            <option value="ID">ID</option>
+            <option value="en">EN</option>
+            <option value="id">ID</option>
           </select>
         </div>
       </div>
@@ -178,10 +186,10 @@ export const Header = () => {
                   />
                   <div>
                     <div className="text-sm sm:text-lg xl:text-2xl uppercase font-bold text-gray-800 tracking-wider">
-                      Hospital Engineering Forum 2021
+                      {t("event-title")}
                     </div>
                     <div className="hidden sm:block text-xs xl:text-md uppercase text-gray-600 tracking-wider">
-                      Plan your hospital with the latest technologies!
+                      {t("event-tagline")}
                     </div>
                   </div>
                 </div>
@@ -206,7 +214,7 @@ export const Header = () => {
                     {/* <!-- Heroicon name: outline/chart-bar --> */}
                     <HomeIcon className="flex-shrink-0 h-6 w-6 text-primary" />
                     <span className="ml-3 text-base font-medium text-gray-900">
-                      Home
+                      {t("home")}
                     </span>
                   </a>
 
@@ -217,7 +225,7 @@ export const Header = () => {
                         <Disclosure.Button className="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
                           <ClipboardListIcon className="flex-shrink-0 h-6 w-6 text-primary" />
                           <span className="flex-1 ml-3 text-base font-medium text-gray-900">
-                            Overview
+                            {t("overview")}
                           </span>
                           <ChevronRightIcon
                             className={classNames(
@@ -250,7 +258,7 @@ export const Header = () => {
                         <Disclosure.Button className="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
                           <UserGroupIcon className="flex-shrink-0 h-6 w-6 text-primary" />
                           <span className="flex-1 ml-3 text-base font-medium text-gray-900">
-                            Visitor
+                            {t("visitor")}
                           </span>
                           <ChevronRightIcon
                             className={classNames(
@@ -283,7 +291,7 @@ export const Header = () => {
                         <Disclosure.Button className="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
                           <MicrophoneIcon className="flex-shrink-0 h-6 w-6 text-primary" />
                           <span className="flex-1 ml-3 text-base font-medium text-gray-900">
-                            Exhibitor
+                            {t("exhibitor")}
                           </span>
                           <ChevronRightIcon
                             className={classNames(
@@ -316,7 +324,7 @@ export const Header = () => {
                         <Disclosure.Button className="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
                           <QuestionMarkCircleIcon className="flex-shrink-0 h-6 w-6 text-primary" />
                           <span className="flex-1 ml-3 text-base font-medium text-gray-900">
-                            FAQ
+                            {t("faq")}
                           </span>
                           <ChevronRightIcon
                             className={classNames(

@@ -1,6 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { CheckCircleIcon } from "@heroicons/react/outline";
 
 export const AuthPageLayout: React.FC = ({ children }) => {
@@ -20,7 +19,7 @@ export const AuthPageLayout: React.FC = ({ children }) => {
             </h2>
             <ul className="space-y-6">
               <li className="flex items-start space-x-3 text-primary-800">
-                <CheckCircleIcon className="w-8 h-8 text-primary-600" />
+                <CheckCircleIcon className="w-8 h-8 text-primary-700" />
 
                 <span className="flex-1 max-w-sm text-primary-800 text-lg">
                   More than 40 speakers from goverment, association, hospital,
@@ -28,14 +27,14 @@ export const AuthPageLayout: React.FC = ({ children }) => {
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-primary-800">
-                <CheckCircleIcon className="w-8 h-8 text-primary-600" />
+                <CheckCircleIcon className="w-8 h-8 text-primary-700" />
 
                 <span className="flex-1 max-w-sm text-primary-800 text-lg">
                   More than 100 local and international exhibitors
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-primary-800">
-                <CheckCircleIcon className="w-8 h-8 text-primary-600" />
+                <CheckCircleIcon className="w-8 h-8 text-primary-700" />
 
                 <span className="flex-1 max-w-sm text-primary-800 text-lg">
                   More than 8000 PTPI registered members (healthcare
@@ -43,7 +42,7 @@ export const AuthPageLayout: React.FC = ({ children }) => {
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-primary-800">
-                <CheckCircleIcon className="w-8 h-8 text-primary-600" />
+                <CheckCircleIcon className="w-8 h-8 text-primary-700" />
 
                 <span className="flex-1 max-w-sm text-primary-800 text-lg">
                   Hospital engineering in covid-19 and industry 4.0 era

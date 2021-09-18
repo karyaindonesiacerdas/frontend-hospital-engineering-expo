@@ -2,39 +2,41 @@
 import React from "react";
 import { Pagination, A11y, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslation } from "next-i18next";
 
 import { Navbar } from "./Navbar";
 
 import "swiper/css/effect-fade";
 
-const engineeringAreas = [
+const engineeringAreas = (t: any) => [
   {
-    name: "Hospital Buildings",
+    name: t("hospital-buildings"),
     imgSrc: "/hospital-buildings.jpg",
   },
   {
-    name: "Hospital Mechanics",
+    name: t("hospital-mechanics"),
     imgSrc: "/hospital-mechanics.jpg",
   },
   {
-    name: "Hospital Electrics",
+    name: t("hospital-electrics"),
     imgSrc: "/hospital-electrics.jpg",
   },
   {
-    name: "Hospital Environments",
+    name: t("hospital-environments"),
     imgSrc: "/hospital-environments.jpg",
   },
   {
-    name: "Hospital Informatics",
+    name: t("hospital-informatics"),
     imgSrc: "/hospital-informatics.jpg",
   },
   {
-    name: "Hospital Devices",
+    name: t("hospital-devices"),
     imgSrc: "/hospital-devices.jpg",
   },
 ];
 
 const Hero = () => {
+  const { t } = useTranslation("common");
   return (
     <div className="relative h-60 sm:h-96 lg:h-[550px] xl:hero-image-height">
       <Swiper
@@ -65,7 +67,7 @@ const Hero = () => {
                     className="text-2xl md:text-6xl 2xl:text-7xl md:leading-[80px] drop-shadow-xl text-white font-bold text-center"
                     style={{ textShadow: "2px 2px 4px rgba(0,0,0, 0.5)" }}
                   >
-                    Hospital Engineering Forum 2021
+                    {t("event-title")}
                   </div>
                   <div
                     className="mt-2 md:mt-4 mb-1 text-md md:text-3xl font-semibold drop-shadow-xl text-white flex items-center justify-center"
@@ -108,7 +110,7 @@ const Hero = () => {
             </div>
           </div>
         </SwiperSlide>
-        {engineeringAreas.map((engineeringArea) => (
+        {engineeringAreas(t).map((engineeringArea) => (
           <SwiperSlide key={engineeringArea.name}>
             <div className="swiper-slide relative bg-gradient-to-b from-[#00B4BF] to-transparent">
               <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent"></div>

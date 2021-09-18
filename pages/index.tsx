@@ -1,5 +1,6 @@
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { CountDown, Event, BlogAndNews } from "@/components/landing-page";
@@ -23,3 +24,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
