@@ -130,10 +130,9 @@ export const Header = () => {
             name="Language"
             id="language"
             className="block appearance-none pl-3 pr-8 py-1.5 sm:py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-xs sm:text-sm border-gray-300 w-20"
+            defaultValue="ID"
           >
-            <option value="EN" selected>
-              EN
-            </option>
+            <option value="EN">EN</option>
             <option value="ID">ID</option>
           </select>
         </div>

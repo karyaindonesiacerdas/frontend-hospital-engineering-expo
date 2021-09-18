@@ -37,7 +37,6 @@ const engineeringAreas = [
 const Hero = () => {
   return (
     <div className="relative h-60 sm:h-96 lg:h-[550px] xl:hero-image-height">
-      <Navbar />
       <Swiper
         // install Swiper modules
         modules={[Pagination, A11y, EffectFade]}
@@ -138,6 +137,7 @@ const Hero = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <Navbar />
     </div>
   );
 };

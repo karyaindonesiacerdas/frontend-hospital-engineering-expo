@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
@@ -89,11 +89,40 @@ const register = [
   },
 ];
 
-export const Navbar = () => {
+type Props = {
+  variant?: "dark" | "light";
+  currentHref?: string;
+};
+
+export const Navbar = ({ variant }: Props) => {
+  useEffect(() => {
+    const navigation = document.getElementById("navigation");
+
+    const handleScroll = (e: Event) => {
+      if (window.scrollY > 150) {
+        navigation?.classList.remove("absolute");
+        navigation?.classList.add("fixed");
+        navigation?.classList.add("overlay-nav");
+      } else {
+        navigation?.classList.remove("fixed");
+        navigation?.classList.remove("overlay-nav");
+        navigation?.classList.add("absolute");
+      }
+    };
+
+    console.log({ y: window.scrollY });
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <nav
       id="navigation"
-      className="hidden absolute md:flex w-full top-0 left-0 right-0 justify-between items-center py-4 px-4 md:px-2 z-50"
+      className={`hidden absolute md:flex w-full top-0 left-0 right-0 justify-between items-center py-4 px-4 md:px-2 z-50 ${
+        variant === "dark" ? "bg-[#25243A]" : ""
+      }`}
     >
       <div
         id="navigation-wrapper"
