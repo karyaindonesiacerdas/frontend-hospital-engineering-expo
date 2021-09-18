@@ -88,21 +88,19 @@ const Login: NextPage = () => {
 
           <div className="mt-6 grid grid-cols-2 gap-3">
             <div>
-              <a
-                href="register-visitor.html"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <span>Register as Visitor</span>
-              </a>
+              <Link href="/register/visitor">
+                <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span>Register as Visitor</span>
+                </a>
+              </Link>
             </div>
 
             <div>
-              <a
-                href="register-exhibitor.html"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <span>Register as Exhibitor</span>
-              </a>
+              <Link href="/register/exhibitor">
+                <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span>Register as Exhibitor</span>
+                </a>
+              </Link>
             </div>
           </div>
         </div>

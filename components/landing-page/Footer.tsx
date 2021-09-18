@@ -47,12 +47,14 @@ export const Footer = () => {
 
           <div>
             {/* <!-- Ganti dengan google maps --> */}
-            <div className="aspect-w-5 aspect-h-3 rounded-2xl overflow-hidden">
-              <img
-                className="w-full h-full object-cover"
-                src="/google-map.png"
-                alt="Google map"
-              />
+            <div className="aspect-w-5 aspect-h-3 rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1407117932863!2d106.84116471529533!3d-6.245180562891369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3b85bf3e09d%3A0x160234e756fdf17b!2sWisma%20NH!5e0!3m2!1sid!2sid!4v1631966539831!5m2!1sid!2sid"
+                width="600"
+                height="450"
+                style={{ border: 0 }}
+                loading="lazy"
+              ></iframe>
             </div>
           </div>
         </div>
