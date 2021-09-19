@@ -1,11 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
-import Image from "next/image";
+import type { GetStaticPropsContext, NextPage } from "next";
+import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const VisitorGuideline: NextPage = () => {
+  const { t } = useTranslation("visitor");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -14,10 +18,10 @@ const VisitorGuideline: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="mt-4 text-[#00B4BF] uppercase text-xl font-bold text-center">
-          Guideline
+          {t("visitor-guideline.tag")}
         </div>
         <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
-          Visitor Guideline
+          {t("visitor-guideline.title")}
         </h3>
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
           <div className="space-y-2 shadow-xl rounded-xl">
@@ -37,48 +41,29 @@ const VisitorGuideline: NextPage = () => {
 
           <ol className="max-w-5xl mx-auto leading-relaxed lg:text-lg lg:leading-relaxed text-gray-700 list-decimal space-y-4 pl-6">
             <li>
-              Go to the visitor’s registration page at{" "}
-              <a
-                href="register-visitor.html"
-                className="text-[#00B4BF] hover:text-[#116368]"
-              >
-                https://hospital-engineering-expo.com/register-visitor/
-              </a>
+              {t("visitor-guideline.guideline-1")}{" "}
+              <Link href="/register/visitor">
+                <a className="text-[#00B4BF] hover:text-[#116368]">
+                  https://hospital-engineering-expo.com/register/visitor
+                </a>
+              </Link>
             </li>
-            <li>Enter your company’s representative information</li>
-            <li>
-              Enter an active email address. We will send information and
-              notifications to your email.
-            </li>
-            <li>Enter a phone number that’s connected to WhatsApp</li>
-            <li>Enter the representative full name and title.</li>
-            <li>
-              Select the representative job function. If you did not found a
-              suitable one, you can select ‘Other’
-            </li>
-            <li>
-              Enter a password and retype your password in “Confirm Password”
-            </li>
-            <li>Enter your institution/ company name</li>
-            <li>
-              Select the type of institution that best describes your
-              company/institution. If you did not found a suitable one, select
-              ‘Other’
-            </li>
-            <li>Select your country of origin</li>
-            <li>If you choose Indonesia, please select your province</li>
-            <li>Select the visitor type that best suits you</li>
-            <li>
-              Tick the products you are interested in (You can tick as much as
-              possible)
-            </li>
-            <li>Tick your purpose of visiting HEF 2021</li>
-            <li>
-              {`Select if you have registered in SEHAT RI or not. If you forget or are unsure, you may select "I Forget"`}
-            </li>
-            <li>{`Once you have finished filling in the registration form, click "Register". You'll be registered in our
-          system
-          and may login to our website. Further guidelines will be informed later.`}</li>
+            <li>{t("visitor-guideline.guideline-2")}</li>
+            <li>{t("visitor-guideline.guideline-3")}</li>
+            <li>{t("visitor-guideline.guideline-4")}</li>
+            <li>{t("visitor-guideline.guideline-5")}</li>
+            <li>{t("visitor-guideline.guideline-6")}</li>
+            <li>{t("visitor-guideline.guideline-7")}</li>
+            <li>{t("visitor-guideline.guideline-8")}</li>
+            <li>{t("visitor-guideline.guideline-9")}</li>
+            <li>{t("visitor-guideline.guideline-10")}</li>
+            <li>{t("visitor-guideline.guideline-11")}</li>
+            <li>{t("visitor-guideline.guideline-12")}</li>
+            <li>{t("visitor-guideline.guideline-13")}</li>
+            <li>{t("visitor-guideline.guideline-14")}</li>
+            <li>{t("visitor-guideline.guideline-15")}</li>
+            <li>{t("visitor-guideline.guideline-16")}</li>
+            <li>{t("visitor-guideline.guideline-17")}</li>
           </ol>
         </div>
       </section>
@@ -87,3 +72,11 @@ const VisitorGuideline: NextPage = () => {
 };
 
 export default VisitorGuideline;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "visitor"])),
+  },
+});

@@ -1,12 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import { CheckCircleIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const WhoAttends: NextPage = () => {
+  const { t } = useTranslation("visitor");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -15,64 +19,61 @@ const WhoAttends: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
-          Who Attend
+          {t("who-attend.title")}
         </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-14 items-center">
           <div>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
-              With over 8000 registered members from Indonesia, PTPI is
-              recognised nationally for conducting webinars focusing in hospital
-              engineering. Healthcare professionals across the following
-              industry sectors are represented within our visitor profiles:
+              {t("who-attend.overview")}
             </p>
 
             <ul className="mt-6 max-w-5xl mx-auto grid grid-cols-2 gap-6">
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Hospital Management Team
+                  {t("who-attend.attendee-1")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Hospital Clinical Staff
+                  {t("who-attend.attendee-2")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Hospital Engineering Staff
+                  {t("who-attend.attendee-3")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Biomedical Engineer
+                  {t("who-attend.attendee-4")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Medical Doctor
+                  {t("who-attend.attendee-5")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  Government Staff
+                  {t("who-attend.attendee-6")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="max-w-sm text-gray-700 text-lg">
-                  University Lecturer
+                  {t("who-attend.attendee-7")}
                 </span>
               </li>
             </ul>
@@ -98,3 +99,11 @@ const WhoAttends: NextPage = () => {
 };
 
 export default WhoAttends;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "visitor"])),
+  },
+});
