@@ -1,14 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import {
   CheckCircleIcon,
   DotsCircleHorizontalIcon,
 } from "@heroicons/react/solid";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const ImportantDates: NextPage = () => {
+  const { t } = useTranslation("overview");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -17,7 +21,7 @@ const ImportantDates: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
-          Important Dates
+          {t("important-dates.header")}
         </h3>
         <div className="rounded-xl max-w-4xl mx-auto w-full h-full py-2 md:p-6">
           <div className="relative wrap overflow-hidden h-full">
@@ -35,10 +39,10 @@ const ImportantDates: NextPage = () => {
 
               <div className="order-1 bg-primary-500 rounded-lg shadow-lg w-5/12 px-4 py-3 md:px-6 md:py-4">
                 <h3 className="mb-3 font-bold text-white md:text-xl">
-                  1 September 2021
+                  {t("important-dates.date-1.date")}
                 </h3>
                 <p className="text-sm md:text-base text-white text-opacity-100">
-                  Registration Started
+                  {t("important-dates.date-1.event")}
                 </p>
               </div>
             </div>
@@ -51,10 +55,10 @@ const ImportantDates: NextPage = () => {
               </div>
               <div className="order-1 bg-gray-300 rounded-lg shadow-lg w-5/12 px-4 py-3 md:px-6 md:py-4">
                 <h3 className="mb-3 font-bold text-gray-800 md:text-xl">
-                  2 October 2021
+                  {t("important-dates.date-2.date")}
                 </h3>
                 <p className="text-sm md:text-base t-gray-900 text-opacity-100">
-                  Event Day 1
+                  {t("important-dates.date-2.event")}
                 </p>
               </div>
             </div>
@@ -67,10 +71,10 @@ const ImportantDates: NextPage = () => {
               </div>
               <div className="order-1 bg-gray-300 rounded-lg shadow-lg w-5/12 px-4 py-3 md:px-6 md:py-4">
                 <h3 className="mb-3 font-bold text-gray-800 md:text-xl">
-                  16 October 2021
+                  {t("important-dates.date-3.date")}
                 </h3>
                 <p className="text-sm md:text-base t-gray-900 text-opacity-100">
-                  Event Day 2
+                  {t("important-dates.date-3.event")}
                 </p>
               </div>
             </div>
@@ -83,10 +87,10 @@ const ImportantDates: NextPage = () => {
               </div>
               <div className="order-1 bg-gray-300 rounded-lg shadow-lg w-5/12 px-4 py-3 md:px-6 md:py-4">
                 <h3 className="mb-3 font-bold text-gray-800 md:text-xl">
-                  30 October 2021
+                  {t("important-dates.date-4.date")}
                 </h3>
                 <p className="text-sm md:text-base t-gray-900 text-opacity-100">
-                  Event Day 3
+                  {t("important-dates.date-4.event")}
                 </p>
               </div>
             </div>
@@ -98,3 +102,11 @@ const ImportantDates: NextPage = () => {
 };
 
 export default ImportantDates;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "overview"])),
+  },
+});

@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 export const Footer = () => {
+  const { t } = useTranslation("home");
+
   return (
     <>
       {/* Contact */}
@@ -9,18 +12,18 @@ export const Footer = () => {
         <div className="max-w-7xl mx-auto pt-6 md:pt-20 md:pb-28 px-4 grid md:grid-cols-2 gap-6 items-center overflow-hidden">
           <div>
             <div className="text-[#00B4BF] uppercase font-medium text-lg tracking-widest">
-              Contact
+              {t("contact.tag")}
             </div>
-            <h3 className="mt-2 text-3xl font-bold text-white">Contact Us</h3>
+            <h3 className="mt-2 text-3xl font-bold text-white">
+              {t("contact.title")}
+            </h3>
             <div className="mt-10 flex flex-col space-y-8">
               <div className="flex space-x-3 items-start">
                 <div className="border border-gray-600 rounded-full w-10 h-10 flex items-center justify-center">
                   <img className="w-4" src="/icons/address.svg" alt="Address" />
                 </div>
                 <span className="flex-1 max-w-[350px] text-sm md:text-md text-white mt-0.5">
-                  Gedung Wisma NH Building Lantai 1, Jl. Raya Pasar Minggu
-                  No.2B-C 2 1 2, RT.2/RW.2, Pancoran, Kec. Pancoran, Kota
-                  Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12780
+                  {t("contact.address")}
                 </span>
               </div>
 
@@ -29,8 +32,8 @@ export const Footer = () => {
                   <img className="w-4" src="/icons/phone.svg" alt="Phone" />
                 </div>
                 <div className="flex-1 max-w-[350px] text-sm md:text-md text-white mt-0.5 flex flex-col space-y-2">
-                  <span>+62 858 9377 7283 (Adrian)</span>
-                  <span>+62 877 7889 9087 (Jordy)</span>
+                  <span>{t("contact.whatsapp1")}</span>
+                  <span>{t("contact.whatsapp2")}</span>
                 </div>
               </div>
 
@@ -39,7 +42,7 @@ export const Footer = () => {
                   <img className="w-4" src="/icons/email.svg" alt="Email" />
                 </div>
                 <span className="flex-1 max-w-[350px] text-sm md:text-md text-white mt-0.5">
-                  hospital.engineering.expo@gmail.com
+                  {t("contact.email")}
                 </span>
               </div>
             </div>

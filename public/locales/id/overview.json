@@ -1,0 +1,66 @@
+{
+  "about-hef": {
+    "tag": "Tentang",
+    "title": "Forum Teknik Perumahsakitan 2021",
+    "content": "'Forum Teknik Perumahsakitan merupakan forum nasional dan pameran internasional virtual pertama yang diselenggarakan oleh Perkumpulan Teknik Perumahsakitan Indonesia (PTPI). Forum ini berfokus pada 6 bidang teknik rumah sakit: Bangunan Rumah Sakit, Mekanikal Rumah Sakit, Elektrikal Rumah Sakit, Lingkungan Rumah Sakit, Informatika Rumah Sakit, dan Alat Medis Rumah Sakit. Lebih dari 40 pembicara dari pemerintah, asosiasi, rumah sakit dan industri diundang. Kami juga menyediakan lebih dari 100 exhibitor lokal dan internasional. Acara ini akan bekerjasama dengan Karya Indonesia Cerdas."
+  },
+  "about-ihea": {
+    "tag": "Tentang",
+    "title": "Perkumpulan Teknik Perumahsakitan Indonesia",
+    "overview": "Perkumpulan Teknik Perumahsakitan Indonesia (PTPI) adalah organisasi profesi ahli teknik dan korporat yang bergerak di bidang pembangunan, pengoperasian, dan pemeliharaan rumah sakit di Indonesia. Asosiasi ini didirikan pada tanggal 3 Oktober 2019 di Jakarta, dan disahkan oleh Kementerian Hukum dan Hak Asasi Manusia dengan nomor AHU-0011147.AH.01.07. Visi organisasi ini adalah menjadi organisasi terdepan yang mendorong terwujudnya rumah sakit di Indonesia yang Selamat, berManfaat, Aman, Ramah Lingkungan, Terjangkau (SMART).",
+    "why-tag": "Kenapa PTPI?",
+    "why-1": "PTPI adalah perkumpulan para ahli teknik perumahsakitan yang mampu untuk membuat master plan rumah sakit, merancang sarana, prasarana dan alat (S.P.A.) di rumah sakit; mampu menganalisis (S.P.A.) di rumah sakit; serta mampu memelihara, mengevaluasi dan mengelola S.P.A. di rumah sakit. Pendapat para ahli teknik perumahsakitan memainkan peranan sangat penting bagi rumah sakit dalam pemilihan produk yang paling sesuai dengan kebutuhan dan kondisi infrastruktur di rumah sakit.",
+    "why-2": "PTPI memiliki 6 bidang utama: Bangunan Rumah Sakit (arsitektur dan teknik sipil), Mekanika Rumah Sakit (teknik mesin), Elektrika Rumah Sakit (teknik elektro), Lingkungan Rumah Sakit (teknik lingkungan dan kesehatan), Informatika Rumah Sakit (teknik informatika), dan Alat Kesehatan Rumah Sakit (teknik biomedis dan instrumentasi).",
+    "why-3": "PTPI bekerja sama dengan kementerian terkait untuk membahas dan mensosialisasikan regulasi terkait teknik perumahsakitan. Kemen PUPR untuk bangunan dan mekanika, Kemen ESDM untuk kelistrikan, Kemen LKH untuk lingkungan, KOMINFO untuk informatika dan KEMENKES untuk alat kesehatan.",
+    "why-4": "PTPI bekerja sama dengan Komisi Akreditasi Rumah Sakit dan Badan Standarisasi Nasional untuk memastikan kualitas produk, layanan dan sistem manajemen memenuhi standar dan peraturan nasional.",
+    "why-5": "PTPI juga terus menerus bekerjasama dengan organisasi non-teknik perumahsakitan dan kesehatan lainnya seperti Perhimpunan Rumah Sakit Seluruh Indonesia (PERSI), Ikatan Konsultan Kesehatan Indonesia (IKKESINDO), Ikatan Ahli Kesehatan Masyarakat Indonesia (IAKMI), Asosiasi RS Pendidikan Indonesia (ARSPI), Asosiasi RS Perguruan Tinggi Negeri (ARSPTN), dan Asosiasi RS Swasta Indonesia (ARSSI).",
+    "why-6": "PTPI memiliki 170 anggota korporat yaitu rumah sakit yang terdaftar dalam platform digital SEHAT-RI.",
+    "why-7": " PTPI memiliki 8000 anggota individu mulai dari direktur, manajer, staf medis dan teknisi rumah sakit yang terdaftar dalam platform digital SEHAT-RI.",
+    "why-8": "PTPI secara rutin menyelenggarakan seminar dan workshop bulanan yang telah dihadiri oleh lebih dari 9000 orang selama setahun terakhir.",
+    "why-9": " PTPI berdiri sejak 2 tahun yang lalu yaitu pada 3 Oktober 2019 dan diprakarsai oleh Kementerian Kesehatan dan para ahli teknik perumahsakitan di Indonesia.",
+    "why-10": "Meski baru berdiri selama 2 tahun, PTPI memiliki pertumbuhan anggota tertinggi (viewers, followers, dan jumlah pelatihan) dibandingkan organisasi sejenis lainnya di Indonesia.",
+    "why-11": "Misi PTPI adalah mewujudkan sebanyak mungkin rumah sakit di Indonesia yang lebih selamat, ramah lingkungan, terjangkau, aman dan bermanfaat sesuai dengan UU Rumah Sakit 2009. Untuk itu, PTPI terus mensosialisasikan berbagai tatacara yang baik yang sesuai standar dalam merencanakan dan mengelola rumah sakit. PTPI juga terus mendorong industri dan pemangku kepentingan lainnya untuk mewujudkan ini.",
+    "why-12": "PTPI terus bekerja sama dengan kementerian terkait untuk memberikan usulan dan tanggapan terkait regulasi yang ada dan yang akan datang untuk mendorong terwujudnya rumah sakit yang LEBIH SELAMAT, LEBIH BERMANFAAT, LEBIH AMAN, LEBIH RAMAH LINGKUNGAN DAN LEBIH TERJANGKAU."
+  },
+  "programs": {
+    "program-1": {
+      "title": "Serial Webinar",
+      "tag": "Berbagi Wawasan dan Praktik Terbaik",
+      "content": "Serangkaian seminar dengan lebih dari 40 pembicara dari pemerintah, rumah sakit, pakar dan industri di 6 bidang teknik rumah sakit dengan sesi tanya jawab langsung di setiap seminar."
+    },
+    "program-2": {
+      "title": "Pameran Virtual",
+      "tag": "Pameran Produk Teknik Perumahsakitan Nasional & Internasiona",
+      "content": "Pameran produk dari sekitar 100 perusahaan lokal dan internasional di 6 bidang teknik perumahsakitan dan produk terkait COVID-19. Kesempatan untuk bertemu calon pembeli dalam business matching 1 lawan 1 dan eksposur produk kepada 7900 anggota PTPI."
+    },
+    "program-3": {
+      "title": "Ruang Konsultasi (Business Matching)",
+      "tag": "Bertemu dan Berkonsultasi dengan Para Pakar",
+      "content": "Kesempatan untuk bertemu dengan pembicara dan peserta pameran dalam sistem Link & Match untuk membahas kolaborasi dan solusi terkait 6 bidang teknik perumahsakitan."
+    }
+  },
+  "webinar-rundown": "Rundown Webinar",
+  "news": {
+    "header": "Berita",
+    "read-more": "Baca Selengkapnya"
+  },
+  "important-dates": {
+    "header": "Tanggal Penting",
+    "date-1": {
+      "date": "1 September 2021",
+      "event": "Pendaftaran Dimulai"
+    },
+    "date-2": {
+      "date": "2 Oktober 2021",
+      "event": "Acara Hari Ke-1"
+    },
+    "date-3": {
+      "date": "16 Oktober 2021",
+      "event": "Acara Hari Ke-2"
+    },
+    "date-4": {
+      "date": "30 Oktober 2021",
+      "event": "Acara Hari Ke-3"
+    }
+  }
+}

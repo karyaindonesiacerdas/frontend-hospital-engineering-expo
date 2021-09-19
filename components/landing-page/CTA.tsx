@@ -1,10 +1,13 @@
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 export const CTA = () => {
+  const { t } = useTranslation("home");
+
   return (
     <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
       <h3 className="mt-2 mb-10 text-4xl font-bold text-gray-700 uppercase">
-        I&apos;d like to be
+        {t("cta.tag")}
       </h3>
       <div className="grid md:grid-cols-2 gap-6 md:gap-10">
         <div>
@@ -27,14 +30,12 @@ export const CTA = () => {
                 href="register-exhibitor.html"
                 className="bg-[#4A4A4A] text-white text-xs sm:text-md py-1 px-2 rounded-md md:rounded-lg uppercase tracking-wider font-medium shadow-2xl hover:shadow-none z-10"
               >
-                Register Here
+                {t("cta.register-here")}
               </a>
             </div>
           </div>
           <p className="mt-4 px-2 line-clamp-3 text-gray-600">
-            Capture the immense growth of the healthcare market by being an
-            Exhibitor at First Asia&apos;s National Seminar and International
-            Fair, HEF 2021.
+            {t("cta.exhibitor-content")}
           </p>
         </div>
 
@@ -58,14 +59,12 @@ export const CTA = () => {
                 href="register-visitor.html"
                 className="bg-[#4A4A4A] text-white text-xs sm:text-md py-1 px-2 rounded-md md:rounded-lg uppercase tracking-wider font-medium shadow-2xl hover:shadow-none z-10"
               >
-                Register Here
+                {t("cta.register-here")}
               </a>
             </div>
           </div>
           <p className="mt-4 px-2 line-clamp-3 text-gray-600">
-            Learn, network and do business as a Visitor at Hospital Engineering
-            Forum 2021, The First Asia&apos;s National Seminar and International
-            Fair in Healthcare Engineer.
+            {t("cta.visitor-content")}
           </p>
         </div>
       </div>

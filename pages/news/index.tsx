@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
-import Image from "next/image";
+import type { GetStaticPropsContext, NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
-import { Navbar, BlogAndNews } from "@/components/landing-page";
+import { Navbar } from "@/components/landing-page";
 
 const News: NextPage = () => {
+  const { t } = useTranslation("overview");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -15,7 +18,7 @@ const News: NextPage = () => {
       {/* <BlogAndNews /> */}
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <h3 className="text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
-          Blog & News
+          {t("news.header")}
         </h3>
         <div className="flex lg:grid gap-10 grid-cols-3 md:grid-cols-2 xl:grid-cols-3 overflow-x-auto md:px-2">
           {/* <!-- News 1 --> */}
@@ -34,7 +37,7 @@ const News: NextPage = () => {
               IAHE Announces its First Hospital Engineering Forum
             </h3>
             <button className="mt-6 bg-[#00B4BF] hover:bg-[#116368] text-white px-3 py-1 rounded-lg ">
-              Read More
+              {t("news.read-more")}
             </button>
           </a>
 
@@ -46,3 +49,11 @@ const News: NextPage = () => {
 };
 
 export default News;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "overview"])),
+  },
+});

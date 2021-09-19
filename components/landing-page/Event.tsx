@@ -1,18 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 export const Event = () => {
+  const { t } = useTranslation("home");
+
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-2 py-3 2xl:py-6 flex flex-col lg:flex-row lg:items-center z-10">
       <div>
         <div className="text-[#063C40] uppercase text-2xl tracking-widest font-semibold text-center md:text-left">
-          Virtual
+          {t("countdown.event-tag")}
         </div>
         <h2 className="mt-1 text-5xl 2xl:text-6xl text-[#063C40] font-extrabold md:max-w-md text-center md:text-left">
-          Hospital Engineering Forum
+          {t("countdown.event-title")}
         </h2>
         <div className="mt-4 text-xl uppercase tracking-widest font-medium text-center md:text-left">
-          2, 16, and 30 October 2021
+          {t("countdown.event-date")}
         </div>
       </div>
       <div className="mt-6 2xl:mt-0 flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3 lg:gap-5 p-2 max-w-xl md:max-w-3xl mx-auto">

@@ -1,14 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 export const BlogAndNews = () => {
+  const { t } = useTranslation("home");
+
   return (
     <section className="max-w-7xl mx-auto pt-4 pb-10 bg-white">
       <h2 className="text-[#116368] text-xl uppercase tracking-wider px-4 md:px-2">
-        Blog & News
+        {t("blog.header")}
       </h2>
       <h3 className="mt-2 mb-10 text-4xl font-bold text-gray-700 px-4 md:px-2">
-        Latest Article
+        {t("blog.subheader")}
       </h3>
 
       <div className="flex lg:grid gap-10 grid-cols-3 md:grid-cols-2 xl:grid-cols-3 overflow-x-auto md:px-2">
@@ -27,7 +30,7 @@ export const BlogAndNews = () => {
             IAHE Announces its First Hospital Engineering Forum
           </h3>
           <button className="mt-6 bg-primary hover:bg-[#116368] text-white px-3 py-1 rounded-lg ">
-            Read More
+            {t("blog.read-more")}
           </button>
         </a>
       </div>

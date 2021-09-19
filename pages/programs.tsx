@@ -1,11 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const Programs: NextPage = () => {
+  const { t } = useTranslation("overview");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -20,15 +24,13 @@ const Programs: NextPage = () => {
         <div className="lg:mt-4 grid lg:grid-cols-2 px-2 gap-14 items-center mb-10 lg:mb-20">
           <div>
             <h3 className="text-xl lg:text-2xl font-bold text-gray-700 text-center lg:text-left px-2 mb-2">
-              Webinar Series
+              {t("programs.program-1.title")}
             </h3>
             <h4 className="px-2 mb-4 text-gray-500 italic text-xl">
-              {"Meet and Consult with Exhibitors"}
+              {t("programs.program-1.tag")}
             </h4>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
-              A series of seminars with more than 40 speakers from government,
-              hospitals, experts and industry in 6 areas of hospital engineering
-              with live question and answer sessions at each seminar
+              {t("programs.program-1.content")}
             </p>
           </div>
           <div style={{ perspective: "1000px" }}>
@@ -51,18 +53,13 @@ const Programs: NextPage = () => {
         <div className="lg:mt-4 grid lg:grid-cols-2 px-2 gap-14 items-center mb-10 lg:mb-20">
           <div className="order-first md:order-last">
             <h3 className="text-xl lg:text-2xl font-bold text-gray-700 text-center lg:text-left px-2 mb-4">
-              Virtual Exhibition
+              {t("programs.program-2.title")}
             </h3>
             <h4 className="px-2 mb-4 text-gray-500 italic text-xl">
-              {
-                "National & International Hospital Engineering Products Exhibition"
-              }
+              {t("programs.program-2.tag")}
             </h4>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
-              Exhibition of products from around 100 local and international 
-              companies in 6 areas of hospital engineering and products related
-              to COVID-19. Opportunity to meet potential buyers in 1 on 1
-              business matching and product exposure to 7900 IAHE members.
+              {t("programs.program-2.content")}
             </p>
           </div>
           <div style={{ perspective: "1000px" }}>
@@ -85,15 +82,13 @@ const Programs: NextPage = () => {
         <div className="lg:mt-4 grid lg:grid-cols-2 px-2 gap-14 items-center mb-10 lg:mb-20">
           <div>
             <h3 className="text-xl lg:text-2xl font-bold text-gray-700 text-center lg:text-left px-2 mb-4">
-              Business Matching
+              {t("programs.program-3.title")}
             </h3>
             <h4 className="px-2 mb-4 text-gray-500 italic text-xl">
-              {"Sharing Best Practices"}
+              {t("programs.program-3.tag")}
             </h4>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
-              Opportunity to meet exhibitors in the Link & Match system to
-              discuss collaborations and solutions related to 6 areas of
-              hospital engineering
+              {t("programs.program-3.content")}
             </p>
           </div>
           <div style={{ perspective: "1000px" }}>
@@ -117,3 +112,11 @@ const Programs: NextPage = () => {
 };
 
 export default Programs;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "overview"])),
+  },
+});

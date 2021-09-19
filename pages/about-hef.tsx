@@ -1,10 +1,14 @@
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const AboutHEF: NextPage = () => {
+  const { t } = useTranslation("overview");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -13,10 +17,10 @@ const AboutHEF: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
-          About
+          {t("about-hef.tag")}
         </div>
         <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 up text-center">
-          Hospital Engineering Forum 2021
+          {t("about-hef.title")}
         </h3>
         <div className="mt-4 grid lg:grid-cols-2 gap-10 items-center">
           <div
@@ -38,16 +42,7 @@ const AboutHEF: NextPage = () => {
           </div>
           <div>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600">
-              Hospital Engineering Forum is the first virtual national seminar
-              and international fair by Indonesian Association of Hospital
-              Engineering (IAHE) which will be held on 2, 16, and 30 October
-              2021. This forum focuses on 6 hospital engineering areas: Hospital
-              Building, Hospital Mechanic, Hospital Electric, Hospital
-              Environment, Hospital Informatics, and Hospital Devices. More than
-              40 speakers from the government, association, hospital and
-              industry sectors are invited. We also provide stands for around
-              100 local and international exhibitors. This event will be
-              co-organized by Karya Indonesia Cerdas.
+              {t("about-hef.content")}
             </p>
           </div>
         </div>
@@ -57,3 +52,11 @@ const AboutHEF: NextPage = () => {
 };
 
 export default AboutHEF;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "overview"])),
+  },
+});
