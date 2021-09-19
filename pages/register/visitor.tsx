@@ -20,7 +20,7 @@ const RegisterVisitor: NextPage = () => {
               src="/ptpi.png"
               alt="logo ptpi"
             />
-            <span className="text-2xl font-bold text-[#00B4BF]">HEF 2021</span>
+            <span className="text-2xl font-bold text-primary">HEF 2021</span>
           </a>
           <h2 className="text-3xl text-gray-800 font-bold">
             Register as Visitor
@@ -43,7 +43,7 @@ const RegisterVisitor: NextPage = () => {
                   id="email"
                   name="email"
                   type="email"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -64,7 +64,7 @@ const RegisterVisitor: NextPage = () => {
                   id="mobile"
                   name="mobile"
                   type="number"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -84,7 +84,7 @@ const RegisterVisitor: NextPage = () => {
                 <input
                   id="fullname"
                   name="fullname"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -104,7 +104,7 @@ const RegisterVisitor: NextPage = () => {
                 <select
                   id="job"
                   name="job"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 >
                   <option value="">Choose</option>
                   <option value="Architect">Architect</option>
@@ -138,7 +138,7 @@ const RegisterVisitor: NextPage = () => {
                   id="password"
                   name="password"
                   type="password"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -159,7 +159,7 @@ const RegisterVisitor: NextPage = () => {
                   id="confirm-password"
                   name="confirm-password"
                   type="password"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -179,7 +179,7 @@ const RegisterVisitor: NextPage = () => {
                 <input
                   id="institution-name"
                   name="institution-name"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -199,7 +199,7 @@ const RegisterVisitor: NextPage = () => {
                 <select
                   id="type-of-institution"
                   name="type-of-institution"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 >
                   <option value="">Choose</option>
                   <option value="Comunity Health Services">
@@ -266,7 +266,7 @@ const RegisterVisitor: NextPage = () => {
                 <select
                   id="country"
                   name="country"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 >
                   <option value="">Choose</option>
                   <option value="Indonesia">Indonesia</option>
@@ -291,7 +291,7 @@ const RegisterVisitor: NextPage = () => {
                 <select
                   id="province"
                   name="province"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 >
                   <option value="">Choose</option>
                   <option value="Aceh">Aceh</option>
@@ -316,7 +316,7 @@ const RegisterVisitor: NextPage = () => {
                 <select
                   id="visitor-type"
                   name="visitor-type"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                 >
                   <option value="">Choose</option>
                   <option value="Hospital Management Staff">
@@ -356,7 +356,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Building"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -370,7 +370,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Mechanic"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -384,7 +384,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Electric"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -398,7 +398,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Environment"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -412,7 +412,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Informatics"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -426,7 +426,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Hospital Devices"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -440,7 +440,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="COVID-19 Related Products"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -454,7 +454,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="product-interest"
                     value="Other"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -482,7 +482,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Buying"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -496,7 +496,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Networking"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -510,7 +510,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Information Gathering"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -524,7 +524,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Join Webinar"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -538,7 +538,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Consultaion"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -552,7 +552,7 @@ const RegisterVisitor: NextPage = () => {
                     type="checkbox"
                     name="purpose-of-visiting"
                     value="Other"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -580,7 +580,7 @@ const RegisterVisitor: NextPage = () => {
                     type="radio"
                     name="have-registered-sehat-ri"
                     value="Yes"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -594,7 +594,7 @@ const RegisterVisitor: NextPage = () => {
                     type="radio"
                     name="have-registered-sehat-ri"
                     value="No"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -608,7 +608,7 @@ const RegisterVisitor: NextPage = () => {
                     type="radio"
                     name="have-registered-sehat-ri"
                     value="I Forget"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -632,7 +632,7 @@ const RegisterVisitor: NextPage = () => {
               <div className="flex items-center space-x-1">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                  className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                 />{" "}
                 <span className="text-sm text-gray-700">
                   I understand and accept the condition
@@ -651,7 +651,7 @@ const RegisterVisitor: NextPage = () => {
                     id="yes"
                     name="allow-share-info"
                     type="radio"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                     checked
                   />{" "}
                   <label htmlFor="yes" className="text-sm text-gray-700">
@@ -663,7 +663,7 @@ const RegisterVisitor: NextPage = () => {
                     id="no"
                     name="allow-share-info"
                     type="radio"
-                    className="h-4 w-4 text-[#00B4BF] border-gray-300 focus:ring-[#00B4BF]"
+                    className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />{" "}
                   <label htmlFor="no" className="text-sm text-gray-700">
                     No
@@ -676,7 +676,7 @@ const RegisterVisitor: NextPage = () => {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#063C40] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF]"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
               Register
             </button>
