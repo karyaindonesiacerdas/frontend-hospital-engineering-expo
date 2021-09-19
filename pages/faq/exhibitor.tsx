@@ -1,33 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
-const faqs = [
+const faqs = (t: any) => [
   {
-    question: "I’m interested in sponsoring this event, who should I contact?",
-    answer: (
-      <p>
-        If you’re interested in sponsoring this event and would like to contact
-        the person in charge, please contact our email at
-        hospital.engineering.expo@gmail.com or whatsApp us in +62 858 9377 7283
-        (Adrian). We will get back to you as soon as possible.
-      </p>
-    ),
+    question: t("exhibitor.faq-1.question"),
+    answer: <p>{t("exhibitor.faq-1.answer")}</p>,
   },
   {
-    question: "What’s the benefit of becoming HEF 2021 sponsors?",
+    question: t("exhibitor.faq-2.question"),
     answer: (
       <>
-        <p>
-          To see the list of benefits you can get as a sponsor of our event,
-          please view the Packages page under the Exhibitor menu or click the
-          link below
-        </p>
+        <p>{t("exhibitor.faq-2.answer")}</p>
         <Link href="/packages">
           <a>Packages</a>
         </Link>
@@ -35,48 +26,27 @@ const faqs = [
     ),
   },
   {
-    question: "How do I register my company as one of the exhibitors?",
+    question: t("exhibitor.faq-3.question"),
     answer: (
       <>
-        <p>
-          If you want to register as an exhibitor, please go to the Register as
-          Exhibitor page under the registration menu or click the link below
-        </p>
+        <p>{t("exhibitor.faq-3.answer")}</p>
         <a href="register/exhibitor">Register as Exhibitor</a>
       </>
     ),
   },
   {
-    question: "Is there a pricing list for the exhibition stand?",
-    answer: (
-      <p>
-        If you’re interested in opening an exhibition stand and would like to
-        know the pricing list, you can contact our email at
-        hospital.engineering.expo@gmail.com or whatsApp us in +62 858 9377 7283
-        (Adrian) or visit the contact us page. We will get back to you as soon
-        as possible.
-      </p>
-    ),
+    question: t("exhibitor.faq-4.question"),
+    answer: <p>{t("exhibitor.faq-4.answer")}</p>,
   },
   {
-    question: "How long does my stand stay live?",
-    answer: (
-      <p>
-        Exhibition stands remain live for 24-7 the entire year from their
-        launch, however live chats and 1 on 1 meeting sessions are only held for
-        three days on the 2nd, 16th and 30th October 2021.
-      </p>
-    ),
+    question: t("exhibitor.faq-5.question"),
+    answer: <p>{t("exhibitor.faq-5.answer")}</p>,
   },
   {
-    question: "What’s the benefit of exhibiting at HEF 2021?",
+    question: t("exhibitor.faq-6.question"),
     answer: (
       <>
-        <p>
-          To see the list of benefits you can get as an exhibitor, please visit
-          Why Exhibit? page and Packages page under the Exhibitor menu or click
-          the link below
-        </p>
+        <p>{t("exhibitor.faq-6.question")}</p>
         <Link href="/why-exhibit">
           <a>Why Exhibit</a>
         </Link>
@@ -90,6 +60,8 @@ function classNames(...classes: string[]) {
 }
 
 const FAQExhibitor: NextPage = () => {
+  const { t } = useTranslation("faq");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -98,14 +70,14 @@ const FAQExhibitor: NextPage = () => {
 
       <section className="max-w-4xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
-          FAQ
+          {t("exhibitor.tag")}
         </div>
         <h3 className="mt-2 text-4xl font-bold text-gray-700 text-center mb-6 md:mb-10">
-          Exhibitor
+          {t("exhibitor.title")}
         </h3>
 
         <dl className="mt-6 space-y-6 divide-y divide-gray-200">
-          {faqs.map((faq) => (
+          {faqs(t).map((faq) => (
             <Disclosure as="div" key={faq.question} className="pt-6">
               {({ open }) => (
                 <>
@@ -141,3 +113,11 @@ const FAQExhibitor: NextPage = () => {
 };
 
 export default FAQExhibitor;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "faq"])),
+  },
+});

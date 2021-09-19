@@ -62,5 +62,33 @@
       "question": "How do I make an enquiry about a product I’ve seen",
       "answer": "If you’re interested in the products of a company, you can book a 1 on 1 meeting session to enquire about the products and negotiate with the company representative."
     }
+  },
+  "exhibitor": {
+    "tag": "FAQ",
+    "title": "Exhibitor",
+    "faq-1": {
+      "question": "I’m interested in sponsoring this event, who should I contact?",
+      "answer": "If you’re interested in sponsoring this event and would like to contact the person in charge, please contact our email at hospital.engineering.expo@gmail.com or whatsApp us in +62 858 9377 7283 (Adrian). We will get back to you as soon as possible."
+    },
+    "faq-2": {
+      "question": "What’s the benefit of becoming HEF 2021 sponsors?",
+      "answer": "To see the list of benefits you can get as a sponsor of our event, please view the Packages page under the Exhibitor menu or click the link below"
+    },
+    "faq-3": {
+      "question": "How do I register my company as one of the exhibitors?",
+      "answer": "If you want to register as an exhibitor, please go to the Register as Exhibitor page under the registration menu or click the link below"
+    },
+    "faq-4": {
+      "question": "Is there a pricing list for the exhibition stand?",
+      "answer": "If you’re interested in opening an exhibition stand and would like to know the pricing list, you can contact our email at hospital.engineering.expo@gmail.com or whatsApp us in +62 858 9377 7283 (Adrian) or visit the contact us page. We will get back to you as soon as possible."
+    },
+    "faq-5": {
+      "question": "How long does my stand stay live?",
+      "answer": "Exhibition stands remain live for 24-7 the entire year from their launch, however live chats and 1 on 1 meeting sessions are only held for three days on the 2nd, 16th and 30th October 2021."
+    },
+    "faq-6": {
+      "question": "What’s the benefit of exhibiting at HEF 2021?",
+      "answer": "To see the list of benefits you can get as an exhibitor, please visit Why Exhibit? page and Packages page under the Exhibitor menu"
+    }
   }
 }
