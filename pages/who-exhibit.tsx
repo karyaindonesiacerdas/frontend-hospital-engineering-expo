@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import { CheckCircleIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
@@ -33,6 +35,8 @@ const engineeringAreas = [
 ];
 
 const WhoExhibit: NextPage = () => {
+  const { t } = useTranslation("exhibitor");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -41,15 +45,12 @@ const WhoExhibit: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
-          Who Exhibit
+          {t("who-exhibit.title")}
         </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-14 items-start">
           <div>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-loose text-gray-600 px-2">
-              There will be Medical Devices Manufacturer & Distributor, Hospital
-              Equipment and Material Manufacturer & Distributor, Hospital
-              Consultant, and Hospital Facility Contractor divided in 6 Industry
-              Areas:
+              {t("who-exhibit.overview")}
             </p>
 
             <ul className="mt-6 max-w-5xl mx-auto grid grid-cols-2 gap-6">
@@ -57,64 +58,70 @@ const WhoExhibit: NextPage = () => {
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Buildings</span>
-                  <span>Architecture and Structure</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-3 text-gray-700">
-                <CheckCircleIcon className="w-8 h-8 text-primary" />
-
-                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Electrics</span>
-                  <span>Power and Signaling</span>
-                </div>
-              </li>
-
-              <li className="flex items-start space-x-3 text-gray-700">
-                <CheckCircleIcon className="w-8 h-8 text-primary" />
-
-                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Environments </span>
-                  <span>Waste and Sanitation</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-3 text-gray-700">
-                <CheckCircleIcon className="w-8 h-8 text-primary" />
-
-                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Informatics </span>
-                  <span>IOT, AI, Big Data, Smart Hospital</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-3 text-gray-700">
-                <CheckCircleIcon className="w-8 h-8 text-primary" />
-
-                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Mechanics</span>
-                  <span>
-                    Plumbing, lift, AC, medical gas, steam, installation and
-                    fire prevention, ambulance
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-1.name")}
                   </span>
+                  <span>{t("who-exhibit.area-1.sub-area")}</span>
                 </div>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">Hospital Devices</span>
-                  <span>Diagnostics, Surgery, Rehabilitation</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-3 text-gray-700">
-                <CheckCircleIcon className="w-8 h-8 text-primary" />
-
-                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
-                  <span className="font-semibold">COVID-19 Products</span>
-                  <span>
-                    PCR equipment, respiratory equipment, antigen test kit,
-                    medical oxygen supplies and equipment, isolation room,
-                    Personal Protective Equipment (PPE)
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-2.name")}
                   </span>
+                  <span>{t("who-exhibit.area-2.sub-area")}</span>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3 text-gray-700">
+                <CheckCircleIcon className="w-8 h-8 text-primary" />
+
+                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-3.name")}
+                  </span>
+                  <span>{t("who-exhibit.area-3.sub-area")}</span>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3 text-gray-700">
+                <CheckCircleIcon className="w-8 h-8 text-primary" />
+
+                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-4.name")}
+                  </span>
+                  <span>{t("who-exhibit.area-4.sub-area")}</span>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3 text-gray-700">
+                <CheckCircleIcon className="w-8 h-8 text-primary" />
+
+                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-5.name")}
+                  </span>
+                  <span>{t("who-exhibit.area-5.sub-area")}</span>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3 text-gray-700">
+                <CheckCircleIcon className="w-8 h-8 text-primary" />
+
+                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-6.name")}
+                  </span>
+                  <span>{t("who-exhibit.area-6.sub-area")}</span>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3 text-gray-700">
+                <CheckCircleIcon className="w-8 h-8 text-primary" />
+
+                <div className="flex-1 text-gray-700 text-lg flex flex-col space-y-1">
+                  <span className="font-semibold">
+                    {t("who-exhibit.area-7.name")}
+                  </span>
+                  <span>{t("who-exhibit.area-7.sub-area")}</span>
                 </div>
               </li>
             </ul>
@@ -144,3 +151,11 @@ const WhoExhibit: NextPage = () => {
 };
 
 export default WhoExhibit;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "exhibitor"])),
+  },
+});

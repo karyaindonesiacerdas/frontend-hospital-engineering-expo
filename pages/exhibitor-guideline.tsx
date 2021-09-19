@@ -1,10 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
+import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const ExhibitorGuideline: NextPage = () => {
+  const { t } = useTranslation("exhibitor");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -13,10 +18,10 @@ const ExhibitorGuideline: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="mt-4 text-primary uppercase text-xl font-bold text-center">
-          Guideline
+          {t("exhibitor-guideline.tag")}
         </div>
         <h3 className="mt-2 mb-6 md:mb-10 text-4xl font-bold text-gray-700 text-center">
-          Exhibitor Guideline
+          {t("exhibitor-guideline.title")}
         </h3>
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
           <div className="space-y-2 shadow-xl rounded-xl">
@@ -33,45 +38,26 @@ const ExhibitorGuideline: NextPage = () => {
 
           <ol className="max-w-5xl mx-auto leading-relaxed lg:text-lg lg:leading-relaxed text-gray-700 list-decimal space-y-4 pl-6">
             <li>
-              Go to the exhibitor’s registration page at{" "}
-              <a
-                href="register-exhibitor.html"
-                className="text-primary hover:text-[#116368]"
-              >
-                https://hospital-engineering-expo.com/register-exhibitor/
-              </a>
+              {t("exhibitor-guideline.guideline-1")}{" "}
+              <Link href="/register/exhibitor">
+                <a className="text-primary hover:text-[#116368]">
+                  https://hospital-engineering-expo.com/register/exhibitor
+                </a>
+              </Link>
             </li>
-            <li>Enter your company’s representative information</li>
-            <li>
-              Enter an active email address. We will send information and
-              notifications to your email.
-            </li>
-            <li>Enter a phone number that’s connected to WhatsApp</li>
-            <li>Enter the representative full name and title.</li>
-            <li>
-              Select the representative job function. If you did not found a
-              suitable one, you can select ‘Other’
-            </li>
-            <li>
-              Enter a password and retype your password in “Confirm Password”
-            </li>
-            <li>Enter your company information</li>
-            <li>Enter your company/ institution Name</li>
-            <li>
-              Enter your company’s website. If your company didn’t have a
-              website, you can enter dash (-)
-            </li>
-            <li>Choose your company’s country of origin</li>
-            <li>
-              If you choose Indonesia, please select the province of your
-              company
-            </li>
-            <li>Tick the field(s) that best describes your company</li>
-            <li>
-              {`Once you have finished filling in the registration form, click "Register". You'll be registered in our system.
-          Next, you
-          can choose your desired package. Further guidelines will be informed later.`}
-            </li>
+            <li>{t("exhibitor-guideline.guideline-2")}</li>
+            <li>{t("exhibitor-guideline.guideline-3")}</li>
+            <li>{t("exhibitor-guideline.guideline-4")}</li>
+            <li>{t("exhibitor-guideline.guideline-5")}</li>
+            <li>{t("exhibitor-guideline.guideline-6")}</li>
+            <li>{t("exhibitor-guideline.guideline-7")}</li>
+            <li>{t("exhibitor-guideline.guideline-8")}</li>
+            <li>{t("exhibitor-guideline.guideline-9")}</li>
+            <li>{t("exhibitor-guideline.guideline-10")}</li>
+            <li>{t("exhibitor-guideline.guideline-11")}</li>
+            <li>{t("exhibitor-guideline.guideline-12")}</li>
+            <li>{t("exhibitor-guideline.guideline-13")}</li>
+            <li>{t("exhibitor-guideline.guideline-14")}</li>
           </ol>
         </div>
       </section>
@@ -80,3 +66,11 @@ const ExhibitorGuideline: NextPage = () => {
 };
 
 export default ExhibitorGuideline;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "exhibitor"])),
+  },
+});

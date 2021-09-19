@@ -1,12 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import { CheckCircleIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
 const WhyExhibit: NextPage = () => {
+  const { t } = useTranslation("exhibitor");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -15,14 +19,12 @@ const WhyExhibit: NextPage = () => {
 
       <section className="max-w-7xl mx-auto py-6 lg:py-10 px-4 bg-white mb-10">
         <h3 className="text-3xl lg:text-4xl font-bold text-gray-700 text-center px-2 mb-6 md:mb-10">
-          Why Exhibit
+          {t("why-exhibit.title")}
         </h3>
         <div className="lg:mt-4 grid lg:grid-cols-2 gap-10">
           <div>
             <p className="max-w-5xl mx-auto text-lg leading-relaxed lg:text-xl lg:leading-relaxed text-gray-600 px-2">
-              In HEF 2021 you get the chance to meet potential clients in a one
-              one meeting through our online booking system and business
-              matching.
+              {t("why-exhibit.overview")}
             </p>
 
             <ol className="mt-6 max-w-5xl mx-auto space-y-6 list-decimal">
@@ -30,45 +32,35 @@ const WhyExhibit: NextPage = () => {
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="flex-1 text-gray-700 text-lg">
-                  A joint forum between regulators (government), academics
-                  (experts/universities), and industries to facilitate the
-                  hospital needs that’s up to standards and financial conditions
-                  of the hospital.
+                  {t("why-exhibit.profit-1")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="flex-1 text-gray-700 text-lg">
-                  Increase exposure towards your products by demonstrating it
-                  during selected webinars and in our exhibition hall. (Products
-                  presented must meet the national or international standards)
+                  {t("why-exhibit.profit-2")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="flex-1 text-gray-700 text-lg">
-                  Connect with potential buyers (up to 40 potential buyers in 3
-                  days)
+                  {t("why-exhibit.profit-3")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="flex-1 text-gray-700 text-lg">
-                  The opportunity to be recommended by the association as a
-                  company with technically appropriate products and services
-                  (based on assessment results by IAHE) to all IAHE members.
+                  {t("why-exhibit.profit-4")}
                 </span>
               </li>
               <li className="flex items-start space-x-3 text-gray-700">
                 <CheckCircleIcon className="w-8 h-8 text-primary" />
 
                 <span className="flex-1 text-gray-700 text-lg">
-                  The opportunity to partner with IAHE to continuously encourage
-                  and build hospitals in Indonesia that are safer, more
-                  environmentally friendly, affordable, secure and beneficial.
+                  {t("why-exhibit.profit-5")}
                 </span>
               </li>
             </ol>
@@ -100,3 +92,11 @@ const WhyExhibit: NextPage = () => {
 };
 
 export default WhyExhibit;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "exhibitor"])),
+  },
+});
