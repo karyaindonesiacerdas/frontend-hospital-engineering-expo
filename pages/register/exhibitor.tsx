@@ -1,7 +1,10 @@
 import { useState } from "react";
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
 
@@ -9,6 +12,8 @@ const RegisterExhibitor: NextPage = () => {
   const [selectedTab, setSelectedTab] = useState<"account-info" | "packages">(
     "account-info"
   );
+  const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation("auth");
 
   return (
     <AuthPageLayout>
@@ -24,7 +29,7 @@ const RegisterExhibitor: NextPage = () => {
           <a href="index.html" className="text-2xl font-bold text-primary">
             HEF 2021
           </a>
-          <h2 className="text-3xl font-bold">Register as Exhibitor</h2>
+          <h2 className="text-3xl font-bold">{t("register-as-exhibitor")}</h2>
         </div>
         <form>
           <div className="hidden">
@@ -72,7 +77,7 @@ const RegisterExhibitor: NextPage = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Account Information
+                    {t("account-info")}
                   </span>
                 </div>
               </div>
@@ -83,7 +88,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Email address
+                    {t("email")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -104,7 +109,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="mobile"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Mobile (WhatsApp)
+                    {t("mobile")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -125,7 +130,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="fullname"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Full Name (with title)
+                    {t("name")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -154,7 +159,7 @@ const RegisterExhibitor: NextPage = () => {
                       name="job"
                       className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                     >
-                      <option value="">Choose</option>
+                      <option value="">{t("choose")}</option>
                       <option value="Administration/ Office Management">
                         Administration/ Office Management
                       </option>
@@ -202,7 +207,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Password
+                    {t("password")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -223,7 +228,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="confirm-password"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Confirm Password
+                    {t("confirm-password")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -248,7 +253,7 @@ const RegisterExhibitor: NextPage = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Company Information
+                    {t("company-info")}
                   </span>
                 </div>
               </div>
@@ -259,7 +264,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="company-name"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Company Name
+                    {t("company-name")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -279,7 +284,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="company-website"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Company Website
+                    {t("company-website")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -299,7 +304,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="country"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Country
+                    {t("country")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -308,7 +313,7 @@ const RegisterExhibitor: NextPage = () => {
                       name="country"
                       className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                     >
-                      <option value="">Choose</option>
+                      <option value="">{t("choose")}</option>
                       <option value="Indonesia">Indonesia</option>
                       <option value="Malaysia">Malaysia</option>
                       <option value="Singapore">Singapore</option>
@@ -324,7 +329,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="province"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Province
+                    {t("province")}
                   </label>
                   <div className="mt-1">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -333,7 +338,7 @@ const RegisterExhibitor: NextPage = () => {
                       name="province"
                       className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                     >
-                      <option value="">Choose</option>
+                      <option value="">{t("choose")}</option>
                       <option value="Aceh">Aceh</option>
                       <option value="Sumatera Utara">Sumatera Utara</option>
                       <option value="Sumatera Barat">Sumatera Barat</option>
@@ -349,63 +354,63 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="nature-of-business"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Nature of Business
+                    {t("business-nature")}
                   </label>
                   <div className="mt-1 grid grid-cols-3 gap-2 py-2">
                     <div className="flex items-center text-sm space-x-2">
                       <input
                         type="checkbox"
                         name="nature-of-business"
-                        value="Hospital Building"
+                        value="Hospital Buildings"
                         className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                       />
                       <span
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Building
+                        {t("hospital-buildings")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
                       <input
                         type="checkbox"
                         name="nature-of-business"
-                        value="Hospital Mechanic"
+                        value="Hospital Mechanics"
                         className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                       />
                       <span
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Mechanic
+                        {t("hospital-mechanics")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
                       <input
                         type="checkbox"
                         name="nature-of-business"
-                        value="Hospital Electric"
+                        value="Hospital Electrics"
                         className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                       />
                       <span
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Electric
+                        {t("hospital-electrics")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
                       <input
                         type="checkbox"
                         name="nature-of-business"
-                        value="Hospital Environment"
+                        value="Hospital Environments"
                         className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                       />
                       <span
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Environment
+                        {t("hospital-environments")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
@@ -419,7 +424,7 @@ const RegisterExhibitor: NextPage = () => {
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Informatics
+                        {t("hospital-informatics")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
@@ -433,7 +438,7 @@ const RegisterExhibitor: NextPage = () => {
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Hospital Devices
+                        {t("hospital-devices")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
@@ -447,7 +452,7 @@ const RegisterExhibitor: NextPage = () => {
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        COVID-19 Related Products
+                        {t("covid-19")}
                       </span>
                     </div>
                     <div className="flex items-center text-sm space-x-2">
@@ -461,7 +466,7 @@ const RegisterExhibitor: NextPage = () => {
                         id="pricing-plans-0-label"
                         className="text-gray-700 text-sm"
                       >
-                        Other
+                        {t("other")}
                       </span>
                     </div>
                   </div>
@@ -478,7 +483,7 @@ const RegisterExhibitor: NextPage = () => {
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 onClick={() => setSelectedTab("packages")}
               >
-                Continue
+                {t("continue")}
               </button>
             </div>
           </div>
@@ -492,7 +497,9 @@ const RegisterExhibitor: NextPage = () => {
                   <div className="w-full border-t border-gray-300"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Packages</span>
+                  <span className="px-2 bg-white text-gray-500">
+                    {t("package")}
+                  </span>
                 </div>
               </div>
               <div className="min-h-[200px]">
@@ -502,7 +509,7 @@ const RegisterExhibitor: NextPage = () => {
                     htmlFor="package"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Package
+                    {t("package")}
                   </label>
                   <div className="mt-1 mb-4">
                     {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -512,36 +519,35 @@ const RegisterExhibitor: NextPage = () => {
                       name="job"
                       className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
                     >
-                      <option value="">Choose</option>
-                      <option value="Mercury">Mercury</option>
-                      <option value="Mars">Mars</option>
-                      <option value="Venus">Venus</option>
-                      <option value="Uranus">Uranus</option>
-                      <option value="Jupiter">Jupiter</option>
-                      <option value="Custom">Custom</option>
+                      <option value="">{t("choose")}</option>
+                      <option value="Mercury">{t("mercury")}</option>
+                      <option value="Mars">{t("mars")}</option>
+                      <option value="Venus">{t("venus")}</option>
+                      <option value="Uranus">{t("uranus")}</option>
+                      <option value="Jupiter">{t("jupiter")}</option>
+                      <option value="Custom">{t("custom")}</option>
                     </select>
                     {/* <!-- Helper Text --> */}
                     <span className="text-sm text-gray-500">
-                      You can see the available packages{" "}
+                      {t("package-help")}{" "}
                       <a
                         className="text-primary hover:text-primary-600 transition underline"
                         href="packages.html"
                       >
-                        here
+                        {t("package")}
                       </a>
                       .
                     </span>
                     <br />
                     <span className="text-sm text-gray-500">
-                      For more information: +62 858 9377 7283 (Adrian), +62 877
-                      7889 9087 (Jordy)
+                      {t("package-info")}
                     </span>
                   </div>
 
                   <div x-show="package === 'Custom'">
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Opening
+                        {t("opening.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -551,7 +557,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Poster"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Poster
+                          {t("opening.1")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -562,7 +568,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Zoom Background"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Zoom Background
+                          {t("opening.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -573,7 +579,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Ad libs by MC"
                         />
                         <span className="text-gray-700 text-sm">
-                          Ad libs by MC
+                          {t("opening.3")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -584,13 +590,13 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 Minute Video Ads"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 Minute Video Ads
+                          {t("opening.4")}
                         </span>
                       </div>
                     </fieldset>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Webinar Series
+                        {t("webinar-series.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -600,7 +606,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Poster"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Poster
+                          {t("webinar-series.1")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -611,7 +617,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Zoom Background"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Zoom Background
+                          {t("webinar-series.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -622,7 +628,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Ad libs by MC"
                         />
                         <span className="text-gray-700 text-sm">
-                          Ad libs by MC
+                          {t("webinar-series.3")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -633,7 +639,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 Minute Video Ads"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 Minute Video Ads
+                          {t("webinar-series.4")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -644,13 +650,13 @@ const RegisterExhibitor: NextPage = () => {
                           value="15 Minutes presentation"
                         />
                         <span className="text-gray-700 text-sm">
-                          15 Minutes presentation
+                          {t("webinar-series.5")}
                         </span>
                       </div>
                     </fieldset>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Product Exhibition
+                        {t("product-exhibition.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -660,7 +666,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Basic (Website) for 3 days (5 Poster + 1 Minute Video)"
                         />
                         <span className="text-gray-700 text-sm">
-                          Basic (Website) for 3 days (5 Poster + 1 Minute Video)
+                          {t("product-exhibition.1")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -671,7 +677,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Additional 1 Poster"
                         />
                         <span className="text-gray-700 text-sm">
-                          Additional 1 Poster
+                          {t("product-exhibition.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -682,7 +688,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Additional 1 minute video"
                         />
                         <span className="text-gray-700 text-sm">
-                          Additional 1 minute video
+                          {t("product-exhibition.3")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -693,7 +699,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Product Catalogue (2 MB)"
                         />
                         <span className="text-gray-700 text-sm">
-                          Product Catalogue (2 MB)
+                          {t("product-exhibition.4")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -703,7 +709,9 @@ const RegisterExhibitor: NextPage = () => {
                           name="product-exhibition"
                           value="Live Chat"
                         />
-                        <span className="text-gray-700 text-sm">Live Chat</span>
+                        <span className="text-gray-700 text-sm">
+                          {t("product-exhibition.5")}
+                        </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -712,7 +720,9 @@ const RegisterExhibitor: NextPage = () => {
                           name="product-exhibition"
                           value="Name Card"
                         />
-                        <span className="text-gray-700 text-sm">Name Card</span>
+                        <span className="text-gray-700 text-sm">
+                          {t("product-exhibition.6")}
+                        </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -722,7 +732,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Doorprize for visitors"
                         />
                         <span className="text-gray-700 text-sm">
-                          Doorprize for visitors
+                          {t("product-exhibition.7")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -733,14 +743,13 @@ const RegisterExhibitor: NextPage = () => {
                           value="Product exhibition for software house and health apps provider"
                         />
                         <span className="text-gray-700 text-sm">
-                          Product exhibition for software house and health apps
-                          provider
+                          {t("product-exhibition.8")}
                         </span>
                       </div>
                     </fieldset>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Consultation
+                        {t("consultation.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -749,7 +758,9 @@ const RegisterExhibitor: NextPage = () => {
                           name="consultation"
                           value="Basic"
                         />
-                        <span className="text-gray-700 text-sm">Basic</span>
+                        <span className="text-gray-700 text-sm">
+                          {t("consultation.1")}
+                        </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -759,7 +770,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Addional 1 day"
                         />
                         <span className="text-gray-700 text-sm">
-                          Addional 1 day
+                          {t("consultation.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -770,13 +781,13 @@ const RegisterExhibitor: NextPage = () => {
                           value="Doorprize for visitors"
                         />
                         <span className="text-gray-700 text-sm">
-                          Doorprize for visitors
+                          {t("consultation.3")}
                         </span>
                       </div>
                     </fieldset>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Closing
+                        {t("closing.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -786,7 +797,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Poster"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Poster
+                          {t("closing.1")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -797,7 +808,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on Zoom Background"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on Zoom Background
+                          {t("closing.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -808,7 +819,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Ad libs by MC"
                         />
                         <span className="text-gray-700 text-sm">
-                          Ad libs by MC
+                          {t("closing.3")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -819,7 +830,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 Minute Video Ads"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 Minute Video Ads
+                          {t("closing.4")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -829,12 +840,14 @@ const RegisterExhibitor: NextPage = () => {
                           name="closing"
                           value="Gifts"
                         />
-                        <span className="text-gray-700 text-sm">Gifts</span>
+                        <span className="text-gray-700 text-sm">
+                          {t("closing.5")}
+                        </span>
                       </div>
                     </fieldset>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
-                        Website
+                        {t("website.label")}
                       </legend>
                       <div className="flex space-x-3 items-center mb-1">
                         <input
@@ -844,7 +857,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on home page"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on home page
+                          {t("website.1")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -855,7 +868,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Running Text on main page"
                         />
                         <span className="text-gray-700 text-sm">
-                          Running Text on main page
+                          {t("website.2")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -866,7 +879,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 News page or display"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 News page or display
+                          {t("website.3")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -877,7 +890,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 Minute Video Ads"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 Minute Video Ads
+                          {t("website.4")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -888,7 +901,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Logo on home page"
                         />
                         <span className="text-gray-700 text-sm">
-                          Logo on home page
+                          {t("website.5")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -899,7 +912,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="Running Text on main page"
                         />
                         <span className="text-gray-700 text-sm">
-                          Running Text on main page
+                          {t("website.6")}
                         </span>
                       </div>
                       <div className="flex space-x-3 items-center mb-1">
@@ -910,7 +923,7 @@ const RegisterExhibitor: NextPage = () => {
                           value="1 News page or display"
                         />
                         <span className="text-gray-700 text-sm">
-                          1 News page or display
+                          {t("website.7")}
                         </span>
                       </div>
                     </fieldset>
@@ -926,13 +939,13 @@ const RegisterExhibitor: NextPage = () => {
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-gray-500 transition-all bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 onClick={() => setSelectedTab("account-info")}
               >
-                &larr; Back
+                &larr; {t("back")}
               </button>
               <button
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               >
-                Register
+                {t("register")}
               </button>
             </div>
           </div>
@@ -945,7 +958,7 @@ const RegisterExhibitor: NextPage = () => {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or</span>
+              <span className="px-2 bg-white text-gray-500">{t("or")}</span>
             </div>
           </div>
 
@@ -953,7 +966,7 @@ const RegisterExhibitor: NextPage = () => {
             <div>
               <Link href="/register/visitor">
                 <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                  <span>Register as Visitor</span>
+                  <span>{t("register-as-visitor")}</span>
                 </a>
               </Link>
             </div>
@@ -961,7 +974,7 @@ const RegisterExhibitor: NextPage = () => {
             <div>
               <Link href="/login">
                 <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                  <span>Login</span>
+                  <span>{t("login")}</span>
                 </a>
               </Link>
             </div>
@@ -973,3 +986,11 @@ const RegisterExhibitor: NextPage = () => {
 };
 
 export default RegisterExhibitor;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "auth"])),
+  },
+});

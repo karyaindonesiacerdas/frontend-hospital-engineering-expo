@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { Popover, Transition, Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import {
@@ -101,7 +101,7 @@ function classNames(...classes: string[]) {
 
 export const Header = () => {
   const { t } = useTranslation("common");
-  const { asPath, locale } = useRouter();
+  const { asPath, locale, push } = useRouter();
 
   return (
     <Popover className="sticky z-40 md:z-auto top-0 sm:top-auto bg-white sm:bg-transparent flex sm:flex h-[50px] sm:h-[70px] max-w-7xl mx-auto px-4 md:px-2 items-center justify-between">
@@ -136,9 +136,7 @@ export const Header = () => {
             id="language"
             className="block appearance-none pl-3 pr-8 py-1.5 sm:py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-xs sm:text-sm border-gray-300 w-20"
             value={locale}
-            onChange={(e) =>
-              router.push(asPath, asPath, { locale: e.target.value })
-            }
+            onChange={(e) => push(asPath, asPath, { locale: e.target.value })}
           >
             <option value="en">EN</option>
             <option value="id">ID</option>

@@ -1,10 +1,32 @@
 import React from "react";
 import Image from "next/image";
-import { CheckCircleIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
+import { CheckCircleIcon, TranslateIcon } from "@heroicons/react/outline";
 
 export const AuthPageLayout: React.FC = ({ children }) => {
+  const { asPath, locale, push } = useRouter();
+
   return (
-    <div className="min-h-screen h-full flex items-center min-w-screen bg-gradient-to-br from-primary  to-white">
+    <div className="min-h-screen h-full flex items-center min-w-screen bg-gradient-to-br from-primary to-white relative">
+      {/* Select Local */}
+      {/* <div className="absolute right-0 top-0">
+        <label htmlFor="language" className="sr-only">
+          Select Language
+        </label>
+        <div className="flex items-center space-x-3">
+          <TranslateIcon className="w-4 h-4 sm:h-5 sm:w-5 text-gray-500" />
+          <select
+            name="Language"
+            id="language"
+            className="block appearance-none pl-3 pr-8 py-1.5 sm:py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary text-xs sm:text-sm border-gray-300 w-20"
+            value={locale}
+            onChange={(e) => push(asPath, asPath, { locale: e.target.value })}
+          >
+            <option value="en">EN</option>
+            <option value="id">ID</option>
+          </select>
+        </div>
+      </div> */}
       <div className="grid grid-cols-2 gap-6 max-w-7xl mx-auto py-4 md:py-10 2xl:py-20 ">
         <div className="hidden lg:block px-4 py-6">
           <div className="pl-16 flex items-center space-x-3">

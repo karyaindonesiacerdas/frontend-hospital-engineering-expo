@@ -1,10 +1,17 @@
-import type { NextPage } from "next";
+import { useState } from "react";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
 
 const RegisterVisitor: NextPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation("auth");
+
   return (
     <AuthPageLayout>
       <div className="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10">
@@ -23,7 +30,7 @@ const RegisterVisitor: NextPage = () => {
             <span className="text-2xl font-bold text-primary">HEF 2021</span>
           </a>
           <h2 className="text-3xl text-gray-800 font-bold">
-            Register as Visitor
+            {t("register-as-visitor")}
           </h2>
         </div>
         <form action="#" method="POST">
@@ -35,7 +42,7 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Email address
+                {t("email")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -43,7 +50,7 @@ const RegisterVisitor: NextPage = () => {
                   id="email"
                   name="email"
                   type="email"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  className="input-text"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -56,7 +63,7 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="mobile"
                 className="block text-sm font-medium text-gray-700"
               >
-                Mobile (WhatsApp)
+                {t("mobile")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
@@ -64,7 +71,7 @@ const RegisterVisitor: NextPage = () => {
                   id="mobile"
                   name="mobile"
                   type="number"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  className="input-text"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -77,15 +84,11 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="fullname"
                 className="block text-sm font-medium text-gray-700"
               >
-                Full Name (with title)
+                {t("name")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <input
-                  id="fullname"
-                  name="fullname"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                />
+                <input id="fullname" name="fullname" className="input-text" />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
               </div>
@@ -97,15 +100,11 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="job"
                 className="block text-sm font-medium text-gray-700"
               >
-                Job Function
+                {t("job-visitor.label")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select
-                  id="job"
-                  name="job"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                >
+                <select id="job" name="job" className="input-text">
                   <option value="">Choose</option>
                   <option value="Architect">Architect</option>
                   <option value="Director">Director</option>
@@ -130,18 +129,26 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Password
+                {t("password")}
               </label>
-              <div className="mt-1">
-                {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
+              <div className="mt-1 relative rounded-md shadow-sm">
                 <input
                   id="password"
                   name="password"
-                  type="password"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  type={showPassword ? "text" : "password"}
+                  className="input-password"
                 />
-                {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 px-3 flex items-center"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <EyeIcon className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <EyeOffIcon className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
               </div>
             </div>
 
@@ -151,18 +158,26 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="confirm-password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Confirm Password
+                {t("confirm-password")}
               </label>
-              <div className="mt-1">
-                {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
+              <div className="mt-1 relative rounded-md shadow-sm">
                 <input
                   id="confirm-password"
                   name="confirm-password"
-                  type="password"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  type={showPassword ? "text" : "password"}
+                  className="input-password"
                 />
-                {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 px-3 flex items-center"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <EyeIcon className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <EyeOffIcon className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
               </div>
             </div>
 
@@ -172,14 +187,14 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="institution-name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Institution Name
+                {t("institution-name")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <input
                   id="institution-name"
                   name="institution-name"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  className="input-text"
                 />
                 {/* <!-- Error Text --> */}
                 <span className="text-sm text-red-500">Input error</span>
@@ -192,14 +207,14 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="type-of-institution"
                 className="block text-sm font-medium text-gray-700"
               >
-                Type of Institution
+                {t("institution-type.label")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <select
                   id="type-of-institution"
                   name="type-of-institution"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  className="input-text"
                 >
                   <option value="">Choose</option>
                   <option value="Comunity Health Services">
@@ -259,15 +274,11 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="country"
                 className="block text-sm font-medium text-gray-700"
               >
-                Country
+                {t("country")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select
-                  id="country"
-                  name="country"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                >
+                <select id="country" name="country" className="input-text">
                   <option value="">Choose</option>
                   <option value="Indonesia">Indonesia</option>
                   <option value="Malaysia">Malaysia</option>
@@ -278,21 +289,17 @@ const RegisterVisitor: NextPage = () => {
               </div>
             </div>
 
-            {/* <!-- Country --> */}
+            {/* <!-- Province --> */}
             <div>
               <label
                 htmlFor="province"
                 className="block text-sm font-medium text-gray-700"
               >
-                Province
+                {t("province")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select
-                  id="province"
-                  name="province"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                >
+                <select id="province" name="province" className="input-text">
                   <option value="">Choose</option>
                   <option value="Aceh">Aceh</option>
                   <option value="Sumatera Utara">Sumatera Utara</option>
@@ -309,14 +316,14 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="visitor-type"
                 className="block text-sm font-medium text-gray-700"
               >
-                Visitor Type
+                {t("visitor-type.label")}
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <select
                   id="visitor-type"
                   name="visitor-type"
-                  className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                  className="input-text"
                 >
                   <option value="">Choose</option>
                   <option value="Hospital Management Staff">
@@ -348,7 +355,7 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="product-interest"
                 className="block text-sm font-medium text-gray-700"
               >
-                Which product are you interested in?
+                {t("product-interest")}
               </label>
               <div className="mt-1 grid grid-cols-3 gap-2 py-2">
                 <div className="flex items-center text-sm">
@@ -474,7 +481,7 @@ const RegisterVisitor: NextPage = () => {
                 htmlFor="purpose-of-visiting"
                 className="block text-sm font-medium text-gray-700"
               >
-                Purpose of Visiting
+                {t("purpose-visit.label")}
               </label>
               <div className="mt-1 grid grid-cols-3 gap-2 py-2">
                 <div className="flex items-center text-sm">
@@ -488,7 +495,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Buying
+                    {t("purpose-visit.buying")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -502,7 +509,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Networking
+                    {t("purpose-visit.networking")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -516,7 +523,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Information Gathering
+                    {t("purpose-visit.information-gathering")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -530,7 +537,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Join Webinar
+                    {t("purpose-visit.join-webinar")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -544,7 +551,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Consultaion
+                    {t("purpose-visit.consultation")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -558,7 +565,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Other
+                    {t("purpose-visit.other")}
                   </span>
                 </div>
               </div>
@@ -567,12 +574,12 @@ const RegisterVisitor: NextPage = () => {
             </div>
 
             {/* <!-- Have registered in SEHAT-RI --> */}
-            <div>
+            <div className="md:col-span-2">
               <label
                 htmlFor="have-registered-sehat-ri"
                 className="block text-sm font-medium text-gray-700"
               >
-                Have you registered in SEHAT-RI?
+                {t("sehat-ri.label")}
               </label>
               <div className="mt-1 grid grid-cols-3 gap-2 py-2">
                 <div className="flex items-center text-sm">
@@ -586,7 +593,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    Yes
+                    {t("sehat-ri.yes")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -600,7 +607,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    No
+                    {t("sehat-ri.no")}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -614,7 +621,7 @@ const RegisterVisitor: NextPage = () => {
                     id="pricing-plans-0-label"
                     className="text-gray-900 ml-3"
                   >
-                    I Forget
+                    {t("sehat-ri.forget")}
                   </span>
                 </div>
               </div>
@@ -624,10 +631,7 @@ const RegisterVisitor: NextPage = () => {
 
             <div className="md:col-span-2">
               <div className="mb-1 text-sm text-gray-700">
-                By registering for HEF 2021, you will automatically become a
-                sehat-RI member and we will send you a referal code to your
-                email later. This referal code is used to utilize the sehat-RI
-                application.
+                {t("sehat-ri.term")}
               </div>
               <div className="flex items-center space-x-1">
                 <input
@@ -635,15 +639,14 @@ const RegisterVisitor: NextPage = () => {
                   className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                 />{" "}
                 <span className="text-sm text-gray-700">
-                  I understand and accept the condition
+                  {t("sehat-ri.accept")}
                 </span>
               </div>
             </div>
 
             <div className="md:col-span-2">
               <div className="mb-1 text-sm text-gray-700">
-                In order to qualify for HEF 2021 door prize, Do you agree to
-                share these information to our exhibitors for marketing purpose?
+                {t("share-info")}
               </div>
               <div className="flex items-center space-x-4">
                 <div>
@@ -652,10 +655,10 @@ const RegisterVisitor: NextPage = () => {
                     name="allow-share-info"
                     type="radio"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
-                    checked
+                    defaultChecked={true}
                   />{" "}
                   <label htmlFor="yes" className="text-sm text-gray-700">
-                    Yes
+                    {t("sehat-ri.yes")}
                   </label>
                 </div>
                 <div>
@@ -666,7 +669,7 @@ const RegisterVisitor: NextPage = () => {
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
                   />{" "}
                   <label htmlFor="no" className="text-sm text-gray-700">
-                    No
+                    {t("sehat-ri.no")}
                   </label>
                 </div>
               </div>
@@ -678,7 +681,7 @@ const RegisterVisitor: NextPage = () => {
               type="submit"
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
-              Register
+              {t("register")}
             </button>
           </div>
         </form>
@@ -690,7 +693,7 @@ const RegisterVisitor: NextPage = () => {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or</span>
+              <span className="px-2 bg-white text-gray-500">{t("or")}</span>
             </div>
           </div>
 
@@ -698,7 +701,7 @@ const RegisterVisitor: NextPage = () => {
             <div>
               <Link href="/register/exhibitor">
                 <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                  <span>Register as Exhibitor</span>
+                  <span>{t("register-as-exhibitor")}</span>
                 </a>
               </Link>
             </div>
@@ -709,7 +712,7 @@ const RegisterVisitor: NextPage = () => {
                   href="login.html"
                   className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
-                  <span>Login</span>
+                  <span>{t("login")}</span>
                 </a>
               </Link>
             </div>
@@ -721,3 +724,11 @@ const RegisterVisitor: NextPage = () => {
 };
 
 export default RegisterVisitor;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "auth"])),
+  },
+});

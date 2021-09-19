@@ -10,6 +10,14 @@
   .hero-image-height {
     height: calc(100vh - 70px);
   }
+
+  .input-text {
+    @apply appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300;
+  }
+
+  .input-password {
+    @apply focus:outline-none pl-3 py-2 focus:ring-primary focus:border-primary block w-full pr-10 sm:text-sm border-gray-300 rounded-md;
+  }
 }
 
 :root {
