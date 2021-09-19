@@ -1,8 +1,38 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
+
+const countDate = new Date("Oct 2, 2021 00:00:00").getTime();
 
 export const CountDown = () => {
   const { t } = useTranslation("home");
+  const [dates, setDates] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date().getTime();
+      const gap = countDate - now;
+
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+
+      const d = Math.floor(gap / day);
+      const h = Math.floor((gap % day) / hour);
+      const m = Math.floor((gap % hour) / minute);
+      const s = Math.floor((gap % minute) / second);
+
+      setDates(d);
+      setHours(h);
+      setMinutes(m);
+      setSeconds(s);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  });
 
   return (
     <div className="mb-6 2xl:mb-10 py-6 2xl:py-10 px-6">
@@ -12,7 +42,7 @@ export const CountDown = () => {
       <div className="mt-4 grid grid-cols-4 md:gap-4 max-w-lg mx-auto">
         <div className="flex flex-col items-center text-[#116368] font-medium">
           <span id="day" className="text-3xl md:text-5xl">
-            4
+            {dates}
           </span>
           <span className="md:mt-1 text-sm sm:text-md">
             {t("countdown.days")}
@@ -20,7 +50,7 @@ export const CountDown = () => {
         </div>
         <div className="flex flex-col items-center text-[#116368] font-medium">
           <span id="hour" className="text-3xl md:text-5xl">
-            15
+            {hours}
           </span>
           <span className="md:mt-1 text-sm sm:text-md">
             {t("countdown.hours")}
@@ -28,7 +58,7 @@ export const CountDown = () => {
         </div>
         <div className="flex flex-col items-center text-[#116368] font-medium">
           <span id="minute" className="text-3xl md:text-5xl">
-            45
+            {minutes}
           </span>
           <span className="md:mt-1 text-sm sm:text-md">
             {t("countdown.minutes")}
@@ -36,7 +66,7 @@ export const CountDown = () => {
         </div>
         <div className="flex flex-col items-center text-[#116368] font-medium">
           <span id="second" className="text-3xl md:text-5xl">
-            12
+            {seconds}
           </span>
           <span className="md:mt-1 text-sm sm:text-md">
             {t("countdown.seconds")}
