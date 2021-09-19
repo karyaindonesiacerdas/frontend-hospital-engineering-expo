@@ -1,89 +1,62 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
-const faqs = [
+const faqs = (t: any) => [
   {
-    question: "I want to attend HEF 2021. How can I register?",
+    question: t("visitor.faq-1.question"),
     answer: (
       <p>
-        If you are interested in attending HEF 2021, please fill your details in
-        the registration form here:{" "}
+        {t("visitor.faq-1.answer.1")}{" "}
         <Link href="/register/visitor">
-          <a>Register as Visitor</a>
+          <a>Register</a>
         </Link>
-        . For further information, you can contact us in +62 858 9377 7283
-        (Adrian).
+        . {t("visitor.faq-1.answer.2")}
       </p>
     ),
   },
   {
-    question: "Is there a participation fee for HEF 2021?",
-    answer: (
-      <p>
-        No, it’s completely free of charge to participate as visitors in our
-        event! You can share this good news to your colleagues that might be
-        interested in joining this event as well!
-      </p>
-    ),
+    question: t("visitor.faq-2.question"),
+    answer: <p>{t("visitor.faq-2.answer")}</p>,
   },
   {
-    question: "What can I expect from this event?",
+    question: t("visitor.faq-3.question"),
     answer: (
       <>
-        <p>In HEF 2021, you’ll be able to:</p>
-        <ol className="list-decimal">
-          <li>
-            Watch seminars and participate in live Q&A sessions with the
-            speakers
-          </li>
-          <li>
-            View a wide range of products from 6 hospital engineering areas
-            exhibitors and engage with company representatives
-          </li>
-          <li>Consult with consultants or companies for free</li>
+        <p>{t("visitor.faq-3.answer.1")}</p>
+        <ol className="list-decimal pl-4">
+          <li>{t("visitor.faq-3.answer.2")}</li>
+          <li>{t("visitor.faq-3.answer.3")}</li>
+          <li>{t("visitor.faq-3.answer.4")}</li>
         </ol>
       </>
     ),
   },
   {
-    question: "What’s the benefit of attending HEF 2021?",
+    question: t("visitor.faq-4.question"),
     answer: (
       <p>
-        To see the benefits of attending HEF 2021, please visit the Why Attend?
-        page under Visitor Menu or click{" "}
+        {t("visitor.faq-4.answer")}{" "}
         <Link href="/register/visitor">
-          <a>here</a>
+          <a>register</a>
         </Link>
       </p>
     ),
   },
   {
-    question: "Can I talk to people on the stand?",
-    answer: (
-      <p>
-        You can communicate with exhibitors in several ways. One way of
-        communicating with the exhibitors is to message them via live chat and
-        leave a question about their products or services and the stand
-        representative will reply back as soon as possible. Alternatively, you
-        can book a 1 on 1 meeting session with the exhibitors.
-      </p>
-    ),
+    question: t("visitor.faq-5.question"),
+    answer: <p>{t("visitor.faq-5.answer")}</p>,
   },
   {
-    question: "How do I make an enquiry about a product I’ve seen?",
-    answer: (
-      <p>
-        If you’re interested in the products of a company, you can book a 1 on 1
-        meeting session to enquire about the products and negotiate with the
-        company representative.
-      </p>
-    ),
+    question: t("visitor.faq-6.question"),
+    answer: <p>{t("visitor.faq-6.answer")}</p>,
   },
 ];
 
@@ -92,6 +65,8 @@ function classNames(...classes: string[]) {
 }
 
 const FAQVisitor: NextPage = () => {
+  const { t } = useTranslation("faq");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -100,14 +75,14 @@ const FAQVisitor: NextPage = () => {
 
       <section className="max-w-4xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
-          FAQ
+          {t("visitor.tag")}
         </div>
         <h3 className="mt-2 text-4xl font-bold text-gray-700 text-center mb-6 md:mb-10">
-          Visitor
+          {t("visitor.title")}
         </h3>
 
         <dl className="mt-6 space-y-6 divide-y divide-gray-200">
-          {faqs.map((faq) => (
+          {faqs(t).map((faq) => (
             <Disclosure as="div" key={faq.question} className="pt-6">
               {({ open }) => (
                 <>
@@ -143,3 +118,11 @@ const FAQVisitor: NextPage = () => {
 };
 
 export default FAQVisitor;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "faq"])),
+  },
+});

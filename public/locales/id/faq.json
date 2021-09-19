@@ -1,0 +1,66 @@
+{
+  "general": {
+    "tag": "FAQ",
+    "title": "Umum dan Teknis",
+    "faq-1": {
+      "question": "Apa itu Forum Teknik Perumahsakitan?",
+      "answer": "Forum Teknik Perumahsakitan merupakan forum virtual nasional dan internasional pertama yang diselenggarakan oleh Perkumpulan Teknik Perumahsakitan Indonesia (PTPI). Forum ini berfokus pada 6 bidang teknik rumah sakit: Bangunan Rumah Sakit, Mekanikal Rumah Sakit, Elektrikal Rumah Sakit, Lingkungan Rumah Sakit, Informatika Rumah Sakit, dan Alat Medis Rumah Sakit. Lebih dari 40 pembicara dari pemerintah, asosiasi, rumah sakit dan industri diundang. Kami juga menyediakan lebih dari 100 exhibitor lokal dan internasional. Acara ini akan bekerjasama dengan Karya Indonesia Cerdas"
+    },
+    "faq-2": {
+      "question": "Siapa saja yang akan berpartisipasi di Forum Teknik Perumahsakitan 2021?",
+      "answer": "Acara ini terbuka untuk umum. Namun, kami akan mengundang sekitar 8000 anggota PTPI dan 3000 rumah sakit yang akan terdiri dari orang-orang dari latar belakang kesehatan seperti staf manajemen rumah sakit, staf klinis rumah sakit, staf teknik rumah sakit, teknik biomedis, dokter, staf pemerintah dan dosen universitas."
+    },
+    "faq-3": {
+      "question": "Siapa penyelenggara acara ini?",
+      "answer": {
+        "1": "Penyelenggara acara ini adalah Perkumpulan Teknik Perumahsakitan Indonesia (PTPI) yang bekerjasama dengan PT. Karya Indonesia Cerdas (KIC).",
+        "2": "Perkumpulan Teknik Perumahsakitan Indonesia (PTPI) adalah organisasi profesi ahli teknik dan korporat yang bergerak di bidang pembangunan, pengoperasian, dan pemeliharaan rumah sakit di Indonesia. Asosiasi ini didirikan pada tanggal 23 Oktober 2019 di Jakarta, dan disahkan oleh Kementerian Hukum dan Hak Asasi Manusia dengan nomor AHU-0011147.AH.01.07. Visi organisasi ini adalah menjadi organisasi terdepan yang mendorong terwujudnya rumah sakit di Indonesia yang Selamat, berManfaat, Aman, Ramah Lingkungan, Terjangkau (SMART).",
+        "3": "PT. Karya Indonesia Cerdas merupakan perusahaan mitra PTPI sejak tahun 2019 dan telah bekerja sama dengan PTPI dalam menyelenggarakan beberapa seminar dan lokakarya selama setahun terakhir dengan total sekitar 9000 peserta mulai dari staf medis, teknik dan manajemen rumah sakit."
+      }
+    },
+    "faq-4": {
+      "question": "Bagaimana cara saya login ke profil saya?",
+      "answer": "Setelah Anda mendaftar di website kami, Anda bisa langsung login dengan email dan password yang Anda masukkan saat proses registrasi di sini:"
+    },
+    "faq-5": {
+      "question": "Siapa yang bisa saya hubungi apabila saya memiliki pertanyaan lainnya?",
+      "answer": "Jika Anda memiliki pertanyaan tambahan yang belum dijawab dalam FAQ ini, silakan hubungi email kami di hospital.engineering.expo@gmail.com atau kunjungi halaman hubungi kami untuk mendapatkan rincian kontak lainnya."
+    }
+  },
+  "visitor": {
+    "tag": "FAQ",
+    "title": "Visitor",
+    "faq-1": {
+      "question": "Saya ingin menghadiri FTP 2021. Bagaimana cara untuk mendaftar?",
+      "answer": {
+        "1": "ika anda tertarik untuk mengikuti FTP 2021, silahkan isi data diri anda pada formulir pendaftaran disini: ",
+        "2": "Untuk informasi lebih lanjut, Anda dapat menghubungi kami di +62 858 9377 7283 (Adrian)."
+      }
+    },
+    "faq-2": {
+      "question": "Apakah terdapat biaya untuk berpartisipasi dalam FTP 2021?",
+      "answer": "Tidak ada biaya partisipasi visitor di acara kami! Anda dapat membagikan kabar baik ini kepada rekan-rekan Anda yang mungkin juga tertarik untuk mengikuti acara ini!"
+    },
+    "faq-3": {
+      "question": "Apa saja yang dapat saya lakukan dalam event ini?",
+      "answer": {
+        "1": "Di FTP 2021, Anda dapat melakukan:",
+        "2": "Menonton seminar dan berpartisipasi dalam sesi tanya jawab langsung dengan para pembicara",
+        "3": "Melihat berbagai macam produk dari berbagai perusahaan 6 pameran bidang teknik rumah sakit dan membangun relasi Anda dengan perwakilan perusahaan",
+        "4": "Berkonsultasi dengan konsultan atau perusahaan secara gratis"
+      }
+    },
+    "faq-4": {
+      "question": "Keuntungan apa yang saya dapatkan ketika menghadiri FTP 2021?",
+      "answer": "Untuk melihat manfaat menghadiri FTP 2021, silakan kunjungi Mengapa Hadir? halaman di bawah Menu visitor atau klik tautan di bawah ini"
+    },
+    "faq-5": {
+      "question": "Dapatkah saya berbicara langsung di dalam stand pameran?",
+      "answer": "Anda dapat berkomunikasi dengan exhibitor dalam beberapa cara. Salah satu cara berkomunikasi dengan exhibitor adalah dengan mengirim pesan melalui obrolan langsung dan meninggalkan pertanyaan tentang produk atau layanan mereka dan perwakilan stan akan membalas sesegera mungkin. Atau, Anda dapat memesan sesi pertemuan 1 on 1 dengan exhibitor."
+    },
+    "faq-6": {
+      "question": "Bagaimana cara mengajukan pertanyaan tentang produk yang saya lihat?",
+      "answer": "Jika Anda tertarik dengan produk perusahaan, Anda dapat memesan sesi pertemuan 1 on 1 untuk menanyakan tentang produk dan bernegosiasi dengan perwakilan perusahaan."
+    }
+  }
+}

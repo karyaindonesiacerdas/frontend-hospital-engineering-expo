@@ -1,78 +1,39 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { LandingPageLayout } from "@/layouts/LandingPageLayout";
 import { Navbar } from "@/components/landing-page";
 
-const faqs = [
+const faqs = (t: any) => [
   {
-    question: "What is the Hospital Engineering Forum? ",
-    answer: (
-      <p>
-        The Hospital Engineering Forum will be the first virtual national forum
-        and international fair by the Indonesian Association of Hospital
-        Engineering (IAHE). This forum focuses on 6 hospital engineering areas:
-        Hospital Building, Hospital Mechanic, Hospital Electric, Hospital
-        Environment, Hospital Informatics, and Hospital Devices. More than 40
-        speakers from government, association, hospital and industries are
-        invited. We also provide around 100 local and international exhibitors.
-        This event will be co-organised with Karya Indonesia Cerdas
-      </p>
-    ),
+    question: t("general.faq-1.question"),
+    answer: <p>{t("general.faq-1.answer")}</p>,
   },
   {
-    question: "Who is participating at Hospital Engineering Forum 2021?",
-    answer: (
-      <p>
-        The event is open to the public. However, we will invite around 8000
-        members of IAHE and 3000 hospitals which will consist of people from the
-        healthcare settings such as hospital management staff, hospital clinical
-        staff, hospital engineering staff, biomedical engineer, medical doctor,
-        government staff and university lecturers.
-      </p>
-    ),
+    question: t("general.faq-2.question"),
+    answer: <p>{t("general.faq-2.answer")}</p>,
   },
   {
-    question: "Who is the organizer of this event?",
+    question: t("general.faq-3.question"),
     answer: (
       <>
-        <p>
-          The organizer of this event is the Indonesian Association of Hospital
-          Engineering (IAHE) in partnership with PT. Karya Indonesia Cerdas
-          (KIC).
-        </p>
-        <p>
-          The Indonesian Hospital Engineering Association (IAHE) is a
-          professional organization of technical experts and corporations
-          engaged in the construction, operation, and maintenance of hospitals
-          in Indonesia. The association was established on October 3, 2019 in
-          Jakarta, and was ratified by the Ministry of Law and Human Rights with
-          the number AHU-0011147.AH.01.07. The organization vision is to become
-          the leading organization that encourages the realization of hospitals
-          in Indonesia that are Safe, environMentally friendly, Affordable,
-          secuRe, and worThwhile (SMART).
-        </p>
-        <p>
-          PT. Karya Indonesia Cerdas is a partner company of IAHE since 2019 and
-          has been collaborating with IAHE in organizing several seminars and
-          workshops over the past year with a total of around 9000 participants
-          ranging from medical, engineering and management staff of the
-          hospitals.
-        </p>
+        <p>{t("general.faq-3.answer.1")}</p>
+        <p>{t("general.faq-3.answer.2")}</p>
+        <p>{t("general.faq-3.answer.3")}</p>
       </>
     ),
   },
   {
-    question: "How do I login to my profile?",
+    question: t("general.faq-4.question"),
     answer: (
       <>
         <p>
-          Once you have registered on our website, you can immediately login
-          with your email and password that you input during the registration
-          process here:{" "}
+          {t("general.faq-4.answer")}{" "}
           <Link href="/login">
             <a>https://hospital-engineering-expo.com/login</a>
           </Link>
@@ -81,14 +42,8 @@ const faqs = [
     ),
   },
   {
-    question: "Who should I contact if I have any additional questions?",
-    answer: (
-      <p>
-        If you have any further questions, we will be happy to assist you
-        through our email at hospital.engineering.expo@gmail.com or you could
-        visit the contact us page to get other means of contact details.
-      </p>
-    ),
+    question: t("general.faq-5.question"),
+    answer: <p>{t("general.faq-5.answer")}</p>,
   },
 ];
 
@@ -97,6 +52,8 @@ function classNames(...classes: string[]) {
 }
 
 const FAQGeneral: NextPage = () => {
+  const { t } = useTranslation("faq");
+
   return (
     <LandingPageLayout>
       <div className="relative md:mb-14">
@@ -105,14 +62,14 @@ const FAQGeneral: NextPage = () => {
 
       <section className="max-w-4xl mx-auto py-10 px-4 bg-white mb-10">
         <div className="text-[#00B4BF] uppercase text-xl font-bold text-center">
-          FAQ
+          {t("general.tag")}
         </div>
         <h3 className="mt-2 text-4xl font-bold text-gray-700 text-center mb-6 md:mb-10">
-          General and Technical
+          {t("general.title")}
         </h3>
 
         <dl className="mt-6 space-y-6 divide-y divide-gray-200">
-          {faqs.map((faq) => (
+          {faqs(t).map((faq) => (
             <Disclosure as="div" key={faq.question} className="pt-6">
               {({ open }) => (
                 <>
@@ -148,3 +105,11 @@ const FAQGeneral: NextPage = () => {
 };
 
 export default FAQGeneral;
+
+export const getStaticProps = async ({
+  locale = "en",
+}: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "home", "faq"])),
+  },
+});

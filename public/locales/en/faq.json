@@ -1,0 +1,66 @@
+{
+  "general": {
+    "tag": "FAQ",
+    "title": "General & Technical",
+    "faq-1": {
+      "question": "What is the Hospital Engineering Forum?",
+      "answer": "The Hospital Engineering Forum will be the first virtual national forum and international fair by the Indonesian Association of Hospital Engineering (IAHE). This forum focuses on 6 hospital engineering areas: Hospital Building, Hospital Mechanic, Hospital Electric, Hospital Environment, Hospital Informatics, and Hospital Devices. More than 40 speakers from government, association, hospital and industries are invited. We also provide around 100 local and international exhibitors. This event will be co-organised with Karya Indonesia Cerdas"
+    },
+    "faq-2": {
+      "question": "Who is participating at the Hospital Engineering Forum 2021?",
+      "answer": "The event is open to the public. However, we will invite around 8000 members of IAHE and 3000 hospitals which will consist of people from the healthcare settings such as hospital management staff, hospital clinical staff, hospital engineering staff, biomedical engineer, medical doctor, government staff and university lecturers."
+    },
+    "faq-3": {
+      "question": "Who is the organizer of this event?",
+      "answer": {
+        "1": "The organizer of this event is the Indonesian Association of Hospital Engineering (IAHE) in partnership with PT. Karya Indonesia Cerdas (KIC).",
+        "2": "The Indonesian Association of Hospital Engineering (IAHE) is a professional organization of technical experts and corporations engaged in the construction, operation, and maintenance of hospitals in Indonesia. The association was established on October 3, 2019 in Jakarta, and was ratified by the Ministry of Law and Human Rights with the number AHU-0011147.AH.01.07. The organization vision is to become the leading organization that encourages the realization of hospitals in Indonesia that are Safe, environMentally friendly, Affordable, secuRe, and worThwhile (SMART).",
+        "3": "PT. Karya Indonesia Cerdas is a partner company of IAHE since 2019 and has been collaborating with IAHE in organizing several seminars and workshops over the past year with a total of around 9000 participants ranging from medical, engineering and management staff of the hospitals."
+      }
+    },
+    "faq-4": {
+      "question": "How do I login to my profile?",
+      "answer": "Once you have registered on our website, you can immediately login with your email and password that you input during the registration process here:"
+    },
+    "faq-5": {
+      "question": "Who should I contact if I have any additional questions?",
+      "answer": "If you have any further questions, we will be happy to assist you through our email at hospital.engineering.expo@gmail.com or you could visit the contact us page to get other means of contact details."
+    }
+  },
+  "visitor": {
+    "tag": "FAQ",
+    "title": "Visitor",
+    "faq-1": {
+      "question": "I want to attend HEF 2021. How can I register?",
+      "answer": {
+        "1": "If you are interested in attending HEF 2021, please fill your details in the registration form here,'Register as Visitor' ",
+        "2": "For further information, you can contact us in +62 858 9377 7283 (Adrian)."
+      }
+    },
+    "faq-2": {
+      "question": "Is there a participation fee for HEF 2021?",
+      "answer": "No, it’s completely free of charge to participate as visitors in our event! You can share this good news to your colleagues that might be interested in joining this event as well!"
+    },
+    "faq-3": {
+      "question": "What can I expect from this event?",
+      "answer": {
+        "1": "In HEF 2021, you’ll be able to:",
+        "2": "Watch seminars and participate in live Q&A sessions with the speakers",
+        "3": "View a wide range of products from 6 hospital engineering areas exhibitors and engage with company representatives",
+        "4": "Consult with consultants or companies for free"
+      }
+    },
+    "faq-4": {
+      "question": "What’s the benefit of attending HEF 2021?",
+      "answer": "To see the benefits of attending HEF 2021, please visit the Why Attend? page under Visitor Menu or click the link below"
+    },
+    "faq-5": {
+      "question": "Can I talk to people on the stand?",
+      "answer": "You can communicate with exhibitors in several ways. One way of communicating with the exhibitors is to message them via live chat and leave a question about their products or services and the stand representative will reply back as soon as possible. Alternatively, you can book a 1 on 1 meeting session with the exhibitors."
+    },
+    "faq-6": {
+      "question": "How do I make an enquiry about a product I’ve seen",
+      "answer": "If you’re interested in the products of a company, you can book a 1 on 1 meeting session to enquire about the products and negotiate with the company representative."
+    }
+  }
+}
