@@ -22,7 +22,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.15.3",
-    "swiper": "^7.0.6"
+    "swiper": "^7.0.6",
+    "timeago.js": "4.0.0-beta.3"
   },
   "devDependencies": {
     "@types/react": "17.0.21",
