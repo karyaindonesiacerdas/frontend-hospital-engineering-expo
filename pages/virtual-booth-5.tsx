@@ -67,7 +67,7 @@ const VirtualBooth5: NextPage = () => {
     <>
       {/* Chat Button */}
       <div
-        className="absolute right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
         style={{ backdropFilter: "4px" }}
       >
         <ChatButton onClick={() => setOpenChatModal(true)} />

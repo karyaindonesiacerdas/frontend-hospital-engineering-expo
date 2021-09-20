@@ -205,20 +205,28 @@ const RegisterExhibitor: NextPage = () => {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     {t("password")}
                   </label>
-                  <div className="mt-1">
-                    {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
+                  <div className="mt-1 relative rounded-md shadow-sm">
                     <input
                       id="password"
                       name="password"
-                      type="password"
-                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      type={showPassword ? "text" : "password"}
+                      className="input-password"
                     />
-                    {/* <!-- Error Text --> */}
-                    <span className="text-sm text-red-500">Input error</span>
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 px-3 flex items-center"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? (
+                        <EyeIcon className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <EyeOffIcon className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
@@ -226,20 +234,28 @@ const RegisterExhibitor: NextPage = () => {
                 <div>
                   <label
                     htmlFor="confirm-password"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     {t("confirm-password")}
                   </label>
-                  <div className="mt-1">
-                    {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
+                  <div className="mt-1 relative rounded-md shadow-sm">
                     <input
                       id="confirm-password"
                       name="confirm-password"
-                      type="password"
-                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      type={showPassword ? "text" : "password"}
+                      className="input-password"
                     />
-                    {/* <!-- Error Text --> */}
-                    <span className="text-sm text-red-500">Input error</span>
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 px-3 flex items-center"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? (
+                        <EyeIcon className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <EyeOffIcon className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>

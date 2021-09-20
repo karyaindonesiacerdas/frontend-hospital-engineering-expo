@@ -82,12 +82,14 @@ const Login: NextPage = () => {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF]"
-            >
-              <a href="main-hall.html">{t("login")}</a>
-            </button>
+            <Link href="/main-hall">
+              <a
+                // type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF]"
+              >
+                {t("login")}
+              </a>
+            </Link>
           </div>
         </form>
 
