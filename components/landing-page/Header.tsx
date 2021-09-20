@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Popover, Transition, Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
@@ -15,78 +16,78 @@ import {
 } from "@heroicons/react/outline";
 import { useTranslation } from "next-i18next";
 
-const overview = [
+const overview = (t: any) => [
   {
-    name: "About HEF",
+    name: t("about-href"),
     href: "about-hef",
   },
   {
-    name: "About IAHE",
+    name: t("about-ihea"),
     href: "about-iahe",
   },
   {
-    name: "Programs",
+    name: t("programs"),
     href: "programs",
   },
   {
-    name: "Webinar Rundown",
+    name: t("webinar-rundown"),
     href: "webinar-rundown",
   },
   {
-    name: "News",
+    name: t("news"),
     href: "news",
   },
   {
-    name: "Important Dates",
+    name: t("important-dates"),
     href: "important-dates",
   },
 ];
 
-const visitor = [
+const visitor = (t: any) => [
   {
-    name: "Visitor Guideline",
+    name: t("visitor-guideline"),
     href: "visitor-guideline",
   },
   {
-    name: "Who Attends",
+    name: t("who-attends"),
     href: "who-attends",
   },
   {
-    name: "Why Attend",
-    href: "why attend",
+    name: t("why-attend"),
+    href: "why-attend",
   },
 ];
 
-const exhibitor = [
+const exhibitor = (t: any) => [
   {
-    name: "Exhibitor Guideline",
+    name: t("exhibitor-guideline"),
     href: "exhibitor-guideline",
   },
   {
-    name: "Who Exhibit",
-    href: "who-exhibit",
+    name: t("who-exhibits"),
+    href: "who-exhibits",
   },
   {
-    name: "Why Exhibit",
+    name: t("why-exhibit"),
     href: "why-exhibit",
   },
   {
-    name: "Packages",
+    name: t("packages"),
     href: "packages",
   },
 ];
 
-const faq = [
+const faq = (t: any) => [
   {
-    name: "FAQ General & Technical",
+    name: t("faq-general"),
     href: "faq",
   },
   {
-    name: "FAQ Visitor",
+    name: t("faq-visitor"),
     href: "faq/visitor",
   },
   {
-    name: "FAQ Exhibitor",
+    name: t("faq-exhibitor"),
     href: "faq/exhibitor",
   },
 ];
@@ -235,7 +236,7 @@ export const Header = () => {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="space-y-1">
-                          {overview.map((submenu) => (
+                          {overview(t).map((submenu) => (
                             <a
                               key={submenu.name}
                               href={submenu.href}
@@ -268,7 +269,7 @@ export const Header = () => {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="space-y-1">
-                          {visitor.map((submenu) => (
+                          {visitor(t).map((submenu) => (
                             <a
                               key={submenu.name}
                               href={submenu.href}
@@ -301,7 +302,7 @@ export const Header = () => {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="space-y-1">
-                          {exhibitor.map((submenu) => (
+                          {exhibitor(t).map((submenu) => (
                             <a
                               key={submenu.name}
                               href={submenu.href}
@@ -334,7 +335,7 @@ export const Header = () => {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="space-y-1">
-                          {faq.map((submenu) => (
+                          {faq(t).map((submenu) => (
                             <a
                               key={submenu.name}
                               href={submenu.href}
@@ -353,27 +354,24 @@ export const Header = () => {
             <div className="py-6 px-5 space-y-6">
               <div>
                 <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-primary-600 bg-primary"
-                  >
-                    Register as Exhibitor
-                  </a>
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-primary-600 bg-primary"
-                  >
-                    Register as Visitor
-                  </a>
+                  <Link href="/register/exhibitor">
+                    <a className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-primary-600 bg-primary">
+                      {t("register-as-exhibitor")}
+                    </a>
+                  </Link>
+                  <Link href="/register/visitor">
+                    <a className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-primary-600 bg-primary">
+                      {t("register-as-visitor")}
+                    </a>
+                  </Link>
                 </div>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Already have an account?{" "}
-                  <a
-                    href="login.html"
-                    className="hover:text-primary-600 text-primary"
-                  >
-                    Login
-                  </a>
+                  {t("already-register")}{" "}
+                  <Link href="/login">
+                    <a className="hover:text-primary-600 text-primary">
+                      {t("login")}
+                    </a>
+                  </Link>
                 </p>
               </div>
             </div>

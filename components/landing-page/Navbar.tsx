@@ -4,89 +4,89 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { useTranslation } from "next-i18next";
 
-const overview = [
+const overview = (t: any) => [
   {
-    name: "About HEF",
-    href: "/about-hef",
+    name: t("about-hef"),
+    href: "about-hef",
   },
   {
-    name: "About IHEA",
-    href: "/about-ihea",
+    name: t("about-ihea"),
+    href: "about-iahe",
   },
   {
-    name: "Programs",
-    href: "/programs",
+    name: t("programs"),
+    href: "programs",
   },
   {
-    name: "Webinar Rundown",
-    href: "/webinar-rundown",
+    name: t("webinar-rundown"),
+    href: "webinar-rundown",
   },
   {
-    name: "News",
-    href: "/news",
+    name: t("news"),
+    href: "news",
   },
   {
-    name: "Important Dates",
-    href: "/important-dates",
-  },
-];
-
-const visitor = [
-  {
-    name: "Visitor Guideline",
-    href: "/visitor-guideline",
-  },
-  {
-    name: "Who Attends",
-    href: "/who-attends",
-  },
-  {
-    name: "Why Attend",
-    href: "/why-attend",
+    name: t("important-dates"),
+    href: "important-dates",
   },
 ];
 
-const exhibitor = [
+const visitor = (t: any) => [
   {
-    name: "Exhibitor Guideline",
-    href: "/exhibitor-guideline",
+    name: t("visitor-guideline"),
+    href: "visitor-guideline",
   },
   {
-    name: "Who Exhibit",
-    href: "/who-exhibit",
+    name: t("who-attends"),
+    href: "who-attends",
   },
   {
-    name: "Why Exhibit",
-    href: "/why-exhibit",
-  },
-  {
-    name: "Packages",
-    href: "/packages",
+    name: t("why-attend"),
+    href: "why-attend",
   },
 ];
 
-const faq = [
+const exhibitor = (t: any) => [
   {
-    name: "FAQ General & Technical",
-    href: "/faq/general",
+    name: t("exhibitor-guideline"),
+    href: "exhibitor-guideline",
   },
   {
-    name: "FAQ Visitor",
-    href: "/faq/visitor",
+    name: t("who-exhibits"),
+    href: "who-exhibits",
   },
   {
-    name: "FAQ Exhibitor",
-    href: "/faq/exhibitor",
+    name: t("why-exhibit"),
+    href: "why-exhibit",
+  },
+  {
+    name: t("packages"),
+    href: "packages",
   },
 ];
 
-const register = [
+const faq = (t: any) => [
   {
-    name: "Register as Visitor",
+    name: t("faq-general"),
+    href: "faq",
+  },
+  {
+    name: t("faq-visitor"),
+    href: "faq/visitor",
+  },
+  {
+    name: t("faq-exhibitor"),
+    href: "faq/exhibitor",
+  },
+];
+
+const register = (t: any) => [
+  {
+    name: t("register-as-visitor"),
     href: "/register/visitor",
   },
   {
-    name: "Register as Exhibitor",
+    name: t("register-as-exhibitor"),
     href: "/register/exhibitor",
   },
 ];
@@ -165,7 +165,7 @@ export const Navbar = ({ variant }: Props) => {
                 <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                      {overview.map((item) => (
+                      {overview(t).map((item) => (
                         <Link key={item.name} href={item.href}>
                           <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                             {item.name}
@@ -201,7 +201,7 @@ export const Navbar = ({ variant }: Props) => {
                 <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                      {visitor.map((item) => (
+                      {visitor(t).map((item) => (
                         <Link key={item.name} href={item.href}>
                           <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                             {item.name}
@@ -237,7 +237,7 @@ export const Navbar = ({ variant }: Props) => {
                 <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                      {exhibitor.map((item) => (
+                      {exhibitor(t).map((item) => (
                         <Link key={item.name} href={item.href}>
                           <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                             {item.name}
@@ -273,7 +273,7 @@ export const Navbar = ({ variant }: Props) => {
                 <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                      {faq.map((item) => (
+                      {faq(t).map((item) => (
                         <Link key={item.name} href={item.href}>
                           <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                             {item.name}
@@ -309,7 +309,7 @@ export const Navbar = ({ variant }: Props) => {
                 <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0">
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                      {register.map((item) => (
+                      {register(t).map((item) => (
                         <Link key={item.name} href={item.href}>
                           <a className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
                             {item.name}
