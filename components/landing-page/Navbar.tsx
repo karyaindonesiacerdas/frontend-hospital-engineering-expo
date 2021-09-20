@@ -294,7 +294,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                <span>Register</span>
+                <span>{t("register")}</span>
                 <ChevronDownIcon className="ml-1.5 w-5 h-5 text-white" />
               </Popover.Button>
               <Transition
@@ -328,7 +328,7 @@ export const Navbar = ({ variant }: Props) => {
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold border border-gray-200 hover:border-white rounded-md uppercase"
                 style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
               >
-                Login
+                {t("login")}
               </a>
             </Link>
           </li>
