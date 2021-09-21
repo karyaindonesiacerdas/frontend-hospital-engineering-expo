@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -10,11 +11,25 @@ import {
   // Board,
   SearchAndFilter,
 } from "@/components/exhibitor-list";
+import { FullPageLoader } from "@/components/common";
+import { useAuth } from "@/contexts/auth.context";
 
 const Board = dynamic(() => import("@/components/exhibitor-list/Board"));
 
 const Exhibitors: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
 
   return (
     <>

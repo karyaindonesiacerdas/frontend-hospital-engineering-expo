@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -9,9 +10,23 @@ import {
   SeminarLink,
   SeminarTitle,
 } from "@/components/seminar-room";
+import { FullPageLoader } from "@/components/common";
+import { useAuth } from "@/contexts/auth.context";
 
 const SeminarRoom: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
 
   return (
     <>

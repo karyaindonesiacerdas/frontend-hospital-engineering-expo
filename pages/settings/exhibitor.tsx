@@ -1,15 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import Link from "next/link";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
+import { FullPageLoader } from "@/components/common";
+import { useAuth } from "@/contexts/auth.context";
+import { provinces } from "@/data/provinces";
+import { countries } from "@/data/countries";
+
+type CompanyProps = {
+  name: string;
+  email: string;
+  website?: string;
+  phone: string;
+  country: string;
+  province?: string;
+};
 
 const SettingVirtualBoothPage: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    // handleSubmit,
+    reset,
+    // formState: { isSubmitting },
+  } = useForm<CompanyProps>({
+    defaultValues: {
+      name: user?.company_name,
+      website: user?.company_website,
+      country: user?.country,
+      province: user?.province,
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user?.company_name,
+        website: user?.company_website,
+        country: user?.country,
+        province: user?.province,
+      });
+    }
+  }, [user, reset]);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+    if (!isLoading && user?.role !== "exhibitor") {
+      router.push("/main-hall");
+    }
+  }, [isAuthenticated, isLoading, router, user?.role]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
+
+  console.log({ user });
 
   return (
     <div className="bg-gray-100">
@@ -64,10 +117,10 @@ const SettingVirtualBoothPage: NextPage = () => {
                         </label>
                         <input
                           type="text"
-                          name="company-name"
                           id="company-name"
                           className="input-text"
                           placeholder="Company Name"
+                          {...register("name")}
                         />
                       </div>
                       <div className="col-span-2 sm:col-span-1">
@@ -79,10 +132,10 @@ const SettingVirtualBoothPage: NextPage = () => {
                         </label>
                         <input
                           type="email"
-                          name="company-email"
                           id="company-email"
                           className="input-text"
                           placeholder="Company Email"
+                          {...register("email")}
                         />
                       </div>
                     </div>
@@ -100,10 +153,10 @@ const SettingVirtualBoothPage: NextPage = () => {
                           </span>
                           <input
                             type="text"
-                            name="company-website"
                             id="company-website"
                             className="focus:ring-primary-500 focus:border-primary-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                             placeholder="www.example.com"
+                            {...register("website")}
                           />
                         </div>
                       </div>
@@ -116,10 +169,10 @@ const SettingVirtualBoothPage: NextPage = () => {
                         </label>
                         <input
                           type="email"
-                          name="company-phone"
                           id="company-phone"
                           className="input-text"
                           placeholder="Company Phone"
+                          {...register("phone")}
                         />
                       </div>
                     </div>
@@ -135,13 +188,15 @@ const SettingVirtualBoothPage: NextPage = () => {
                         <div className="mt-1">
                           <select
                             id="country"
-                            name="country"
                             className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                            {...register("country")}
                           >
                             <option value="">Choose</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Malaysia">Malaysia</option>
-                            <option value="Singapore">Singapore</option>
+                            {countries.map((country) => (
+                              <option key={country.text} value={country.text}>
+                                {country.text}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>
@@ -155,13 +210,15 @@ const SettingVirtualBoothPage: NextPage = () => {
                         <div className="mt-1">
                           <select
                             id="province"
-                            name="province"
                             className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                            {...register("province")}
                           >
                             <option value="">Choose</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Malaysia">Malaysia</option>
-                            <option value="Singapore">Singapore</option>
+                            {provinces.map((province) => (
+                              <option key={province.id} value={province.nama}>
+                                {province.nama}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>

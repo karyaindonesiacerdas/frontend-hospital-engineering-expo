@@ -1,18 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { useForm } from "react-hook-form";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
+import { FullPageLoader } from "@/components/common";
+import { useAuth } from "@/contexts/auth.context";
+
+type UserProfileProps = {
+  email: string;
+  mobile: number;
+  name: string;
+  job_function: string;
+  // photo: string;
+};
 
 const MyAccountPage: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const {
+    register,
+    // handleSubmit,
+    reset,
+    // formState: { isSubmitting },
+  } = useForm<UserProfileProps>({
+    defaultValues: {
+      name: user?.name,
+      mobile: user?.mobile,
+      email: user?.email,
+      job_function: user?.job_function,
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user?.name,
+        mobile: user?.mobile,
+        email: user?.email,
+        job_function: user?.job_function,
+      });
+    }
+  }, [user, reset]);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
+
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
       <div
         className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
@@ -59,10 +107,10 @@ const MyAccountPage: NextPage = () => {
                         </label>
                         <input
                           type="text"
-                          name="email-address"
                           id="email-address"
                           autoComplete="email"
                           className="input-text"
+                          {...register("email")}
                         />
                       </div>
                       <div className="col-span-2 sm:col-span-1">
@@ -74,10 +122,10 @@ const MyAccountPage: NextPage = () => {
                         </label>
                         <input
                           type="text"
-                          name="mobile"
                           id="mobile"
                           autoComplete="email"
                           className="input-text"
+                          {...register("mobile")}
                         />
                       </div>
                       <div className="col-span-2 sm:col-span-1">
@@ -89,10 +137,10 @@ const MyAccountPage: NextPage = () => {
                         </label>
                         <input
                           type="text"
-                          name="full-name"
                           id="full-name"
                           autoComplete="given-name"
                           className="input-text"
+                          {...register("name")}
                         />
                       </div>
                       <div className="col-span-2 sm:col-span-1">
@@ -102,7 +150,11 @@ const MyAccountPage: NextPage = () => {
                         >
                           Job Function
                         </label>
-                        <select id="job" name="job" className="input-text">
+                        <select
+                          id="job"
+                          className="input-text"
+                          {...register("job_function")}
+                        >
                           <option value="">Choose</option>
                           <option value="Administration/ Office Management">
                             Administration/ Office Management
@@ -213,6 +265,7 @@ const MyAccountPage: NextPage = () => {
                             name="current-password"
                             type={showPassword ? "text" : "password"}
                             className="input-password"
+                            autoComplete="new-password"
                           />
                           <button
                             type="button"
@@ -241,6 +294,7 @@ const MyAccountPage: NextPage = () => {
                             name="new-password"
                             type={showPassword ? "text" : "password"}
                             className="input-password"
+                            autoComplete="new-password"
                           />
                           <button
                             type="button"

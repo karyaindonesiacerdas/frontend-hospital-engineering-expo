@@ -6,32 +6,53 @@ import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import toast from "react-hot-toast";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
 import { useAuth } from "@/contexts/auth.context";
 import { SubmitButton } from "@/components/common";
 
+type LoginInputs = {
+  email: string;
+  password: string;
+};
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email must be valid")
+    .required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
+
 const Login: NextPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("auth");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { user, login } = useAuth();
+  const { login } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<LoginInputs>({
+    resolver: yupResolver(schema),
+  });
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
     try {
       await login({ email, password });
-      setIsLoading(false);
+      toast.success("Logged in");
       await router.push("/main-hall");
     } catch (error) {
-      setIsLoading(false);
+      toast.error("Invalid Credentials");
       console.log({ error });
     }
   };
+
+  console.log({ errors });
 
   return (
     <AuthPageLayout>
@@ -54,7 +75,7 @@ const Login: NextPage = () => {
           <h2 className="text-2xl font-bold text-center">{t("login-tag")}</h2>
         </div>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* <!-- Email --> */}
           <div className="mb-4">
             <label
@@ -66,14 +87,16 @@ const Login: NextPage = () => {
             <div className="mt-1">
               <input
                 id="email"
-                name="email"
                 type="email"
                 autoComplete="username"
                 className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
               />
-              <span className="text-sm text-red-500">Input error</span>
+              {errors?.email && (
+                <span className="text-sm text-red-500">
+                  {errors?.email?.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -87,12 +110,10 @@ const Login: NextPage = () => {
             <div className="mt-1 relative rounded-md shadow-sm">
               <input
                 id="password"
-                name="password"
                 autoComplete="current-password"
                 type={showPassword ? "text" : "password"}
                 className="focus:outline-none pl-3 py-2 focus:ring-[#00B4BF] focus:border-[#00B4BF] block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
               />
               <button
                 type="button"
@@ -106,11 +127,18 @@ const Login: NextPage = () => {
                 )}
               </button>
             </div>
-            <span className="text-sm text-red-500">Input error</span>
+            {errors?.password && (
+              <span className="text-sm text-red-500">
+                {errors?.password?.message}
+              </span>
+            )}
           </div>
 
           <div>
-            <SubmitButton isLoading={isLoading} i18nText="login"></SubmitButton>
+            <SubmitButton
+              isLoading={isSubmitting}
+              i18nText="login"
+            ></SubmitButton>
           </div>
         </form>
 

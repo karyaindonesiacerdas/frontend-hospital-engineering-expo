@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -25,6 +26,8 @@ import {
   NameCardModal,
 } from "@/components/virtual-booth-10";
 import { Poster } from "@/components/virtual-booth-10/type";
+import { FullPageLoader } from "@/components/common";
+import { useAuth } from "@/contexts/auth.context";
 
 const posters = {
   poster1: {
@@ -86,11 +89,23 @@ const card = {
 const catalogSrc = "/catalog-example.pdf";
 
 const VirtualBooth10: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openPosterModal, setOpenPosterModal] = useState(false);
   const [openNameCardModal, setOpenNameCardModal] = useState(false);
   const [selectedPoster, setSelectedPoster] = useState<Poster>();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
 
   return (
     <>
