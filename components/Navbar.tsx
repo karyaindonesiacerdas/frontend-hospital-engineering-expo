@@ -6,7 +6,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const userNavigation = [
   { name: "My Account", href: "/my-account" },
-  { name: "Setting Booth", href: "/settings/exhibitor" },
+  { name: "Setting Exhibitor", href: "/settings/exhibitor" },
   { name: "Sign out", href: "/login" },
 ];
 
