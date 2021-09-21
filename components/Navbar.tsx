@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { useAuth } from "@/contexts/auth.context";
 
 const userNavigation = [
   { name: "My Account", href: "/my-account" },
   { name: "Setting Exhibitor", href: "/settings/exhibitor" },
-  { name: "Sign out", href: "/login" },
+  // { name: "Sign out", href: "/login" },
 ];
 
 const navigation = [
@@ -34,6 +35,8 @@ type Props = {
 };
 
 export const Navbar = ({ variant = "light", currentHref }: Props) => {
+  const { logout } = useAuth();
+
   return (
     <header className="bg-transparent z-10 sticky">
       <Disclosure
@@ -197,6 +200,14 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                               )}
                             </Menu.Item>
                           ))}
+                          <Menu.Item>
+                            <button
+                              onClick={logout}
+                              className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                            >
+                              Logout
+                            </button>
+                          </Menu.Item>
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -285,6 +296,12 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                       {item.name}
                     </a>
                   ))}
+                  <button
+                    onClick={logout}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-500"
+                  >
+                    Logout
+                  </button>
                 </div>
               </div>
             </Disclosure.Panel>

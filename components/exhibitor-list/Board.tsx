@@ -22,8 +22,8 @@ const Board = () => {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            // onSwiper={(swiper) => console.log(swiper)}
+            // onSlideChange={() => console.log("slide change")}
           >
             {/* Slide  1 X 2 */}
             <SwiperSlide style={{ paddingBottom: "2vw" }}>

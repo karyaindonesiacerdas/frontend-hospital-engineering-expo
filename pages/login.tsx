@@ -1,16 +1,37 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
+import { useAuth } from "@/contexts/auth.context";
+import { SubmitButton } from "@/components/common";
 
 const Login: NextPage = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("auth");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, login } = useAuth();
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      await login({ email, password });
+      setIsLoading(false);
+      await router.push("/main-hall");
+    } catch (error) {
+      setIsLoading(false);
+      console.log({ error });
+    }
+  };
 
   return (
     <AuthPageLayout>
@@ -33,9 +54,9 @@ const Login: NextPage = () => {
           <h2 className="text-2xl font-bold text-center">{t("login-tag")}</h2>
         </div>
 
-        <form action="#" className="space-y-4" method="POST">
+        <form onSubmit={handleLogin}>
           {/* <!-- Email --> */}
-          <div>
+          <div className="mb-4">
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
@@ -47,13 +68,16 @@ const Login: NextPage = () => {
                 id="email"
                 name="email"
                 type="email"
+                autoComplete="username"
                 className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-[#00B4BF] focus:border-[#00B4BF] sm:text-sm border-gray-300"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <span className="text-sm text-red-500">Input error</span>
             </div>
           </div>
 
-          <div>
+          <div className="mb-4">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
@@ -64,12 +88,15 @@ const Login: NextPage = () => {
               <input
                 id="password"
                 name="password"
+                autoComplete="current-password"
                 type={showPassword ? "text" : "password"}
                 className="focus:outline-none pl-3 py-2 focus:ring-[#00B4BF] focus:border-[#00B4BF] block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 px-3 flex items-center"
+                className="absolute inset-y-0 right-0 px-3 flex items-center "
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
@@ -79,17 +106,11 @@ const Login: NextPage = () => {
                 )}
               </button>
             </div>
+            <span className="text-sm text-red-500">Input error</span>
           </div>
 
           <div>
-            <Link href="/main-hall">
-              <a
-                // type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF]"
-              >
-                {t("login")}
-              </a>
-            </Link>
+            <SubmitButton isLoading={isLoading} i18nText="login"></SubmitButton>
           </div>
         </form>
 

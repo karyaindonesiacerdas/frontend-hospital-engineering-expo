@@ -5,7 +5,7 @@ import styles from "./ExhibitorListLink.module.css";
 export const ExhibitorListLink = () => {
   return (
     <div className={styles.link}>
-      <Link href="exhibitors">
+      <Link href="/exhibitors">
         <a className="h-full bg-[#A6FAFF] bg-opacity-100 w-full rounded-md text-[#00B4BF] border-[4px] border-[#00B4BF] flex items-center justify-center space-x-2">
           <svg
             aria-hidden="true"

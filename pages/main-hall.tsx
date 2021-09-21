@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { VideoModal } from "@/components/VideoModal";
 import { ChatModal } from "@/components/ChatModal";
+import { FullPageLoader } from "@/components/common/FullPageLoader";
 import {
   ExhibitorListLink,
   SeminarRoomLink,
@@ -12,10 +14,25 @@ import {
   Advertisement1,
   Advertisement2,
 } from "@/components/main-hall";
+import { useAuth } from "@/contexts/auth.context";
 
 const MainHall: NextPage = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading || !isAuthenticated) {
+    return <FullPageLoader />;
+  }
+
+  console.log({ user });
 
   return (
     <>
