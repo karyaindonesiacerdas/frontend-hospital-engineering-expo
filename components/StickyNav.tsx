@@ -6,10 +6,7 @@ export const StickyNav = () => {
 
   return (
     <header className="block lg:hidden bg-transparent sticky z-10">
-      <nav
-        x-data="{openProfileDropdown: false, openMobileMenu: false}"
-        className="bg-transparent"
-      >
+      <nav className="bg-transparent">
         <div
           className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white rounded-t-lg lg:rounded-b-lg bg-opacity-50 shadow"
           style={{ backdropFilter: "blur(20px)" }}
@@ -44,7 +41,6 @@ export const StickyNav = () => {
                 aria-expanded="false"
               >
                 <span className="sr-only">Toggle Mobile Nav</span>
-                {/* x-bind:class="! openMobileMenu ? 'block' : 'hidden'"  */}
                 {isMobileNavOpen ? (
                   <svg
                     className="h-6 w-6"

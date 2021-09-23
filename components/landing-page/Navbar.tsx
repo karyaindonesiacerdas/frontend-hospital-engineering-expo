@@ -144,7 +144,7 @@ export const Navbar = ({ variant }: Props) => {
           </li>
 
           {/* <!-- Overview --> */}
-          <Popover as="li" className="relative" x-data="{open: false}">
+          <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
@@ -180,7 +180,7 @@ export const Navbar = ({ variant }: Props) => {
           </Popover>
 
           {/* <!-- Visitor --> */}
-          <Popover as="li" className="relative" x-data="{open: false}">
+          <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
@@ -216,7 +216,7 @@ export const Navbar = ({ variant }: Props) => {
           </Popover>
 
           {/* <!-- Exhibitor --> */}
-          <Popover as="li" className="relative" x-data="{open: false}">
+          <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
@@ -252,7 +252,7 @@ export const Navbar = ({ variant }: Props) => {
           </Popover>
 
           {/* // <!-- FAQ --> */}
-          <Popover as="li" className="relative" x-data="{open: false}">
+          <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
@@ -288,7 +288,7 @@ export const Navbar = ({ variant }: Props) => {
           </Popover>
         </ul>
         <ul className="flex items-center space-x-4 lg:space-x-8 font-medium">
-          <Popover as="li" className="relative" x-data="{open: false}">
+          <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"

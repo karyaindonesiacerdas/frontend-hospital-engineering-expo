@@ -528,9 +528,7 @@ const RegisterExhibitor: NextPage = () => {
                     {t("package")}
                   </label>
                   <div className="mt-1 mb-4">
-                    {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                     <select
-                      x-model="package"
                       id="job"
                       name="job"
                       className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
@@ -560,7 +558,7 @@ const RegisterExhibitor: NextPage = () => {
                     </span>
                   </div>
 
-                  <div x-show="package === 'Custom'">
+                  <div>
                     <fieldset className="mb-4">
                       <legend className="block text-sm font-medium text-gray-700 mb-1">
                         {t("opening.label")}

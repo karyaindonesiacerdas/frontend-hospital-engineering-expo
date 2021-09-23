@@ -73,11 +73,15 @@ const Hero = () => {
         <SwiperSlide>
           <div className="swiper-slide relative bg-gradient-to-b from-[#00B4BF] to-transparent">
             <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent"></div>
-            <img
-              className="object-cover w-full h-full mix-blend-overlay swiper-slide"
-              src="/main-hall.jpg"
-              alt="Hospital Engineering Forum 2021"
-            />
+            <picture>
+              <source srcSet="/webp/main-hall.webp" type="image/webp" />
+              <source srcSet="/main-hall.jpg" type="image/jpeg" />
+              <img
+                className="object-cover w-full h-full mix-blend-overlay swiper-slide"
+                src="/main-hall.jpg"
+                alt="Hospital Engineering Forum 2021"
+              />
+            </picture>
             <div className="mx-auto max-w-7xl w-full flex justify-center px-2">
               <div className="absolute top-1/2 -translate-y-1/2">
                 <div>

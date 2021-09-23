@@ -52,8 +52,6 @@ const Login: NextPage = () => {
     }
   };
 
-  console.log({ errors });
-
   return (
     <AuthPageLayout>
       <div className="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10 max-w-md">

@@ -14,7 +14,15 @@ const Home: NextPage = () => {
 
   return (
     <LandingPageLayout>
-      <NextSeo title={t("index.title")} description={t("index.description")} />
+      <NextSeo
+        title={t("index.title")}
+        description={t("index.description")}
+        twitter={{
+          handle: "@handle",
+          site: "hospital-engineering-expo.com",
+          cardType: "summary_large_image",
+        }}
+      />
       <Hero />
       {/* Count Down, Event */}
       <section className="relative bg-gradient-to-b from-[#1DBAC4] to-white pb-10 lg:pb-20 lg:min-h-screen z-0">

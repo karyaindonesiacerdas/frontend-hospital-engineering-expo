@@ -157,7 +157,6 @@ const Consultation: NextPage = () => {
                           {user.role === "visitor" && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <a
-                                x-text="consultation.exhibitor"
                                 href={consultation.link_booth}
                                 className="text-sm text-gray-900 hover:text-primary"
                               >
