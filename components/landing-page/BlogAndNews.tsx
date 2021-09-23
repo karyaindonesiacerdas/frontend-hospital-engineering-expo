@@ -25,11 +25,13 @@ export const BlogAndNews = () => {
               className="w-full h-full object-center object-cover group-hover:opacity-75"
             />
           </div>
-          <div className="mt-4 text-primary font-medium">September 1, 2021</div>
+          <div className="mt-4 text-primary-700 font-medium">
+            September 1, 2021
+          </div>
           <h3 className="mt-2 text-gray-700 font-medium">
             IAHE Announces its First Hospital Engineering Forum
           </h3>
-          <button className="mt-6 bg-primary hover:bg-[#116368] text-white px-3 py-1 rounded-lg ">
+          <button className="mt-6 bg-primary-700 hover:bg-primary-600 text-white px-3 py-1 rounded-lg ">
             {t("blog.read-more")}
           </button>
         </a>

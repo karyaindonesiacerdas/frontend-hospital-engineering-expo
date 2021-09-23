@@ -53,6 +53,7 @@ export const Footer = () => {
             <div className="aspect-w-5 aspect-h-3 rounded-lg overflow-hidden">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1407117932863!2d106.84116471529533!3d-6.245180562891369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3b85bf3e09d%3A0x160234e756fdf17b!2sWisma%20NH!5e0!3m2!1sid!2sid!4v1631966539831!5m2!1sid!2sid"
+                title="Address"
                 width="600"
                 height="450"
                 style={{ border: 0 }}
@@ -74,6 +75,7 @@ export const Footer = () => {
               className="text-gray-400 hover:text-white"
               href="https://facebook.com"
             >
+              <span className="sr-only">Facebook Link</span>
               <svg
                 className="fill-current w-10 h-10"
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,6 +90,8 @@ export const Footer = () => {
               className="text-gray-400 hover:text-white"
               href="https://twitter.com"
             >
+              <span className="sr-only">Twitter Link</span>
+
               <svg
                 className="fill-current w-10 h-10"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,6 +106,8 @@ export const Footer = () => {
               className="text-gray-400 hover:text-white"
               href="https://linkedin.com"
             >
+              <span className="sr-only">Linked in Link</span>
+
               <svg
                 className="fill-current w-10 h-10"
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,10 +120,10 @@ export const Footer = () => {
             </a>
           </div>
           <div className="flex space-x-4 self-center justify-self-center md:justify-self-end">
-            <a className="text-gray-400 hover:text-white text-sm" href="">
+            <a className="text-gray-400 hover:text-white text-sm" href="#">
               Privacy Policy
             </a>
-            <a className="text-gray-400 hover:text-white text-sm" href="">
+            <a className="text-gray-400 hover:text-white text-sm" href="#">
               Terms of Use
             </a>
           </div>
