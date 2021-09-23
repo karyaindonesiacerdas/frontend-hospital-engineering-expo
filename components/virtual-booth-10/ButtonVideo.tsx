@@ -34,6 +34,17 @@ export const ButtonVideo = ({ onClick }: Props) => {
             >
               https://karya-indonesia-cerdas.com/
             </div>
+            <div
+              style={{
+                fontSize: "0.7vw",
+                maxWidth: "25vw",
+                marginTop: "0.3vw",
+              }}
+              className="text-gray-500 space-x-2"
+            >
+              <span>info@karya-indonesia-cerdas.com,</span>
+              <span>+62895385290704</span>
+            </div>
           </div>
         </div>
         <span className="sr-only">Open Video</span>

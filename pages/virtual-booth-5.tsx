@@ -21,6 +21,7 @@ import {
 } from "@/components/virtual-booth-5";
 import { PosterModal } from "@/components/PosterModal";
 import { NameCardModal } from "@/components/NameCardModal";
+import { CatalogModal } from "@/components/CatalogModal";
 import { BookingConsultationModal } from "@/components/BookingConsultationModal";
 import { Poster } from "@/components/virtual-booth-5/type";
 import { FullPageLoader } from "@/components/common";
@@ -68,6 +69,7 @@ const VirtualBooth5: NextPage = () => {
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openPosterModal, setOpenPosterModal] = useState(false);
   const [openNameCardModal, setOpenNameCardModal] = useState(false);
+  const [openCatalogModal, setOpenCatalogModal] = useState(false);
   const [openBookingConsultationModal, setOpenBookingConsultationModal] =
     useState(false);
   const [selectedPoster, setSelectedPoster] = useState<Poster>();
@@ -121,6 +123,11 @@ const VirtualBooth5: NextPage = () => {
             setOpen={setOpenNameCardModal}
             card={card}
           />
+          <CatalogModal
+            catalog={{ src: catalogSrc }}
+            open={openCatalogModal}
+            setOpen={setOpenCatalogModal}
+          />
           <BookingConsultationModal
             open={openBookingConsultationModal}
             setOpen={setOpenBookingConsultationModal}
@@ -129,7 +136,7 @@ const VirtualBooth5: NextPage = () => {
 
         {/* Absolute Position */}
         <Banner1 onClick={() => setOpenNameCardModal(true)} card={card} />
-        <Banner2 src={catalogSrc} />
+        <Banner2 onClick={() => setOpenCatalogModal(true)} />
         <Poster1
           poster={posters.poster1}
           onClick={() => {

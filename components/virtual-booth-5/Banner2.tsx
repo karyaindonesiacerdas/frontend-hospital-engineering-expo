@@ -2,16 +2,15 @@ import React from "react";
 import styles from "./Banner2.module.css";
 
 type Props = {
-  src?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Banner2 = ({ src }: Props) => {
+export const Banner2 = ({ onClick }: Props) => {
   return (
     <div className="group">
       <div className={styles.bannerWrapper}>
-        <a
-          href={src}
-          download
+        <button
+          onClick={onClick}
           className={styles.banner}
           style={{ backgroundImage: "url('/catalog-example.PNG')" }}
         >
@@ -19,7 +18,7 @@ export const Banner2 = ({ src }: Props) => {
           <span className="text-white z-10 font-bold text-center">
             Download Catalog
           </span>
-        </a>
+        </button>
       </div>
     </div>
   );
