@@ -17,13 +17,15 @@ import {
   BookingConsultation,
   BoothChat,
   ButtonVideo,
-  PosterModal,
-  NameCardModal,
   BoothCS,
 } from "@/components/virtual-booth-5";
+import { PosterModal } from "@/components/PosterModal";
+import { NameCardModal } from "@/components/NameCardModal";
+import { BookingConsultationModal } from "@/components/BookingConsultationModal";
 import { Poster } from "@/components/virtual-booth-5/type";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
+import { BackButton } from "@/components/BackButton";
 
 const posters = {
   poster1: {
@@ -66,6 +68,8 @@ const VirtualBooth5: NextPage = () => {
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openPosterModal, setOpenPosterModal] = useState(false);
   const [openNameCardModal, setOpenNameCardModal] = useState(false);
+  const [openBookingConsultationModal, setOpenBookingConsultationModal] =
+    useState(false);
   const [selectedPoster, setSelectedPoster] = useState<Poster>();
 
   useEffect(() => {
@@ -99,6 +103,7 @@ const VirtualBooth5: NextPage = () => {
 
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
+          <BackButton href="/exhibitors" text="Exhibitor List" />
           {/* ### Modals ### */}
           <VideoModal
             open={openVideoModal}
@@ -115,6 +120,10 @@ const VirtualBooth5: NextPage = () => {
             open={openNameCardModal}
             setOpen={setOpenNameCardModal}
             card={card}
+          />
+          <BookingConsultationModal
+            open={openBookingConsultationModal}
+            setOpen={setOpenBookingConsultationModal}
           />
         </main>
 
@@ -156,7 +165,9 @@ const VirtualBooth5: NextPage = () => {
             setSelectedPoster(posters.poster5);
           }}
         />
-        <BookingConsultation />
+        <BookingConsultation
+          onClick={() => setOpenBookingConsultationModal(true)}
+        />
         <BoothChat onClick={() => setOpenChatModal(true)} />
         <ButtonVideo onClick={() => setOpenVideoModal(true)} />
         <BoothCS />

@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { Transition, Dialog } from "@headlessui/react";
+import { format } from "timeago.js";
 import { useForm } from "react-hook-form";
 
 type Props = {
@@ -8,9 +9,22 @@ type Props = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
+type Message = {
+  senderId: number;
+  body: string;
+  time: Date;
+};
+
+type Chat = {
+  userId: number;
+  name: string;
+  avatar: string;
+  messages: Message[];
+};
+
 const myUserId = 1;
 
-const chats = [
+const chats: Chat[] = [
   {
     userId: 2,
     name: "John Doe",
@@ -19,19 +33,23 @@ const chats = [
     messages: [
       {
         senderId: 2,
-        message: "Halo",
+        body: "Halo",
+        time: new Date(),
       },
       {
         senderId: 1,
-        message: "Ya halo",
+        body: "Ya halo",
+        time: new Date(),
       },
       {
         senderId: 1,
-        message: "Ada yang bisa kami bantu",
+        body: "Ada yang bisa kami bantu",
+        time: new Date(),
       },
       {
         senderId: 2,
-        message: "Saya tertarik dengan produk perusahaan anda",
+        body: "Saya tertarik dengan produk perusahaan anda",
+        time: new Date(),
       },
     ],
   },
@@ -43,23 +61,28 @@ const chats = [
     messages: [
       {
         senderId: 2,
-        message: "Halo",
+        body: "Halo",
+        time: new Date(),
       },
       {
         senderId: 1,
-        message: "Ya halo",
+        body: "Ya halo",
+        time: new Date(),
       },
       {
         senderId: 1,
-        message: "Ada yang bisa kami bantu",
+        body: "Ada yang bisa kami bantu",
+        time: new Date(),
       },
       {
         senderId: 2,
-        message: "Dimana saya dapat melihat detail lengkap produk anda?",
+        body: "Dimana saya dapat melihat detail lengkap produk anda?",
+        time: new Date(),
       },
       {
         senderId: 2,
-        message: "Apakah ada website yang dapat saya kunjungi",
+        body: "Apakah ada website yang dapat saya kunjungi",
+        time: new Date(),
       },
     ],
   },
@@ -67,7 +90,7 @@ const chats = [
 
 export const ChatModal = ({ open, setOpen }: Props) => {
   const cancelButtonRef = useRef(null);
-  const [selectedChat, setSelectedChat] = useState();
+  const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -123,37 +146,51 @@ export const ChatModal = ({ open, setOpen }: Props) => {
 
                   {/* <!-- Chat list --> */}
                   <ul className="divide-y divide-gray-200 max-h-[400px] overflow-y-auto">
-                    <ChatListItem />
-                    <ChatListItem />
-                    <ChatListItem />
-                    <ChatListItem />
-                    <ChatListItem />
-                    <ChatListItem />
+                    {chats.map((chat) => (
+                      <ChatListItem
+                        key={chat.userId}
+                        chat={chat}
+                        selectedChat={selectedChat}
+                        setSelectedChat={setSelectedChat}
+                      />
+                    ))}
                   </ul>
                 </div>
 
                 {/* Right Panel */}
-                <div className="w-3/4 relative chat-bg">
-                  {/* <!-- Chat Header --> */}
-                  <ChatMessageHeader setOpen={setOpen} />
+                {selectedChat && (
+                  <div className="w-3/4 relative chat-bg">
+                    {/* <!-- Chat Header --> */}
+                    <ChatMessageHeader
+                      selectedChat={selectedChat}
+                      setOpen={setOpen}
+                    />
 
-                  <div className="flex flex-col max-h-[456px] h-full">
-                    {/* <!-- Chat Body --> */}
-                    <div className="overflow-auto ">
-                      <ul className="pl-1.5 pr-1 sm:px-4 py-2 w-full flex flex-col space-y-2 items-start">
-                        <ChatItemBuddy />
-                        <ChatItemYou />
-                        <ChatItemBuddy />
-                        <ChatItemYou />
-                        <ChatItemBuddy />
-                        <ChatItemYou />
-                      </ul>
+                    <div className="flex flex-col max-h-[456px] h-full">
+                      {/* <!-- Chat Body --> */}
+                      <div className="overflow-auto ">
+                        <ul className="pl-1.5 pr-1 sm:px-4 py-2 w-full flex flex-col space-y-2 items-start">
+                          {selectedChat.messages.map((message, index) => (
+                            <ChatItem
+                              key={`${index}`}
+                              message={message}
+                              senderName={selectedChat.name}
+                            />
+                          ))}
+                          {/* <ChatItemBuddy />
+                          <ChatItemYou />
+                          <ChatItemBuddy />
+                          <ChatItemYou />
+                          <ChatItemBuddy />
+                          <ChatItemYou /> */}
+                        </ul>
+                      </div>
+
+                      {/* <!-- Chat input --> */}
+                      <ChatInput />
                     </div>
-
-                    {/* <!-- Chat input --> */}
-                    <ChatInput />
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </Transition.Child>
@@ -197,26 +234,42 @@ const Search = () => {
   );
 };
 
-const ChatListItem = () => {
+type ChatListItemProps = {
+  chat: Chat;
+  selectedChat: Chat | null;
+  setSelectedChat: Dispatch<SetStateAction<Chat | null>>;
+};
+
+const ChatListItem = ({
+  chat,
+  selectedChat,
+  setSelectedChat,
+}: ChatListItemProps) => {
   return (
-    <li className="group cursor-pointer">
-      <div className="flex items-start space-x-3 px-0 pr-1 sm:px-4 group-hover:bg-gray-100 py-4">
+    <li className={`group cursor-pointer`}>
+      <div
+        className={`flex items-start space-x-3 px-0 pr-1 sm:px-4 group-hover:bg-gray-100 py-4 ${
+          selectedChat?.userId === chat.userId ? "bg-gray-100" : ""
+        }`}
+        onClick={() => setSelectedChat(chat)}
+      >
         <Image
           width={35}
           height={35}
+          objectFit="cover"
           className="hidden sm:block rounded-full"
-          src="/dayat.jpg"
-          alt="John Doe"
+          src={chat.avatar}
+          alt={chat.name}
         />
         <div className="flex-1 space-y-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium">John Doe</h3>
-            <p className="text-sm text-gray-500">1h</p>
+            <h3 className="text-sm font-medium">{chat.name}</h3>
+            <p className="text-sm text-gray-500">
+              {format(chat.messages[chat.messages.length - 1].time)}
+            </p>
           </div>
           <p className="text-sm text-gray-500 line-clamp-2">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
-            exercitationem libero aspernatur non. Quis, vitae iure quae
-            reprehenderit
+            {chat.messages[chat.messages.length - 1].body}
           </p>
         </div>
       </div>
@@ -226,20 +279,24 @@ const ChatListItem = () => {
 
 type MessageHeaderProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
+  selectedChat: Chat;
 };
 
-const ChatMessageHeader = ({ setOpen }: MessageHeaderProps) => {
+const ChatMessageHeader = ({ setOpen, selectedChat }: MessageHeaderProps) => {
   return (
     <div className="py-2 px-4 border-b border-gray-200 h-12 flex justify-between items-center bg-white">
       <div className="flex items-center space-x-3">
         <Image
           width={35}
           height={35}
+          objectFit="cover"
           className="h-8 w-8 rounded-full"
-          src="/dayat.jpg"
-          alt=""
+          src={selectedChat.avatar}
+          alt={selectedChat.name}
         />
-        <h3 className="text-xl font-medium text-gray-600 mr-20">John Doe</h3>
+        <h3 className="text-xl font-medium text-gray-600 mr-20">
+          {selectedChat.name}
+        </h3>
       </div>
       <button
         onClick={() => setOpen(false)}
@@ -273,39 +330,49 @@ const ChatMessageHeader = ({ setOpen }: MessageHeaderProps) => {
   );
 };
 
-const ChatItemBuddy = () => {
+type ChatItemProps = {
+  senderName: string;
+  message: Message;
+};
+
+const ChatItem = ({ message, senderName }: ChatItemProps) => {
   return (
-    <li className="group cursor-pointer max-w-[95%] sm:max-w-[60%]">
-      <div className="flex-1 space-y-0.5 bg-white rounded-md shadow px-3 py-2">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">John Doe</h3>
-          <p className="text-sm text-gray-500">1h</p>
+    <li
+      className={`group cursor-pointer max-w-[95%] sm:max-w-[60%] ${
+        message.senderId === myUserId ? "self-end" : ""
+      }`}
+    >
+      <div
+        className={`flex-1 space-y-0.5 rounded-md shadow px-3 py-2 ${
+          message.senderId === myUserId ? "bg-primary-50" : "bg-white"
+        }`}
+      >
+        <div className="flex items-center justify-between space-x-6">
+          <h3 className="text-sm font-medium">{senderName}</h3>
+          <p className="text-sm text-gray-500">{format(message.time)}</p>
         </div>
-        <p className="text-sm text-gray-700">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
-          exercitationem libero aspernatur non.
-        </p>
+        <p className="text-sm text-gray-700">{message.body}</p>
       </div>
     </li>
   );
 };
 
-const ChatItemYou = () => {
-  return (
-    <li className="group cursor-pointer max-w-[95%] sm:max-w-[60%] self-end">
-      <div className="flex-1 space-y-0.5 bg-primary-50 rounded-md shadow px-3 py-2">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">You</h3>
-          <p className="text-sm text-gray-500">1h</p>
-        </div>
-        <p className="text-sm text-gray-700">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
-          exercitationem libero aspernatur non.
-        </p>
-      </div>
-    </li>
-  );
-};
+// const ChatItemYou = () => {
+//   return (
+//     <li className="group cursor-pointer max-w-[95%] sm:max-w-[60%] self-end">
+//       <div className="flex-1 space-y-0.5 bg-primary-50 rounded-md shadow px-3 py-2">
+//         <div className="flex items-center justify-between">
+//           <h3 className="text-sm font-medium">You</h3>
+//           <p className="text-sm text-gray-500">1h</p>
+//         </div>
+//         <p className="text-sm text-gray-700">
+//           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
+//           exercitationem libero aspernatur non.
+//         </p>
+//       </div>
+//     </li>
+//   );
+// };
 
 const ChatInput = () => {
   const [previewImg, setPreviewImg] = useState("");

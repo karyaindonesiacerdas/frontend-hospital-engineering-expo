@@ -12,6 +12,7 @@ import {
 } from "@/components/seminar-room";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
+import { BackButton } from "@/components/BackButton";
 
 const SeminarRoom: NextPage = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const SeminarRoom: NextPage = () => {
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
+          <BackButton href="/main-hall" text="Main Hall" />
           <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
         </main>
 

@@ -42,7 +42,7 @@ export const AuthProvider: FC = ({ children }) => {
 
   const login = async ({ email, password }: LoginProps) => {
     const res = await fetch(
-      "http://api.hospital-engineering-expo.com/api/auth/login",
+      "https://api.hospital-engineering-expo.com/api/auth/login",
       {
         method: "POST",
         headers: {

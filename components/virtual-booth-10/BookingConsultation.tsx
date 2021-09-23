@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "./BookingConsultation.module.css";
 
-export const BookingConsultation = () => {
+type Props = {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export const BookingConsultation = ({ onClick }: Props) => {
   return (
     <div className="animate-pulse group hover:animate-none">
       <div className={styles.wrapper}>
-        <button className={styles.button}>
+        <button className={styles.button} onClick={onClick}>
           <div className="absolute inset-0 group-hover:bg-black  group-hover:bg-opacity-80 group-hover:text-white"></div>
           <svg
             className="z-10"

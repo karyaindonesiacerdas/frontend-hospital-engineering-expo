@@ -10,6 +10,4 @@ export * from "./Poster5";
 export * from "./BookingConsultation";
 export * from "./BoothChat";
 export * from "./ButtonVideo";
-export * from "./PosterModal";
-export * from "./NameCardModal";
 export * from "./BoothCS";
