@@ -11,27 +11,45 @@ import "swiper/css/effect-fade";
 const engineeringAreas = (t: any) => [
   {
     name: t("hospital-buildings"),
-    imgSrc: "/hospital-buildings.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-buildings.webp",
+      jpg: "/hospital-buildings.jpg",
+    },
   },
   {
     name: t("hospital-mechanics"),
-    imgSrc: "/hospital-mechanics.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-mechanics.webp",
+      jpg: "/hospital-mechanics.jpg",
+    },
   },
   {
     name: t("hospital-electrics"),
-    imgSrc: "/hospital-electrics.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-electrics.webp",
+      jpg: "/hospital-electrics.jpg",
+    },
   },
   {
     name: t("hospital-environments"),
-    imgSrc: "/hospital-environments.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-environments.webp",
+      jpg: "/hospital-environments.jpg",
+    },
   },
   {
     name: t("hospital-informatics"),
-    imgSrc: "/hospital-informatics.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-informatics.webp",
+      jpg: "/hospital-informatics.jpg",
+    },
   },
   {
     name: t("hospital-devices"),
-    imgSrc: "/hospital-devices.jpg",
+    imgSrc: {
+      webp: "/webp/hospital-devices.webp",
+      jpg: "/hospital-devices.jpg",
+    },
   },
 ];
 
@@ -70,7 +88,7 @@ const Hero = () => {
                     {t("event-title")}
                   </div>
                   <div
-                    className="mt-2 md:mt-4 mb-1 text-md md:text-3xl font-semibold drop-shadow-xl text-white flex items-center justify-center"
+                    className="mt-2 md:mt-4 mb-1 text-sm sm:text-md md:text-3xl font-semibold drop-shadow-xl text-white flex items-center justify-center px-2 sm:px-0"
                     style={{ textShadow: "2px 2px 4px rgba(0,0,0, 0.5)" }}
                   >
                     <span>Webinar Series</span>
@@ -114,11 +132,23 @@ const Hero = () => {
           <SwiperSlide key={engineeringArea.name}>
             <div className="swiper-slide relative bg-gradient-to-b from-[#00B4BF] to-transparent">
               <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent"></div>
-              <img
+              <picture>
+                <source
+                  srcSet={engineeringArea.imgSrc.webp}
+                  type="image/webp"
+                />
+                <source srcSet={engineeringArea.imgSrc.jpg} type="image/jpeg" />
+                <img
+                  className="object-cover w-full h-full mix-blend-overlay swiper-slide"
+                  src={engineeringArea.imgSrc.jpg}
+                  alt={engineeringArea.name}
+                />
+              </picture>
+              {/* <img
                 className="object-cover w-full h-full mix-blend-overlay swiper-slide"
                 src={engineeringArea.imgSrc}
                 alt={engineeringArea.name}
-              />
+              /> */}
               <div className="mx-auto max-w-7xl w-full flex justify-center md:justify-end px-2">
                 <div className="absolute top-1/2 -translate-y-1/2 md:max-w-sm">
                   <div

@@ -116,8 +116,11 @@ export const Header = () => {
           alt="Logo PTPI"
         />
         <div>
-          <div className="text-sm sm:text-lg xl:text-2xl uppercase font-bold text-gray-800 tracking-wider">
+          <div className="hidden sm:block text-sm sm:text-lg xl:text-2xl uppercase font-bold text-gray-800 tracking-wider">
             {t("event-title")}
+          </div>
+          <div className="block sm:hidden text-sm sm:text-lg xl:text-2xl uppercase font-bold text-gray-800 tracking-wider">
+            {t("event-title-short")}
           </div>
           <div className="hidden sm:block text-xs xl:text-md uppercase text-gray-600 tracking-wider">
             {t("event-tagline")}
