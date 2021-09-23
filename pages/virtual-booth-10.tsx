@@ -140,7 +140,7 @@ const VirtualBooth10: NextPage = () => {
           <VideoModal
             open={openVideoModal}
             setOpen={setOpenVideoModal}
-            videoId="3u_vIdnJYLc"
+            videoId="i6veQ8MvNSM"
           />
           <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
           <PosterModal

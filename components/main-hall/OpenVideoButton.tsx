@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const OpenVideoButton = ({ onClick }: Props) => {
-  const videoId = "3u_vIdnJYLc";
+  const videoId = "i6veQ8MvNSM";
   const previewURL = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
   return (
