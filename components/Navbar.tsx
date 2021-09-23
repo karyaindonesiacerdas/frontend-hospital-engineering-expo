@@ -113,7 +113,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 <div className="hidden lg:block">
                   <div className="ml-4 flex items-center lg:ml-6">
                     {user.role === "exhibitor" && (
-                      <Link href="/virtual-booth-5">
+                      <Link href={`/virtual-booth-5?id=${user.id}`}>
                         <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
                           <svg
                             className="w-5 h-5 mr-2"
@@ -173,11 +173,12 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       <div>
-                        <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-primary">
+                        <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-primary border-primary">
                           <span className="sr-only">Open user menu</span>
                           <Image
-                            width={30}
-                            height={30}
+                            width={35}
+                            height={35}
+                            objectFit="cover"
                             className="rounded-full"
                             src={avatarURL}
                             alt={user.name}

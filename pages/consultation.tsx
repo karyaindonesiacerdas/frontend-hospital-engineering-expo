@@ -13,6 +13,7 @@ const consultations = [
     date: "2 October 2021",
     time: "08.00 - 09.00",
     exhibitor: "PT Karya Indonesia Cerdas",
+    visitor: "John Doe",
     link_booth: "virtual-booth-5.html",
     engineering_areas: ["Hospital Informatics", "Hospital Electrics"],
     status: "done",
@@ -22,6 +23,7 @@ const consultations = [
     date: "3 October 2021",
     time: "08.00 - 09.00",
     exhibitor: "PT Karya Indonesia Cerdas",
+    visitor: "Jane Doe",
     link_booth: "virtual-booth-5.html",
     engineering_areas: ["Hospital Informatics"],
     status: "timeout",
@@ -31,6 +33,7 @@ const consultations = [
     date: "3 October 2021",
     time: "11.00 - 11.30",
     exhibitor: "PT Karya Indonesia Cerdas",
+    visitor: "Bob",
     link_booth: "virtual-booth-5.html",
     engineering_areas: ["Hospital Informatics"],
     status: "current",
@@ -40,6 +43,7 @@ const consultations = [
     date: "4 October 2021",
     time: "11.00 - 11.30",
     exhibitor: "PT Karya Indonesia Cerdas",
+    visitor: "Alice",
     link_booth: "virtual-booth-5.html",
     engineering_areas: ["Hospital Informatics", "Hospital Electrics"],
     status: "upcoming",
@@ -103,12 +107,31 @@ const Consultation: NextPage = () => {
                         >
                           Time
                         </th>
-                        <th
-                          scope="col"
-                          className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Exhibitor
-                        </th>
+                        {user.role === "visitor" && (
+                          <th
+                            scope="col"
+                            className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Exhibitor
+                          </th>
+                        )}
+                        {user.role === "exhibitor" && (
+                          <>
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Visitor
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Open
+                            </th>
+                          </>
+                        )}
+
                         <th
                           scope="col"
                           className="relative px-3 sm:px-6 py-3"
@@ -131,18 +154,40 @@ const Consultation: NextPage = () => {
                               {consultation.time}
                             </div>
                           </td>
-                          <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                            <a
-                              x-text="consultation.exhibitor"
-                              href={consultation.link_booth}
-                              className="text-sm text-gray-900 hover:text-primary"
-                            >
-                              {consultation.exhibitor}
-                            </a>
-                            <div className="text-sm text-gray-500">
-                              {consultation.engineering_areas.join(", ")}
-                            </div>
-                          </td>
+                          {user.role === "visitor" && (
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              <a
+                                x-text="consultation.exhibitor"
+                                href={consultation.link_booth}
+                                className="text-sm text-gray-900 hover:text-primary"
+                              >
+                                {consultation.exhibitor}
+                              </a>
+                              <div className="text-sm text-gray-500">
+                                {consultation.engineering_areas.join(", ")}
+                              </div>
+                            </td>
+                          )}
+                          {user.role === "exhibitor" && (
+                            <>
+                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {consultation.visitor}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  RS Indonesia Sehat
+                                </div>
+                              </td>
+                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                                <input
+                                  type="checkbox"
+                                  className="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded"
+                                  defaultChecked={true}
+                                />
+                              </td>
+                            </>
+                          )}
+
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             {consultation.status === "done" ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
@@ -157,7 +202,7 @@ const Consultation: NextPage = () => {
                                 href={consultation.link_zoom}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-bounce"
+                                className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
                               >
                                 Join Zoom
                               </a>
