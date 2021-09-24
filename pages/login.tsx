@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { parseCookies } from "nookies";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
 import { useAuth } from "@/contexts/auth.context";
@@ -40,12 +41,13 @@ const Login: NextPage = () => {
   } = useForm<LoginInputs>({
     resolver: yupResolver(schema),
   });
+  const cookies = parseCookies();
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
+    if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
       router.push("/main-hall");
     }
-  }, [isAuthenticated, isLoading, router]);
+  }, [isAuthenticated, isLoading, router, cookies.access_token, cookies.user]);
 
   const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
     try {
