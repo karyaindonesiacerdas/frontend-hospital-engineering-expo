@@ -57,9 +57,18 @@ const MainHall: NextPage = () => {
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
           <VideoModal
+            videoType="main-hall"
             open={openVideoModal}
             setOpen={setOpenVideoModal}
-            videoId="i6veQ8MvNSM"
+            videoModalDetails={{
+              id: 0,
+              email: "hospital.engineering.expo@gmail.com",
+              name: "Hospital Engineering Forum 2021",
+              phone: "+62 858 9377 7283 (Adrian)",
+              videoUrl:
+                "https://www.youtube.com/watch?v=CXg2xeULoa0&ab_channel=HospitalEngineeringExpo",
+              website: "https://hospital-engineering-expo.com/",
+            }}
           />
           <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
         </main>

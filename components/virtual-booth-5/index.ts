@@ -1,4 +1,4 @@
-export * from "./Banner1";
+export * from "./NameCard";
 export * from "./Banner2";
 
 export * from "./Poster1";

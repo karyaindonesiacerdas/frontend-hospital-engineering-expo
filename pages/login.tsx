@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,7 +32,7 @@ const Login: NextPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("auth");
-  const { login } = useAuth();
+  const { login, isAuthenticated, isLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -40,6 +40,12 @@ const Login: NextPage = () => {
   } = useForm<LoginInputs>({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.push("/main-hall");
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
     try {

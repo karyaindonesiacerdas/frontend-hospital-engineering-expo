@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SeminarScreen.module.css";
 
 export const SeminarScreen = () => {
-  const videoId = "i6veQ8MvNSM";
+  const videoId = "CXg2xeULoa0";
   return (
     <div className={styles.seminar}>
       <div>
@@ -14,6 +14,15 @@ export const SeminarScreen = () => {
           frameBorder="0"
           allow="autoplay; loop; fullscreen"
         ></iframe>
+        {/* <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/Mp-rGsO5sdA"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe> */}
       </div>
     </div>
   );

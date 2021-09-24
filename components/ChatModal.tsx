@@ -128,13 +128,13 @@ export const ChatModal = ({ open, setOpen }: Props) => {
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const cookies = parseCookies();
 
-  const { isLoading, error, data } = useQuery("contact-list", () =>
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/chat/contact-list`, {
-        headers: { Authorization: `Bearer ${cookies.access_token}` },
-      })
-      .then((res) => res.data)
-  );
+  // const { isLoading, error, data } = useQuery("contact-list", () =>
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/chat/contact-list`, {
+  //       headers: { Authorization: `Bearer ${cookies.access_token}` },
+  //     })
+  //     .then((res) => res.data)
+  // );
 
   return (
     <Transition.Root show={open} as={Fragment}>

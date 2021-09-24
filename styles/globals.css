@@ -66,7 +66,7 @@
   background-color: #aaaaaa;
 }
 
-.swiper-pagination-bullet {
+/* .swiper-pagination-bullet {
   border-radius: 0 !important;
   width: 16px !important;
   height: 16px !important;
@@ -81,7 +81,7 @@
   text-align: left !important;
   margin-left: 3vw !important;
   margin-bottom: 1vw !important;
-}
+} */
 
 .overlay-nav {
   background-color: rgba(0, 0, 0, 0.5);

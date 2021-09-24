@@ -7,10 +7,10 @@ const securityHeaders = [
     key: "X-XSS-Protection",
     value: "1; mode=block",
   },
-  {
-    key: "X-Frame-Options",
-    value: "SAMEORIGIN",
-  },
+  // {
+  //   key: "X-Frame-Options",
+  //   value: "SAMEORIGIN",
+  // },
   {
     key: "X-Content-Type-Options",
     value: "nosniff",
@@ -29,29 +29,12 @@ module.exports = {
     ];
   },
   images: {
-    domains: ["via.placeholder.com", "images.unsplash.com", "ui-avatars.com"],
+    domains: [
+      "via.placeholder.com",
+      "images.unsplash.com",
+      "ui-avatars.com",
+      "api.hospital-engineering-expo.com",
+    ],
   },
   i18n,
 };
-
-// async headers() {
-//   return [
-//     {
-//       source: "/(.*)",
-//       headers: [
-//         {
-//           key: "X-Content-Type-Options",
-//           value: "nosniff",
-//         },
-//         {
-//           key: "X-Frame-Options",
-//           value: "DENY",
-//         },
-//         {
-//           key: "X-XSS-Protection",
-//           value: "1; mode=block",
-//         },
-//       ],
-//     },
-//   ];
-// },

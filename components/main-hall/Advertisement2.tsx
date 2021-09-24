@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Advertisement2.module.css";
 
 export const Advertisement2 = () => {
-  const videoId = "i6veQ8MvNSM";
+  const videoId = "CXg2xeULoa0";
 
   return (
     <div className={styles.advertisement}>

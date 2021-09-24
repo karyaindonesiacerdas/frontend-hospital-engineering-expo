@@ -3,9 +3,15 @@ import styles from "./ButtonVideo.module.css";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  companyDetails: {
+    name: string;
+    email: string;
+    website: string;
+    phone: string;
+  };
 };
 
-export const ButtonVideo = ({ onClick }: Props) => {
+export const ButtonVideo = ({ onClick, companyDetails }: Props) => {
   return (
     <div className="group">
       <button className={styles.button} onClick={onClick}>
@@ -27,12 +33,12 @@ export const ButtonVideo = ({ onClick }: Props) => {
             className="flex group-hover:hidden flex-col justify-center items-center w-full h-full"
             style={{ fontSize: "2vw" }}
           >
-            <div className="font-bold">PT. Karya Indonesia Cerdas</div>
+            <div className="font-bold">{companyDetails.name}</div>
             <div
               style={{ fontSize: "0.85vw", maxWidth: "25vw" }}
               className="text-gray-500"
             >
-              https://karya-indonesia-cerdas.com/
+              {companyDetails.website}
             </div>
             <div
               style={{
@@ -42,8 +48,8 @@ export const ButtonVideo = ({ onClick }: Props) => {
               }}
               className="text-gray-500 space-x-2"
             >
-              <span>info@karya-indonesia-cerdas.com,</span>
-              <span>+62895385290704</span>
+              <span>{companyDetails.email},</span>
+              <span>{companyDetails.phone}</span>
             </div>
           </div>
         </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./Poster9.module.css";
-import type { Poster } from "./type";
+import type { Banner } from "types";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  poster?: Poster;
+  banner?: Banner;
 };
 
-export const Poster9 = ({ onClick, poster }: Props) => {
+export const Poster9 = ({ onClick, banner }: Props) => {
   return (
     <div className="group">
       <div className={styles.posterWrapper}>
@@ -15,12 +15,14 @@ export const Poster9 = ({ onClick, poster }: Props) => {
           onClick={onClick}
           className={styles.poster}
           style={{
-            backgroundImage: poster?.src ? `url(${poster?.src})` : "none",
+            backgroundImage: banner?.image
+              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${banner?.image})`
+              : "none",
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-80"></div>
           <span className="text-white z-10 font-bold">
-            {poster?.title || "Empty"}
+            {banner?.display_name || "Empty"}
           </span>
         </button>
       </div>

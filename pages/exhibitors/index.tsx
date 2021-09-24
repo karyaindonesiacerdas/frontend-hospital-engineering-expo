@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { useQuery, useQueryClient } from "react-query";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -14,19 +15,42 @@ import {
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { BackButton } from "@/components/BackButton";
+import axios from "axios";
+import { parseCookies } from "nookies";
+import type { Exhibitor } from "types";
 
 const Board = dynamic(() => import("@/components/exhibitor-list/Board"));
+
+const useExhibitors = () => {
+  const cookies = parseCookies();
+
+  return useQuery<Exhibitor[], Error>(
+    ["exhibitors"],
+    () =>
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/exhibitor`, {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        })
+        .then((res) => res.data.data),
+    { staleTime: 1000 * 60 * 15 }
+  );
+};
 
 const Exhibitors: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
     }
   }, [isAuthenticated, isLoading, router]);
+
+  const { data, error } = useExhibitors();
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
@@ -60,8 +84,8 @@ const Exhibitors: NextPage = () => {
 
         {/* Absolute Position */}
         <BoardHeader />
-        <Board />
-        <SearchAndFilter />
+        {data && <Board exhibitors={data} />}
+        {/* <SearchAndFilter /> */}
       </div>
     </>
   );

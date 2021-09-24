@@ -3,12 +3,13 @@ import { useTranslation } from "next-i18next";
 
 type SubmitButtonProps = {
   isLoading: boolean;
-  i18nText: string;
+  i18nText?: string;
 };
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
   isLoading,
   i18nText,
+  children,
 }) => {
   const { t } = useTranslation("auth");
 
@@ -83,8 +84,10 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
             strokeLinejoin="round"
           />
         </svg>
-      ) : (
+      ) : i18nText ? (
         t(i18nText)
+      ) : (
+        children
       )}
     </button>
   );

@@ -5,6 +5,7 @@ import {
   useCallback,
   Dispatch,
   SetStateAction,
+  FormEventHandler,
 } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import Image from "next/image";
@@ -14,23 +15,37 @@ import {
   CloudUploadIcon,
 } from "@heroicons/react/outline";
 import { useDropzone } from "react-dropzone";
+import { parseCookies } from "nookies";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 import { useAuth } from "@/contexts/auth.context";
+import { Banner } from "types";
+import { SubmitButton } from "./common";
 
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  card: {
-    src: string;
-  };
+  selectedBanner?: Banner;
+  exhibitorId: number;
+  order: number;
 };
 
 const imagePlaceholder = "https://via.placeholder.com/297x420.png";
 
-export const NameCardModal = ({ open, setOpen, card }: Props) => {
+export const NameCardModal = ({
+  open,
+  setOpen,
+  selectedBanner,
+  order,
+  exhibitorId,
+}: Props) => {
   const cancelButtonRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState<any[]>([]);
   const { user } = useAuth();
+  const cookies = parseCookies();
+  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedImage(acceptedFiles);
@@ -43,6 +58,52 @@ export const NameCardModal = ({ open, setOpen, card }: Props) => {
   });
 
   const previewURL = selectedImage[0] && URL.createObjectURL(selectedImage[0]);
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!selectedImage.length || !order) return;
+
+    setIsLoading(true);
+    try {
+      const data = new FormData();
+      data.append("image", selectedImage[0]);
+      data.append("description", "Description...");
+      data.append("order", order.toString());
+      data.append("display_name", "Download Name Card");
+      data.append("type", "poster");
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/exhibitor/banner`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies?.access_token}`,
+          },
+          body: data,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("erororor");
+      }
+
+      await res.json();
+      setIsLoading(false);
+      await queryClient.invalidateQueries([
+        "exhibitor",
+        exhibitorId?.toString(),
+      ]);
+      setSelectedImage([]);
+      toast.success("Name card uploaded successfully!", {
+        position: "top-right",
+      });
+      setOpen(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Name card failed to upload!", { position: "top-right" });
+      console.log({ error });
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -90,49 +151,79 @@ export const NameCardModal = ({ open, setOpen, card }: Props) => {
                   <h2 className="bg-white text-xl 2xl:text-2xl text-center font-bold py-1 2xl:py-2 bg-opacity-50 rounded-md mb-2">
                     Name Card
                   </h2>
-                  <div className="hidden 2xl:block">
-                    <Image
-                      height={300 * 1.5}
-                      width={300 * 1.5}
-                      objectFit="contain"
-                      src={card?.src || imagePlaceholder}
-                      alt="Name Card"
-                    />
-                  </div>
-                  <div className="block 2xl:hidden">
-                    <Image
-                      height={300}
-                      width={300}
-                      objectFit="contain"
-                      src={card?.src || imagePlaceholder}
-                      alt="Name Card"
-                    />
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <a
-                      href={card?.src}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
-                    >
-                      <ExternalLinkIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
-                      <span className="font-semibold text-sm">
-                        Open in new tab
-                      </span>
-                    </a>
-                    <a
-                      href={card?.src}
-                      download
-                      className="inline-flex items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
-                    >
-                      <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
-                      <span className="font-semibold text-sm">Download</span>
-                    </a>
-                  </div>
+                  {selectedBanner?.image ? (
+                    <>
+                      <div className="hidden 2xl:block">
+                        <Image
+                          height={300 * 1.5}
+                          width={300 * 1.5}
+                          objectFit="contain"
+                          src={
+                            `${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}` ||
+                            imagePlaceholder
+                          }
+                          alt="Name Card"
+                        />
+                      </div>
+                      <div className="block 2xl:hidden">
+                        <Image
+                          height={300}
+                          width={300}
+                          objectFit="contain"
+                          src={
+                            `${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}` ||
+                            imagePlaceholder
+                          }
+                          alt="Name Card"
+                        />
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
+                        >
+                          <ExternalLinkIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
+                          <span className="font-semibold text-sm">
+                            Open in new tab
+                          </span>
+                        </a>
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}`}
+                          download
+                          className="inline-flex items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
+                        >
+                          <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
+                          <span className="font-semibold text-sm">
+                            Download
+                          </span>
+                        </a>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="hidden 2xl:flex bg-gray-50 bg-opacity-50 rounded-md items-center justify-center font-semibold text-lg"
+                        style={{ height: 300 * 1.5, width: 300 * 1.5 }}
+                      >
+                        Empty
+                      </div>
+                      <div
+                        className="flex 2xl:hidden bg-gray-50 bg-opacity-50 rounded-md items-center justify-center font-semibold text-lg"
+                        style={{ height: 300, width: 300 }}
+                      >
+                        Empty
+                      </div>
+                    </>
+                  )}
                 </div>
 
-                {user.role === "exhibitor" && (
-                  <form className="col-span-2 sm:col-span-1 w-96">
+                {user.role === "exhibitor" && exhibitorId === user.id && (
+                  <form
+                    className="col-span-2 sm:col-span-1 w-96"
+                    onSubmit={onSubmit}
+                  >
                     <label className="block text-sm font-medium text-gray-800">
                       Update Name Card
                     </label>
@@ -195,10 +286,10 @@ export const NameCardModal = ({ open, setOpen, card }: Props) => {
                     )}
 
                     <div className="flex justify-end mt-1">
-                      <button type="submit" className="mt-2 btn-secondary">
+                      <SubmitButton isLoading={isLoading}>
                         <CloudUploadIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
                         Upload
-                      </button>
+                      </SubmitButton>
                     </div>
                   </form>
                 )}

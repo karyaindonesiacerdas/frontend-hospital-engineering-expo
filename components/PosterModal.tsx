@@ -3,6 +3,7 @@ import {
   useState,
   useRef,
   useCallback,
+  useEffect,
   Dispatch,
   SetStateAction,
 } from "react";
@@ -14,24 +15,58 @@ import {
   CloudUploadIcon,
 } from "@heroicons/react/outline";
 import { useDropzone } from "react-dropzone";
+import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { parseCookies } from "nookies";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 import { useAuth } from "@/contexts/auth.context";
+import { Banner } from "types";
+import { SubmitButton } from "./common";
 
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  selectedPoster?: {
-    title: string;
-    src: string;
-  };
+  selectedBanner?: Banner;
+  // setSelectedBanner: React.Dispatch<React.SetStateAction<Banner | undefined>>;
+  exhibitorId: number;
+  order: number;
 };
 
 const imagePlaceholder = "https://via.placeholder.com/297x420.png";
 
-export const PosterModal = ({ open, setOpen, selectedPoster }: Props) => {
+type Inputs = {
+  displayName: string;
+};
+
+export const PosterModal = ({
+  open,
+  setOpen,
+  selectedBanner,
+  // setSelectedBanner,
+  exhibitorId,
+  order,
+}: Props) => {
   const cancelButtonRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState<any[]>([]);
   const { user } = useAuth();
+  const cookies = parseCookies();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm<Inputs>({
+    defaultValues: {
+      displayName: selectedBanner?.display_name || `Poster ${order}`,
+    },
+  });
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    reset({ displayName: selectedBanner?.display_name || `Poster ${order}` });
+  }, [reset, order, selectedBanner?.display_name]);
 
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedImage(acceptedFiles);
@@ -45,6 +80,48 @@ export const PosterModal = ({ open, setOpen, selectedPoster }: Props) => {
 
   const previewURL = selectedImage[0] && URL.createObjectURL(selectedImage[0]);
 
+  console.log({ selectedBanner });
+
+  const onSubmit: SubmitHandler<Inputs> = async ({ displayName }) => {
+    // if (!selectedImage.length || !order) return;
+
+    try {
+      const data = new FormData();
+      selectedImage[0] && data.append("image", selectedImage[0]);
+      data.append("description", "Description...");
+      data.append("order", order.toString());
+      data.append("display_name", displayName);
+      data.append("type", "poster");
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/exhibitor/banner`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies?.access_token}`,
+          },
+          body: data,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("erororor");
+      }
+
+      await res.json();
+      await queryClient.invalidateQueries([
+        "exhibitor",
+        exhibitorId?.toString(),
+      ]);
+      setSelectedImage([]);
+      toast.success("Poster uploaded successfully!", { position: "top-right" });
+      setOpen(false);
+    } catch (error) {
+      toast.error("Poster failed to upload!", { position: "top-right" });
+      console.log({ error });
+    }
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -54,6 +131,7 @@ export const PosterModal = ({ open, setOpen, selectedPoster }: Props) => {
         onClose={(v) => {
           setSelectedImage([]);
           setOpen(v);
+          // setSelectedBanner(undefined);
         }}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -89,51 +167,81 @@ export const PosterModal = ({ open, setOpen, selectedPoster }: Props) => {
               <div className="flex space-x-6">
                 <div>
                   <h2 className="bg-white text-xl 2xl:text-2xl text-center font-bold py-1 2xl:py-2 bg-opacity-50 rounded-md mb-2">
-                    {selectedPoster?.title || "Poster Title"}
+                    {selectedBanner?.display_name || "Poster Title"}
                   </h2>
-                  <div className="hidden 2xl:block">
-                    <Image
-                      height={420 * 1.7}
-                      width={297 * 1.7}
-                      objectFit="contain"
-                      src={selectedPoster?.src || imagePlaceholder}
-                      alt={selectedPoster?.title}
-                    />
-                  </div>
-                  <div className="block 2xl:hidden">
-                    <Image
-                      height={420}
-                      width={297}
-                      objectFit="contain"
-                      src={selectedPoster?.src || imagePlaceholder}
-                      alt={selectedPoster?.title}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <a
-                      href={selectedPoster?.src}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-secondary"
-                    >
-                      <ExternalLinkIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
-                      <span className="font-semibold text-sm">
-                        Open in new tab
-                      </span>
-                    </a>
-                    <a
-                      href={selectedPoster?.src}
-                      download
-                      className="btn-secondary"
-                    >
-                      <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
-                      <span className="font-semibold text-sm">Download</span>
-                    </a>
-                  </div>
+                  {selectedBanner?.image ? (
+                    <>
+                      <div className="hidden 2xl:block">
+                        <Image
+                          height={420 * 1.7}
+                          width={297 * 1.7}
+                          objectFit="contain"
+                          src={
+                            `${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}` ||
+                            imagePlaceholder
+                          }
+                          alt={selectedBanner?.display_name}
+                        />
+                      </div>
+                      <div className="block 2xl:hidden">
+                        <Image
+                          height={420}
+                          width={297}
+                          objectFit="contain"
+                          src={
+                            `${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}` ||
+                            imagePlaceholder
+                          }
+                          alt={selectedBanner?.display_name}
+                        />
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn-secondary"
+                        >
+                          <ExternalLinkIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
+                          <span className="font-semibold text-sm">
+                            Open in new tab
+                          </span>
+                        </a>
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}`}
+                          download
+                          className="btn-secondary"
+                        >
+                          <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
+                          <span className="font-semibold text-sm">
+                            Download
+                          </span>
+                        </a>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="hidden 2xl:flex bg-gray-50 bg-opacity-50 rounded-md items-center justify-center font-semibold text-lg"
+                        style={{ height: 420 * 1.7, width: 297 * 1.7 }}
+                      >
+                        Empty
+                      </div>
+                      <div
+                        className="flex 2xl:hidden bg-gray-50 bg-opacity-50 rounded-md items-center justify-center font-semibold text-lg"
+                        style={{ height: 420, width: 297 }}
+                      >
+                        Empty
+                      </div>
+                    </>
+                  )}
                 </div>
 
-                {user.role === "exhibitor" && (
-                  <form className="col-span-2 sm:col-span-1 w-96">
+                {user.role === "exhibitor" && exhibitorId === user.id && (
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="col-span-2 sm:col-span-1 w-96"
+                  >
                     <label className="block text-sm font-medium text-gray-800">
                       Update Poster
                     </label>
@@ -203,18 +311,20 @@ export const PosterModal = ({ open, setOpen, selectedPoster }: Props) => {
                       </label>
                       <input
                         type="text"
-                        name="display-name"
                         className="input-text bg-transparent focus:bg-white"
                         placeholder="Display Name"
-                        defaultValue="Poster 1"
+                        // defaultValue={`${
+                        //   selectedBanner?.display_name || `Poster ${order}`
+                        // }`}
+                        {...register("displayName")}
                       />
                     </div>
 
-                    <div className="flex justify-end mt-1">
-                      <button type="submit" className="mt-2 btn-secondary">
+                    <div className="mt-2">
+                      <SubmitButton isLoading={isSubmitting}>
                         <CloudUploadIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
                         Upload
-                      </button>
+                      </SubmitButton>
                     </div>
                   </form>
                 )}
