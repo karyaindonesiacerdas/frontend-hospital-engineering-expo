@@ -9,10 +9,11 @@ import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
+import { useExhibitor } from "hooks/useExhibitor";
 
 type UserProfileProps = {
   email: string;
-  mobile: number;
+  mobile: string;
   name: string;
   job_function: string;
   // photo: string;
@@ -39,23 +40,27 @@ const MyAccountPage: NextPage = () => {
   });
 
   useEffect(() => {
-    if (user) {
-      reset({
-        name: user?.name,
-        mobile: user?.mobile,
-        email: user?.email,
-        job_function: user?.job_function,
-      });
-    }
-  }, [user, reset]);
-
-  useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
     }
   }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading || !isAuthenticated) {
+  const { data, isLoading: isLoadingExhibitor } = useExhibitor({
+    id: user?.id,
+  });
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        name: data?.name,
+        mobile: data?.mobile,
+        email: data?.email,
+        job_function: data?.job_function,
+      });
+    }
+  }, [data, reset]);
+
+  if (isLoading || !isAuthenticated || isLoadingExhibitor) {
     return <FullPageLoader />;
   }
 

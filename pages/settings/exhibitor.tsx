@@ -10,6 +10,7 @@ import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { provinces } from "@/data/provinces";
 import { countries } from "@/data/countries";
+import { useExhibitor } from "hooks/useExhibitor";
 
 type CompanyProps = {
   name: string;
@@ -29,25 +30,7 @@ const SettingVirtualBoothPage: NextPage = () => {
     // handleSubmit,
     reset,
     // formState: { isSubmitting },
-  } = useForm<CompanyProps>({
-    defaultValues: {
-      name: user?.company_name,
-      website: user?.company_website,
-      country: user?.country,
-      province: user?.province,
-    },
-  });
-
-  useEffect(() => {
-    if (user) {
-      reset({
-        name: user?.company_name,
-        website: user?.company_website,
-        country: user?.country,
-        province: user?.province,
-      });
-    }
-  }, [user, reset]);
+  } = useForm<CompanyProps>();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -58,14 +41,31 @@ const SettingVirtualBoothPage: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router, user?.role]);
 
-  if (isLoading || !isAuthenticated) {
+  const { data, isLoading: isLoadingExhibitor } = useExhibitor({
+    id: user?.id,
+  });
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        name: data?.company_name,
+        website: data?.company_website,
+        country: data?.country,
+        province: data?.province,
+        email: data?.email,
+        phone: data?.mobile,
+      });
+    }
+  }, [data, reset]);
+
+  if (isLoading || !isAuthenticated || isLoadingExhibitor) {
     return <FullPageLoader />;
   }
 
   // console.log({ user });
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
       <div
         className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
@@ -235,13 +235,12 @@ const SettingVirtualBoothPage: NextPage = () => {
           </div>
         </div>
 
-        <div className="hidden sm:block" aria-hidden="true">
+        {/* <div className="hidden sm:block" aria-hidden="true">
           <div className="py-5">
             <div className="border-t border-gray-200" />
           </div>
         </div>
 
-        {/* Virtual Booth */}
         <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
@@ -976,7 +975,7 @@ const SettingVirtualBoothPage: NextPage = () => {
           <div className="py-5">
             <div className="border-t border-gray-200" />
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
