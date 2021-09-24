@@ -62,7 +62,7 @@ const SettingVirtualBoothPage: NextPage = () => {
     return <FullPageLoader />;
   }
 
-  console.log({ user });
+  // console.log({ user });
 
   return (
     <div className="bg-gray-100">

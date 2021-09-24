@@ -95,7 +95,7 @@ export const VideoModal = ({
   const imageOnLoadHandler = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
-    console.log({ width: e.currentTarget.width });
+    // console.log({ width: e.currentTarget.width });
     setValidId(e.currentTarget.width !== 120);
   };
 

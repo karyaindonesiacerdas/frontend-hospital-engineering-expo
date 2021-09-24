@@ -80,7 +80,7 @@ export const PosterModal = ({
 
   const previewURL = selectedImage[0] && URL.createObjectURL(selectedImage[0]);
 
-  console.log({ selectedBanner });
+  // console.log({ selectedBanner });
 
   const onSubmit: SubmitHandler<Inputs> = async ({ displayName }) => {
     // if (!selectedImage.length || !order) return;
@@ -118,7 +118,7 @@ export const PosterModal = ({
       setOpen(false);
     } catch (error) {
       toast.error("Poster failed to upload!", { position: "top-right" });
-      console.log({ error });
+      // console.log({ error });
     }
   };
 

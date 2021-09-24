@@ -56,7 +56,7 @@ const Login: NextPage = () => {
       await router.push("/main-hall");
     } catch (error) {
       toast.error("Invalid Credentials");
-      console.log({ error });
+      // console.log({ error });
     }
   };
 

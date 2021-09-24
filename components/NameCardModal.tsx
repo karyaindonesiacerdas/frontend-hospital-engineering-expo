@@ -101,7 +101,7 @@ export const NameCardModal = ({
     } catch (error) {
       setIsLoading(false);
       toast.error("Name card failed to upload!", { position: "top-right" });
-      console.log({ error });
+      // console.log({ error });
     }
   };
 

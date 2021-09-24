@@ -32,7 +32,7 @@ const MainHall: NextPage = () => {
     return <FullPageLoader />;
   }
 
-  console.log({ user });
+  // console.log({ user });
 
   return (
     <>
