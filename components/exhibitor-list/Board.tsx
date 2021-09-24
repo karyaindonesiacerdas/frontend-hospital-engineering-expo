@@ -66,15 +66,15 @@ const Board = ({ exhibitors }: Props) => {
                 {exhibitors?.map((exhibitor) => (
                   <Link key={exhibitor.id} href={`/exhibitors/${exhibitor.id}`}>
                     <a
-                      className="grid grid-rows-3 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full"
+                      className="grid grid-rows-4 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full"
                       style={{ padding: "0.5vw" }}
                     >
                       <div
-                        className="row-span-2 flex items-center justify-center"
+                        className="row-span-3 flex items-center justify-center"
                         style={{
                           paddingRight: "2vw",
                           paddingLeft: "2vw",
-                          paddingTop: "0.2vw",
+                          paddingTop: "0.6vw",
                           paddingBottom: "0.2vw",
                         }}
                       >

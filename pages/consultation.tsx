@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { parseCookies } from "nookies";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -51,6 +55,39 @@ const consultations = [
   },
 ];
 
+type ConsultationDetail = {
+  id: number;
+  date: string;
+  time: string;
+  status: number;
+  visitor: {
+    id: number;
+    name: string;
+    institution_name: string;
+  };
+  exhibitor: {
+    id: number;
+    company_name: string;
+  };
+};
+
+const useConsultations = () => {
+  const cookies = parseCookies();
+
+  return useQuery<ConsultationDetail[], Error>(
+    ["consultations", cookies.access_token],
+    () =>
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/consultation`, {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        })
+        .then((res) => res.data.data),
+    { enabled: Boolean(cookies.access_token) }
+  );
+};
+
 const Consultation: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -62,9 +99,13 @@ const Consultation: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
+  const { data, isLoading: isLoadingConsultations } = useConsultations();
+
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
   }
+
+  console.log({ data });
 
   return (
     <>
@@ -139,8 +180,8 @@ const Consultation: NextPage = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {consultations.map((consultation, index) => (
-                        <tr key={`${consultation.exhibitor}-${index}`}>
+                      {data?.map((consultation, index) => (
+                        <tr key={`${consultation.id}`}>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">
                               {consultation.date}
@@ -156,25 +197,26 @@ const Consultation: NextPage = () => {
                           </td>
                           {user.role === "visitor" && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                              <a
-                                href={consultation.link_booth}
-                                className="text-sm text-gray-900 hover:text-primary"
+                              <Link
+                                href={`/exhibitors/${consultation.exhibitor}`}
                               >
-                                {consultation.exhibitor}
-                              </a>
-                              <div className="text-sm text-gray-500">
+                                <a className="text-sm text-gray-900 hover:text-primary">
+                                  {consultation.exhibitor.company_name}
+                                </a>
+                              </Link>
+                              {/* <div className="text-sm text-gray-500">
                                 {consultation.engineering_areas.join(", ")}
-                              </div>
+                              </div> */}
                             </td>
                           )}
                           {user.role === "exhibitor" && (
                             <>
                               <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">
-                                  {consultation.visitor}
+                                  {consultation.visitor.name}
                                 </div>
                                 <div className="text-sm text-gray-500">
-                                  RS Indonesia Sehat
+                                  {consultation.visitor.institution_name}
                                 </div>
                               </td>
                               <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
@@ -188,26 +230,26 @@ const Consultation: NextPage = () => {
                           )}
 
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                            {consultation.status === "done" ? (
+                            {consultation.status === 3 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
-                                {consultation.status}
+                                Done
                               </span>
-                            ) : consultation.status === "timeout" ? (
+                            ) : consultation.status === 2 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-red-100 text-red-800">
-                                {consultation.status}
+                                Timeout
                               </span>
-                            ) : consultation.status === "current" ? (
+                            ) : consultation.status === 1 ? (
                               <a
-                                href={consultation.link_zoom}
+                                href="https://zoom.us"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
                               >
                                 Join Zoom
                               </a>
-                            ) : consultation.status === "upcoming" ? (
+                            ) : consultation.status === 0 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-gray-100 text-gray-800">
-                                {consultation.status}
+                                Upcoming
                               </span>
                             ) : null}
                           </td>

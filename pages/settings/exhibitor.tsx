@@ -215,8 +215,8 @@ const SettingVirtualBoothPage: NextPage = () => {
                           >
                             <option value="">Choose</option>
                             {provinces.map((province) => (
-                              <option key={province.id} value={province.nama}>
-                                {province.nama}
+                              <option key={province.id} value={province.name}>
+                                {province.name}
                               </option>
                             ))}
                           </select>

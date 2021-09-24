@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SeminarScreen.module.css";
 
 export const SeminarScreen = () => {
-  const videoId = "CXg2xeULoa0";
+  const videoId = "jS0qVrpKjY4";
   return (
     <div className={styles.seminar}>
       <div>

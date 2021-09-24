@@ -66,7 +66,7 @@ const MainHall: NextPage = () => {
               name: "Hospital Engineering Forum 2021",
               phone: "+62 858 9377 7283 (Adrian)",
               videoUrl:
-                "https://www.youtube.com/watch?v=CXg2xeULoa0&ab_channel=HospitalEngineeringExpo",
+                "https://www.youtube.com/watch?v=jS0qVrpKjY4&ab_channel=HospitalEngineeringExpo",
               website: "https://hospital-engineering-expo.com/",
             }}
           />

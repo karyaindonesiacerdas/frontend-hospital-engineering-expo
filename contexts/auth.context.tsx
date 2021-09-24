@@ -6,9 +6,29 @@ type LoginProps = {
   password: string;
 };
 
+type RegisterVisitorProps = {
+  email: string;
+  mobile: string;
+  name: string;
+  job_function: string;
+  password: string;
+  password_confirmation: string;
+  institution_name: string;
+  institution_type: string;
+  country: string;
+  province: string;
+  visitor_type: string;
+  product_interest: string[];
+  visit_purpose: string[];
+  member_sehat_ri: string;
+  allow_share_info: boolean;
+  role: string;
+};
+
 type AuthContextType = {
   user: any;
   login: ({ email, password }: LoginProps) => Promise<void>;
+  registerVisitor: (props: RegisterVisitorProps) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -17,6 +37,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   login: async ({ email, password }) => {},
+  registerVisitor: async () => {},
   logout: () => {},
   isLoading: true,
   isAuthenticated: false,
@@ -72,6 +93,38 @@ export const AuthProvider: FC = ({ children }) => {
     }
   };
 
+  const registerVisitor = async (props: RegisterVisitorProps) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(props),
+      }
+    );
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message);
+    }
+
+    const json = await res.json();
+
+    if (json.code !== 200) {
+      setIsAuthenticated(false);
+      setUser(null);
+      destroyCookie(null, "access_token");
+      destroyCookie(null, "user");
+    } else {
+      setIsAuthenticated(true);
+      setUser("hello");
+      setCookie(null, "user", JSON.stringify(json.data.user));
+      setCookie(null, "access_token", json.data.token);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
@@ -81,7 +134,14 @@ export const AuthProvider: FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, isAuthenticated, isLoading }}
+      value={{
+        user,
+        login,
+        logout,
+        isAuthenticated,
+        isLoading,
+        registerVisitor,
+      }}
     >
       {children}
     </AuthContext.Provider>

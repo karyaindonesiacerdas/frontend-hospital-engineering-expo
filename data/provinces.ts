@@ -1,138 +1,138 @@
 export const provinces = [
   {
     id: 11,
-    nama: "Aceh",
+    name: "Aceh",
   },
   {
     id: 12,
-    nama: "Sumatera Utara",
+    name: "Sumatera Utara",
   },
   {
     id: 13,
-    nama: "Sumatera Barat",
+    name: "Sumatera Barat",
   },
   {
     id: 14,
-    nama: "Riau",
+    name: "Riau",
   },
   {
     id: 15,
-    nama: "Jambi",
+    name: "Jambi",
   },
   {
     id: 16,
-    nama: "Sumatera Selatan",
+    name: "Sumatera Selatan",
   },
   {
     id: 17,
-    nama: "Bengkulu",
+    name: "Bengkulu",
   },
   {
     id: 18,
-    nama: "Lampung",
+    name: "Lampung",
   },
   {
     id: 19,
-    nama: "Kepulauan Bangka Belitung",
+    name: "Kepulauan Bangka Belitung",
   },
   {
     id: 21,
-    nama: "Kepulauan Riau",
+    name: "Kepulauan Riau",
   },
   {
     id: 31,
-    nama: "Dki Jakarta",
+    name: "Dki Jakarta",
   },
   {
     id: 32,
-    nama: "Jawa Barat",
+    name: "Jawa Barat",
   },
   {
     id: 33,
-    nama: "Jawa Tengah",
+    name: "Jawa Tengah",
   },
   {
     id: 34,
-    nama: "Di Yogyakarta",
+    name: "Di Yogyakarta",
   },
   {
     id: 35,
-    nama: "Jawa Timur",
+    name: "Jawa Timur",
   },
   {
     id: 36,
-    nama: "Banten",
+    name: "Banten",
   },
   {
     id: 51,
-    nama: "Bali",
+    name: "Bali",
   },
   {
     id: 52,
-    nama: "Nusa Tenggara Barat",
+    name: "Nusa Tenggara Barat",
   },
   {
     id: 53,
-    nama: "Nusa Tenggara Timur",
+    name: "Nusa Tenggara Timur",
   },
   {
     id: 61,
-    nama: "Kalimantan Barat",
+    name: "Kalimantan Barat",
   },
   {
     id: 62,
-    nama: "Kalimantan Tengah",
+    name: "Kalimantan Tengah",
   },
   {
     id: 63,
-    nama: "Kalimantan Selatan",
+    name: "Kalimantan Selatan",
   },
   {
     id: 64,
-    nama: "Kalimantan Timur",
+    name: "Kalimantan Timur",
   },
   {
     id: 65,
-    nama: "Kalimantan Utara",
+    name: "Kalimantan Utara",
   },
   {
     id: 71,
-    nama: "Sulawesi Utara",
+    name: "Sulawesi Utara",
   },
   {
     id: 72,
-    nama: "Sulawesi Tengah",
+    name: "Sulawesi Tengah",
   },
   {
     id: 73,
-    nama: "Sulawesi Selatan",
+    name: "Sulawesi Selatan",
   },
   {
     id: 74,
-    nama: "Sulawesi Tenggara",
+    name: "Sulawesi Tenggara",
   },
   {
     id: 75,
-    nama: "Gorontalo",
+    name: "Gorontalo",
   },
   {
     id: 76,
-    nama: "Sulawesi Barat",
+    name: "Sulawesi Barat",
   },
   {
     id: 81,
-    nama: "Maluku",
+    name: "Maluku",
   },
   {
     id: 82,
-    nama: "Maluku Utara",
+    name: "Maluku Utara",
   },
   {
     id: 91,
-    nama: "Papua Barat",
+    name: "Papua Barat",
   },
   {
     id: 94,
-    nama: "Papua",
+    name: "Papua",
   },
 ];

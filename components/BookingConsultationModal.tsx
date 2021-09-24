@@ -1,13 +1,119 @@
 import { Fragment, useRef, Dispatch, SetStateAction } from "react";
 import { Transition, Dialog } from "@headlessui/react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { parseCookies } from "nookies";
+import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import { SubmitButton } from "./common";
+import { useQuery } from "react-query";
 
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  exhibitorId: number;
 };
 
-export const BookingConsultationModal = ({ open, setOpen }: Props) => {
+type Inputs = {
+  date: string;
+  time: string;
+  exhibitorId: number;
+};
+
+const schema = yup.object().shape({
+  date: yup.string().required("Date is required"),
+  time: yup.string().required("Time is required"),
+});
+
+const timeSlots = [
+  "08:30:00",
+  "09:00:00",
+  "09:30:00",
+  "10:00:00",
+  "10:30:00",
+  "11:00:00",
+  "11:30:00",
+  "12:00:00",
+  "12:30:00",
+  "13:00:00",
+  "13:30:00",
+  "14:00:00",
+  "14:30:00",
+  "15:00:00",
+  "15:30:00",
+  "16:00:00",
+  "16:30:00",
+];
+
+type AvailableTime = {
+  id: number;
+  date: string;
+  time: string;
+};
+
+const useAvailableTimes = ({ id }: { id: number }) => {
+  const cookies = parseCookies();
+
+  return useQuery<AvailableTime[], Error>(
+    ["consultations", cookies.access_token],
+    () =>
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_API_URL}/consultation/available?exhibitor_id=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
+          }
+        )
+        .then((res) => res.data.data),
+    { enabled: Boolean(cookies.access_token) }
+  );
+};
+
+export const BookingConsultationModal = ({
+  open,
+  setOpen,
+  exhibitorId,
+}: Props) => {
   const cancelButtonRef = useRef(null);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<Inputs>({ resolver: yupResolver(schema) });
+  const cookies = parseCookies();
+
+  const dateWatch = watch("date");
+
+  const { data } = useAvailableTimes({ id: exhibitorId });
+
+  const onSubmit: SubmitHandler<Inputs> = async ({ date, time }) => {
+    const data = {
+      exhibitor_id: exhibitorId,
+      date,
+      time,
+    };
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        }
+      );
+
+      toast.success("Booking success", { position: "top-right" });
+      setOpen(false);
+    } catch (error) {
+      toast.error("Booking failed", { position: "top-right" });
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -50,7 +156,7 @@ export const BookingConsultationModal = ({ open, setOpen }: Props) => {
               <h3 className="mb-8 text-xl text-center font-bold py-4 text-gray-700 bg-gray-100 bg-opacity-60 rounded-md shadow-lg">
                 Booking Consultation
               </h3>
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
                   <label
                     htmlFor="date"
@@ -59,13 +165,23 @@ export const BookingConsultationModal = ({ open, setOpen }: Props) => {
                     Select Date
                   </label>
                   <div className="mt-1">
-                    <select id="date" name="date" className="input-text">
+                    <select
+                      {...register("date")}
+                      id="date"
+                      name="date"
+                      className="input-text"
+                    >
                       <option value="">Choose</option>
-                      <option value="02-10-2021">02-10-2021</option>
-                      <option value="16-10-2021">16-10-2021</option>
-                      <option value="30-10-2021">30-10-2021</option>
+                      <option value="2021-10-02">2021-10-02</option>
+                      <option value="2021-10-16">2021-10-16</option>
+                      <option value="2021-10-30">2021-11-06</option>
                     </select>
                   </div>
+                  {errors?.date && (
+                    <span className="text-sm text-red-500">
+                      {errors?.date?.message}
+                    </span>
+                  )}
                 </div>
 
                 <div>
@@ -76,21 +192,38 @@ export const BookingConsultationModal = ({ open, setOpen }: Props) => {
                     Select Time
                   </label>
                   <div className="mt-1">
-                    <select id="time" name="time" className="input-text">
+                    <select
+                      {...register("time")}
+                      id="time"
+                      name="time"
+                      className="input-text"
+                    >
                       <option value="">Choose</option>
-                      <option value="12.00">12.00</option>
-                      <option value="13.00">13.00</option>
-                      <option value="14.00">14.00</option>
-                      <option value="15.00">15.00</option>
-                      <option value="16.00">16.00</option>
+                      {data
+                        ?.filter(
+                          (availableTime) => availableTime.date === dateWatch
+                        )
+                        ?.map((availableTime) => (
+                          <option
+                            key={availableTime.id}
+                            value={availableTime.time}
+                          >
+                            {availableTime.time}
+                          </option>
+                        ))}
                     </select>
                   </div>
+                  {errors?.time && (
+                    <span className="text-sm text-red-500">
+                      {errors?.time?.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mt-5 sm:mt-6">
-                  <button type="button" className="btn-primary w-full">
+                  <SubmitButton isLoading={isSubmitting}>
                     Make an Appointment
-                  </button>
+                  </SubmitButton>
                 </div>
               </form>
             </div>

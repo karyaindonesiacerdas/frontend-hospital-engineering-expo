@@ -94,6 +94,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           setOpen={setOpenCatalogModal}
         />
         <BookingConsultationModal
+          exhibitorId={exhibitor.id}
           open={openBookingConsultationModal}
           setOpen={setOpenBookingConsultationModal}
         />

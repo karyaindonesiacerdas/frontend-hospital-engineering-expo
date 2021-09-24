@@ -1,16 +1,126 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { parseCookies } from "nookies";
+import toast from "react-hot-toast";
 
 import { AuthPageLayout } from "@/layouts/AuthPageLayout";
+import { countries } from "@/data/countries";
+import { provinces } from "@/data/provinces";
+import { SubmitButton } from "@/components/common";
+import { useRouter } from "next/router";
+import { useAuth } from "@/contexts/auth.context";
+
+type Inputs = {
+  email: string;
+  mobile: string;
+  name: string;
+  job_function: string;
+  password: string;
+  password_confirmation: string;
+  institution_name: string;
+  institution_type: string;
+  country: string;
+  province: string;
+  visitor_type: string;
+  product_interest: string[];
+  visit_purpose: string[];
+  member_sehat_ri: string;
+  allow_share_info: string;
+  accept_condition: boolean;
+  // role: string;
+};
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email must be valid")
+    .required("Email is required"),
+  mobile: yup.string().required("Mobile / Whatsapp is required"),
+  name: yup.string().required("Name is required"),
+  job_function: yup.string().required("Job function is required"),
+  password: yup.string().required("Password is required"),
+  password_confirmation: yup
+    .string()
+    .required("Password confirmation is required"),
+  institution_name: yup.string().required("Institution name is required"),
+  institution_type: yup.string().required("Insitution type is required"),
+  country: yup.string().required("Country is required"),
+  visitor_type: yup.string().required("Visitor type is required"),
+  member_sehat_ri: yup.string().required("Select one"),
+});
 
 const RegisterVisitor: NextPage = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("auth");
+  const { registerVisitor, isAuthenticated, isLoading } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<Inputs>({ resolver: yupResolver(schema) });
+  const cookies = parseCookies();
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
+      router.push("/main-hall");
+    }
+  }, [isAuthenticated, isLoading, router, cookies.access_token, cookies.user]);
+
+  console.log({ errors });
+
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    const {
+      email,
+      mobile,
+      name,
+      job_function,
+      password,
+      password_confirmation,
+      institution_name,
+      institution_type,
+      country,
+      province,
+      visitor_type,
+      product_interest,
+      visit_purpose,
+      member_sehat_ri,
+      allow_share_info,
+    } = values;
+    try {
+      await registerVisitor({
+        email,
+        allow_share_info: allow_share_info === "Yes" ? true : false,
+        country,
+        institution_name,
+        institution_type,
+        job_function,
+        member_sehat_ri,
+        mobile,
+        name,
+        password,
+        password_confirmation,
+        product_interest,
+        province,
+        visit_purpose,
+        visitor_type,
+        role: "visitor",
+      });
+      toast.success("Successful Registration");
+      await router.push("/main-hall");
+    } catch (error) {
+      toast.error("Registration Failed");
+      // console.log({ error });
+    }
+  };
 
   return (
     <AuthPageLayout>
@@ -33,7 +143,7 @@ const RegisterVisitor: NextPage = () => {
             {t("register-as-visitor")}
           </h2>
         </div>
-        <form action="#" method="POST">
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* <!-- 2 column grid for from input --> */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mb-6">
             {/* <!-- Email --> */}
@@ -48,12 +158,16 @@ const RegisterVisitor: NextPage = () => {
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <input
                   id="email"
-                  name="email"
                   type="email"
                   className="input-text"
+                  {...register("email")}
                 />
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.email && (
+                  <span className="text-sm text-red-500">
+                    {errors?.email?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -66,15 +180,18 @@ const RegisterVisitor: NextPage = () => {
                 {t("mobile")}
               </label>
               <div className="mt-1">
-                {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <input
                   id="mobile"
-                  name="mobile"
                   type="number"
                   className="input-text"
+                  {...register("mobile")}
                 />
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.mobile && (
+                  <span className="text-sm text-red-500">
+                    {errors?.mobile?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -88,9 +205,17 @@ const RegisterVisitor: NextPage = () => {
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <input id="fullname" name="fullname" className="input-text" />
+                <input
+                  id="fullname"
+                  className="input-text"
+                  {...register("name")}
+                />
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.name && (
+                  <span className="text-sm text-red-500">
+                    {errors?.name?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -104,7 +229,11 @@ const RegisterVisitor: NextPage = () => {
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select id="job" name="job" className="input-text">
+                <select
+                  id="job"
+                  className="input-text"
+                  {...register("job_function")}
+                >
                   <option value="">Choose</option>
                   <option value="Architect">Architect</option>
                   <option value="Director">Director</option>
@@ -119,7 +248,11 @@ const RegisterVisitor: NextPage = () => {
                   <option value="Other">Other</option>
                 </select>
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.job_function && (
+                  <span className="text-sm text-red-500">
+                    {errors?.job_function?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -134,9 +267,9 @@ const RegisterVisitor: NextPage = () => {
               <div className="mt-1 relative rounded-md shadow-sm">
                 <input
                   id="password"
-                  name="password"
                   type={showPassword ? "text" : "password"}
                   className="input-password"
+                  {...register("password")}
                 />
                 <button
                   type="button"
@@ -150,6 +283,11 @@ const RegisterVisitor: NextPage = () => {
                   )}
                 </button>
               </div>
+              {errors?.password && (
+                <span className="text-sm text-red-500">
+                  {errors?.password?.message}
+                </span>
+              )}
             </div>
 
             {/* <!-- Confirm Password --> */}
@@ -163,9 +301,9 @@ const RegisterVisitor: NextPage = () => {
               <div className="mt-1 relative rounded-md shadow-sm">
                 <input
                   id="confirm-password"
-                  name="confirm-password"
                   type={showPassword ? "text" : "password"}
                   className="input-password"
+                  {...register("password_confirmation")}
                 />
                 <button
                   type="button"
@@ -179,6 +317,11 @@ const RegisterVisitor: NextPage = () => {
                   )}
                 </button>
               </div>
+              {errors?.password_confirmation && (
+                <span className="text-sm text-red-500">
+                  {errors?.password_confirmation?.message}
+                </span>
+              )}
             </div>
 
             {/* <!-- Institution Name --> */}
@@ -193,11 +336,15 @@ const RegisterVisitor: NextPage = () => {
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <input
                   id="institution-name"
-                  name="institution-name"
                   className="input-text"
+                  {...register("institution_name")}
                 />
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.institution_name && (
+                  <span className="text-sm text-red-500">
+                    {errors?.institution_name?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -213,8 +360,8 @@ const RegisterVisitor: NextPage = () => {
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <select
                   id="type-of-institution"
-                  name="type-of-institution"
                   className="input-text"
+                  {...register("institution_type")}
                 >
                   <option value="">Choose</option>
                   <option value="Comunity Health Services">
@@ -264,7 +411,11 @@ const RegisterVisitor: NextPage = () => {
                   <option value="Other">Other</option>
                 </select>
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.institution_type && (
+                  <span className="text-sm text-red-500">
+                    {errors?.institution_type?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -278,14 +429,24 @@ const RegisterVisitor: NextPage = () => {
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select id="country" name="country" className="input-text">
+                <select
+                  id="country"
+                  className="input-text"
+                  {...register("country")}
+                >
                   <option value="">Choose</option>
-                  <option value="Indonesia">Indonesia</option>
-                  <option value="Malaysia">Malaysia</option>
-                  <option value="Singapore">Singapore</option>
+                  {countries.map((country) => (
+                    <option key={country.text} value={country.text}>
+                      {country.text}
+                    </option>
+                  ))}
                 </select>
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.country && (
+                  <span className="text-sm text-red-500">
+                    {errors?.country?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -299,14 +460,24 @@ const RegisterVisitor: NextPage = () => {
               </label>
               <div className="mt-1">
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select id="province" name="province" className="input-text">
+                <select
+                  id="province"
+                  className="input-text"
+                  {...register("province")}
+                >
                   <option value="">Choose</option>
-                  <option value="Aceh">Aceh</option>
-                  <option value="Sumatera Utara">Sumatera Utara</option>
-                  <option value="Sumatera Barat">Sumatera Barat</option>
+                  {provinces.map((province) => (
+                    <option key={province.id} value={province.name}>
+                      {province.name}
+                    </option>
+                  ))}
                 </select>
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.province && (
+                  <span className="text-sm text-red-500">
+                    {errors?.province?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -322,8 +493,8 @@ const RegisterVisitor: NextPage = () => {
                 {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
                 <select
                   id="visitor-type"
-                  name="visitor-type"
                   className="input-text"
+                  {...register("visitor_type")}
                 >
                   <option value="">Choose</option>
                   <option value="Hospital Management Staff">
@@ -345,7 +516,11 @@ const RegisterVisitor: NextPage = () => {
                   </option>
                 </select>
                 {/* <!-- Error Text --> */}
-                <span className="text-sm text-red-500">Input error</span>
+                {errors?.visitor_type && (
+                  <span className="text-sm text-red-500">
+                    {errors?.visitor_type?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -361,9 +536,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Building"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -375,9 +550,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Mechanic"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -389,9 +564,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Electric"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -403,9 +578,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Environment"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -417,9 +592,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Informatics"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -431,9 +606,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Hospital Devices"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -445,9 +620,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="COVID-19 Related Products"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -459,9 +634,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="product-interest"
                     value="Other"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("product_interest")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -472,7 +647,11 @@ const RegisterVisitor: NextPage = () => {
                 </div>
               </div>
               {/* <!-- Error Text --> */}
-              <span className="text-sm text-red-500">Input error</span>
+              {/* {errors?.product_interest && (
+                <span className="text-sm text-red-500">
+                  {errors?.product_interest?.message}
+                </span>
+              )} */}
             </div>
 
             {/* <!-- Purpose of Visiting --> */}
@@ -487,9 +666,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Buying"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -501,9 +680,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Networking"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -515,9 +694,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Information Gathering"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -529,9 +708,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Join Webinar"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -543,9 +722,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Consultaion"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -557,9 +736,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="checkbox"
-                    name="purpose-of-visiting"
                     value="Other"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("visit_purpose")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -570,7 +749,7 @@ const RegisterVisitor: NextPage = () => {
                 </div>
               </div>
               {/* <!-- Error Text --> */}
-              <span className="text-sm text-red-500">Input error</span>
+              {/* {errors?.visit_purpose && <span className="text-sm text-red-500">{}</span>} */}
             </div>
 
             {/* <!-- Have registered in SEHAT-RI --> */}
@@ -585,9 +764,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="radio"
-                    name="have-registered-sehat-ri"
                     value="Yes"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("member_sehat_ri")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -599,9 +778,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="radio"
-                    name="have-registered-sehat-ri"
                     value="No"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("member_sehat_ri")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -613,9 +792,9 @@ const RegisterVisitor: NextPage = () => {
                 <div className="flex items-center text-sm">
                   <input
                     type="radio"
-                    name="have-registered-sehat-ri"
                     value="I Forget"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("member_sehat_ri")}
                   />
                   <span
                     id="pricing-plans-0-label"
@@ -626,7 +805,11 @@ const RegisterVisitor: NextPage = () => {
                 </div>
               </div>
               {/* <!-- Error Text --> */}
-              <span className="text-sm text-red-500">Input error</span>
+              {errors?.member_sehat_ri && (
+                <span className="text-sm text-red-500">
+                  {errors?.member_sehat_ri?.message}
+                </span>
+              )}
             </div>
 
             <div className="md:col-span-2">
@@ -637,6 +820,7 @@ const RegisterVisitor: NextPage = () => {
                 <input
                   type="checkbox"
                   className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                  {...register("accept_condition")}
                 />{" "}
                 <span className="text-sm text-gray-700">
                   {t("sehat-ri.accept")}
@@ -651,11 +835,12 @@ const RegisterVisitor: NextPage = () => {
               <div className="flex items-center space-x-4">
                 <div>
                   <input
-                    id="yes"
-                    name="allow-share-info"
+                    id="Yes"
                     type="radio"
+                    value="Yes"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
-                    defaultChecked={true}
+                    // defaultChecked={true}
+                    {...register("allow_share_info")}
                   />{" "}
                   <label htmlFor="yes" className="text-sm text-gray-700">
                     {t("sehat-ri.yes")}
@@ -663,10 +848,11 @@ const RegisterVisitor: NextPage = () => {
                 </div>
                 <div>
                   <input
-                    id="no"
-                    name="allow-share-info"
+                    id="No"
                     type="radio"
+                    value="No"
                     className="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                    {...register("allow_share_info")}
                   />{" "}
                   <label htmlFor="no" className="text-sm text-gray-700">
                     {t("sehat-ri.no")}
@@ -677,12 +863,7 @@ const RegisterVisitor: NextPage = () => {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-            >
-              {t("register")}
-            </button>
+            <SubmitButton isLoading={isSubmitting} i18nText="register" />
           </div>
         </form>
 
