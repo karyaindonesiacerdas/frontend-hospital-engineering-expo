@@ -237,7 +237,7 @@ export const PosterModal = ({
                   )}
                 </div>
 
-                {user.role === "exhibitor" && exhibitorId === user.id && (
+                {user?.role === "exhibitor" && exhibitorId === user?.id && (
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="col-span-2 sm:col-span-1 w-96"

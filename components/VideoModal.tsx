@@ -240,12 +240,12 @@ export const VideoModal = ({
                       },
                     ],
                   }}
-                  options={{ autoplay: user.id !== videoModalDetails.id }}
+                  options={{ autoplay: user?.id !== videoModalDetails.id }}
                 />
               </div>
               {videoType === "booth" &&
-                user.role === "exhibitor" &&
-                user.id === videoModalDetails.id && (
+                user?.role === "exhibitor" &&
+                user?.id === videoModalDetails.id && (
                   <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-2">
                       <label

@@ -102,7 +102,7 @@ export const CatalogModal = ({ open, setOpen, catalog }: Props) => {
                   </div>
                 </div>
 
-                {user.role === "exhibitor" && (
+                {user?.role === "exhibitor" && (
                   <form className="col-span-2 sm:col-span-1">
                     <label className="block text-sm font-medium text-gray-800">
                       Update Catalog

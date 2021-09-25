@@ -88,7 +88,7 @@ const Consultation: NextPage = () => {
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
         <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-        {(user.role === "exhibitor" || user.role === "admin") &&
+        {(user?.role === "exhibitor" || user?.role === "admin") &&
           selectedConsultation && (
             <>
               <UpdateStatus
@@ -98,7 +98,7 @@ const Consultation: NextPage = () => {
               />
             </>
           )}
-        {user.role === "exhibitor" && (
+        {user?.role === "exhibitor" && (
           <AddSlotTime
             open={openAddSlotTimeModal}
             setOpen={setOpenAddSlotTimeModal}
@@ -110,7 +110,7 @@ const Consultation: NextPage = () => {
             <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 mb-4 font-bold uppercase tracking-wide">
               Your Consultation Booking
             </h2>
-            {user.role === "exhibitor" && (
+            {user?.role === "exhibitor" && (
               <button
                 onClick={() => {
                   console.log("click");
@@ -142,7 +142,8 @@ const Consultation: NextPage = () => {
                         >
                           Time
                         </th>
-                        {(user.role === "visitor" || user.role === "admin") && (
+                        {(user?.role === "visitor" ||
+                          user?.role === "admin") && (
                           <th
                             scope="col"
                             className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -150,8 +151,8 @@ const Consultation: NextPage = () => {
                             Exhibitor
                           </th>
                         )}
-                        {(user.role === "exhibitor" ||
-                          user.role === "admin") && (
+                        {(user?.role === "exhibitor" ||
+                          user?.role === "admin") && (
                           <th
                             scope="col"
                             className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -164,8 +165,8 @@ const Consultation: NextPage = () => {
                           scope="col"
                           className="relative px-3 sm:px-6 py-3"
                         ></th>
-                        {(user.role === "exhibitor" ||
-                          user.role === "admin") && (
+                        {(user?.role === "exhibitor" ||
+                          user?.role === "admin") && (
                           <th
                             scope="col"
                             className="relative px-3 sm:px-6 py-3"
@@ -189,8 +190,8 @@ const Consultation: NextPage = () => {
                               {consultation.time}
                             </div>
                           </td>
-                          {(user.role === "visitor" ||
-                            user.role === "admin") && (
+                          {(user?.role === "visitor" ||
+                            user?.role === "admin") && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <Link
                                 href={`/exhibitors/${consultation.exhibitor}`}
@@ -204,8 +205,8 @@ const Consultation: NextPage = () => {
                               </div> */}
                             </td>
                           )}
-                          {(user.role === "exhibitor" ||
-                            user.role === "admin") && (
+                          {(user?.role === "exhibitor" ||
+                            user?.role === "admin") && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <div className="text-sm text-gray-900">
                                 {consultation.visitor?.name}
@@ -241,8 +242,8 @@ const Consultation: NextPage = () => {
                             ) : null}
                           </td>
 
-                          {(user.role === "exhibitor" ||
-                            user.role === "admin") &&
+                          {(user?.role === "exhibitor" ||
+                            user?.role === "admin") &&
                             consultation.status !== 1 && (
                               <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                                 <button

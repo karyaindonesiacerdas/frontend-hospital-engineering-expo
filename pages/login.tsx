@@ -33,7 +33,7 @@ const Login: NextPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("auth");
-  const { login, isAuthenticated, isLoading } = useAuth();
+  const { login, isAuthenticated, isLoading, user } = useAuth();
   const {
     register,
     handleSubmit,

@@ -108,7 +108,7 @@ const MyAccountPage: NextPage = () => {
       }
 
       await res.json();
-      if (user.role === "exhibitor") {
+      if (user?.role === "exhibitor") {
         await queryClient.invalidateQueries(["exhibitor", user?.id]);
       }
       await queryClient.invalidateQueries(["user"]);

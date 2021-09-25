@@ -49,7 +49,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
     ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`
     : `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
 
-  // const avatarURL = `https://ui-avatars.com/api/?name=${user.name}&background=random`;
+  // const avatarURL = `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
   // console.log({ exh: data });
 
   return (
@@ -120,8 +120,8 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 {/* Right Nav */}
                 <div className="hidden lg:block">
                   <div className="ml-4 flex items-center lg:ml-6">
-                    {user.role === "exhibitor" && (
-                      <Link href={`/exhibitors/${user.id}`}>
+                    {user?.role === "exhibitor" && (
+                      <Link href={`/exhibitors/${user?.id}`}>
                         <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
                           <svg
                             className="w-5 h-5 mr-2"
@@ -189,7 +189,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                             objectFit="cover"
                             className="rounded-full"
                             src={avatarURL}
-                            alt={user.name}
+                            alt={user?.name}
                           />
                         </Menu.Button>
                       </div>
@@ -204,7 +204,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white bg-opacity-95 ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {userNavigation.map((item) => {
-                            if (!item.access || item.access === user.role) {
+                            if (!item.access || item.access === user?.role) {
                               return (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
@@ -294,10 +294,10 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-primary-500 mb-0.5">
-                      {user.name}
+                      {user?.name}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-600">
-                      {user.email}
+                      {user?.email}
                     </div>
                   </div>
                   {/* <button

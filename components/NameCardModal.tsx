@@ -219,7 +219,7 @@ export const NameCardModal = ({
                   )}
                 </div>
 
-                {user.role === "exhibitor" && exhibitorId === user.id && (
+                {user?.role === "exhibitor" && exhibitorId === user?.id && (
                   <form
                     className="col-span-2 sm:col-span-1 w-96"
                     onSubmit={onSubmit}
