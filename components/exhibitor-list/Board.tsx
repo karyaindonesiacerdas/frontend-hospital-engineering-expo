@@ -17,6 +17,9 @@ type Props = {
 
 const Board = ({ exhibitors }: Props) => {
   console.log({ exhibitors });
+
+  const totalExhibitor = exhibitors.length;
+  const totalSlide = Math.ceil(totalExhibitor / 6);
   return (
     <div className={styles.boardWrapper}>
       <div className={styles.board}>
@@ -33,6 +36,55 @@ const Board = ({ exhibitors }: Props) => {
             // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={() => console.log("slide change")}
           >
+            {Array.from(Array(totalSlide).keys()).map((i) => (
+              <SwiperSlide key={i} style={{ paddingBottom: "1vw" }}>
+                <div className="grid grid-cols-3 grid-rows-2 gap-[0.5vw] p-[1vw] w-full h-full">
+                  {exhibitors
+                    ?.filter?.(
+                      (_, index) => index >= i * 6 && index <= (i + 1) * 6 - 1
+                    )
+                    .map((exhibitor) => {
+                      console.log({ exhibitor: exhibitor.company_name, i });
+                      return (
+                        <Link
+                          key={exhibitor.id}
+                          href={`/exhibitors/${exhibitor.id}`}
+                        >
+                          <a
+                            className="grid grid-rows-4 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full"
+                            style={{ padding: "0.5vw" }}
+                          >
+                            <div
+                              className="row-span-3 flex items-center justify-center"
+                              style={{
+                                paddingRight: "2vw",
+                                paddingLeft: "2vw",
+                                paddingTop: "0.6vw",
+                                paddingBottom: "0.2vw",
+                              }}
+                            >
+                              <img
+                                style={{ height: "100%", width: "auto" }}
+                                src={
+                                  `${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${exhibitor.company_logo}` ||
+                                  "/logo-placeholder.svg"
+                                }
+                                alt={exhibitor.company_name}
+                              />
+                            </div>
+                            <span
+                              className="row-span-1 flex items-center justify-center font-semibold text-gray-600"
+                              style={{ fontSize: "0.8vw" }}
+                            >
+                              {exhibitor.company_name}
+                            </span>
+                          </a>
+                        </Link>
+                      );
+                    })}
+                </div>
+              </SwiperSlide>
+            ))}
             {/* Slide  1 X 2 */}
             {/* <SwiperSlide style={{ paddingBottom: "2vw" }}>
               <div className="grid grid-cols-2 gap-[0.5vw] p-[1vw] w-full h-full">
@@ -61,7 +113,7 @@ const Board = ({ exhibitors }: Props) => {
               </div>
             </SwiperSlide> */}
             {/* Slide  2 X 3 */}
-            <SwiperSlide style={{ paddingBottom: "1vw" }}>
+            {/* <SwiperSlide style={{ paddingBottom: "1vw" }}>
               <div className="grid grid-cols-3 grid-rows-2 gap-[0.5vw] p-[1vw] w-full h-full">
                 {exhibitors?.map((exhibitor) => (
                   <Link key={exhibitor.id} href={`/exhibitors/${exhibitor.id}`}>
@@ -97,7 +149,7 @@ const Board = ({ exhibitors }: Props) => {
                   </Link>
                 ))}
               </div>
-            </SwiperSlide>
+            </SwiperSlide> */}
             {/* Slide  2 X 4 */}
             {/* <SwiperSlide style={{ paddingBottom: "1vw" }}>
               <div className="grid grid-cols-4 grid-rows-2 gap-[0.5vw] p-[1vw] w-full h-full">
