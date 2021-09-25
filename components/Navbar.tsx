@@ -47,7 +47,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
 
   const avatarURL = data?.img_profile
     ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`
-    : `https://ui-avatars.com/api/?name=${user.name}&background=random`;
+    : `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
 
   // const avatarURL = `https://ui-avatars.com/api/?name=${user.name}&background=random`;
   // console.log({ exh: data });

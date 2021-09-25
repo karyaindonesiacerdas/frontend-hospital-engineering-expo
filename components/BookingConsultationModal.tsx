@@ -83,6 +83,7 @@ export const BookingConsultationModal = ({
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
   const cookies = parseCookies();
@@ -92,15 +93,21 @@ export const BookingConsultationModal = ({
   const { data } = useAvailableTimes({ id: exhibitorId });
 
   const onSubmit: SubmitHandler<Inputs> = async ({ date, time }) => {
-    const data = {
-      exhibitor_id: exhibitorId,
-      date,
-      time,
+    const schedule = data?.find(
+      (item) => item.date === date && item.time === time
+    );
+
+    if (!schedule?.id) return;
+
+    const payload = {
+      _method: "PUT",
+      status: 2,
     };
+
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
-        data,
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/${schedule?.id}`,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
@@ -108,6 +115,7 @@ export const BookingConsultationModal = ({
         }
       );
 
+      reset();
       toast.success("Booking success", { position: "top-right" });
       setOpen(false);
     } catch (error) {

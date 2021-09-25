@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext, FC } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
+import { useQueryClient } from "react-query";
 
 type LoginProps = {
   email: string;
@@ -58,6 +59,7 @@ export const AuthProvider: FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const cookies = parseCookies();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const token = cookies.access_token;
@@ -136,7 +138,8 @@ export const AuthProvider: FC = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await queryClient.clear();
     setUser(null);
     setIsAuthenticated(false);
     destroyCookie(null, "access_token");

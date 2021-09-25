@@ -137,110 +137,111 @@ export const ChatModal = ({ open, setOpen }: Props) => {
   // );
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed z-10 inset-0 overflow-y-auto"
-        initialFocus={cancelButtonRef}
-        onClose={setOpen}
-      >
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
+    // <Transition.Root show={open} as={Fragment}>
+    //   <Dialog
+    //     as="div"
+    //     className="fixed z-10 inset-0 overflow-y-auto"
+    //     initialFocus={cancelButtonRef}
+    //     onClose={setOpen}
+    //   >
+    //     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    //       <Transition.Child
+    //         as={Fragment}
+    //         enter="ease-out duration-300"
+    //         enterFrom="opacity-0"
+    //         enterTo="opacity-100"
+    //         leave="ease-in duration-200"
+    //         leaveFrom="opacity-100"
+    //         leaveTo="opacity-0"
+    //       >
+    //         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+    //       </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            className="hidden sm:inline-block sm:align-middle sm:h-screen"
-            aria-hidden="true"
-          >
-            &#8203;
-          </span>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <div className="inline-block align-bottom rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-xl h-[600px] w-full sm:p-6 modal-bg ">
-              {/* ### Chat ### */}
-              <div className="flex w-full h-full bg-white rounded-md overflow-hidden">
-                {!selectedChat ? (
-                  <div className="w-full h-full">
-                    {/* <!-- Chat list header --> */}
-                    <div className="py-2 px-4 bg-primary-500 border-b border-gray-200 h-12 flex justify-between items-center">
-                      <h3 className="text-xl font-medium text-white uppercase">
-                        HEF 2021 Chat
-                      </h3>
-                      <button
-                        onClick={() => setOpen(false)}
-                        className="p-1 hover:bg-primary-600 rounded-md text-white"
-                      >
-                        <svg
-                          className="w-7 h-7"
-                          width="24"
-                          height="24"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M17.25 6.75L6.75 17.25"
-                          />
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M6.75 6.75L17.25 17.25"
-                          />
-                        </svg>
-                        <span className="sr-only">Close Modal</span>
-                      </button>
-                    </div>
+    //       {/* This element is to trick the browser into centering the modal contents. */}
+    //       <span
+    //         className="hidden sm:inline-block sm:align-middle sm:h-screen"
+    //         aria-hidden="true"
+    //       >
+    //         &#8203;
+    //       </span>
+    //       <Transition.Child
+    //         as={Fragment}
+    //         enter="ease-out duration-300"
+    //         enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    //         enterTo="opacity-100 translate-y-0 sm:scale-100"
+    //         leave="ease-in duration-200"
+    //         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+    //         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    //       >
+    //         <div className="inline-block align-bottom rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-xl h-[600px] w-full sm:p-6 modal-bg ">
+    //           {/* ### Chat ### */}
+    //           <div className="flex w-full h-full bg-white rounded-md overflow-hidden">
+    //             {!selectedChat ? (
+    //               <div className="w-full h-full">
+    //                 {/* <!-- Chat list header --> */}
+    //                 <div className="py-2 px-4 bg-primary-500 border-b border-gray-200 h-12 flex justify-between items-center">
+    //                   <h3 className="text-xl font-medium text-white uppercase">
+    //                     HEF 2021 Chat
+    //                   </h3>
+    //                   <button
+    //                     onClick={() => setOpen(false)}
+    //                     className="p-1 hover:bg-primary-600 rounded-md text-white"
+    //                   >
+    //                     <svg
+    //                       className="w-7 h-7"
+    //                       width="24"
+    //                       height="24"
+    //                       fill="none"
+    //                       viewBox="0 0 24 24"
+    //                     >
+    //                       <path
+    //                         stroke="currentColor"
+    //                         strokeLinecap="round"
+    //                         strokeLinejoin="round"
+    //                         strokeWidth="1.5"
+    //                         d="M17.25 6.75L6.75 17.25"
+    //                       />
+    //                       <path
+    //                         stroke="currentColor"
+    //                         strokeLinecap="round"
+    //                         strokeLinejoin="round"
+    //                         strokeWidth="1.5"
+    //                         d="M6.75 6.75L17.25 17.25"
+    //                       />
+    //                     </svg>
+    //                     <span className="sr-only">Close Modal</span>
+    //                   </button>
+    //                 </div>
 
-                    {/* <!-- Search --> */}
-                    <Search />
+    //                 {/* <!-- Search --> */}
+    //                 <Search />
 
-                    {/* <!-- Chat list --> */}
-                    <ul className="divide-y divide-gray-200 max-h-[400px] overflow-y-auto">
-                      {chats.map((chat) => (
-                        <ChatListItem
-                          key={chat.userId}
-                          chat={chat}
-                          selectedChat={selectedChat}
-                          setSelectedChat={setSelectedChat}
-                        />
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <MessagesPanel
-                    setOpen={setOpen}
-                    selectedChat={selectedChat}
-                    setSelectedChat={setSelectedChat}
-                  />
-                )}
-              </div>
-            </div>
-          </Transition.Child>
-        </div>
-      </Dialog>
-    </Transition.Root>
+    //                 {/* <!-- Chat list --> */}
+    //                 <ul className="divide-y divide-gray-200 max-h-[400px] overflow-y-auto">
+    //                   {chats.map((chat) => (
+    //                     <ChatListItem
+    //                       key={chat.userId}
+    //                       chat={chat}
+    //                       selectedChat={selectedChat}
+    //                       setSelectedChat={setSelectedChat}
+    //                     />
+    //                   ))}
+    //                 </ul>
+    //               </div>
+    //             ) : (
+    //               <MessagesPanel
+    //                 setOpen={setOpen}
+    //                 selectedChat={selectedChat}
+    //                 setSelectedChat={setSelectedChat}
+    //               />
+    //             )}
+    //           </div>
+    //         </div>
+    //       </Transition.Child>
+    //     </div>
+    //   </Dialog>
+    // </Transition.Root>
+    <div></div>
   );
 };
 

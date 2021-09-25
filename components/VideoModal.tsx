@@ -117,8 +117,6 @@ export const VideoModal = ({
     }
   }, [setError, validId, clearErrors]);
 
-  console.log({ validId });
-
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const { company_name, company_video_url, company_website, email, mobile } =
       values;

@@ -64,8 +64,6 @@ const Exhibitors: NextPage = () => {
     return <FullPageLoader />;
   }
 
-  console.log({ data });
-
   return (
     <>
       {/* Chat Button */}

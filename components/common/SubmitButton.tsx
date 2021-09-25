@@ -20,9 +20,9 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
   return (
     <button
       type="submit"
-      className={`flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF] ${
+      className={`${className} flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF] ${
         fullWidth ? "w-full" : ""
-      } ${className}`}
+      }`}
     >
       {isLoading ? (
         <svg

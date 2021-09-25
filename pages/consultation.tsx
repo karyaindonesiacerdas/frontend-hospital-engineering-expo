@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEventHandler, FormEvent } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,49 +11,8 @@ import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
-
-const consultations = [
-  {
-    date: "2 October 2021",
-    time: "08.00 - 09.00",
-    exhibitor: "PT Karya Indonesia Cerdas",
-    visitor: "John Doe",
-    link_booth: "virtual-booth-5.html",
-    engineering_areas: ["Hospital Informatics", "Hospital Electrics"],
-    status: "done",
-    link_zoom: "https://zoom.us",
-  },
-  {
-    date: "3 October 2021",
-    time: "08.00 - 09.00",
-    exhibitor: "PT Karya Indonesia Cerdas",
-    visitor: "Jane Doe",
-    link_booth: "virtual-booth-5.html",
-    engineering_areas: ["Hospital Informatics"],
-    status: "timeout",
-    link_zoom: "https://zoom.us",
-  },
-  {
-    date: "3 October 2021",
-    time: "11.00 - 11.30",
-    exhibitor: "PT Karya Indonesia Cerdas",
-    visitor: "Bob",
-    link_booth: "virtual-booth-5.html",
-    engineering_areas: ["Hospital Informatics"],
-    status: "current",
-    link_zoom: "https://zoom.us",
-  },
-  {
-    date: "4 October 2021",
-    time: "11.00 - 11.30",
-    exhibitor: "PT Karya Indonesia Cerdas",
-    visitor: "Alice",
-    link_booth: "virtual-booth-5.html",
-    engineering_areas: ["Hospital Informatics", "Hospital Electrics"],
-    status: "upcoming",
-    link_zoom: "https://zoom.us",
-  },
-];
+import { UpdateStatus } from "@/components/consultation/UpdateStatus";
+import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
 type ConsultationDetail = {
   id: number;
@@ -92,6 +51,10 @@ const Consultation: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+  const [openChangeStatusModal, setOpenChangeStatusModal] = useState(false);
+  const [openAddSlotTimeModal, setOpenAddSlotTimeModal] = useState(false);
+  const [selectedConsultation, setSelectedConsultation] =
+    useState<{ id: number; status: number }>();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -101,11 +64,13 @@ const Consultation: NextPage = () => {
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
 
-  if (isLoading || !isAuthenticated) {
+  if (isLoading || !isAuthenticated || isLoadingConsultations) {
     return <FullPageLoader />;
   }
 
-  console.log({ data });
+  console.log({ openAddSlotTimeModal, openChangeStatusModal });
+
+  console.log({ user });
 
   return (
     <>
@@ -123,11 +88,40 @@ const Consultation: NextPage = () => {
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
         <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {(user.role === "exhibitor" || user.role === "admin") &&
+          selectedConsultation && (
+            <>
+              <UpdateStatus
+                open={openChangeStatusModal}
+                setOpen={setOpenChangeStatusModal}
+                selectedConsultation={selectedConsultation}
+              />
+            </>
+          )}
+        {user.role === "exhibitor" && (
+          <AddSlotTime
+            open={openAddSlotTimeModal}
+            setOpen={setOpenAddSlotTimeModal}
+          />
+        )}
 
         <div className="px-2 xl:px-0 py-6">
-          <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 mb-4 font-bold text-center lg:text-left uppercase tracking-wide">
-            Your Consultation Booking
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 mb-4 font-bold uppercase tracking-wide">
+              Your Consultation Booking
+            </h2>
+            {user.role === "exhibitor" && (
+              <button
+                onClick={() => {
+                  console.log("click");
+                  setOpenAddSlotTimeModal(true);
+                }}
+                className="py-2 px-4 bg-primary-600 text-white text-sm font-semibold rounded-md hover:bg-primary-700"
+              >
+                Add Slot Time
+              </button>
+            )}
+          </div>
           {/* Table */}
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -148,7 +142,7 @@ const Consultation: NextPage = () => {
                         >
                           Time
                         </th>
-                        {user.role === "visitor" && (
+                        {(user.role === "visitor" || user.role === "admin") && (
                           <th
                             scope="col"
                             className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -156,27 +150,27 @@ const Consultation: NextPage = () => {
                             Exhibitor
                           </th>
                         )}
-                        {user.role === "exhibitor" && (
-                          <>
-                            <th
-                              scope="col"
-                              className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Visitor
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                              Open
-                            </th>
-                          </>
+                        {(user.role === "exhibitor" ||
+                          user.role === "admin") && (
+                          <th
+                            scope="col"
+                            className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Visitor
+                          </th>
                         )}
 
                         <th
                           scope="col"
                           className="relative px-3 sm:px-6 py-3"
                         ></th>
+                        {(user.role === "exhibitor" ||
+                          user.role === "admin") && (
+                          <th
+                            scope="col"
+                            className="relative px-3 sm:px-6 py-3"
+                          ></th>
+                        )}
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -195,13 +189,14 @@ const Consultation: NextPage = () => {
                               {consultation.time}
                             </div>
                           </td>
-                          {user.role === "visitor" && (
+                          {(user.role === "visitor" ||
+                            user.role === "admin") && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <Link
                                 href={`/exhibitors/${consultation.exhibitor}`}
                               >
                                 <a className="text-sm text-gray-900 hover:text-primary">
-                                  {consultation.exhibitor.company_name}
+                                  {consultation?.exhibitor?.company_name}
                                 </a>
                               </Link>
                               {/* <div className="text-sm text-gray-500">
@@ -209,36 +204,28 @@ const Consultation: NextPage = () => {
                               </div> */}
                             </td>
                           )}
-                          {user.role === "exhibitor" && (
-                            <>
-                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">
-                                  {consultation.visitor.name}
-                                </div>
-                                <div className="text-sm text-gray-500">
-                                  {consultation.visitor.institution_name}
-                                </div>
-                              </td>
-                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                                <input
-                                  type="checkbox"
-                                  className="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded"
-                                  defaultChecked={true}
-                                />
-                              </td>
-                            </>
+                          {(user.role === "exhibitor" ||
+                            user.role === "admin") && (
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">
+                                {consultation.visitor?.name}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {consultation.visitor?.institution_name}
+                              </div>
+                            </td>
                           )}
 
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                            {consultation.status === 3 ? (
+                            {consultation.status === 4 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
                                 Done
                               </span>
-                            ) : consultation.status === 2 ? (
+                            ) : consultation.status === 5 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-red-100 text-red-800">
                                 Timeout
                               </span>
-                            ) : consultation.status === 1 ? (
+                            ) : consultation.status === 3 ? (
                               <a
                                 href="https://zoom.us"
                                 target="_blank"
@@ -247,12 +234,31 @@ const Consultation: NextPage = () => {
                               >
                                 Join Zoom
                               </a>
-                            ) : consultation.status === 0 ? (
+                            ) : consultation.status === 2 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-gray-100 text-gray-800">
                                 Upcoming
                               </span>
                             ) : null}
                           </td>
+
+                          {(user.role === "exhibitor" ||
+                            user.role === "admin") &&
+                            consultation.status !== 1 && (
+                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                                <button
+                                  className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
+                                  onClick={() => {
+                                    setSelectedConsultation({
+                                      id: consultation.id,
+                                      status: consultation.status,
+                                    });
+                                    setOpenChangeStatusModal(true);
+                                  }}
+                                >
+                                  Update Status
+                                </button>
+                              </td>
+                            )}
                         </tr>
                       ))}
                     </tbody>

@@ -51,3 +51,19 @@ export type Poster = {
   src: string;
   title: string;
 };
+
+export type ConsultationDetail = {
+  id: number;
+  date: string;
+  time: string;
+  status: number;
+  visitor: {
+    id: number;
+    name: string;
+    institution_name: string;
+  };
+  exhibitor: {
+    id: number;
+    company_name: string;
+  };
+};
