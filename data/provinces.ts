@@ -41,7 +41,7 @@ export const provinces = [
   },
   {
     id: 31,
-    name: "Dki Jakarta",
+    name: "Jakarta",
   },
   {
     id: 32,

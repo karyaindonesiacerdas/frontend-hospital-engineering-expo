@@ -34,7 +34,6 @@ const Exhibitors: NextPage = () => {
   const router = useRouter();
   const { isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
-  const boothType: string = "Booth10";
 
   // Check is user authenticated
   useEffect(() => {
@@ -65,6 +64,8 @@ const Exhibitors: NextPage = () => {
     return <FullPageLoader />;
   }
 
+  console.log({ data });
+
   return (
     <>
       {/* Chat Button */}
@@ -77,7 +78,7 @@ const Exhibitors: NextPage = () => {
 
       <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
 
-      {boothType === "Booth10" ? (
+      {data.booth_type === "booth10" ? (
         <VirtualBooth10 exhibitor={data} />
       ) : (
         <VirtualBooth5 exhibitor={data} />

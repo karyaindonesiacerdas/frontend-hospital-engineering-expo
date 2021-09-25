@@ -4,19 +4,25 @@ import { useTranslation } from "next-i18next";
 type SubmitButtonProps = {
   isLoading: boolean;
   i18nText?: string;
+  className?: string;
+  fullWidth?: boolean;
 };
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
   isLoading,
   i18nText,
+  className,
   children,
+  fullWidth = true,
 }) => {
   const { t } = useTranslation("auth");
 
   return (
     <button
       type="submit"
-      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF]"
+      className={`flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF] ${
+        fullWidth ? "w-full" : ""
+      } ${className}`}
     >
       {isLoading ? (
         <svg

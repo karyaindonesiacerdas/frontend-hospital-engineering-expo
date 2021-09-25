@@ -1,24 +1,29 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { parseCookies } from "nookies";
+import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
-import { FullPageLoader } from "@/components/common";
+import { FullPageLoader, SubmitButton } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { provinces } from "@/data/provinces";
 import { countries } from "@/data/countries";
 import { useExhibitor } from "hooks/useExhibitor";
+import { UploadLogo } from "@/components/settings/UploadLogo";
 
-type CompanyProps = {
+type Inputs = {
   name: string;
   email: string;
-  website?: string;
+  website: string;
   phone: string;
   country: string;
-  province?: string;
+  province: string;
 };
 
 const SettingVirtualBoothPage: NextPage = () => {
@@ -27,10 +32,12 @@ const SettingVirtualBoothPage: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     reset,
-    // formState: { isSubmitting },
-  } = useForm<CompanyProps>();
+    formState: { isSubmitting, errors },
+  } = useForm<Inputs>();
+  const cookies = parseCookies();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -61,6 +68,47 @@ const SettingVirtualBoothPage: NextPage = () => {
   if (isLoading || !isAuthenticated || isLoadingExhibitor) {
     return <FullPageLoader />;
   }
+
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    try {
+      const { country, email, name, phone, province, website } = values;
+
+      const data = {
+        _method: "PUT",
+        email,
+        company_name: name,
+        mobile: phone,
+        company_website: website,
+      };
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies?.access_token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Error upload company logo");
+      }
+
+      await res.json();
+      await queryClient.invalidateQueries(["exhibitor", user?.id]);
+
+      toast.success("Company Profile uploaded successfully!", {
+        position: "top-right",
+      });
+    } catch (error) {
+      toast.error("Company profile failed to upload!", {
+        position: "top-right",
+      });
+    }
+  };
 
   // console.log({ user });
 
@@ -104,7 +152,7 @@ const SettingVirtualBoothPage: NextPage = () => {
               </div>
             </div>
             <div className="mt-5 md:mt-0 md:col-span-2">
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="shadow sm:rounded-md sm:overflow-hidden">
                   <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                     <div className="grid grid-cols-2 gap-6">
@@ -147,18 +195,13 @@ const SettingVirtualBoothPage: NextPage = () => {
                         >
                           Website
                         </label>
-                        <div className="flex rounded-md shadow-sm">
-                          <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                            http://
-                          </span>
-                          <input
-                            type="text"
-                            id="company-website"
-                            className="focus:ring-primary-500 focus:border-primary-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                            placeholder="www.example.com"
-                            {...register("website")}
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          id="company-website"
+                          className="input-text"
+                          placeholder="Company Website"
+                          {...register("website")}
+                        />
                       </div>
                       <div className="col-span-2 sm:col-span-1">
                         <label
@@ -168,7 +211,6 @@ const SettingVirtualBoothPage: NextPage = () => {
                           Phone
                         </label>
                         <input
-                          type="email"
                           id="company-phone"
                           className="input-text"
                           placeholder="Company Phone"
@@ -225,12 +267,60 @@ const SettingVirtualBoothPage: NextPage = () => {
                     </div>
                   </div>
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button type="submit" className="btn-primary">
-                      Save
-                    </button>
+                    <div className="flex justify-end">
+                      <SubmitButton
+                        isLoading={isSubmitting}
+                        fullWidth={false}
+                        className="bg-primary-600 hover:bg-primary-700"
+                      >
+                        Save
+                      </SubmitButton>
+                    </div>
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden sm:block" aria-hidden="true">
+          <div className="py-5">
+            <div className="border-t border-gray-200" />
+          </div>
+        </div>
+
+        {/* Upload Logo */}
+        <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
+          <div className="md:grid md:grid-cols-3 md:gap-6">
+            <div className="md:col-span-1">
+              <div className="px-4 sm:px-0">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  Company Logo
+                </h3>
+                {/* <p className="mt-1 text-sm text-gray-600">
+                  This information will be displayed publicly so be careful what
+                  you share.
+                </p> */}
+              </div>
+            </div>
+            <div className="mt-5 md:mt-0 md:col-span-2">
+              <div className="grid grid-cols-3 gap-6">
+                <div className="aspect-w-3 aspect-h-2 max-w-[200px]">
+                  <Image
+                    // width={400}
+                    // height={300}
+                    // objectFit="contain"
+                    layout="fill"
+                    objectFit="contain"
+                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${data?.company_logo}`}
+                    alt="Company Logo"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <UploadLogo />
+                </div>
+              </div>
+              {/* Upload Logo */}
             </div>
           </div>
         </div>

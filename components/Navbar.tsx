@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "@/contexts/auth.context";
+import { useExhibitor } from "hooks/useExhibitor";
+import { useUser } from "hooks/useUser";
 
 const userNavigation = [
   { name: "My Account", href: "/my-account" },
@@ -41,8 +43,14 @@ type Props = {
 export const Navbar = ({ variant = "light", currentHref }: Props) => {
   const { logout, user } = useAuth();
 
-  const avatarURL = `https://ui-avatars.com/api/?name=${user.name}&background=random`;
-  // console.log({ loggedInUser });
+  const { data } = useUser();
+
+  const avatarURL = data?.img_profile
+    ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`
+    : `https://ui-avatars.com/api/?name=${user.name}&background=random`;
+
+  // const avatarURL = `https://ui-avatars.com/api/?name=${user.name}&background=random`;
+  // console.log({ exh: data });
 
   return (
     <header className="bg-transparent z-10 sticky">

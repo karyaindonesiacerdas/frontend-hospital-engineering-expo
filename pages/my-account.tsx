@@ -1,21 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { parseCookies } from "nookies";
+import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
-import { FullPageLoader } from "@/components/common";
+import { FullPageLoader, SubmitButton } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { useExhibitor } from "hooks/useExhibitor";
+import { XIcon } from "@heroicons/react/solid";
+import { useUser } from "hooks/useUser";
 
-type UserProfileProps = {
+type Inputs = {
   email: string;
   mobile: string;
   name: string;
   job_function: string;
+  img_profile: any;
   // photo: string;
 };
 
@@ -24,13 +31,14 @@ const MyAccountPage: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     reset,
-    // formState: { isSubmitting },
-  } = useForm<UserProfileProps>({
+    watch,
+    setValue,
+    formState: { isSubmitting, errors },
+  } = useForm<Inputs>({
     defaultValues: {
       name: user?.name,
       mobile: user?.mobile,
@@ -38,6 +46,14 @@ const MyAccountPage: NextPage = () => {
       job_function: user?.job_function,
     },
   });
+  const cookies = parseCookies();
+  const queryClient = useQueryClient();
+  const imgProfileWatch = watch("img_profile");
+
+  const previewURL =
+    imgProfileWatch &&
+    imgProfileWatch[0] &&
+    URL.createObjectURL(imgProfileWatch[0]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -45,9 +61,7 @@ const MyAccountPage: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  const { data, isLoading: isLoadingExhibitor } = useExhibitor({
-    id: user?.id,
-  });
+  const { data, isLoading: isLoadingUser } = useUser();
 
   useEffect(() => {
     if (data) {
@@ -60,9 +74,54 @@ const MyAccountPage: NextPage = () => {
     }
   }, [data, reset]);
 
-  if (isLoading || !isAuthenticated || isLoadingExhibitor) {
+  console.log({ data });
+
+  if (isLoading || !isAuthenticated || isLoadingUser) {
     return <FullPageLoader />;
   }
+
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    try {
+      const { email, job_function, mobile, name, img_profile } = values;
+
+      const data = new FormData();
+      img_profile && data.append("img_profile", img_profile[0]);
+      data.append("_method", "PUT");
+      data.append("email", email);
+      data.append("name", name);
+      data.append("job_function", job_function);
+      data.append("mobile", mobile);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies?.access_token}`,
+          },
+          body: data,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Error upload account profile");
+      }
+
+      await res.json();
+      if (user.role === "exhibitor") {
+        await queryClient.invalidateQueries(["exhibitor", user?.id]);
+      }
+      await queryClient.invalidateQueries(["user"]);
+
+      toast.success("Account Profile uploaded successfully!", {
+        position: "top-right",
+      });
+    } catch (error) {
+      toast.error("Account profile failed to upload!", {
+        position: "top-right",
+      });
+    }
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -99,7 +158,7 @@ const MyAccountPage: NextPage = () => {
               </div>
             </div>
             <div className="mt-5 md:mt-0 md:col-span-2">
-              <form action="#" method="POST">
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="shadow overflow-hidden sm:rounded-md">
                   <div className="px-4 py-5 bg-white sm:p-6">
                     <div className="grid grid-cols-2 gap-6">
@@ -203,29 +262,83 @@ const MyAccountPage: NextPage = () => {
                           Photo
                         </label>
                         <div className="mt-1 flex items-center">
-                          <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                            <svg
-                              className="h-full w-full text-gray-300"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
+                          {previewURL ? (
+                            <img
+                              src={previewURL}
+                              alt="preview image"
+                              className="w-12 h-12 rounded-full object-cover"
+                            />
+                          ) : data?.img_profile ? (
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`}
+                              alt="Image Profile"
+                              className="w-12 h-12 rounded-full object-cover"
+                            />
+                          ) : (
+                            <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                              <svg
+                                className="h-full w-full text-gray-300"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                              </svg>
+                            </span>
+                          )}
+                          {/* <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                            {previewURL ? (
+                              <img src={previewURL} alt="preview image" />
+                            ) : data?.img_profile ? (
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`}
+                                alt="Image Profile"
+                              />
+                            ) : (
+                              <svg
+                                className="h-full w-full text-gray-300"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                              </svg>
+                            )}
+                          </span> */}
+                          {previewURL && (
+                            <button
+                              className="ml-3 p-1 bg-red-50 text-red-900 hover:bg-red-500 hover:text-white"
+                              onClick={() => setValue("img_profile", undefined)}
                             >
-                              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                          </span>
-                          <button
-                            type="button"
+                              <span className="sr-only">Clear Image</span>
+                              <XIcon className="w-4 h-4" />
+                            </button>
+                          )}
+                          <label
+                            // type="button"
+                            htmlFor="img_profile"
                             className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                           >
                             Change
-                          </button>
+                          </label>
+                          <input
+                            id="img_profile"
+                            type="file"
+                            className="hidden"
+                            {...register("img_profile")}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button type="submit" className="btn-primary">
-                      Save
-                    </button>
+                    <div className="flex justify-end">
+                      <SubmitButton
+                        isLoading={isSubmitting}
+                        fullWidth={false}
+                        className="bg-primary-600 hover:bg-primary-700"
+                      >
+                        Save
+                      </SubmitButton>
+                    </div>
                   </div>
                 </div>
               </form>

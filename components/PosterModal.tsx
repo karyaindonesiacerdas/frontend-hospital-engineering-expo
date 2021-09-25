@@ -105,7 +105,7 @@ export const PosterModal = ({
       );
 
       if (!res.ok) {
-        throw new Error("erororor");
+        throw new Error("Error post poster");
       }
 
       await res.json();

@@ -33,6 +33,8 @@ export type ExhibitorDetails = {
   company_description: string;
   role: Role;
   banners: Banner[];
+  booth_type: string;
+  img_profile: string;
 };
 
 export type Exhibitor = {

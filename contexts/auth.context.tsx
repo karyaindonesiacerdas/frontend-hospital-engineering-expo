@@ -32,6 +32,15 @@ type AuthContextType = {
   logout: () => void;
   isLoading: boolean;
   isAuthenticated: boolean;
+  updateProfile: (props: UpdateProfileProps) => Promise<void>;
+};
+
+type UpdateProfileProps = {
+  email: string;
+  mobile: string;
+  name: string;
+  job_function: string;
+  img_profile: any;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -41,6 +50,7 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {},
   isLoading: true,
   isAuthenticated: false,
+  updateProfile: async () => {},
 });
 
 export const AuthProvider: FC = ({ children }) => {
@@ -79,6 +89,7 @@ export const AuthProvider: FC = ({ children }) => {
     }
 
     const json = await res.json();
+    console.log({ json });
 
     if (json.code !== 200) {
       setIsAuthenticated(false);
@@ -87,7 +98,7 @@ export const AuthProvider: FC = ({ children }) => {
       destroyCookie(null, "user");
     } else {
       setIsAuthenticated(true);
-      setUser("hello");
+      setUser(json.data.user);
       setCookie(null, "user", JSON.stringify(json.data.user));
       setCookie(null, "access_token", json.data.token);
     }
@@ -119,7 +130,7 @@ export const AuthProvider: FC = ({ children }) => {
       destroyCookie(null, "user");
     } else {
       setIsAuthenticated(true);
-      setUser("hello");
+      setUser(json.data.user);
       setCookie(null, "user", JSON.stringify(json.data.user));
       setCookie(null, "access_token", json.data.token);
     }
@@ -132,6 +143,35 @@ export const AuthProvider: FC = ({ children }) => {
     destroyCookie(null, "user");
   };
 
+  const updateProfile = async (props: UpdateProfileProps) => {
+    const { email, job_function, img_profile, mobile, name } = props;
+
+    const data = new FormData();
+    img_profile && data.append("img_profile", img_profile);
+    data.append("_method", "PUT");
+    data.append("email", email);
+    data.append("mobile", mobile);
+    data.append("job_function", job_function);
+    data.append("name", name);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/update`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${cookies.access_token}`,
+      },
+      body: data,
+    });
+
+    if (!res.ok) {
+      throw new Error("Error update user profile");
+    }
+
+    const json = await res.json();
+
+    setUser(json.data);
+    setCookie(null, "user", JSON.stringify(json.data));
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -141,6 +181,7 @@ export const AuthProvider: FC = ({ children }) => {
         isAuthenticated,
         isLoading,
         registerVisitor,
+        updateProfile,
       }}
     >
       {children}
