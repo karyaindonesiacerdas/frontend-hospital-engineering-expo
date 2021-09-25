@@ -16,8 +16,6 @@ type Props = {
 };
 
 const Board = ({ exhibitors }: Props) => {
-  console.log({ exhibitors });
-
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
   return (
@@ -44,7 +42,6 @@ const Board = ({ exhibitors }: Props) => {
                       (_, index) => index >= i * 6 && index <= (i + 1) * 6 - 1
                     )
                     .map((exhibitor) => {
-                      console.log({ exhibitor: exhibitor.company_name, i });
                       return (
                         <Link
                           key={exhibitor.id}
@@ -66,9 +63,11 @@ const Board = ({ exhibitors }: Props) => {
                               <img
                                 style={{ height: "100%", width: "auto" }}
                                 src={
-                                  `${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${exhibitor.company_logo}` ||
-                                  "/logo-placeholder.svg"
+                                  exhibitor.company_logo
+                                    ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${exhibitor.company_logo}`
+                                    : "/logo-placeholder.svg"
                                 }
+                                // src="/logo-placeholder.svg"
                                 alt={exhibitor.company_name}
                               />
                             </div>
