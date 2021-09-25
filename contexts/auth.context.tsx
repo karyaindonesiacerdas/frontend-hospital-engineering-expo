@@ -26,10 +26,26 @@ type RegisterVisitorProps = {
   role: string;
 };
 
+type RegisterExhibitorProps = {
+  email: string;
+  mobile: string;
+  name: string;
+  job_function: string;
+  password: string;
+  password_confirmation: string;
+  company_name: string;
+  company_website: string;
+  country: string;
+  province: string;
+  business_nature: string;
+  role: string;
+};
+
 type AuthContextType = {
   user: any;
   login: ({ email, password }: LoginProps) => Promise<void>;
   registerVisitor: (props: RegisterVisitorProps) => Promise<void>;
+  registerExhibitor: (props: RegisterExhibitorProps) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -48,6 +64,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   login: async ({ email, password }) => {},
   registerVisitor: async () => {},
+  registerExhibitor: async () => {},
   logout: () => {},
   isLoading: true,
   isAuthenticated: false,
@@ -138,6 +155,38 @@ export const AuthProvider: FC = ({ children }) => {
     }
   };
 
+  const registerExhibitor = async (props: RegisterExhibitorProps) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(props),
+      }
+    );
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message);
+    }
+
+    const json = await res.json();
+
+    if (json.code !== 200) {
+      setIsAuthenticated(false);
+      setUser(null);
+      destroyCookie(null, "access_token");
+      destroyCookie(null, "user");
+    } else {
+      setIsAuthenticated(true);
+      setUser(json.data.user);
+      setCookie(null, "user", JSON.stringify(json.data.user));
+      setCookie(null, "access_token", json.data.token);
+    }
+  };
+
   const logout = async () => {
     await queryClient.clear();
     setUser(null);
@@ -184,6 +233,7 @@ export const AuthProvider: FC = ({ children }) => {
         isAuthenticated,
         isLoading,
         registerVisitor,
+        registerExhibitor,
         updateProfile,
       }}
     >
