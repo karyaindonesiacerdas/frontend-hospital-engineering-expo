@@ -31,7 +31,7 @@ export const UpdateStatus = ({
   const [isLoading, setIsLoading] = useState(false);
   const cookies = parseCookies();
   const queryClient = useQueryClient();
-  console.log({ selectedConsultation });
+  // console.log({ selectedConsultation });
 
   const handleChangeStatus: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();

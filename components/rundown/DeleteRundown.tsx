@@ -48,8 +48,8 @@ export const DeleteRundown = ({ open, setOpen, selectedRundown }: Props) => {
         throw new Error("Error delete rundown");
       }
 
-      const json = await res.json();
-      console.log({ json });
+      await res.json();
+      // console.log({ json });
       await queryClient.invalidateQueries(["rundowns"]);
       setOpen(false);
       toast.success("Rundown added");

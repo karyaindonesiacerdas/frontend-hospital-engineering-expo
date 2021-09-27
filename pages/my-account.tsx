@@ -74,7 +74,7 @@ const MyAccountPage: NextPage = () => {
     }
   }, [data, reset]);
 
-  console.log({ data });
+  // console.log({ data });
 
   if (isLoading || !isAuthenticated || isLoadingUser) {
     return <FullPageLoader />;

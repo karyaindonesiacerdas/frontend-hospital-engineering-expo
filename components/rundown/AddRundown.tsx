@@ -63,8 +63,8 @@ export const AddRundown = ({ open, setOpen }: Props) => {
         throw new Error("Error add rundown");
       }
 
-      const json = await res.json();
-      console.log({ json });
+      await res.json();
+      // console.log({ json });
       await queryClient.invalidateQueries(["rundowns"]);
       reset();
       setOpen(false);

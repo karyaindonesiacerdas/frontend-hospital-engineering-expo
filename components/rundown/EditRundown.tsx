@@ -97,8 +97,8 @@ export const EditRundown = ({
         throw new Error("Error add rundown");
       }
 
-      const json = await res.json();
-      console.log({ json });
+      await res.json();
+      // console.log({ json });
       await queryClient.invalidateQueries(["rundowns"]);
 
       setOpen(false);

@@ -138,7 +138,7 @@ export const BookingConsultationModal = ({
     };
 
     try {
-      const res = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
         data,
         {
@@ -147,7 +147,7 @@ export const BookingConsultationModal = ({
           },
         }
       );
-      console.log({ res });
+      // console.log({ res });
 
       reset();
       toast.success("Booking success", { position: "top-right" });

@@ -83,7 +83,7 @@ const RegisterExhibitor: NextPage = () => {
       province,
       business_nature,
     } = values;
-    console.log({ values });
+    // console.log({ values });
     try {
       await registerExhibitor({
         email,

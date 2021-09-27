@@ -46,7 +46,7 @@ export const AddSlotTime = ({ open, setOpen }: Props) => {
   const queryClient = useQueryClient();
 
   const { data } = useConsultations();
-  console.log({ data });
+  // console.log({ data });
 
   const bookedSlot = (date: string) => {
     return data?.filter((item) => item.date === date).map((item) => item.time);
