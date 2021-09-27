@@ -12,6 +12,7 @@ import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
+import { useUser } from "hooks/useUser";
 // import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
 type ConsultationDetail = {
@@ -63,6 +64,12 @@ const Consultation: NextPage = () => {
   }, [isAuthenticated, isLoading, router]);
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
+  // console.log({ consultation: data });
+
+  // console.log({ user });
+
+  // const { data: dataUser } = useUser();
+  // console.log({ user: dataUser });
 
   if (isLoading || !isAuthenticated || isLoadingConsultations) {
     return <FullPageLoader />;
@@ -190,7 +197,7 @@ const Consultation: NextPage = () => {
                             user?.role === "admin") && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <Link
-                                href={`/exhibitors/${consultation.exhibitor}`}
+                                href={`/exhibitors/${consultation?.exhibitor?.id}`}
                               >
                                 <a className="text-sm text-gray-900 hover:text-primary">
                                   {consultation?.exhibitor?.company_name}
