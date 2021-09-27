@@ -223,7 +223,10 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
       <BookingConsultation
         onClick={() => setOpenBookingConsultationModal(true)}
       />
-      <BoothChat onClick={() => setOpenChatModal(true)} />
+      <BoothChat
+        onClick={() => setOpenChatModal(true)}
+        company_logo={exhibitor.company_logo}
+      />
       <ButtonVideo
         onClick={() => setOpenVideoModal(true)}
         companyDetails={{

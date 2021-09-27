@@ -3,16 +3,21 @@ import styles from "./BoothChat.module.css";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  company_logo: string;
 };
 
-export const BoothChat = ({ onClick }: Props) => {
+export const BoothChat = ({ onClick, company_logo }: Props) => {
   return (
     <div className="animate-pulse group hover:animate-none">
       <div className={styles.wrapper}>
         <button
           onClick={onClick}
           className={styles.button}
-          style={{ backgroundImage: "url('/kic-small.png')" }}
+          style={{
+            backgroundImage: company_logo
+              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+              : "url('/logo-placeholder.svg')",
+          }}
         >
           <div className="absolute inset-0 group-hover:bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent hover:border-[#00b4bf]">
             <svg
