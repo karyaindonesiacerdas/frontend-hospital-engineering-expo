@@ -52,7 +52,7 @@ const Consultation: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openChangeStatusModal, setOpenChangeStatusModal] = useState(false);
-  const [openAddSlotTimeModal, setOpenAddSlotTimeModal] = useState(false);
+  // const [openAddSlotTimeModal, setOpenAddSlotTimeModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] =
     useState<{ id: number; status: number }>();
 
@@ -67,10 +67,6 @@ const Consultation: NextPage = () => {
   if (isLoading || !isAuthenticated || isLoadingConsultations) {
     return <FullPageLoader />;
   }
-
-  console.log({ openAddSlotTimeModal, openChangeStatusModal });
-
-  console.log({ user });
 
   return (
     <>
@@ -218,15 +214,15 @@ const Consultation: NextPage = () => {
                           )}
 
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                            {consultation.status === 4 ? (
+                            {consultation.status === 3 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
                                 Done
                               </span>
-                            ) : consultation.status === 5 ? (
+                            ) : consultation.status === 4 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-red-100 text-red-800">
                                 Timeout
                               </span>
-                            ) : consultation.status === 3 ? (
+                            ) : consultation.status === 2 ? (
                               <a
                                 href="https://zoom.us"
                                 target="_blank"
@@ -235,7 +231,7 @@ const Consultation: NextPage = () => {
                               >
                                 Join Zoom
                               </a>
-                            ) : consultation.status === 2 ? (
+                            ) : consultation.status === 1 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-gray-100 text-gray-800">
                                 Upcoming
                               </span>
@@ -243,23 +239,22 @@ const Consultation: NextPage = () => {
                           </td>
 
                           {(user?.role === "exhibitor" ||
-                            user?.role === "admin") &&
-                            consultation.status !== 1 && (
-                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                                <button
-                                  className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
-                                  onClick={() => {
-                                    setSelectedConsultation({
-                                      id: consultation.id,
-                                      status: consultation.status,
-                                    });
-                                    setOpenChangeStatusModal(true);
-                                  }}
-                                >
-                                  Update Status
-                                </button>
-                              </td>
-                            )}
+                            user?.role === "admin") && (
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              <button
+                                className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
+                                onClick={() => {
+                                  setSelectedConsultation({
+                                    id: consultation.id,
+                                    status: consultation.status,
+                                  });
+                                  setOpenChangeStatusModal(true);
+                                }}
+                              >
+                                Update Status
+                              </button>
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>

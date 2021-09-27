@@ -130,27 +130,24 @@ export const BookingConsultationModal = ({
   const { data } = useAvailableTimes({ id: exhibitorId });
 
   const onSubmit: SubmitHandler<Inputs> = async ({ date, time }) => {
-    const schedule = data?.find(
-      (item) => item.date === date && item.time === time
-    );
-
-    if (!schedule?.id) return;
-
-    const payload = {
-      _method: "PUT",
-      status: 2,
+    const data = {
+      date,
+      time,
+      exhibitor_id: exhibitorId,
+      status: 1,
     };
 
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/${schedule?.id}`,
-        payload,
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
+        data,
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
           },
         }
       );
+      console.log({ res });
 
       reset();
       toast.success("Booking success", { position: "top-right" });
