@@ -31,6 +31,7 @@ export const UpdateStatus = ({
   const [isLoading, setIsLoading] = useState(false);
   const cookies = parseCookies();
   const queryClient = useQueryClient();
+  console.log({ selectedConsultation });
 
   const handleChangeStatus: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ export const UpdateStatus = ({
       };
       setIsLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/status/${selectedConsultation.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/${selectedConsultation.id}`,
         {
           method: "POST",
           headers: {
@@ -120,10 +121,10 @@ export const UpdateStatus = ({
                       value={status}
                       onChange={(e) => setStatus(Number(e.target.value))}
                     >
-                      <option value={2}>Upcoming</option>
-                      <option value={3}>Join Zoom</option>
-                      <option value={4}>Done</option>
-                      <option value={5}>Timeout</option>
+                      <option value={1}>Upcoming</option>
+                      <option value={2}>Join Zoom</option>
+                      <option value={3}>Done</option>
+                      <option value={4}>Timeout</option>
                     </select>
                   </div>
                   <SubmitButton isLoading={isLoading}>

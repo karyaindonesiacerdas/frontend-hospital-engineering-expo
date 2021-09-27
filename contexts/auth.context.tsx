@@ -78,6 +78,16 @@ export const AuthProvider: FC = ({ children }) => {
   const cookies = parseCookies();
   const queryClient = useQueryClient();
 
+  const fetchUser = async ({ token }: { token: string }) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  };
+
   useEffect(() => {
     const token = cookies.access_token;
     const user = cookies.user ? JSON.parse(cookies.user) : "";
@@ -91,35 +101,32 @@ export const AuthProvider: FC = ({ children }) => {
   }, [cookies.access_token, cookies.user]);
 
   const login = async ({ email, password }: LoginProps) => {
-    const res = await fetch(
-      "https://api.hospital-engineering-expo.com/api/auth/login",
-      {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message);
       }
-    );
 
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.message);
-    }
+      const loginRes = await res.json();
+      const userRes = await fetchUser({ token: loginRes.data.token });
 
-    const json = await res.json();
-    console.log({ json });
-
-    if (json.code !== 200) {
+      setIsAuthenticated(true);
+      setUser(userRes);
+      setCookie(null, "user", JSON.stringify(userRes.data));
+      setCookie(null, "access_token", loginRes.data.token);
+    } catch (error) {
       setIsAuthenticated(false);
       setUser(null);
       destroyCookie(null, "access_token");
       destroyCookie(null, "user");
-    } else {
-      setIsAuthenticated(true);
-      setUser(json.data.user);
-      setCookie(null, "user", JSON.stringify(json.data.user));
-      setCookie(null, "access_token", json.data.token);
     }
   };
 
@@ -188,11 +195,11 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const logout = async () => {
-    await queryClient.clear();
     setUser(null);
     setIsAuthenticated(false);
     destroyCookie(null, "access_token");
     destroyCookie(null, "user");
+    await queryClient.removeQueries(["user"]);
   };
 
   const updateProfile = async (props: UpdateProfileProps) => {

@@ -1,5 +1,5 @@
 export * from "./NameCard";
-export * from "./Banner2";
+export * from "./Catalog";
 
 export * from "./Poster1";
 export * from "./Poster2";

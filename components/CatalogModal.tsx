@@ -5,33 +5,42 @@ import {
   useCallback,
   Dispatch,
   SetStateAction,
+  FormEventHandler,
 } from "react";
 import { Transition, Dialog } from "@headlessui/react";
-import Image from "next/image";
-import {
-  CloudDownloadIcon,
-  ExternalLinkIcon,
-  CloudUploadIcon,
-} from "@heroicons/react/outline";
+import { CloudDownloadIcon, CloudUploadIcon } from "@heroicons/react/outline";
 import { useDropzone } from "react-dropzone";
-import { Document } from "react-pdf";
+import toast from "react-hot-toast";
 
 import { useAuth } from "@/contexts/auth.context";
+import { Banner } from "types";
+import { parseCookies } from "nookies";
+import { useQueryClient } from "react-query";
+import { SubmitButton } from "./common";
 
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  catalog: {
-    src: string;
-  };
+  selectedBanner?: Banner;
+  exhibitorId: number;
+  order: number;
 };
 
 const imagePlaceholder = "https://via.placeholder.com/297x420.png";
 
-export const CatalogModal = ({ open, setOpen, catalog }: Props) => {
+export const CatalogModal = ({
+  open,
+  setOpen,
+  exhibitorId,
+  order,
+  selectedBanner,
+}: Props) => {
   const cancelButtonRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
+  const cookies = parseCookies();
+  const queryClient = useQueryClient();
 
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedImage(acceptedFiles);
@@ -42,6 +51,52 @@ export const CatalogModal = ({ open, setOpen, catalog }: Props) => {
     accept: "application/pdf",
     multiple: false,
   });
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!selectedImage.length || !order) return;
+
+    setIsLoading(true);
+    try {
+      const data = new FormData();
+      data.append("image", selectedImage[0]);
+      data.append("description", "Description...");
+      data.append("order", order.toString());
+      data.append("display_name", "Download Catalog");
+      data.append("type", "name-card");
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/exhibitor/banner`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies?.access_token}`,
+          },
+          body: data,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("erororor");
+      }
+
+      await res.json();
+      setIsLoading(false);
+      await queryClient.invalidateQueries([
+        "exhibitor",
+        exhibitorId?.toString(),
+      ]);
+      setSelectedImage([]);
+      toast.success("Catalog uploaded successfully!", {
+        position: "top-right",
+      });
+      setOpen(false);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Catalog failed to upload!", { position: "top-right" });
+      // console.log({ error });
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -89,21 +144,34 @@ export const CatalogModal = ({ open, setOpen, catalog }: Props) => {
                   <h2 className="bg-white text-xl 2xl:text-2xl text-center font-bold py-1 2xl:py-2 bg-opacity-50 rounded-md mb-2">
                     Catalog
                   </h2>
-
-                  <div className="w-full mt-2">
-                    <a
-                      href={catalog?.src}
-                      download
-                      className="inline-flex justify-center w-full items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
-                    >
-                      <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
-                      <span className="font-semibold text-sm">Download</span>
-                    </a>
-                  </div>
+                  {/* <div>{selectedBanner?.image}</div> */}
+                  {selectedBanner?.image ? (
+                    <div className="w-full mt-2">
+                      {
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STORAGE_URL}/banner/${selectedBanner?.image}`}
+                          download
+                          className="inline-flex justify-center w-full items-center space-x-2 px-3 py-1.5 2xl:px-4 2xl:py-2 bg-primary-50 hover:bg-primary-200 text-primary-800 rounded-md"
+                        >
+                          <CloudDownloadIcon className="w-4 2xl:w-5 h-4 2xl:h-5" />
+                          <span className="font-semibold text-sm">
+                            Download
+                          </span>
+                        </a>
+                      }
+                    </div>
+                  ) : (
+                    <div className="flex bg-gray-50 bg-opacity-50 rounded-md items-center justify-center font-semibold text-lg py-3">
+                      Empty
+                    </div>
+                  )}
                 </div>
 
-                {user?.role === "exhibitor" && (
-                  <form className="col-span-2 sm:col-span-1">
+                {user?.role === "exhibitor" && exhibitorId === user?.id && (
+                  <form
+                    onSubmit={onSubmit}
+                    className="col-span-2 sm:col-span-1"
+                  >
                     <label className="block text-sm font-medium text-gray-800">
                       Update Catalog
                     </label>
@@ -166,10 +234,10 @@ export const CatalogModal = ({ open, setOpen, catalog }: Props) => {
                     )}
 
                     <div className="flex justify-end mt-1">
-                      <button type="submit" className="mt-2 btn-secondary">
+                      <SubmitButton isLoading={isLoading}>
                         <CloudUploadIcon className="w-4 2xl:w-5 h-4 2xl:h-5 mr-1.5" />
                         Upload
-                      </button>
+                      </SubmitButton>
                     </div>
                   </form>
                 )}

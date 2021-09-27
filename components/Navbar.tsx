@@ -42,8 +42,10 @@ type Props = {
 
 export const Navbar = ({ variant = "light", currentHref }: Props) => {
   const { logout, user } = useAuth();
+  console.log({ navbar: user });
 
   const { data } = useUser();
+  console.log({ navbarData: data });
 
   const avatarURL = data?.img_profile
     ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`

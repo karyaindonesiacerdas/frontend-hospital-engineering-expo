@@ -70,7 +70,7 @@ export const NameCardModal = ({
       data.append("description", "Description...");
       data.append("order", order.toString());
       data.append("display_name", "Download Name Card");
-      data.append("type", "poster");
+      data.append("type", "name-card");
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/exhibitor/banner`,

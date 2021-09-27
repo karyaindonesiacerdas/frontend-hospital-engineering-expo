@@ -12,7 +12,7 @@ export const SeminarLink = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <span className="hidden lg:inline-block">Webinar Schedule</span>
+          <span className="text-[1vw]">Webinar Schedule</span>
         </a>
         <a
           className="flex items-center justify-center py-1 sm:py-0 bg-blue-50 text-blue-500 hover:text-white font-bold sm:rounded-md cursor-pointer hover:bg-blue-500 transition"
@@ -21,7 +21,9 @@ export const SeminarLink = () => {
           rel="noreferrer"
         >
           <img src="/zoom-logo.png" alt="zoom logo" />
-          <span className="hidden lg:inline-block">Join a Meeting</span>
+          <span className="hidden lg:inline-block text-[1vw]">
+            Join a Meeting
+          </span>
         </a>
       </div>
     </div>

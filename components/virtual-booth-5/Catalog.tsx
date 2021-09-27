@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./Banner2.module.css";
+import styles from "./Catalog.module.css";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Banner2 = ({ onClick }: Props) => {
+export const Catalog = ({ onClick }: Props) => {
   return (
     <div className="group">
       <div className={styles.bannerWrapper}>

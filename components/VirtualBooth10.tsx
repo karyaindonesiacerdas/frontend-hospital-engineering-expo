@@ -4,7 +4,7 @@ import { ChatModal } from "@/components/ChatModal";
 import { VideoModal } from "@/components/VideoModal";
 import {
   NameCard,
-  Banner2,
+  Catalog,
   Poster1,
   Poster2,
   Poster3,
@@ -94,13 +94,15 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
               selectedBanner={selectedBanner}
               order={selectedOrder}
             />
+            <CatalogModal
+              exhibitorId={exhibitor.id}
+              open={openCatalogModal}
+              setOpen={setOpenCatalogModal}
+              selectedBanner={selectedBanner}
+              order={selectedOrder}
+            />
           </>
         )}
-        <CatalogModal
-          catalog={{ src: catalogSrc }}
-          open={openCatalogModal}
-          setOpen={setOpenCatalogModal}
-        />
         <BookingConsultationModal
           exhibitorId={exhibitor.id}
           open={openBookingConsultationModal}
@@ -119,7 +121,15 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      <Banner2 onClick={() => setOpenCatalogModal(true)} />
+      <Catalog
+        onClick={() => {
+          setOpenCatalogModal(true);
+          setSelectedOrder(12);
+          setSelectedBanner(
+            exhibitor.banners.find((banner) => banner.order === 12)
+          );
+        }}
+      />
       <Poster1
         banner={exhibitor.banners.find((banner) => banner.order === 1)}
         onClick={() => {

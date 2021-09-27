@@ -12,6 +12,7 @@ export type Banner = {
   description: string;
   created_at: string;
   updated_at: string;
+  type?: string;
 };
 
 export type BoothType = "Booth10" | "Booth5";
