@@ -1,6 +1,6 @@
 .title {
   position: absolute;
-  top: 10%;
+  top: 8.5%;
   left: 27%;
   width: 47.3%;
 }
@@ -10,5 +10,6 @@
 } */
 
 .title h2 {
-  font-size: 1.2vw;
+  font-size: 1vw;
+  padding: 0 0.1vw;
 }
