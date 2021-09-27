@@ -31,7 +31,7 @@ export const ButtonVideo = ({ onClick, companyDetails }: Props) => {
         <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50">
           <div
             className="flex group-hover:hidden flex-col justify-center items-center w-full h-full"
-            style={{ fontSize: "2vw" }}
+            style={{ fontSize: "1.6vw" }}
           >
             <div className="font-bold">{companyDetails.name}</div>
             <div

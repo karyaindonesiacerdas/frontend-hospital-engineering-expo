@@ -205,25 +205,31 @@ export const VideoModal = ({
                     {videoModalDetails.name}
                   </div>
                   <div className="grid grid-cols-3 items-center justify-center text-gray-800">
-                    <div className="flex items-center justify-center space-x-1">
-                      <GlobeAltIcon className="w-5 h-5" />
-                      <a
-                        href={videoModalDetails.website}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:text-white"
-                      >
-                        {videoModalDetails.website}
-                      </a>
-                    </div>
-                    <div className="flex items-center justify-center space-x-1">
-                      <PhoneIcon className="w-5 h-5" />
-                      <span>{videoModalDetails.phone}</span>
-                    </div>
-                    <div className="flex items-center justify-center space-x-1">
-                      <MailIcon className="w-5 h-5" />
-                      <span>{videoModalDetails.email}</span>
-                    </div>
+                    {videoModalDetails.website && (
+                      <div className="flex items-center justify-center space-x-1">
+                        <GlobeAltIcon className="w-5 h-5" />
+                        <a
+                          href={videoModalDetails.website}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="hover:text-white"
+                        >
+                          {videoModalDetails.website}
+                        </a>
+                      </div>
+                    )}
+                    {videoModalDetails.phone && (
+                      <div className="flex items-center justify-center space-x-1">
+                        <PhoneIcon className="w-5 h-5" />
+                        <span>{videoModalDetails.phone}</span>
+                      </div>
+                    )}
+                    {videoModalDetails.email && (
+                      <div className="flex items-center justify-center space-x-1">
+                        <MailIcon className="w-5 h-5" />
+                        <span>{videoModalDetails.email}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
