@@ -111,7 +111,7 @@ export const AddRundown = ({ open, setOpen }: Props) => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xs sm:w-full">
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <h3 className="text-xl text-center mb-4 text-gray-700 font-bold">
                   Add Rundown
@@ -125,8 +125,8 @@ export const AddRundown = ({ open, setOpen }: Props) => {
                       Title
                     </label>
                     <div className="mt-1 mb-4">
-                      <input
-                        type="text"
+                      <textarea
+                        style={{ resize: "none" }}
                         id="title"
                         className="input-text"
                         {...register("title")}
