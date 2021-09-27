@@ -90,7 +90,7 @@ type AvailableTime = {
   time: string;
 };
 
-const useAvailableTimes = ({ id }: { id: number }) => {
+const useAlreadyBooked = ({ id }: { id: number }) => {
   const cookies = parseCookies();
 
   return useQuery<AvailableTime[], Error>(
@@ -127,7 +127,7 @@ export const BookingConsultationModal = ({
 
   const dateWatch: any = watch("date");
 
-  const { data } = useAvailableTimes({ id: exhibitorId });
+  const { data: booked } = useAlreadyBooked({ id: exhibitorId });
 
   const onSubmit: SubmitHandler<Inputs> = async ({ date, time }) => {
     const data = {
@@ -242,11 +242,18 @@ export const BookingConsultationModal = ({
                     >
                       <option value="">Choose</option>
                       {timeSlots[dateWatch] &&
-                        timeSlots[dateWatch].map((slot) => (
-                          <option key={slot} value={slot}>
-                            {slot}
-                          </option>
-                        ))}
+                        timeSlots[dateWatch]
+                          .filter((slot) => {
+                            const found = booked?.find(
+                              (b) => b.date === dateWatch && b.time === slot
+                            );
+                            return !found;
+                          })
+                          .map((slot) => (
+                            <option key={slot} value={slot}>
+                              {slot}
+                            </option>
+                          ))}
                     </select>
                   </div>
                   {errors?.time && (
