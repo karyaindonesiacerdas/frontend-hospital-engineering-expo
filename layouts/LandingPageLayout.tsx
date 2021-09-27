@@ -1,5 +1,11 @@
 import React from "react";
-import { Header, CTA, OrganizedBy, Footer } from "@/components/landing-page";
+import {
+  Header,
+  CTA,
+  OrganizedBy,
+  Footer,
+  SponsoredBy,
+} from "@/components/landing-page";
 
 export const LandingPageLayout: React.FC = ({ children }) => {
   return (
@@ -7,6 +13,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
       <Header />
       {children}
       <CTA />
+      <SponsoredBy />
       <OrganizedBy />
       <Footer />
     </>

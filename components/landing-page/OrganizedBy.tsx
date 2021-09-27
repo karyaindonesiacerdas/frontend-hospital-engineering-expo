@@ -11,7 +11,7 @@ export const OrganizedBy = () => {
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("organized-by")}
         </h3>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <img
             className="block md:hidden h-28 -ml-4"
             src="/kic-small.png"
