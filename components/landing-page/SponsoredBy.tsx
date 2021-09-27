@@ -11,7 +11,7 @@ export const SponsoredBy = () => {
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("sponsored-by")}
         </h3>
-        <div className="mt-10 grid grid-cols-3 gap-6">
+        <div className="mt-10 grid grid-cols-3 gap-x-6 gap-y-14">
           <div className="flex items-center justify-center">
             <img
               className="h-36 -ml-4"
@@ -28,6 +28,13 @@ export const SponsoredBy = () => {
           </div>
           <div className="flex items-center justify-center">
             <img className="h-36 -ml-4" src="/sponsor/kone.jpg" alt="KONE" />
+          </div>
+          <div className="flex items-center justify-center">
+            <img
+              className="h-36 -ml-4"
+              src="/sponsor/socomec.jpeg"
+              alt="Socomec"
+            />
           </div>
         </div>
       </div>
