@@ -12,7 +12,7 @@ import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
-import { AddSlotTime } from "@/components/consultation/AddSlotTime";
+// import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
 type ConsultationDetail = {
   id: number;
@@ -98,19 +98,19 @@ const Consultation: NextPage = () => {
               />
             </>
           )}
-        {user?.role === "exhibitor" && (
+        {/* {user?.role === "exhibitor" && (
           <AddSlotTime
             open={openAddSlotTimeModal}
             setOpen={setOpenAddSlotTimeModal}
           />
-        )}
+        )} */}
 
         <div className="px-2 xl:px-0 py-6">
           <div className="flex items-center justify-between">
             <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 mb-4 font-bold uppercase tracking-wide">
               Your Consultation Booking
             </h2>
-            {user?.role === "exhibitor" && (
+            {/* {user?.role === "exhibitor" && (
               <button
                 onClick={() => {
                   console.log("click");
@@ -120,7 +120,7 @@ const Consultation: NextPage = () => {
               >
                 Add Slot Time
               </button>
-            )}
+            )} */}
           </div>
           {/* Table */}
           <div className="flex flex-col">
