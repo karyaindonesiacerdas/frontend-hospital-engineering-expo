@@ -27,26 +27,63 @@ const schema = yup.object().shape({
   time: yup.string().required("Time is required"),
 });
 
-const timeSlots = [
-  "08:30:00",
-  "09:00:00",
-  "09:30:00",
-  "10:00:00",
-  "10:30:00",
-  "11:00:00",
-  "11:30:00",
-  "12:00:00",
-  "12:30:00",
-  "13:00:00",
-  "13:30:00",
-  "14:00:00",
-  "14:30:00",
-  "15:00:00",
-  "15:30:00",
-  "16:00:00",
-  "16:30:00",
-];
+type TimeSlots = {
+  [key: string]: string[];
+};
 
+const timeSlots: TimeSlots = {
+  "2021-10-02": [
+    "09:00:00",
+    "09:30:00",
+    "10:00:00",
+    "10:30:00",
+    "11:00:00",
+    "11:30:00",
+    "13:00:00",
+    "13:30:00",
+    "14:00:00",
+    "14:30:00",
+    "15:00:00",
+    "15:30:00",
+    "16:00:00",
+    "16:30:00",
+  ],
+  "2021-10-16": [
+    "08:00:00",
+    "08:30:00",
+    "09:00:00",
+    "09:30:00",
+    "10:00:00",
+    "10:30:00",
+    "11:00:00",
+    "11:30:00",
+    "13:00:00",
+    "13:30:00",
+    "14:00:00",
+    "14:30:00",
+    "15:00:00",
+    "15:30:00",
+    "16:00:00",
+    "16:30:00",
+  ],
+  "2021-11-06": [
+    "08:00:00",
+    "08:30:00",
+    "09:00:00",
+    "09:30:00",
+    "10:00:00",
+    "10:30:00",
+    "11:00:00",
+    "11:30:00",
+    "13:00:00",
+    "13:30:00",
+    "14:00:00",
+    "14:30:00",
+    "15:00:00",
+    "15:30:00",
+    "16:00:00",
+  ],
+};
 type AvailableTime = {
   id: number;
   date: string;
@@ -88,7 +125,7 @@ export const BookingConsultationModal = ({
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
   const cookies = parseCookies();
 
-  const dateWatch = watch("date");
+  const dateWatch: any = watch("date");
 
   const { data } = useAvailableTimes({ id: exhibitorId });
 
@@ -182,7 +219,7 @@ export const BookingConsultationModal = ({
                       <option value="">Choose</option>
                       <option value="2021-10-02">2021-10-02</option>
                       <option value="2021-10-16">2021-10-16</option>
-                      <option value="2021-10-30">2021-11-06</option>
+                      <option value="2021-11-06">2021-11-06</option>
                     </select>
                   </div>
                   {errors?.date && (
@@ -207,16 +244,10 @@ export const BookingConsultationModal = ({
                       className="input-text"
                     >
                       <option value="">Choose</option>
-                      {data
-                        ?.filter(
-                          (availableTime) => availableTime.date === dateWatch
-                        )
-                        ?.map((availableTime) => (
-                          <option
-                            key={availableTime.id}
-                            value={availableTime.time}
-                          >
-                            {availableTime.time}
+                      {timeSlots[dateWatch] &&
+                        timeSlots[dateWatch].map((slot) => (
+                          <option key={slot} value={slot}>
+                            {slot}
                           </option>
                         ))}
                     </select>
