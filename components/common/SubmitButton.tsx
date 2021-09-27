@@ -6,6 +6,7 @@ type SubmitButtonProps = {
   i18nText?: string;
   className?: string;
   fullWidth?: boolean;
+  danger?: boolean;
 };
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -14,14 +15,19 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
   className,
   children,
   fullWidth = true,
+  danger = false,
 }) => {
   const { t } = useTranslation("auth");
 
   return (
     <button
       type="submit"
-      className={`${className} flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all bg-[#00B4BF] hover:bg-[#116368] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B4BF] ${
+      className={`${className} flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition-all focus:outline-none focus:ring-2 focus:ring-offset-2  ${
         fullWidth ? "w-full" : ""
+      } ${
+        danger
+          ? "bg-red-600 hover:bg-red-700 focus:ring-red-600"
+          : "bg-primary-600 hover:bg-primary-700 focus:ring-primary-600"
       }`}
     >
       {isLoading ? (

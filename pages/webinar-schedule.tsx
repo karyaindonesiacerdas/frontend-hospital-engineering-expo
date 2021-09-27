@@ -7,50 +7,22 @@ import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
-
-const schedules = [
-  {
-    day: "Day 1",
-    date: "2 October 2021",
-    time: "08.00 - 08.10",
-    title: "Welcome Speech",
-    subtitle: "",
-    speaker: "IAHE President",
-    status: "done",
-  },
-  {
-    day: "Day 1",
-    date: "2 October 2021",
-    time: "08.10 - 08.30",
-    title: "Keynote Speech I",
-    subtitle: "",
-    speaker: "Ministry of Health Representative",
-    status: "done",
-  },
-  {
-    day: "Day 1",
-    date: "2 October 2021",
-    time: "08.30 - 08.50",
-    title: "Keynote Speech II",
-    subtitle: "",
-    speaker: "IFHE Representative",
-    status: "now-showing",
-  },
-  {
-    day: "Day 1",
-    date: "2 October 2021",
-    time: "09.00 - 09.30",
-    title: "Hospital Building I Expert Talk",
-    subtitle: "Master Plan and Hospital Building Regulations",
-    speaker: "Ministry of PUblic Works and Housing Representative",
-    status: "upcoming",
-  },
-];
+import { RundownDetail, useRundowns } from "hooks/useRundowns";
+import { formatDate } from "utils";
+import { AddRundown } from "@/components/rundown/AddRundown";
+import { EditRundown } from "@/components/rundown/EditRundown";
+import { DeleteRundown } from "@/components/rundown/DeleteRundown";
 
 const WebinarSchedule: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+  const [openAddRundownModal, setOpenAddRundownModal] = useState(false);
+  const [openEditRundownModal, setOpenEditRundownModal] = useState(false);
+  const [openDeleteRundownModal, setOpenDeleteRundownModal] = useState(false);
+  const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
+
+  const { data: rundowns, isLoading: isLoadingRundowns } = useRundowns();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -58,7 +30,7 @@ const WebinarSchedule: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading || !isAuthenticated) {
+  if (isLoading || !isAuthenticated || isLoadingRundowns) {
     return <FullPageLoader />;
   }
 
@@ -78,20 +50,53 @@ const WebinarSchedule: NextPage = () => {
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
         <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {user.email === "admin@mail.com" && (
+          <>
+            <AddRundown
+              open={openAddRundownModal}
+              setOpen={setOpenAddRundownModal}
+            />
+            {selectedRundown && (
+              <>
+                <EditRundown
+                  open={openEditRundownModal}
+                  setOpen={setOpenEditRundownModal}
+                  selectedRundown={selectedRundown}
+                  setSelectedRundown={setSelectedRundown}
+                />
+                <DeleteRundown
+                  open={openDeleteRundownModal}
+                  setOpen={setOpenDeleteRundownModal}
+                  selectedRundown={selectedRundown}
+                />
+              </>
+            )}
+          </>
+        )}
 
         <div className="px-2 xl:px-0 py-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 font-bold text-center lg:text-left uppercase tracking-wide">
               Live Stage Schedule
             </h2>
-            <a
-              href="https://zoom.us"
-              target="_blank"
-              rel="noreferrer"
-              className="px-6 py-2 inline-flex leading-5 font-semibold rounded-md bg-blue-500 hover:bg-blue-600 transition text-white"
-            >
-              Join Zoom
-            </a>
+            <div className="flex space-x-3 items-center">
+              {user.email === "admin@mail.com" && (
+                <button
+                  onClick={() => setOpenAddRundownModal(true)}
+                  className="py-2 px-4 bg-primary-600 text-white text-sm font-semibold rounded-md hover:bg-primary-700"
+                >
+                  Add Rundown
+                </button>
+              )}
+              <a
+                href="https://zoom.us"
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-2 inline-flex leading-5 font-semibold rounded-md bg-blue-500 hover:bg-blue-600 transition text-white"
+              >
+                Join Zoom
+              </a>
+            </div>
           </div>
           {/* Table */}
           <div className="flex flex-col">
@@ -105,7 +110,7 @@ const WebinarSchedule: NextPage = () => {
                           scope="col"
                           className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Day
+                          Date
                         </th>
                         <th
                           scope="col"
@@ -129,51 +134,75 @@ const WebinarSchedule: NextPage = () => {
                           scope="col"
                           className="relative px-3 sm:px-6 py-3"
                         ></th>
+                        <th
+                          scope="col"
+                          className="relative px-3 sm:px-6 py-3"
+                        ></th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {schedules.map((schedule) => (
-                        <tr key={schedule.title}>
+                      {rundowns?.map((rundown) => (
+                        <tr key={rundown.id}>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">
-                              {schedule.day}
+                              {rundown.date &&
+                                formatDate(new Date(rundown.date))}
                             </div>
                           </td>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">
-                              {schedule.date}
-                            </div>
-                            <div className="text-sm font-medium text-gray-500">
-                              {schedule.time}
+                              {rundown.time}
                             </div>
                           </td>
-                          <td className="hidden sm:table-cell px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                          <td className="hidden sm:table-cell px-4 py-2  sm:px-6 sm:py-4 whitespace-wrap">
                             <div className="text-sm font-medium text-gray-900">
-                              {schedule.title}
+                              {rundown.title}
                             </div>
-                            <div className="text-sm font-medium text-gray-500">
+                            {/* <div className="text-sm font-medium text-gray-500">
                               {schedule.subtitle}
-                            </div>
+                            </div> */}
                           </td>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">
-                              {schedule.speaker}
+                              {rundown.speakers}
                             </div>
                           </td>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                            {schedule.status === "done" ? (
+                            {rundown.status === 3 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-green-100 text-green-800 uppercase">
-                                {schedule.status}
+                                Done
                               </span>
-                            ) : schedule.status === "now-showing" ? (
+                            ) : rundown.status === 2 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-yellow-100 text-yellow-800 uppercase animate-pulse">
-                                {schedule.status}
+                                Now Showing
                               </span>
-                            ) : schedule.status === "upcoming" ? (
+                            ) : rundown.status === 1 ? (
                               <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-gray-100 text-gray-800 uppercase">
-                                {schedule.status}
+                                Upcoming
                               </span>
                             ) : null}
+                          </td>
+                          <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                            <div className="flex space-x-4">
+                              <button
+                                onClick={() => {
+                                  setSelectedRundown(rundown);
+                                  setOpenEditRundownModal(true);
+                                }}
+                                className="text-sm font-medium text-primary-600 hover:text-primary-700"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setSelectedRundown(rundown);
+                                  setOpenDeleteRundownModal(true);
+                                }}
+                                className="text-sm font-medium text-red-600 hover:text-red-700"
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
