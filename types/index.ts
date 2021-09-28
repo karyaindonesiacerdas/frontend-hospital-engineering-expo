@@ -28,6 +28,7 @@ export type ExhibitorDetails = {
   country: string;
   province: string;
   packages: string;
+  package_id: number;
   business_nature: string[];
   company_logo: string;
   company_video_url: string;
@@ -38,6 +39,12 @@ export type ExhibitorDetails = {
   img_profile: string;
 };
 
+type Package = {
+  id: number;
+  name: string;
+  order: string;
+};
+
 export type Exhibitor = {
   id: number;
   name: string;
@@ -45,6 +52,7 @@ export type Exhibitor = {
   company_name: string;
   business_nature: string[];
   package_id: number;
+  package: Package;
 };
 
 export type Poster = {

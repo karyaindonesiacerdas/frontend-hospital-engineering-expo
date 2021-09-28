@@ -52,6 +52,8 @@ const Exhibitors: NextPage = () => {
     id: router.query.id,
   });
 
+  // console.log({ data });
+
   // Redirect to 404 if data doesn't exists or error happens
   useEffect(() => {
     if ((!data && isSuccess) || isError) {
@@ -76,11 +78,13 @@ const Exhibitors: NextPage = () => {
 
       <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
 
-      {data.booth_type === "booth10" ? (
-        <VirtualBooth10 exhibitor={data} />
-      ) : (
-        <VirtualBooth5 exhibitor={data} />
-      )}
+      {data.package_id ? (
+        data.package_id === 5 ? (
+          <VirtualBooth10 exhibitor={data} />
+        ) : (
+          <VirtualBooth5 exhibitor={data} />
+        )
+      ) : null}
     </>
   );
 };

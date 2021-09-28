@@ -18,25 +18,26 @@ import { BackButton } from "@/components/BackButton";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import type { Exhibitor } from "types";
+import { useExhibitors } from "hooks/useExhibitors";
 
 const Board = dynamic(() => import("@/components/exhibitor-list/Board"));
 
-const useExhibitors = () => {
-  const cookies = parseCookies();
+// const useExhibitors = () => {
+//   const cookies = parseCookies();
 
-  return useQuery<Exhibitor[], Error>(
-    ["exhibitors"],
-    () =>
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/exhibitor`, {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-        })
-        .then((res) => res.data.data),
-    { staleTime: 1000 * 60 * 15 }
-  );
-};
+//   return useQuery<Exhibitor[], Error>(
+//     ["exhibitors"],
+//     () =>
+//       axios
+//         .get(`${process.env.NEXT_PUBLIC_API_URL}/exhibitor`, {
+//           headers: {
+//             Authorization: `Bearer ${cookies.access_token}`,
+//           },
+//         })
+//         .then((res) => res.data.data),
+//     { staleTime: 1000 * 60 * 15 }
+//   );
+// };
 
 const Exhibitors: NextPage = () => {
   const router = useRouter();
@@ -50,7 +51,7 @@ const Exhibitors: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  const { data, error } = useExhibitors();
+  const { data, error } = useExhibitors({ showAll: false });
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;

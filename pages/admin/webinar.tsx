@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -12,8 +13,20 @@ import { formatDate } from "utils";
 import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
+import { BackButton } from "@/components/BackButton";
 
-const WebinarSchedule: NextPage = () => {
+const tabs = [
+  { name: "Exhibitor", href: "/admin/exhibitor", current: false },
+  { name: "Visitor", href: "/admin/visitor", current: false },
+  { name: "Webinar", href: "/admin/webinar", current: true },
+  { name: "Consultation", href: "/admin/consultation", current: false },
+];
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+const AdminWebinarPage: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
@@ -30,12 +43,20 @@ const WebinarSchedule: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
+  useEffect(() => {
+    if (!isLoading && user?.role !== "admin") {
+      router.push("/main-hall");
+    }
+  }, [router, user, isLoading]);
+
   if (isLoading || !isAuthenticated || isLoadingRundowns) {
     return <FullPageLoader />;
   }
 
+  if (user?.role !== "admin") return null;
+
   return (
-    <>
+    <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
       <div
         className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
@@ -77,17 +98,45 @@ const WebinarSchedule: NextPage = () => {
         <div className="px-2 xl:px-0 py-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 font-bold text-center lg:text-left uppercase tracking-wide">
-              Live Stage Schedule
+              Admin Page - Webinar
             </h2>
+          </div>
+
+          <div className="bg-white p-2 shadow rounded-md mb-2">
+            <nav className="-mb-px flex" aria-label="Tabs">
+              {tabs.map((tab) => (
+                <Link key={tab.name} href={tab.href}>
+                  <a
+                    className={classNames(
+                      tab.current
+                        ? " text-white bg-primary-600"
+                        : " text-gray-500 hover:text-gray-700 hover:border-gray-300",
+                      "w-1/4 py-4 px-1 text-center font-medium text-lg rounded-md"
+                    )}
+                    aria-current={tab.current ? "page" : undefined}
+                  >
+                    {tab.name}
+                  </a>
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="mb-4">
+            <BackButton href="/admin" text="Admin" />
+          </div>
+
+          <div className="flex justify-between items-center mb-4">
+            <div></div>
             <div className="flex space-x-3 items-center">
-              {/* {user.email === "admin@mail.com" && (
+              {user.email === "admin@mail.com" && (
                 <button
                   onClick={() => setOpenAddRundownModal(true)}
                   className="py-2 px-4 bg-primary-600 text-white text-sm font-semibold rounded-md hover:bg-primary-700"
                 >
                   Add Rundown
                 </button>
-              )} */}
+              )}
               <a
                 href="https://zoom.us"
                 target="_blank"
@@ -182,7 +231,7 @@ const WebinarSchedule: NextPage = () => {
                               </span>
                             ) : null}
                           </td>
-                          {/* {user.role === "admin" && (
+                          {user.role === "admin" && (
                             <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                               <div className="flex space-x-4">
                                 <button
@@ -205,7 +254,7 @@ const WebinarSchedule: NextPage = () => {
                                 </button>
                               </div>
                             </td>
-                          )} */}
+                          )}
                         </tr>
                       ))}
                     </tbody>
@@ -216,8 +265,8 @@ const WebinarSchedule: NextPage = () => {
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 };
 
-export default WebinarSchedule;
+export default AdminWebinarPage;

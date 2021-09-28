@@ -122,7 +122,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 {/* Right Nav */}
                 <div className="hidden lg:block">
                   <div className="ml-4 flex items-center lg:ml-6">
-                    {user?.role === "exhibitor" && (
+                    {user?.role === "exhibitor" && data?.package_id && (
                       <Link href={`/exhibitors/${user?.id}`}>
                         <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
                           <svg
@@ -169,6 +169,44 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                             ></path>
                           </svg>
                           My Booth
+                        </a>
+                      </Link>
+                    )}
+                    {user?.role === "admin" && (
+                      <Link href={`/admin`}>
+                        <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
+                          <svg
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5 mr-2"
+                          >
+                            <circle
+                              cx="12"
+                              cy="8"
+                              r="3.25"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                            ></circle>
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                              d="M12.25 19.25H6.94953C5.77004 19.25 4.88989 18.2103 5.49085 17.1954C6.36247 15.7234 8.23935 14 12.25 14"
+                            ></path>
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                              d="M14.75 17.75L16 19.25L19.25 14.75"
+                            ></path>
+                          </svg>
+                          Admin
                         </a>
                       </Link>
                     )}
