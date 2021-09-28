@@ -275,7 +275,7 @@ const AdminPage: NextPage = () => {
                   htmlFor="main-video"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Main Video (Link Youtube)
+                  Main Video (Youtube Link)
                 </label>
                 <div className="mt-1">
                   <input
