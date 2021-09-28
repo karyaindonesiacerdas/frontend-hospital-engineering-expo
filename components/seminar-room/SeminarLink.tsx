@@ -14,7 +14,7 @@ export const SeminarLink = () => {
         </Link>
         <a
           className="flex items-center justify-center py-1 sm:py-0 bg-blue-50 text-blue-500 hover:text-white font-bold sm:rounded-md cursor-pointer hover:bg-blue-500 transition"
-          href="https://zoom.us"
+          href="https://us02web.zoom.us/j/89035020972?pwd=T0lLSjlRTnVBRGVYdnVmbFlMcG1wQT09"
           target="_blank"
           rel="noreferrer"
         >

@@ -231,7 +231,7 @@ const Consultation: NextPage = () => {
                               </span>
                             ) : consultation.status === 2 ? (
                               <a
-                                href="https://zoom.us"
+                                href="https://us02web.zoom.us/j/89035020972?pwd=T0lLSjlRTnVBRGVYdnVmbFlMcG1wQT09"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
