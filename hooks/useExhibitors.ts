@@ -25,6 +25,6 @@ export const useExhibitors = ({ showAll = true }: Props) => {
           }
         )
         .then((res) => res.data.data),
-    { staleTime: 1000 * 60 * 15 }
+    { staleTime: 1000 * 60 * 2 }
   );
 };
