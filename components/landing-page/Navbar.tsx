@@ -288,7 +288,7 @@ export const Navbar = ({ variant }: Props) => {
           </Popover>
         </ul>
         <ul className="flex items-center space-x-4 lg:space-x-8 font-medium">
-          <Popover as="li" className="relative">
+          {/* <Popover as="li" className="relative">
             <>
               <Popover.Button
                 className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold uppercase pt-[9px] flex items-center group"
@@ -321,7 +321,21 @@ export const Navbar = ({ variant }: Props) => {
                 </Popover.Panel>
               </Transition>
             </>
-          </Popover>
+          </Popover> */}
+          <li>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeawVl6UT0m2DwsYryRt1Yf-NSFhSnIR-gE6Baq58qJYSxc_Q/viewform"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <a
+                className="text-gray-200 hover:text-white cursor-pointer tracking-widest px-3 py-1.5 text-sm md:text-md font-bold border border-gray-200 hover:border-white rounded-md uppercase"
+                style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.2)" }}
+              >
+                {t("register")}
+              </a>
+            </a>
+          </li>
           <li>
             <Link href="/login">
               <a
