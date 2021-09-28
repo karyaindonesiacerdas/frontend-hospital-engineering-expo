@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, createContext, FC } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 type LoginProps = {
   email: string;
@@ -112,6 +113,8 @@ export const AuthProvider: FC = ({ children }) => {
 
       if (!res.ok) {
         const error = await res.json();
+        console.log("hit");
+        console.log({ error });
         throw new Error(error.message);
       }
 
@@ -122,11 +125,13 @@ export const AuthProvider: FC = ({ children }) => {
       setUser(userRes);
       setCookie(null, "user", JSON.stringify(userRes.data));
       setCookie(null, "access_token", loginRes.data.token);
-    } catch (error) {
+      toast.success("Logged in");
+    } catch (error: any) {
       setIsAuthenticated(false);
       setUser(null);
       destroyCookie(null, "access_token");
       destroyCookie(null, "user");
+      toast.error(error?.message);
     }
   };
 

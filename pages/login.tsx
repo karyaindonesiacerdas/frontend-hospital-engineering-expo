@@ -50,14 +50,14 @@ const Login: NextPage = () => {
   }, [isAuthenticated, isLoading, router, cookies.access_token, cookies.user]);
 
   const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
-    try {
-      await login({ email, password });
-      toast.success("Logged in");
-      await router.push("/main-hall");
-    } catch (error) {
-      toast.error("Invalid Credentials");
-      // console.log({ error });
-    }
+    // try {
+    await login({ email, password });
+    // toast.success("Logged in");
+    // await router.push("/main-hall");
+    // } catch (error) {
+    //   toast.error("Invalid Credentials");
+    //   // console.log({ error });
+    // }
   };
 
   return (
