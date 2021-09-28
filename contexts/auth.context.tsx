@@ -123,8 +123,12 @@ export const AuthProvider: FC = ({ children }) => {
 
       setIsAuthenticated(true);
       setUser(userRes);
-      setCookie(null, "user", JSON.stringify(userRes.data));
-      setCookie(null, "access_token", loginRes.data.token);
+      setCookie(null, "user", JSON.stringify(userRes.data), {
+        path: "/",
+      });
+      setCookie(null, "access_token", loginRes.data.token, {
+        path: "/",
+      });
       toast.success("Logged in");
     } catch (error: any) {
       setIsAuthenticated(false);
@@ -162,8 +166,12 @@ export const AuthProvider: FC = ({ children }) => {
     } else {
       setIsAuthenticated(true);
       setUser(json.data.user);
-      setCookie(null, "user", JSON.stringify(json.data.user));
-      setCookie(null, "access_token", json.data.token);
+      setCookie(null, "user", JSON.stringify(json.data.user), {
+        path: "/",
+      });
+      setCookie(null, "access_token", json.data.token, {
+        path: "/",
+      });
     }
   };
 
@@ -194,8 +202,12 @@ export const AuthProvider: FC = ({ children }) => {
     } else {
       setIsAuthenticated(true);
       setUser(json.data.user);
-      setCookie(null, "user", JSON.stringify(json.data.user));
-      setCookie(null, "access_token", json.data.token);
+      setCookie(null, "user", JSON.stringify(json.data.user), {
+        path: "/",
+      });
+      setCookie(null, "access_token", json.data.token, {
+        path: "/",
+      });
     }
   };
 
@@ -205,6 +217,11 @@ export const AuthProvider: FC = ({ children }) => {
     destroyCookie(null, "access_token");
     destroyCookie(null, "user");
     await queryClient.removeQueries(["user"]);
+    await queryClient.removeQueries(["rundowns"]);
+    await queryClient.removeQueries(["exhibitor"]);
+    await queryClient.removeQueries(["exhibitors"]);
+    await queryClient.removeQueries(["consultations"]);
+    await queryClient.removeQueries(["booked-consultations"]);
   };
 
   const updateProfile = async (props: UpdateProfileProps) => {

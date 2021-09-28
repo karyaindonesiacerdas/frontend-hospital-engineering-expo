@@ -13,7 +13,6 @@ import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader, SubmitButton } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
-import { useExhibitor } from "hooks/useExhibitor";
 import { XIcon } from "@heroicons/react/solid";
 import { useUser } from "hooks/useUser";
 

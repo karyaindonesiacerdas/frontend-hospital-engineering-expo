@@ -16,7 +16,8 @@ export const useRundowns = () => {
   const cookies = parseCookies();
 
   return useQuery<RundownDetail[], Error>(
-    ["rundowns", cookies.access_token],
+    // ["rundowns", cookies.access_token],
+    ["rundowns"],
     () =>
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/rundown`, {

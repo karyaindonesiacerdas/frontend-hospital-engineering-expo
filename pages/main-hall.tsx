@@ -21,6 +21,7 @@ const MainHall: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
+  // console.log({ user });
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {

@@ -2,9 +2,8 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "@/contexts/auth.context";
-import { useExhibitor } from "hooks/useExhibitor";
 import { useUser } from "hooks/useUser";
 
 const userNavigation = [
@@ -248,15 +247,16 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                               return (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
-                                    <a
-                                      href={item.href}
-                                      className={classNames(
-                                        active ? "bg-gray-100" : "",
-                                        "block px-4 py-2 text-sm text-gray-700"
-                                      )}
-                                    >
-                                      {item.name}
-                                    </a>
+                                    <Link href={item.href}>
+                                      <a
+                                        className={classNames(
+                                          active ? "bg-gray-100" : "",
+                                          "block px-4 py-2 text-sm text-gray-700"
+                                        )}
+                                      >
+                                        {item.name}
+                                      </a>
+                                    </Link>
                                   )}
                                 </Menu.Item>
                               );
@@ -350,13 +350,11 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {userNavigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-500"
-                    >
-                      {item.name}
-                    </a>
+                    <Link key={item.name} href={item.href}>
+                      <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-500">
+                        {item.name}
+                      </a>
+                    </Link>
                   ))}
                   <button
                     onClick={logout}

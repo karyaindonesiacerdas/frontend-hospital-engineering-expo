@@ -1,4 +1,3 @@
-import { useExhibitor } from "hooks/useExhibitor";
 import React from "react";
 import styles from "./BoothChat.module.css";
 

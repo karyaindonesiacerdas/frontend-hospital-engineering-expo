@@ -42,6 +42,7 @@ const Login: NextPage = () => {
     resolver: yupResolver(schema),
   });
   const cookies = parseCookies();
+  // console.log({ isLoading, isAuthenticated });
 
   useEffect(() => {
     if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
@@ -49,11 +50,17 @@ const Login: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router, cookies.access_token, cookies.user]);
 
+  // useEffect(() => {
+  //   if (!isLoading && isAuthenticated) {
+  //     router.push("/main-hall");
+  //   }
+  // }, [isAuthenticated, isLoading, router]);
+
   const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
     // try {
     await login({ email, password });
     // toast.success("Logged in");
-    // await router.push("/main-hall");
+    await router.push("/main-hall");
     // } catch (error) {
     //   toast.error("Invalid Credentials");
     //   // console.log({ error });

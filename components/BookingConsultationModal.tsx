@@ -110,7 +110,8 @@ const useAlreadyBooked = ({ id }: { id: number }) => {
   const cookies = parseCookies();
 
   return useQuery<AvailableTime[], Error>(
-    ["consultations", cookies.access_token],
+    // ["consultations", cookies.access_token],
+    ["booked-consultations"],
     () =>
       axios
         .get(

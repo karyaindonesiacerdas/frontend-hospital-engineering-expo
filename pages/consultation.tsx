@@ -1,10 +1,7 @@
-import { useState, useEffect, FormEventHandler, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { parseCookies } from "nookies";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -12,41 +9,41 @@ import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
-import { useUser } from "hooks/useUser";
+import { useConsultations } from "hooks/useConsultation";
 // import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
-type ConsultationDetail = {
-  id: number;
-  date: string;
-  time: string;
-  status: number;
-  visitor: {
-    id: number;
-    name: string;
-    institution_name: string;
-  };
-  exhibitor: {
-    id: number;
-    company_name: string;
-  };
-};
+// type ConsultationDetail = {
+//   id: number;
+//   date: string;
+//   time: string;
+//   status: number;
+//   visitor: {
+//     id: number;
+//     name: string;
+//     institution_name: string;
+//   };
+//   exhibitor: {
+//     id: number;
+//     company_name: string;
+//   };
+// };
 
-const useConsultations = () => {
-  const cookies = parseCookies();
+// const useConsultations = () => {
+//   const cookies = parseCookies();
 
-  return useQuery<ConsultationDetail[], Error>(
-    ["consultations", cookies.access_token],
-    () =>
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/consultation`, {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-        })
-        .then((res) => res.data.data),
-    { enabled: Boolean(cookies.access_token) }
-  );
-};
+//   return useQuery<ConsultationDetail[], Error>(
+//     ["consultations", cookies.access_token],
+//     () =>
+//       axios
+//         .get(`${process.env.NEXT_PUBLIC_API_URL}/consultation`, {
+//           headers: {
+//             Authorization: `Bearer ${cookies.access_token}`,
+//           },
+//         })
+//         .then((res) => res.data.data),
+//     { enabled: Boolean(cookies.access_token) }
+//   );
+// };
 
 const Consultation: NextPage = () => {
   const router = useRouter();

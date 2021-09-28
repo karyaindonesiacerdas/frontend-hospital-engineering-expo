@@ -7,7 +7,8 @@ export const useConsultations = () => {
   const cookies = parseCookies();
 
   return useQuery<ConsultationDetail[], Error>(
-    ["consultations", cookies.access_token],
+    // ["consultations", cookies.access_token],
+    ["consultations"],
     () =>
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/consultation`, {

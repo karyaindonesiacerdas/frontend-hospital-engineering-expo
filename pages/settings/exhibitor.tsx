@@ -16,6 +16,7 @@ import { provinces } from "@/data/provinces";
 import { countries } from "@/data/countries";
 import { useExhibitor } from "hooks/useExhibitor";
 import { UploadLogo } from "@/components/settings/UploadLogo";
+import { useUser } from "hooks/useUser";
 
 type Inputs = {
   name: string;
@@ -48,9 +49,7 @@ const SettingVirtualBoothPage: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router, user?.role]);
 
-  const { data, isLoading: isLoadingExhibitor } = useExhibitor({
-    id: user?.id,
-  });
+  const { data, isLoading: isLoadingUser } = useUser();
 
   useEffect(() => {
     if (data) {
@@ -65,7 +64,7 @@ const SettingVirtualBoothPage: NextPage = () => {
     }
   }, [data, reset]);
 
-  if (isLoading || !isAuthenticated || isLoadingExhibitor) {
+  if (isLoading || !isAuthenticated || isLoadingUser) {
     return <FullPageLoader />;
   }
 
