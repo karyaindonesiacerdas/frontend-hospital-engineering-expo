@@ -75,6 +75,8 @@ const Consultation: NextPage = () => {
     return <FullPageLoader />;
   }
 
+  console.log({ data });
+
   return (
     <>
       {/* Chat Button */}

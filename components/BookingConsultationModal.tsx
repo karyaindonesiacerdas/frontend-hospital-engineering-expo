@@ -214,7 +214,7 @@ export const BookingConsultationModal = ({
                       className="input-text"
                     >
                       <option value="">Choose</option>
-                      <option value="2021-10-02">2021-09-28</option>
+                      <option value="2021-09-28">2021-09-28</option>
                       <option value="2021-10-02">2021-10-02</option>
                       <option value="2021-10-16">2021-10-16</option>
                       <option value="2021-11-06">2021-11-06</option>
