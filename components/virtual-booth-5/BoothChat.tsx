@@ -19,7 +19,7 @@ export const BoothChat = ({ onClick, company_logo }: Props) => {
               : "url('/logo-placeholder.svg')",
           }}
         >
-          <div className="absolute inset-0 group-hover:bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent hover:border-[#00b4bf]">
+          <div className="absolute group-hover:bg-primary text-white flex justify-center items-center rounded-full border-transparent hover:border-primary">
             <svg
               className="hidden group-hover:block w-10 h-10"
               width="24"
