@@ -191,7 +191,49 @@ const AdminPage: NextPage = () => {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="zoom-business-matching-link"
+                  htmlFor="advertisement-1"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Advertisement 1 (Youtube link)
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="advertisement-1"
+                    type="text"
+                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                    // {...register("email")}
+                  />
+                  {/* {errors?.email && (
+                <span className="text-sm text-red-500">
+                  {errors?.email?.message}
+                </span>
+              )} */}
+                </div>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="advertisement-2"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Advertisement 2 (Youtube link)
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="advertisement-2"
+                    type="text"
+                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                    // {...register("email")}
+                  />
+                  {/* {errors?.email && (
+                <span className="text-sm text-red-500">
+                  {errors?.email?.message}
+                </span>
+              )} */}
+                </div>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="ve-chat"
                   className="block text-sm font-medium text-gray-700"
                 >
                   VE Chat
