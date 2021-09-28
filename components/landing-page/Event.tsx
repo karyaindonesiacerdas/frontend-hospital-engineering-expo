@@ -14,7 +14,7 @@ export const Event = () => {
         <h2 className="mt-1 text-5xl 2xl:text-6xl text-[#063C40] font-extrabold md:max-w-md text-center md:text-left">
           {t("countdown.event-title")}
         </h2>
-        <div className="mt-4 text-xl uppercase tracking-widest font-medium text-center md:text-left">
+        <div className="mt-4 text-xl uppercase tracking-widest font-medium text-center md:text-left md:max-w-xs">
           {t("countdown.event-date")}
         </div>
       </div>
