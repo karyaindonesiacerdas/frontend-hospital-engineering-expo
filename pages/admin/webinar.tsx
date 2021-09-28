@@ -14,6 +14,7 @@ import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
 import { BackButton } from "@/components/BackButton";
+import { useSettings } from "hooks/useSettings";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
@@ -48,6 +49,8 @@ const AdminWebinarPage: NextPage = () => {
       router.push("/main-hall");
     }
   }, [router, user, isLoading]);
+
+  const { data: settings } = useSettings();
 
   if (isLoading || !isAuthenticated || isLoadingRundowns) {
     return <FullPageLoader />;
@@ -138,7 +141,7 @@ const AdminWebinarPage: NextPage = () => {
                 </button>
               )}
               <a
-                href="https://us02web.zoom.us/j/89035020972?pwd=T0lLSjlRTnVBRGVYdnVmbFlMcG1wQT09"
+                href={settings?.zoom_link}
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-2 inline-flex leading-5 font-semibold rounded-md bg-blue-500 hover:bg-blue-600 transition text-white"

@@ -4,6 +4,10 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Switch } from "@headlessui/react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { parseCookies } from "nookies";
+import { useQueryClient } from "react-query";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -14,6 +18,7 @@ import { RundownDetail, useRundowns } from "hooks/useRundowns";
 import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
+import { useSettings } from "hooks/useSettings";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
@@ -26,6 +31,15 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+type Inputs = {
+  youtube_link: string;
+  zoom_link: string;
+  zoom_business_link: string;
+  ads1_link: string;
+  ads2_link: string;
+  webinar_link: string;
+};
+
 const AdminPage: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -35,6 +49,14 @@ const AdminPage: NextPage = () => {
   const [openDeleteRundownModal, setOpenDeleteRundownModal] = useState(false);
   const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
   const [enabledChat, setEnabledChat] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+    reset,
+  } = useForm<Inputs>();
+  const cookies = parseCookies();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -48,11 +70,70 @@ const AdminPage: NextPage = () => {
     }
   }, [router, user, isLoading]);
 
+  const { data: settings } = useSettings();
+
+  useEffect(() => {
+    reset({
+      youtube_link: settings?.youtube_link,
+      ads1_link: settings?.ads1_link,
+      ads2_link: settings?.ads2_link,
+      zoom_business_link: settings?.zoom_business_link,
+      zoom_link: settings?.zoom_link,
+      webinar_link: settings?.webinar_link,
+    });
+    setEnabledChat(settings?.is_chat.toString() === "1" ? true : false);
+  }, [settings, reset]);
+
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
   }
 
   if (user?.role !== "admin") return null;
+
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    const {
+      ads1_link,
+      ads2_link,
+      youtube_link,
+      zoom_business_link,
+      zoom_link,
+      webinar_link,
+    } = values;
+
+    // console.log({ values });
+
+    const data = {
+      _method: "PUT",
+      youtube_link,
+      zoom_business_link,
+      zoom_link,
+      ads1_link,
+      ads2_link,
+      webinar_link,
+      is_chat: enabledChat ? 1 : 0,
+    };
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/setting/1`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.access_token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
+
+      await res.json();
+      await queryClient.invalidateQueries(["settings"]);
+      toast.success("App settings updated successfully");
+    } catch (error: any) {
+      toast.error(error.message || "Error");
+    }
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -125,7 +206,7 @@ const AdminPage: NextPage = () => {
             <h2 className="text-2xl font-semibold text-center mb-6">
               App Settings
             </h2>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label
                   htmlFor="youtube-link"
@@ -138,13 +219,13 @@ const AdminPage: NextPage = () => {
                     id="youtube-link"
                     type="text"
                     className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    // {...register("email")}
+                    {...register("youtube_link")}
                   />
-                  {/* {errors?.email && (
-                <span className="text-sm text-red-500">
-                  {errors?.email?.message}
-                </span>
-              )} */}
+                  {errors?.youtube_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.youtube_link?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -159,13 +240,13 @@ const AdminPage: NextPage = () => {
                     id="zoom-webinar-link"
                     type="text"
                     className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    // {...register("email")}
+                    {...register("zoom_link")}
                   />
-                  {/* {errors?.email && (
-                <span className="text-sm text-red-500">
-                  {errors?.email?.message}
-                </span>
-              )} */}
+                  {errors?.zoom_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.zoom_link?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -180,13 +261,34 @@ const AdminPage: NextPage = () => {
                     id="zoom-business-matching-link"
                     type="text"
                     className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    // {...register("email")}
+                    {...register("zoom_business_link")}
                   />
-                  {/* {errors?.email && (
-                <span className="text-sm text-red-500">
-                  {errors?.email?.message}
-                </span>
-              )} */}
+                  {errors?.zoom_business_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.zoom_business_link?.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="main-video"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Main Video (Link Youtube)
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="main-video"
+                    type="text"
+                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                    {...register("webinar_link")}
+                  />
+                  {errors?.webinar_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.webinar_link?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -201,13 +303,13 @@ const AdminPage: NextPage = () => {
                     id="advertisement-1"
                     type="text"
                     className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    // {...register("email")}
+                    {...register("ads1_link")}
                   />
-                  {/* {errors?.email && (
-                <span className="text-sm text-red-500">
-                  {errors?.email?.message}
-                </span>
-              )} */}
+                  {errors?.ads1_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.ads1_link?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -222,13 +324,13 @@ const AdminPage: NextPage = () => {
                     id="advertisement-2"
                     type="text"
                     className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    // {...register("email")}
+                    {...register("ads2_link")}
                   />
-                  {/* {errors?.email && (
-                <span className="text-sm text-red-500">
-                  {errors?.email?.message}
-                </span>
-              )} */}
+                  {errors?.ads2_link && (
+                    <span className="text-sm text-red-500">
+                      {errors?.ads2_link?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -257,7 +359,7 @@ const AdminPage: NextPage = () => {
                   </Switch>
                 </div>
               </div>
-              <SubmitButton isLoading={false}>Save</SubmitButton>
+              <SubmitButton isLoading={isSubmitting}>Save</SubmitButton>
             </form>
           </div>
         </div>

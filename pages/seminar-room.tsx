@@ -16,7 +16,7 @@ import { BackButton } from "@/components/BackButton";
 
 const SeminarRoom: NextPage = () => {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
 
   useEffect(() => {

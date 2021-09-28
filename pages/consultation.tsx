@@ -10,6 +10,7 @@ import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { useConsultations } from "hooks/useConsultation";
+import { useSettings } from "hooks/useSettings";
 // import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
 // type ConsultationDetail = {
@@ -61,6 +62,7 @@ const Consultation: NextPage = () => {
   }, [isAuthenticated, isLoading, router]);
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
+  const { data: settings } = useSettings();
   // console.log({ consultation: data });
 
   // console.log({ user });
@@ -72,7 +74,7 @@ const Consultation: NextPage = () => {
     return <FullPageLoader />;
   }
 
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <>
@@ -230,7 +232,7 @@ const Consultation: NextPage = () => {
                               </span>
                             ) : consultation.status === 2 ? (
                               <a
-                                href="https://us02web.zoom.us/j/89035020972?pwd=T0lLSjlRTnVBRGVYdnVmbFlMcG1wQT09"
+                                href={settings?.zoom_business_link}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"

@@ -13,6 +13,7 @@ import { PaginationTable } from "@/components/common/table";
 import { useConsultations } from "../../hooks/useConsultation";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { BackButton } from "@/components/BackButton";
+import { useSettings } from "hooks/useSettings";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
@@ -38,6 +39,7 @@ const AdminConsultationPage: NextPage = () => {
     isLoading: isLoadingConsultations,
     isSuccess: isSuccessConsultations,
   } = useConsultations();
+  const { data: settings } = useSettings();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -102,7 +104,7 @@ const AdminConsultationPage: NextPage = () => {
               </span>
             ) : value === 2 ? (
               <a
-                href="https://us02web.zoom.us/j/89035020972?pwd=T0lLSjlRTnVBRGVYdnVmbFlMcG1wQT09"
+                href={settings?.zoom_business_link}
                 target="_blank"
                 rel="noreferrer"
                 className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
@@ -138,7 +140,7 @@ const AdminConsultationPage: NextPage = () => {
         },
       },
     ],
-    []
+    [settings?.zoom_business_link]
   );
 
   if (isLoading || !isAuthenticated || isLoadingConsultations) {

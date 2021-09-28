@@ -15,6 +15,8 @@ import {
   Advertisement2,
 } from "@/components/main-hall";
 import { useAuth } from "@/contexts/auth.context";
+import { useSettings } from "hooks/useSettings";
+import { youtubeParser } from "utils";
 
 const MainHall: NextPage = () => {
   const router = useRouter();
@@ -28,6 +30,8 @@ const MainHall: NextPage = () => {
       router.push("/login");
     }
   }, [isAuthenticated, isLoading, router]);
+
+  const { data: settings } = useSettings();
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
@@ -67,6 +71,8 @@ const MainHall: NextPage = () => {
               name: "Hospital Engineering Forum 2021",
               phone: "+62 858 9377 7283 (Adrian)",
               videoUrl:
+                (youtubeParser(settings?.webinar_link || "") &&
+                  settings?.webinar_link) ||
                 "https://www.youtube.com/watch?v=jS0qVrpKjY4&ab_channel=HospitalEngineeringExpo",
               website: "https://hospital-engineering-expo.com/",
             }}
@@ -78,8 +84,8 @@ const MainHall: NextPage = () => {
         <ExhibitorListLink />
         <SeminarRoomLink />
         <OpenVideoButton onClick={() => setOpenVideoModal(true)} />
-        <Advertisement1 />
-        <Advertisement2 />
+        <Advertisement1 url={settings?.ads1_link} />
+        <Advertisement2 url={settings?.ads2_link} />
       </div>
     </>
   );
