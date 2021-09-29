@@ -14,7 +14,7 @@ export const SeminarScreen = () => {
 
   return (
     <div className={styles.seminar}>
-      <div>
+      <div className="bg-black">
         <iframe
           width="100%"
           height="100%"
