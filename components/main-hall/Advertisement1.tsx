@@ -1,12 +1,11 @@
-import React from "react";
-import { youtubeParser } from "utils";
+import { matchYoutubeUrl } from "utils";
 import styles from "./Advertisement1.module.css";
 
 export const Advertisement1 = ({ url }: { url?: string }) => {
   const defaultVideo =
     "https://www.youtube.com/watch?v=jS0qVrpKjY4&ab_channel=HospitalEngineeringExpo";
 
-  const youtubeId = youtubeParser(url || defaultVideo) || "jS0qVrpKjY4";
+  const youtubeId = matchYoutubeUrl(url || defaultVideo);
 
   return (
     <div className={styles.advertisement}>

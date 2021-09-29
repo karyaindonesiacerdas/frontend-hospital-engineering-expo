@@ -34,12 +34,12 @@ type Props = {
   videoType: "main-hall" | "booth";
 };
 
-function youtubeParser(url: string) {
-  const regExp =
-    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[7].length == 11 ? match[7] : "";
-}
+// function youtubeParser(url: string) {
+//   const regExp =
+//     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+//   const match = url.match(regExp);
+//   return match && match[7].length == 11 ? match[7] : "";
+// }
 
 function matchYoutubeUrl(url: string) {
   const p =
@@ -65,11 +65,12 @@ export const VideoModal = ({
   videoModalDetails,
   videoType,
 }: Props) => {
+  console.log({ videoModalDetails });
   const cancelButtonRef = useRef(null);
   const { user } = useAuth();
   const provider = "youtube";
   const defaultVideo =
-    "https://www.youtube.com/watch?v=CXg2xeULoa0&ab_channel=HospitalEngineeringExpo";
+    "https://www.youtube.com/watch?v=c-jBYuYOuD0_channel=HospitalEngineeringExpo";
   const {
     register,
     handleSubmit,
@@ -91,6 +92,9 @@ export const VideoModal = ({
   const queryClient = useQueryClient();
   const [validId, setValidId] = useState(false);
   const videoURL = watch("company_video_url");
+
+  // const id = youtubeParser(videoModalDetails?.videoUrl || "");
+  // console.log({ id });
 
   const imageOnLoadHandler = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
@@ -239,9 +243,10 @@ export const VideoModal = ({
                     type: "video",
                     sources: [
                       {
-                        src: youtubeParser(
-                          videoModalDetails.videoUrl || defaultVideo
-                        ),
+                        src:
+                          matchYoutubeUrl(
+                            videoModalDetails.videoUrl || defaultVideo
+                          ) || "",
                         provider,
                       },
                     ],

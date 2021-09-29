@@ -40,6 +40,7 @@ const MainHall: NextPage = () => {
   }
 
   // console.log({ user });
+  console.log("link", settings?.webinar_link);
 
   return (
     <>
@@ -66,22 +67,21 @@ const MainHall: NextPage = () => {
         {/* Main Content */}
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
-          <VideoModal
-            videoType="main-hall"
-            open={openVideoModal}
-            setOpen={setOpenVideoModal}
-            videoModalDetails={{
-              id: 0,
-              email: "hospital.engineering.expo@gmail.com",
-              name: "Hospital Engineering Forum 2021",
-              phone: "+62 858 9377 7283 (Adrian)",
-              videoUrl:
-                (youtubeParser(settings?.webinar_link || "") &&
-                  settings?.webinar_link) ||
-                "https://www.youtube.com/watch?v=jS0qVrpKjY4&ab_channel=HospitalEngineeringExpo",
-              website: "https://hospital-engineering-expo.com/",
-            }}
-          />
+          {settings?.webinar_link && (
+            <VideoModal
+              videoType="main-hall"
+              open={openVideoModal}
+              setOpen={setOpenVideoModal}
+              videoModalDetails={{
+                id: 0,
+                email: "hospital.engineering.expo@gmail.com",
+                name: "Hospital Engineering Forum 2021",
+                phone: "+62 858 9377 7283 (Adrian)",
+                videoUrl: settings.webinar_link,
+                website: "https://hospital-engineering-expo.com/",
+              }}
+            />
+          )}
           {(user?.role !== "exhibitor" ||
             [3, 4, 5].includes(dataUser?.package_id)) && (
             <ChatModal open={openChatModal} setOpen={setOpenChatModal} />

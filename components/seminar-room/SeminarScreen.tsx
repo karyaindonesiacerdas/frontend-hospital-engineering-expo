@@ -1,6 +1,6 @@
 import { useSettings } from "hooks/useSettings";
 import React from "react";
-import { youtubeParser } from "utils";
+import { matchYoutubeUrl } from "utils";
 import styles from "./SeminarScreen.module.css";
 
 export const SeminarScreen = () => {
@@ -9,7 +9,7 @@ export const SeminarScreen = () => {
 
   const { data } = useSettings();
 
-  const youtubeId = youtubeParser(data?.youtube_link || defaultVideo);
+  const youtubeId = matchYoutubeUrl(data?.youtube_link || defaultVideo);
 
   return (
     <div className={styles.seminar}>
