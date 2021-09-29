@@ -194,11 +194,11 @@ export const AuthProvider: FC = ({ children }) => {
       }
     );
 
-    console.log({ res });
+    // console.log({ res });
 
     if (!res.ok) {
       const error = await res.json();
-      console.log({ error });
+      // console.log({ error });
       throw new Error(error.message);
     }
 

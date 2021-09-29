@@ -52,7 +52,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
 
   // const avatarURL = `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
   // console.log({ exh: data });
-  console.log({ dataUser });
+  // console.log({ dataUser });
 
   return (
     <header className="bg-transparent z-10 sticky">

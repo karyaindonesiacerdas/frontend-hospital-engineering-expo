@@ -95,7 +95,7 @@ const RegisterVisitor: NextPage = () => {
     }
   }, [passwordWatch, confirmPasswordWatch, setError, clearErrors]);
 
-  console.log({ errors });
+  // console.log({ errors });
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const {
@@ -115,7 +115,7 @@ const RegisterVisitor: NextPage = () => {
       member_sehat_ri,
       allow_share_info,
     } = values;
-    console.log({ province });
+    // console.log({ province });
 
     try {
       await registerVisitor({

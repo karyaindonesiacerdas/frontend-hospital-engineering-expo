@@ -65,7 +65,7 @@ export const VideoModal = ({
   videoModalDetails,
   videoType,
 }: Props) => {
-  console.log({ videoModalDetails });
+  // console.log({ videoModalDetails });
   const cancelButtonRef = useRef(null);
   const { user } = useAuth();
   const provider = "youtube";

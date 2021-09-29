@@ -60,12 +60,12 @@ export const ChangePassword = () => {
         throw new Error("Failed change password");
       }
 
-      const json = await res.json();
-      console.log({ json });
+      await res.json();
+      // console.log({ json });
       await logout();
       toast.success("Password changed");
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
       toast.success(error.message || "Failed");
     }
   };

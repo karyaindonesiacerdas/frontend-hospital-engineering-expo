@@ -33,14 +33,11 @@ const MainHall: NextPage = () => {
   }, [isAuthenticated, isLoading, router]);
 
   const { data: settings } = useSettings();
-  console.log({ settings });
+  // console.log({ settings });
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
   }
-
-  // console.log({ user });
-  console.log("link", settings?.webinar_link);
 
   return (
     <>
