@@ -12,6 +12,7 @@ import { useAuth } from "@/contexts/auth.context";
 import { VirtualBooth5 } from "@/components/VirtualBooth5";
 import { VirtualBooth10 } from "@/components/VirtualBooth10";
 import type { ExhibitorDetails } from "types";
+import { useUser } from "hooks/useUser";
 
 const useExhibitor = ({ id }: any) => {
   const cookies = parseCookies();
@@ -32,8 +33,9 @@ const useExhibitor = ({ id }: any) => {
 
 const Exhibitors: NextPage = () => {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+  const { data: dataUser } = useUser();
 
   // Check is user authenticated
   useEffect(() => {
@@ -75,14 +77,20 @@ const Exhibitors: NextPage = () => {
   return (
     <>
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
-      <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+      )}
 
       {data.package_id ? (
         data.package_id === 4 || data.package_id === 5 ? (

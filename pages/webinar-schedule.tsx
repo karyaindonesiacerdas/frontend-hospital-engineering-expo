@@ -13,6 +13,7 @@ import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
 import { useSettings } from "hooks/useSettings";
+import { useUser } from "hooks/useUser";
 
 const WebinarSchedule: NextPage = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const WebinarSchedule: NextPage = () => {
   const [openEditRundownModal, setOpenEditRundownModal] = useState(false);
   const [openDeleteRundownModal, setOpenDeleteRundownModal] = useState(false);
   const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
+  const { data: dataUser } = useUser();
 
   const { data: rundowns, isLoading: isLoadingRundowns } = useRundowns();
 
@@ -39,19 +41,26 @@ const WebinarSchedule: NextPage = () => {
   return (
     <>
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <Navbar variant="dark" currentHref="webinar-schedule" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {(user?.role !== "exhibitor" ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        )}
+
         {user.email === "admin@mail.com" && (
           <>
             <AddRundown

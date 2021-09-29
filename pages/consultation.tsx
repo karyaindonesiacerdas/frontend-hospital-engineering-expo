@@ -11,6 +11,7 @@ import { useAuth } from "@/contexts/auth.context";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { useConsultations } from "hooks/useConsultation";
 import { useSettings } from "hooks/useSettings";
+import { useUser } from "hooks/useUser";
 // import { AddSlotTime } from "@/components/consultation/AddSlotTime";
 
 // type ConsultationDetail = {
@@ -51,6 +52,7 @@ const Consultation: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openChangeStatusModal, setOpenChangeStatusModal] = useState(false);
+  const { data: dataUser, isLoading: isLoadingUser } = useUser();
   // const [openAddSlotTimeModal, setOpenAddSlotTimeModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] =
     useState<{ id: number; status: number }>();
@@ -61,6 +63,16 @@ const Consultation: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
+  useEffect(() => {
+    if (
+      !isLoadingUser &&
+      dataUser?.role === "exhibitor" &&
+      ![3, 4, 5].includes(dataUser?.package_id)
+    ) {
+      router.push("/main-hall");
+    }
+  }, [dataUser, isLoadingUser, router]);
+
   const { data, isLoading: isLoadingConsultations } = useConsultations();
   const { data: settings } = useSettings();
   // console.log({ consultation: data });
@@ -70,28 +82,46 @@ const Consultation: NextPage = () => {
   // const { data: dataUser } = useUser();
   // console.log({ user: dataUser });
 
-  if (isLoading || !isAuthenticated || isLoadingConsultations) {
+  if (
+    isLoading ||
+    !isAuthenticated ||
+    isLoadingConsultations ||
+    isLoadingUser
+  ) {
     return <FullPageLoader />;
   }
 
   // console.log({ data });
+  if (
+    dataUser?.role === "exhibitor" &&
+    ![3, 4, 5].includes(dataUser?.package_id)
+  ) {
+    return null;
+  }
 
   return (
     <>
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <Navbar variant="dark" currentHref="consultation" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {(user?.role !== "exhibitor" ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        )}
+
         {(user?.role === "exhibitor" || user?.role === "admin") &&
           selectedConsultation && (
             <>

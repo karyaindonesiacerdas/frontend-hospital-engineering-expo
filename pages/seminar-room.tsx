@@ -13,11 +13,13 @@ import {
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { BackButton } from "@/components/BackButton";
+import { useUser } from "hooks/useUser";
 
 const SeminarRoom: NextPage = () => {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
+  const { data: dataUser } = useUser();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -32,12 +34,15 @@ const SeminarRoom: NextPage = () => {
   return (
     <>
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <div
         style={{
@@ -52,7 +57,10 @@ const SeminarRoom: NextPage = () => {
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
           <BackButton href="/main-hall" text="Main Hall" />
-          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          {(user?.role !== "exhibitor" ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          )}
         </main>
 
         {/* Absolute Position */}

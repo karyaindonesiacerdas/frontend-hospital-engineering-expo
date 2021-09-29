@@ -43,11 +43,11 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
   const { logout, user } = useAuth();
   // console.log({ navbar: user });
 
-  const { data } = useUser();
+  const { data: dataUser } = useUser();
   // console.log({ navbarData: data });
 
-  const avatarURL = data?.img_profile
-    ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`
+  const avatarURL = dataUser?.img_profile
+    ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${dataUser?.img_profile}`
     : `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
 
   // const avatarURL = `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
@@ -93,27 +93,38 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                   </div>
                   <div className="hidden lg:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      {navigation.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a
-                            className={classNames(
-                              item.href === currentHref
-                                ? "text-primary-500"
-                                : `${
-                                    variant === "light"
-                                      ? "text-gray-300 hover:text-white"
-                                      : "text-gray-700 hover:text-primary-500"
-                                  }`,
-                              "px-3 py-2 rounded-md font-medium"
-                            )}
-                            aria-current={
-                              item.href === currentHref ? "page" : undefined
-                            }
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      ))}
+                      {navigation
+                        .filter((item) => {
+                          if (
+                            item.name === "Consultation" &&
+                            dataUser?.role === "exhibitor" &&
+                            ![3, 4, 5].includes(dataUser?.package_id)
+                          ) {
+                            return false;
+                          }
+                          return true;
+                        })
+                        .map((item) => (
+                          <Link key={item.name} href={item.href}>
+                            <a
+                              className={classNames(
+                                item.href === currentHref
+                                  ? "text-primary-500"
+                                  : `${
+                                      variant === "light"
+                                        ? "text-gray-300 hover:text-white"
+                                        : "text-gray-700 hover:text-primary-500"
+                                    }`,
+                                "px-3 py-2 rounded-md font-medium"
+                              )}
+                              aria-current={
+                                item.href === currentHref ? "page" : undefined
+                              }
+                            >
+                              {item.name}
+                            </a>
+                          </Link>
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -121,7 +132,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 {/* Right Nav */}
                 <div className="hidden lg:block">
                   <div className="ml-4 flex items-center lg:ml-6">
-                    {user?.role === "exhibitor" && data?.package_id && (
+                    {user?.role === "exhibitor" && dataUser?.package_id && (
                       <Link href={`/exhibitors/${user?.id}`}>
                         <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
                           <svg
@@ -303,23 +314,34 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
             {/* Mobile Nav Panel */}
             <Disclosure.Panel className="lg:hidden bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navigation.map((item) => (
-                  <Link key={item.name} href={item.href}>
-                    <a
-                      className={classNames(
-                        item.href === currentHref
-                          ? "text-primary-500"
-                          : "text-gray-700 hover:text-primary-500",
-                        " block px-3 py-2 rounded-md text-base font-medium"
-                      )}
-                      aria-current={
-                        item.href === currentHref ? "page" : undefined
-                      }
-                    >
-                      {item.name}
-                    </a>
-                  </Link>
-                ))}
+                {navigation
+                  .filter((item) => {
+                    if (
+                      item.name === "Consultation" &&
+                      dataUser?.role === "exhibitor" &&
+                      ![3, 4, 5].includes(dataUser?.package_id)
+                    ) {
+                      return false;
+                    }
+                    return true;
+                  })
+                  .map((item) => (
+                    <Link key={item.name} href={item.href}>
+                      <a
+                        className={classNames(
+                          item.href === currentHref
+                            ? "text-primary-500"
+                            : "text-gray-700 hover:text-primary-500",
+                          " block px-3 py-2 rounded-md text-base font-medium"
+                        )}
+                        aria-current={
+                          item.href === currentHref ? "page" : undefined
+                        }
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
+                  ))}
               </div>
               <div className="pt-4 pb-3 border-t border-gray-300">
                 <div className="flex items-center px-5">

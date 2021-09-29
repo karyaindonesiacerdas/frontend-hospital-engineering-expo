@@ -49,20 +49,20 @@ const SettingVirtualBoothPage: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router, user?.role]);
 
-  const { data, isLoading: isLoadingUser } = useUser();
+  const { data: dataUser, isLoading: isLoadingUser } = useUser();
 
   useEffect(() => {
-    if (data) {
+    if (dataUser) {
       reset({
-        name: data?.company_name,
-        website: data?.company_website,
-        country: data?.country,
-        province: data?.province,
-        email: data?.email,
-        phone: data?.mobile,
+        name: dataUser?.company_name,
+        website: dataUser?.company_website,
+        country: dataUser?.country,
+        province: dataUser?.province,
+        email: dataUser?.email,
+        phone: dataUser?.mobile,
       });
     }
-  }, [data, reset]);
+  }, [dataUser, reset]);
 
   if (isLoading || !isAuthenticated || isLoadingUser) {
     return <FullPageLoader />;
@@ -114,19 +114,25 @@ const SettingVirtualBoothPage: NextPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <Navbar variant="dark" currentHref="webinar-schedule" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {(user?.role !== "exhibitor" ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        )}
 
         {/* Form */}
         {/* Personal Info */}
@@ -311,7 +317,7 @@ const SettingVirtualBoothPage: NextPage = () => {
                     // objectFit="contain"
                     layout="fill"
                     objectFit="contain"
-                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${data?.company_logo}`}
+                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${dataUser?.company_logo}`}
                     alt="Company Logo"
                   />
                 </div>

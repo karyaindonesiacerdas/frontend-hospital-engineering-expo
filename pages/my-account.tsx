@@ -60,18 +60,18 @@ const MyAccountPage: NextPage = () => {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  const { data, isLoading: isLoadingUser } = useUser();
+  const { data: dataUser, isLoading: isLoadingUser } = useUser();
 
   useEffect(() => {
-    if (data) {
+    if (dataUser) {
       reset({
-        name: data?.name,
-        mobile: data?.mobile,
-        email: data?.email,
-        job_function: data?.job_function,
+        name: dataUser?.name,
+        mobile: dataUser?.mobile,
+        email: dataUser?.email,
+        job_function: dataUser?.job_function,
       });
     }
-  }, [data, reset]);
+  }, [dataUser, reset]);
 
   // console.log({ data });
 
@@ -125,19 +125,25 @@ const MyAccountPage: NextPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <Navbar variant="dark" currentHref="webinar-schedule" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-10 max-w-7xl mx-auto">
         {/* ### Modals ### */}
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {(user?.role !== "exhibitor" ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        )}
 
         {/* Form */}
         {/* Personal Info */}
@@ -267,9 +273,9 @@ const MyAccountPage: NextPage = () => {
                               alt="preview image"
                               className="w-12 h-12 rounded-full object-cover"
                             />
-                          ) : data?.img_profile ? (
+                          ) : dataUser?.img_profile ? (
                             <img
-                              src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`}
+                              src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${dataUser?.img_profile}`}
                               alt="Image Profile"
                               className="w-12 h-12 rounded-full object-cover"
                             />

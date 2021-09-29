@@ -17,13 +17,14 @@ import {
 import { useAuth } from "@/contexts/auth.context";
 import { useSettings } from "hooks/useSettings";
 import { youtubeParser } from "utils";
+import { useUser } from "hooks/useUser";
 
 const MainHall: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
-  // console.log({ user });
+  const { data: dataUser } = useUser();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -42,12 +43,15 @@ const MainHall: NextPage = () => {
   return (
     <>
       {/* Chat Button */}
-      <div
-        className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-        style={{ backdropFilter: "4px" }}
-      >
-        <ChatButton onClick={() => setOpenChatModal(true)} />
-      </div>
+      {(user?.role !== "exhibitor" ||
+        [3, 4, 5].includes(dataUser?.package_id)) && (
+        <div
+          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+          style={{ backdropFilter: "4px" }}
+        >
+          <ChatButton onClick={() => setOpenChatModal(true)} />
+        </div>
+      )}
 
       <div
         style={{
@@ -77,7 +81,10 @@ const MainHall: NextPage = () => {
               website: "https://hospital-engineering-expo.com/",
             }}
           />
-          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          {(user?.role !== "exhibitor" ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          )}
         </main>
 
         {/* Button Absolute Position */}

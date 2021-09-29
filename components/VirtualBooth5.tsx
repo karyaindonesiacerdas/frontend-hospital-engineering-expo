@@ -42,8 +42,6 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
 
-  console.log({ exhibitor });
-
   return (
     <div
       style={{
