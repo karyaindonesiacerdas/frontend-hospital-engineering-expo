@@ -24,3 +24,17 @@ export const Catalog = ({ onClick }: Props) => {
     </div>
   );
 };
+
+export const NoCatalog = () => {
+  return (
+    <div>
+      <div className={styles.bannerWrapper}>
+        <div
+          className={styles.nobanner}
+          // style={{ backgroundImage: "url('/catalog-example.PNG')" }}
+          style={{ backgroundImage: "url('/catalog-bg.jpg')" }}
+        ></div>
+      </div>
+    </div>
+  );
+};

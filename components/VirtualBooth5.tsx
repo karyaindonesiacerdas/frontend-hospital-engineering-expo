@@ -15,6 +15,8 @@ import {
   BoothChat,
   ButtonVideo,
   BoothCS,
+  NoCatalog,
+  NoBoothChat,
 } from "@/components/virtual-booth-5";
 import { PosterModal } from "@/components/PosterModal";
 import { NameCardModal } from "@/components/NameCardModal";
@@ -23,7 +25,7 @@ import { BookingConsultationModal } from "@/components/BookingConsultationModal"
 import { BackButton } from "@/components/BackButton";
 import type { Banner, ExhibitorDetails } from "types";
 
-const catalogSrc = "/catalog-example.pdf";
+// const catalogSrc = "/catalog-example.pdf";
 
 type Props = {
   exhibitor: ExhibitorDetails;
@@ -39,6 +41,8 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
     useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
+
+  console.log({ exhibitor });
 
   return (
     <div
@@ -85,21 +89,24 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
               order={selectedOrder}
               exhibitorId={exhibitor.id}
             />
-            <CatalogModal
-              exhibitorId={exhibitor.id}
-              open={openCatalogModal}
-              setOpen={setOpenCatalogModal}
-              selectedBanner={selectedBanner}
-              order={selectedOrder}
-            />
+            {exhibitor?.package_id === 3 && (
+              <CatalogModal
+                exhibitorId={exhibitor.id}
+                open={openCatalogModal}
+                setOpen={setOpenCatalogModal}
+                selectedBanner={selectedBanner}
+                order={selectedOrder}
+              />
+            )}
           </>
         )}
-
-        <BookingConsultationModal
-          exhibitorId={exhibitor.id}
-          open={openBookingConsultationModal}
-          setOpen={setOpenBookingConsultationModal}
-        />
+        {exhibitor?.package_id === 3 && (
+          <BookingConsultationModal
+            exhibitorId={exhibitor.id}
+            open={openBookingConsultationModal}
+            setOpen={setOpenBookingConsultationModal}
+          />
+        )}
       </main>
 
       {/* Absolute Position */}
@@ -113,15 +120,19 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      <Catalog
-        onClick={() => {
-          setOpenCatalogModal(true);
-          setSelectedOrder(12);
-          setSelectedBanner(
-            exhibitor.banners.find((banner) => banner.order === 12)
-          );
-        }}
-      />
+      {exhibitor?.package_id === 3 ? (
+        <Catalog
+          onClick={() => {
+            setOpenCatalogModal(true);
+            setSelectedOrder(12);
+            setSelectedBanner(
+              exhibitor.banners.find((banner) => banner.order === 12)
+            );
+          }}
+        />
+      ) : (
+        <NoCatalog />
+      )}
       <Poster1
         banner={exhibitor.banners.find((banner) => banner.order === 1)}
         onClick={() => {
@@ -172,13 +183,19 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      <BookingConsultation
-        onClick={() => setOpenBookingConsultationModal(true)}
-      />
-      <BoothChat
-        onClick={() => setOpenChatModal(true)}
-        company_logo={exhibitor.company_logo}
-      />
+      {exhibitor?.package_id === 3 && (
+        <BookingConsultation
+          onClick={() => setOpenBookingConsultationModal(true)}
+        />
+      )}
+      {exhibitor?.package_id === 3 ? (
+        <BoothChat
+          onClick={() => setOpenChatModal(true)}
+          company_logo={exhibitor.company_logo}
+        />
+      ) : (
+        <NoBoothChat company_logo={exhibitor.company_logo} />
+      )}
       <ButtonVideo
         onClick={() => setOpenVideoModal(true)}
         companyDetails={{
@@ -188,6 +205,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           website: exhibitor.company_website,
         }}
       />
+
       <BoothCS />
     </div>
   );

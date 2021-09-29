@@ -61,6 +61,12 @@ const Exhibitors: NextPage = () => {
     }
   }, [data, isSuccess, isError, router]);
 
+  useEffect(() => {
+    if (isSuccess && (!data?.package_id || data?.package_id === 2)) {
+      router.replace("/exhibitors");
+    }
+  }, [data?.package_id, isSuccess, router]);
+
   // Display Loader when fetch auth data exhibitor data
   if (isLoading || !isAuthenticated || isLoadingExhibitor || !data) {
     return <FullPageLoader />;
@@ -79,11 +85,11 @@ const Exhibitors: NextPage = () => {
       <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
 
       {data.package_id ? (
-        data.package_id === 5 ? (
+        data.package_id === 4 || data.package_id === 5 ? (
           <VirtualBooth10 exhibitor={data} />
-        ) : (
+        ) : data.package_id === 1 || data.package_id === 3 ? (
           <VirtualBooth5 exhibitor={data} />
-        )
+        ) : null
       ) : null}
     </>
   );
