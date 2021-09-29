@@ -12,10 +12,13 @@ import "swiper/css/pagination";
 import type { Exhibitor } from "types";
 
 type Props = {
-  exhibitors: Exhibitor[];
+  _exhibitors: Exhibitor[];
 };
 
-const Board = ({ exhibitors }: Props) => {
+const Board = ({ _exhibitors }: Props) => {
+  const exhibitors = _exhibitors.filter(
+    (exhibitor) => exhibitor.package_id !== 2
+  );
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
   return (

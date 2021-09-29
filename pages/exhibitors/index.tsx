@@ -73,7 +73,7 @@ const Exhibitors: NextPage = () => {
 
         {/* Absolute Position */}
         <BoardHeader />
-        {data && <Board exhibitors={data} />}
+        {data && <Board _exhibitors={data} />}
         {/* <SearchAndFilter /> */}
       </div>
     </>
