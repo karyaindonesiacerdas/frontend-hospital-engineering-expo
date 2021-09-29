@@ -122,7 +122,7 @@ const RegisterExhibitor: NextPage = () => {
       toast.success("Registration Successful. Please login");
       await router.push("/login");
     } catch (error) {
-      toast.error("Registration Failed");
+      toast.error("Registration Failed. Email already exists");
       // console.log({ error });
     }
   };
