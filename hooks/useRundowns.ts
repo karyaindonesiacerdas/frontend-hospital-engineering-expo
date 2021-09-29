@@ -9,6 +9,7 @@ export type RundownDetail = {
   title: string;
   subtitle: string;
   speakers: string;
+  position: string;
   embedd_link: string;
   status: number;
 };

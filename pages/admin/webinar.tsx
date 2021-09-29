@@ -218,6 +218,9 @@ const AdminWebinarPage: NextPage = () => {
                             <div className="text-sm font-medium text-gray-900">
                               {rundown.speakers}
                             </div>
+                            <div className="text-sm font-medium text-gray-500">
+                              {rundown.position}
+                            </div>
                           </td>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             {rundown.status === 3 ? (

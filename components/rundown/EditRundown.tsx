@@ -27,6 +27,7 @@ type Inputs = {
   title: string;
   subtitle: string;
   speakers: string;
+  position: string;
   date: string;
   time: string;
   embedd_link: string;
@@ -54,6 +55,7 @@ export const EditRundown = ({
       time: selectedRundown.time,
       title: selectedRundown.title,
       subtitle: selectedRundown.subtitle,
+      position: selectedRundown.position,
     },
   });
   const cookies = parseCookies();
@@ -68,17 +70,27 @@ export const EditRundown = ({
       time: selectedRundown.time,
       title: selectedRundown.title,
       subtitle: selectedRundown.subtitle,
+      position: selectedRundown.position,
     });
   }, [reset, selectedRundown]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    const { date, embedd_link, speakers, time, title, status, subtitle } =
-      values;
+    const {
+      date,
+      embedd_link,
+      speakers,
+      time,
+      title,
+      status,
+      subtitle,
+      position,
+    } = values;
 
     const data = {
       title,
       subtitle,
       speakers,
+      position,
       embedd_link,
       date,
       time,
@@ -206,6 +218,23 @@ export const EditRundown = ({
                         id="speakers"
                         className="input-text"
                         {...register("speakers")}
+                      />
+                      {/*  */}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="position"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Position
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <input
+                        type="text"
+                        id="position"
+                        className="input-text"
+                        {...register("position")}
                       />
                       {/*  */}
                     </div>
