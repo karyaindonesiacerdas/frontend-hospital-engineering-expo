@@ -66,14 +66,33 @@ const RegisterVisitor: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
+    setError,
+    clearErrors,
   } = useForm<Inputs>({ resolver: yupResolver(schema) });
   const cookies = parseCookies();
+  const passwordWatch = watch("password");
+  const confirmPasswordWatch = watch("password_confirmation");
 
   useEffect(() => {
     if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
       router.push("/main-hall");
     }
   }, [isAuthenticated, isLoading, router, cookies.access_token, cookies.user]);
+
+  useEffect(() => {
+    if (
+      passwordWatch &&
+      confirmPasswordWatch &&
+      passwordWatch !== confirmPasswordWatch
+    ) {
+      setError("password", { message: "Password not match" });
+      setError("password_confirmation", { message: "Password not match" });
+    } else {
+      clearErrors("password");
+      clearErrors("password_confirmation");
+    }
+  }, [passwordWatch, confirmPasswordWatch, setError, clearErrors]);
 
   console.log({ errors });
 
