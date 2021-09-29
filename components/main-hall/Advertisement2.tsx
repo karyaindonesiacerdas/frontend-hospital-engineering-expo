@@ -6,7 +6,7 @@ export const Advertisement2 = ({ url }: { url?: string }) => {
   const defaultVideo =
     "https://www.youtube.com/watch?v=jS0qVrpKjY4&ab_channel=HospitalEngineeringExpo";
 
-  const youtubeId = youtubeParser(url || defaultVideo) || "jS0qVrpKjY4";
+  const youtubeId = youtubeParser(url || defaultVideo);
 
   return (
     <div className={styles.advertisement}>

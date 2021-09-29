@@ -9,8 +9,7 @@ export const SeminarScreen = () => {
 
   const { data } = useSettings();
 
-  const youtubeId =
-    youtubeParser(data?.youtube_link || defaultVideo) || "jS0qVrpKjY4";
+  const youtubeId = youtubeParser(data?.youtube_link || defaultVideo);
 
   return (
     <div className={styles.seminar}>
