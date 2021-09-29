@@ -33,6 +33,7 @@ const MainHall: NextPage = () => {
   }, [isAuthenticated, isLoading, router]);
 
   const { data: settings } = useSettings();
+  console.log({ settings });
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
