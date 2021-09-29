@@ -63,7 +63,7 @@ const AdminConsultationPage: NextPage = () => {
         date: consultation.date,
         time: consultation.time,
         exhibitor: consultation.exhibitor?.company_name,
-        visitor: consultation.visitor?.name,
+        visitor: consultation.visitor,
         status: consultation.status,
       })),
     [isSuccessConsultations, dataConsultations]
@@ -89,6 +89,15 @@ const AdminConsultationPage: NextPage = () => {
         Header: "Visitor",
         Footer: "Visitor",
         accessor: "visitor",
+        Cell: ({ value }: any) => (
+          <div>
+            <div className="text-gray-900">{value?.name}</div>
+            <div className="text-sm text-gray-500">
+              {value?.institution_name}
+            </div>
+            <div className="text-sm text-gray-500">{value?.mobile}</div>
+          </div>
+        ),
       },
       {
         Header: "Status",

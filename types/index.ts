@@ -70,6 +70,7 @@ export type ConsultationDetail = {
     id: number;
     name: string;
     institution_name: string;
+    mobile: string;
   };
   exhibitor: {
     id: number;

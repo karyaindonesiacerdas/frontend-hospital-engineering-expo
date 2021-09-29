@@ -74,6 +74,7 @@ const Consultation: NextPage = () => {
   }, [dataUser, isLoadingUser, router]);
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
+  console.log({ data });
   const { data: settings } = useSettings();
   // console.log({ consultation: data });
 
@@ -247,6 +248,9 @@ const Consultation: NextPage = () => {
                               </div>
                               <div className="text-sm text-gray-500">
                                 {consultation.visitor?.institution_name}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {consultation.visitor?.mobile}
                               </div>
                             </td>
                           )}
