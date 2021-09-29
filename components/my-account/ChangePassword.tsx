@@ -22,36 +22,39 @@ export const ChangePassword = () => {
   const { logout } = useAuth();
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    if (!values.current_password || !values.new_password) return;
     const data = {
       _method: "PUT",
       password: values.new_password,
     };
 
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+    console.log("hit");
 
-      if (!res.ok) {
-        throw new Error("Failed change password");
-      }
+    // try {
+    //   const res = await fetch(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${cookies.access_token}`,
+    //       },
+    //       body: JSON.stringify(data),
+    //     }
+    //   );
 
-      const json = await res.json();
-      console.log({ json });
-      await logout();
-      toast.success("Password changed");
-    } catch (error: any) {
-      console.log(error);
-      toast.success(error.message || "Failed");
-    }
+    //   if (!res.ok) {
+    //     throw new Error("Failed change password");
+    //   }
+
+    //   const json = await res.json();
+    //   console.log({ json });
+    //   await logout();
+    //   toast.success("Password changed");
+    // } catch (error: any) {
+    //   console.log(error);
+    //   toast.success(error.message || "Failed");
+    // }
   };
 
   return (
