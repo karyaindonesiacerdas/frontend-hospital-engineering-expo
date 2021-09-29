@@ -14,6 +14,7 @@ import { useConsultations } from "../../hooks/useConsultation";
 import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { BackButton } from "@/components/BackButton";
 import { useSettings } from "hooks/useSettings";
+import { DeleteConsultation } from "@/components/consultation/DeleteConsultation";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
@@ -31,6 +32,7 @@ const AdminConsultationPage: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openChangeStatusModal, setOpenChangeStatusModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] =
     useState<{ id: number; status: number }>();
 
@@ -124,18 +126,32 @@ const AdminConsultationPage: NextPage = () => {
         Footer: "Action",
         Cell: ({ row }: any) => {
           return (
-            <button
-              className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
-              onClick={() => {
-                setSelectedConsultation({
-                  id: row.original.id,
-                  status: row.original.status,
-                });
-                setOpenChangeStatusModal(true);
-              }}
-            >
-              Update Status
-            </button>
+            <div className="flex space-x-3">
+              <button
+                className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
+                onClick={() => {
+                  setSelectedConsultation({
+                    id: row.original.id,
+                    status: row.original.status,
+                  });
+                  setOpenChangeStatusModal(true);
+                }}
+              >
+                Update Status
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedConsultation({
+                    id: row.original.id,
+                    status: row.original.status,
+                  });
+                  setOpenDeleteModal(true);
+                }}
+                className="text-sm font-medium text-red-600 hover:text-red-700"
+              >
+                Delete
+              </button>
+            </div>
           );
         },
       },
@@ -170,6 +186,11 @@ const AdminConsultationPage: NextPage = () => {
             <UpdateStatus
               open={openChangeStatusModal}
               setOpen={setOpenChangeStatusModal}
+              selectedConsultation={selectedConsultation}
+            />
+            <DeleteConsultation
+              open={openDeleteModal}
+              setOpen={setOpenDeleteModal}
               selectedConsultation={selectedConsultation}
             />
           </>
