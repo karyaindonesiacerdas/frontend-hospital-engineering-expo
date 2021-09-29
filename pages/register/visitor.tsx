@@ -159,7 +159,9 @@ const RegisterVisitor: NextPage = () => {
               src="/ptpi.png"
               alt="logo ptpi"
             />
-            <span className="text-2xl font-bold text-primary">HEF 2021</span>
+            <Link href="/">
+              <a className="text-2xl font-bold text-primary">HEF 2021</a>
+            </Link>
           </a>
           <h2 className="text-3xl text-gray-800 font-bold">
             {t("register-as-visitor")}
