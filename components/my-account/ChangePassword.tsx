@@ -4,6 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { SubmitButton } from "../common";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 import { useAuth } from "@/contexts/auth.context";
 
 type Inputs = {
@@ -11,13 +14,23 @@ type Inputs = {
   new_password: string;
 };
 
+const schema = yup.object().shape({
+  current_password: yup.string().required("Current password is required"),
+  new_password: yup
+    .string()
+    .min(8, "New Password must be at least 8 characters")
+    .required("New password is required"),
+});
+
 export const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
   const cookies = parseCookies();
   const { logout } = useAuth();
 
@@ -89,6 +102,11 @@ export const ChangePassword = () => {
                   )}
                 </button>
               </div>
+              {errors?.current_password && (
+                <span className="text-sm text-red-500">
+                  {errors?.current_password?.message}
+                </span>
+              )}
             </div>
 
             <div className="col-span-2 sm:col-span-1">
@@ -118,6 +136,11 @@ export const ChangePassword = () => {
                   )}
                 </button>
               </div>
+              {errors?.new_password && (
+                <span className="text-sm text-red-500">
+                  {errors?.new_password?.message}
+                </span>
+              )}
             </div>
           </div>
         </div>
