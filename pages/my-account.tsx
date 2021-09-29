@@ -15,6 +15,7 @@ import { FullPageLoader, SubmitButton } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { XIcon } from "@heroicons/react/solid";
 import { useUser } from "hooks/useUser";
+import { ChangePassword } from "@/components/my-account/ChangePassword";
 
 type Inputs = {
   email: string;
@@ -371,76 +372,7 @@ const MyAccountPage: NextPage = () => {
               </div>
             </div>
             <div className="mt-5 md:mt-0 md:col-span-2">
-              <form>
-                <div className="shadow overflow-hidden sm:rounded-md">
-                  <div className="px-4 py-5 bg-white sm:p-6">
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="current-password"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Current Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm">
-                          <input
-                            id="current-password"
-                            name="current-password"
-                            type={showPassword ? "text" : "password"}
-                            className="input-password"
-                            autoComplete="new-password"
-                          />
-                          <button
-                            type="button"
-                            className="absolute inset-y-0 right-0 px-3 flex items-center"
-                            onClick={() => setShowPassword((prev) => !prev)}
-                          >
-                            {showPassword ? (
-                              <EyeIcon className="h-5 w-5 text-gray-400" />
-                            ) : (
-                              <EyeOffIcon className="h-5 w-5 text-gray-400" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="new-password"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          New Password
-                        </label>
-                        <div className="mt-1 relative rounded-md shadow-sm">
-                          <input
-                            id="new-password"
-                            name="new-password"
-                            type={showPassword ? "text" : "password"}
-                            className="input-password"
-                            autoComplete="new-password"
-                          />
-                          <button
-                            type="button"
-                            className="absolute inset-y-0 right-0 px-3 flex items-center"
-                            onClick={() => setShowPassword((prev) => !prev)}
-                          >
-                            {showPassword ? (
-                              <EyeIcon className="h-5 w-5 text-gray-400" />
-                            ) : (
-                              <EyeOffIcon className="h-5 w-5 text-gray-400" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button type="submit" className="btn-primary">
-                      Change
-                    </button>
-                  </div>
-                </div>
-              </form>
+              <ChangePassword />
             </div>
           </div>
         </div>
