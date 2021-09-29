@@ -155,22 +155,40 @@ export const BookingConsultationModal = ({
     };
 
     try {
-      await axios.post(
+      // await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
+      //   data,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${cookies.access_token}`,
+      //     },
+      //   }
+      // );
+      // console.log({ res });
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/consultation`,
-        data,
         {
+          method: "POST",
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify(data),
         }
       );
-      // console.log({ res });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data?.message);
+      }
+
+      await res.json();
 
       reset();
       toast.success("Booking success", { position: "top-right" });
       setOpen(false);
-    } catch (error) {
-      toast.error("Booking failed", { position: "top-right" });
+    } catch (error: any) {
+      toast.error(error.message || "Booking failed", { position: "top-right" });
     }
   };
 
