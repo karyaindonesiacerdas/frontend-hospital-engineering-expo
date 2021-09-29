@@ -28,33 +28,33 @@ export const ChangePassword = () => {
       password: values.new_password,
     };
 
-    console.log("hit");
+    // console.log("hit");
 
-    // try {
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${cookies.access_token}`,
-    //       },
-    //       body: JSON.stringify(data),
-    //     }
-    //   );
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-    //   if (!res.ok) {
-    //     throw new Error("Failed change password");
-    //   }
+      if (!res.ok) {
+        throw new Error("Failed change password");
+      }
 
-    //   const json = await res.json();
-    //   console.log({ json });
-    //   await logout();
-    //   toast.success("Password changed");
-    // } catch (error: any) {
-    //   console.log(error);
-    //   toast.success(error.message || "Failed");
-    // }
+      const json = await res.json();
+      console.log({ json });
+      await logout();
+      toast.success("Password changed");
+    } catch (error: any) {
+      console.log(error);
+      toast.success(error.message || "Failed");
+    }
   };
 
   return (

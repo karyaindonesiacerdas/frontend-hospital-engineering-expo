@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
-import toast from "react-hot-toast";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -60,7 +59,7 @@ const Login: NextPage = () => {
     // try {
     await login({ email, password });
     // toast.success("Logged in");
-    await router.push("/main-hall");
+    // await router.push("/main-hall");
     // } catch (error) {
     //   toast.error("Invalid Credentials");
     //   // console.log({ error });
@@ -155,7 +154,7 @@ const Login: NextPage = () => {
           </div>
         </form>
 
-        {/* <div className="mt-6">
+        <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -182,7 +181,7 @@ const Login: NextPage = () => {
               </Link>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </AuthPageLayout>
   );

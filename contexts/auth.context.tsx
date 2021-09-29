@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, createContext, FC } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { useQueryClient } from "react-query";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 type LoginProps = {
   email: string;
@@ -73,6 +74,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider: FC = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -128,6 +130,7 @@ export const AuthProvider: FC = ({ children }) => {
         path: "/",
       });
       toast.success("Logged in");
+      router.push("/main-hall");
     } catch (error: any) {
       setIsAuthenticated(false);
       setUser(null);
@@ -136,6 +139,48 @@ export const AuthProvider: FC = ({ children }) => {
       toast.error(error?.message);
     }
   };
+
+  // const registerVisitor = async (props: RegisterVisitorProps) => {
+  //   const res = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(props),
+  //     }
+  //   );
+
+  //   console.log({ res });
+
+  //   if (!res.ok) {
+  //     const error = await res.json();
+  //     console.log({ error });
+  //     throw new Error(error.message);
+  //   }
+
+  //   const json = await res.json();
+  //   console.log({ json });
+
+  //   if (json.code !== 200) {
+  //     console.log("hat");
+  //     setIsAuthenticated(false);
+  //     setUser(null);
+  //     destroyCookie(null, "access_token");
+  //     destroyCookie(null, "user");
+  //   } else {
+  //     console.log("hat");
+  //     setIsAuthenticated(true);
+  //     setUser(json.data.user);
+  //     setCookie(null, "user", JSON.stringify(json.data.user), {
+  //       path: "/",
+  //     });
+  //     setCookie(null, "access_token", json.data.token, {
+  //       path: "/",
+  //     });
+  //   }
+  // };
 
   const registerVisitor = async (props: RegisterVisitorProps) => {
     const res = await fetch(
@@ -149,29 +194,71 @@ export const AuthProvider: FC = ({ children }) => {
       }
     );
 
+    console.log({ res });
+
     if (!res.ok) {
       const error = await res.json();
+      console.log({ error });
       throw new Error(error.message);
     }
 
-    const json = await res.json();
+    await res.json();
+    // console.log({ json });
 
-    if (json.code !== 200) {
-      setIsAuthenticated(false);
-      setUser(null);
-      destroyCookie(null, "access_token");
-      destroyCookie(null, "user");
-    } else {
-      setIsAuthenticated(true);
-      setUser(json.data.user);
-      setCookie(null, "user", JSON.stringify(json.data.user), {
-        path: "/",
-      });
-      setCookie(null, "access_token", json.data.token, {
-        path: "/",
-      });
-    }
+    // if (json.code !== 200) {
+    //   console.log("hat");
+    //   setIsAuthenticated(false);
+    //   setUser(null);
+    //   destroyCookie(null, "access_token");
+    //   destroyCookie(null, "user");
+    // } else {
+    //   console.log("hat");
+    //   setIsAuthenticated(true);
+    //   setUser(json.data.user);
+    //   setCookie(null, "user", JSON.stringify(json.data.user), {
+    //     path: "/",
+    //   });
+    //   setCookie(null, "access_token", json.data.token, {
+    //     path: "/",
+    //   });
+    // }
   };
+
+  // const registerExhibitor = async (props: RegisterExhibitorProps) => {
+  //   const res = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(props),
+  //     }
+  //   );
+
+  //   if (!res.ok) {
+  //     const error = await res.json();
+  //     throw new Error(error.message);
+  //   }
+
+  //   const json = await res.json();
+
+  //   if (json.code !== 200) {
+  //     setIsAuthenticated(false);
+  //     setUser(null);
+  //     destroyCookie(null, "access_token");
+  //     destroyCookie(null, "user");
+  //   } else {
+  //     setIsAuthenticated(true);
+  //     setUser(json.data.user);
+  //     setCookie(null, "user", JSON.stringify(json.data.user), {
+  //       path: "/",
+  //     });
+  //     setCookie(null, "access_token", json.data.token, {
+  //       path: "/",
+  //     });
+  //   }
+  // };
 
   const registerExhibitor = async (props: RegisterExhibitorProps) => {
     const res = await fetch(
@@ -190,23 +277,23 @@ export const AuthProvider: FC = ({ children }) => {
       throw new Error(error.message);
     }
 
-    const json = await res.json();
+    await res.json();
 
-    if (json.code !== 200) {
-      setIsAuthenticated(false);
-      setUser(null);
-      destroyCookie(null, "access_token");
-      destroyCookie(null, "user");
-    } else {
-      setIsAuthenticated(true);
-      setUser(json.data.user);
-      setCookie(null, "user", JSON.stringify(json.data.user), {
-        path: "/",
-      });
-      setCookie(null, "access_token", json.data.token, {
-        path: "/",
-      });
-    }
+    // if (json.code !== 200) {
+    //   setIsAuthenticated(false);
+    //   setUser(null);
+    //   destroyCookie(null, "access_token");
+    //   destroyCookie(null, "user");
+    // } else {
+    //   setIsAuthenticated(true);
+    //   setUser(json.data.user);
+    //   setCookie(null, "user", JSON.stringify(json.data.user), {
+    //     path: "/",
+    //   });
+    //   setCookie(null, "access_token", json.data.token, {
+    //     path: "/",
+    //   });
+    // }
   };
 
   const logout = async () => {
@@ -214,12 +301,13 @@ export const AuthProvider: FC = ({ children }) => {
     setIsAuthenticated(false);
     destroyCookie(null, "access_token");
     destroyCookie(null, "user");
-    await queryClient.removeQueries(["user"]);
     await queryClient.removeQueries(["rundowns"]);
     await queryClient.removeQueries(["exhibitor"]);
     await queryClient.removeQueries(["exhibitors"]);
     await queryClient.removeQueries(["consultations"]);
     await queryClient.removeQueries(["booked-consultations"]);
+    await queryClient.removeQueries(["settings"]);
+    await queryClient.removeQueries(["user"]);
   };
 
   const updateProfile = async (props: UpdateProfileProps) => {

@@ -46,7 +46,7 @@ const schema = yup.object().shape({
   mobile: yup.string().required("Mobile / Whatsapp is required"),
   name: yup.string().required("Name is required"),
   job_function: yup.string().required("Job function is required"),
-  password: yup.string().required("Password is required"),
+  password: yup.string().min(8).required("Password is required"),
   password_confirmation: yup
     .string()
     .required("Password confirmation is required"),
@@ -73,6 +73,7 @@ const RegisterVisitor: NextPage = () => {
   const cookies = parseCookies();
   const passwordWatch = watch("password");
   const confirmPasswordWatch = watch("password_confirmation");
+  const countryWatch = watch("country");
 
   useEffect(() => {
     if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
@@ -114,6 +115,8 @@ const RegisterVisitor: NextPage = () => {
       member_sehat_ri,
       allow_share_info,
     } = values;
+    console.log({ province });
+
     try {
       await registerVisitor({
         email,
@@ -128,13 +131,13 @@ const RegisterVisitor: NextPage = () => {
         password,
         password_confirmation,
         product_interest,
-        province,
+        province: country !== "Indonesia" ? "-" : province,
         visit_purpose,
         visitor_type,
         role: "visitor",
       });
-      toast.success("Successful Registration");
-      await router.push("/main-hall");
+      toast.success("Registration Successful. Please login");
+      await router.push("/login");
     } catch (error) {
       toast.error("Registration Failed");
       // console.log({ error });
@@ -470,35 +473,37 @@ const RegisterVisitor: NextPage = () => {
             </div>
 
             {/* <!-- Province --> */}
-            <div>
-              <label
-                htmlFor="province"
-                className="block text-sm font-medium text-gray-700"
-              >
-                {t("province")}
-              </label>
-              <div className="mt-1">
-                {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
-                <select
-                  id="province"
-                  className="input-text"
-                  {...register("province")}
+            {countryWatch === "Indonesia" && (
+              <div>
+                <label
+                  htmlFor="province"
+                  className="block text-sm font-medium text-gray-700"
                 >
-                  <option value="">Choose</option>
-                  {provinces.map((province) => (
-                    <option key={province.id} value={province.name}>
-                      {province.name}
-                    </option>
-                  ))}
-                </select>
-                {/* <!-- Error Text --> */}
-                {errors?.province && (
-                  <span className="text-sm text-red-500">
-                    {errors?.province?.message}
-                  </span>
-                )}
+                  {t("province")}
+                </label>
+                <div className="mt-1">
+                  {/* <!-- Valid: border-gray-300, Invalid: border-red-500 --> */}
+                  <select
+                    id="province"
+                    className="input-text"
+                    {...register("province")}
+                  >
+                    <option value="">Choose</option>
+                    {provinces.map((province) => (
+                      <option key={province.id} value={province.name}>
+                        {province.name}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <!-- Error Text --> */}
+                  {errors?.province && (
+                    <span className="text-sm text-red-500">
+                      {errors?.province?.message}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* <!-- Visitor Type --> */}
             <div>
