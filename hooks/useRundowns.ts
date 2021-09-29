@@ -7,6 +7,7 @@ export type RundownDetail = {
   date: string;
   time: string;
   title: string;
+  subtitle: string;
   speakers: string;
   embedd_link: string;
   status: number;

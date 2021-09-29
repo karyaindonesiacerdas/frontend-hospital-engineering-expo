@@ -25,6 +25,7 @@ type Props = {
 
 type Inputs = {
   title: string;
+  subtitle: string;
   speakers: string;
   date: string;
   time: string;
@@ -52,6 +53,7 @@ export const EditRundown = ({
       status: selectedRundown.status,
       time: selectedRundown.time,
       title: selectedRundown.title,
+      subtitle: selectedRundown.subtitle,
     },
   });
   const cookies = parseCookies();
@@ -65,14 +67,17 @@ export const EditRundown = ({
       status: selectedRundown.status,
       time: selectedRundown.time,
       title: selectedRundown.title,
+      subtitle: selectedRundown.subtitle,
     });
   }, [reset, selectedRundown]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    const { date, embedd_link, speakers, time, title, status } = values;
+    const { date, embedd_link, speakers, time, title, status, subtitle } =
+      values;
 
     const data = {
       title,
+      subtitle,
       speakers,
       embedd_link,
       date,
@@ -167,6 +172,23 @@ export const EditRundown = ({
                         id="title"
                         className="input-text"
                         {...register("title")}
+                      />
+                      {/*  */}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="subtitle"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Subtitle
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <textarea
+                        style={{ resize: "none" }}
+                        id="subtitle"
+                        className="input-text"
+                        {...register("subtitle")}
                       />
                       {/*  */}
                     </div>

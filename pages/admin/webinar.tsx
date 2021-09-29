@@ -210,9 +210,9 @@ const AdminWebinarPage: NextPage = () => {
                             <div className="text-sm font-medium text-gray-900">
                               {rundown.title}
                             </div>
-                            {/* <div className="text-sm font-medium text-gray-500">
-                              {schedule.subtitle}
-                            </div> */}
+                            <div className="text-sm font-medium text-gray-500">
+                              {rundown.subtitle}
+                            </div>
                           </td>
                           <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">

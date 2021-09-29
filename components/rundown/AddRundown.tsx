@@ -21,6 +21,7 @@ type Props = {
 
 type Inputs = {
   title: string;
+  subtitle: string;
   speakers: string;
   date: string;
   time: string;
@@ -39,10 +40,11 @@ export const AddRundown = ({ open, setOpen }: Props) => {
   const queryClient = useQueryClient();
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    const { date, embedd_link, speakers, time, title } = values;
+    const { date, embedd_link, speakers, time, title, subtitle } = values;
 
     const data = {
       title,
+      subtitle,
       speakers,
       embedd_link,
       date,
@@ -130,6 +132,23 @@ export const AddRundown = ({ open, setOpen }: Props) => {
                         id="title"
                         className="input-text"
                         {...register("title")}
+                      />
+                      {/*  */}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="subtitle"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Subtitle
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <textarea
+                        style={{ resize: "none" }}
+                        id="subtitle"
+                        className="input-text"
+                        {...register("subtitle")}
                       />
                       {/*  */}
                     </div>
