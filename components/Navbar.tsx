@@ -43,7 +43,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
   const { logout, user } = useAuth();
   // console.log({ navbar: user });
 
-  const { data: dataUser } = useUser();
+  const { data: dataUser, isLoading: isLoadingUser } = useUser();
   // console.log({ navbarData: data });
 
   const avatarURL = dataUser?.img_profile
@@ -52,6 +52,7 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
 
   // const avatarURL = `https://ui-avatars.com/api/?name=${user?.name}&background=random`;
   // console.log({ exh: data });
+  console.log({ dataUser });
 
   return (
     <header className="bg-transparent z-10 sticky">
@@ -132,6 +133,36 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                 {/* Right Nav */}
                 <div className="hidden lg:block">
                   <div className="ml-4 flex items-center lg:ml-6">
+                    {!isLoadingUser && user?.role === "exhibitor" && (
+                      <div
+                        className={`${
+                          dataUser?.package_id === 1
+                            ? "bg-[#9A9A9A] text-gray-800"
+                            : dataUser?.package_id === 2
+                            ? "bg-[#ff3c03] text-white"
+                            : dataUser?.package_id === 3
+                            ? "bg-[#FFD966] text-gray-800"
+                            : dataUser?.package_id === 4
+                            ? "bg-[#9DC3E6] text-gray-800"
+                            : dataUser?.package_id === 5
+                            ? "bg-[#FCE5D6] text-gray-800"
+                            : "bg-gray-100 text-gray-800"
+                        } text-xs font-semibold py-1 px-3 rounded-full uppercase inline-block mr-3`}
+                      >
+                        {dataUser?.package_id === 1
+                          ? "Mercury"
+                          : dataUser?.package_id === 2
+                          ? "Mars"
+                          : dataUser?.package_id === 3
+                          ? "Venus"
+                          : dataUser?.package_id === 4
+                          ? "Uranus"
+                          : dataUser?.package_id === 5
+                          ? "Jupiter"
+                          : "No Package"}
+                      </div>
+                    )}
+
                     {user?.role === "exhibitor" && dataUser?.package_id && (
                       <Link href={`/exhibitors/${user?.id}`}>
                         <a className="pl-2.5 pr-4 py-2 flex items-center font-semibold text-sm text-white bg-primary-600 hover:bg-primary-700 rounded shadow">
