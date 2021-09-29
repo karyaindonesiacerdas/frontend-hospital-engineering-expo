@@ -14,9 +14,11 @@ import { FullPageLoader, SubmitButton } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { provinces } from "@/data/provinces";
 import { countries } from "@/data/countries";
-import { useExhibitor } from "hooks/useExhibitor";
+// import { useExhibitor } from "hooks/useExhibitor";
 import { UploadLogo } from "@/components/settings/UploadLogo";
 import { useUser } from "hooks/useUser";
+import { ListViewers } from "@/components/settings/ListViewers";
+import { useViews } from "hooks/useViews";
 
 type Inputs = {
   name: string;
@@ -50,6 +52,7 @@ const SettingVirtualBoothPage: NextPage = () => {
   }, [isAuthenticated, isLoading, router, user?.role]);
 
   const { data: dataUser, isLoading: isLoadingUser } = useUser();
+  const { data } = useViews();
 
   useEffect(() => {
     if (dataUser) {
@@ -330,6 +333,20 @@ const SettingVirtualBoothPage: NextPage = () => {
           </div>
         </div>
 
+        <div className="hidden sm:block" aria-hidden="true">
+          <div className="py-5">
+            <div className="border-t border-gray-200" />
+          </div>
+        </div>
+
+        <div className="py-6 px-8">
+          <h3 className="text-2xl font-semibold mb-6">
+            Booth Viewers {data?.length ? `(${data?.length})` : ""}
+          </h3>
+          <div className="pb-20">
+            <ListViewers />
+          </div>
+        </div>
         {/* <div className="hidden sm:block" aria-hidden="true">
           <div className="py-5">
             <div className="border-t border-gray-200" />
