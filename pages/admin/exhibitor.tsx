@@ -80,11 +80,27 @@ const AdminExhibitorPage: NextPage = () => {
         Header: "Package",
         Footer: "Package",
         accessor: "package",
-        Cell: ({ value }: any) => (
-          <div className="text-xs font-semibold bg-gray-100 text-gray-800 py-1 px-3 rounded-md uppercase inline-block">
-            {value}
-          </div>
-        ),
+        Cell: ({ value }: any) => {
+          const color =
+            value?.toLowerCase() === "mercury"
+              ? "bg-[#9A9A9A] text-gray-800"
+              : value?.toLowerCase() === "mars"
+              ? "bg-[#ff3c03] text-white"
+              : value?.toLowerCase() === "venus"
+              ? "bg-[#FFD966] text-gray-800"
+              : value?.toLowerCase() === "uranus"
+              ? "bg-[#9DC3E6] text-gray-800"
+              : value?.toLowerCase() === "jupiter"
+              ? "bg-[#FCE5D6] text-gray-800"
+              : "bg-gray-100 text-gray-800";
+          return (
+            <div
+              className={`${color} text-xs font-semibold py-1 px-3 rounded-md uppercase inline-block`}
+            >
+              {value || "no package"}
+            </div>
+          );
+        },
       },
       {
         Header: "Action",
