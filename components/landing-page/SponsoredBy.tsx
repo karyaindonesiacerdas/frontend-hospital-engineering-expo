@@ -11,31 +11,85 @@ export const SponsoredBy = () => {
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("sponsored-by")}
         </h3>
-        <div className="mt-10 grid grid-cols-3 gap-x-6 gap-y-14">
-          <div className="flex items-center justify-center">
+        <div className="mt-10 grid grid-cols-3 gap-20">
+          <div className="flex items-center justify-center h-36 p-2">
             <img
-              className="h-36 -ml-4"
+              className="object-contain h-full"
+              src="/sponsor/socomec.png"
+              alt="Socomec"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/matesu.png"
+              alt="matesu"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/perdana-niaga-perkasa.png"
+              alt="PNP"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/kawan-abadi-selaras.png"
+              alt="kas"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
               src="/sponsor/selaras-lawang-sewu.png"
               alt="Selaras Lawang Sewu Logo"
             />
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center h-36 p-2">
             <img
-              className="h-36 -ml-4"
-              src="/sponsor/inos-putra-mahkota.jpg"
+              className="object-contain h-full"
+              src="/sponsor/kone.png"
+              alt="KONE"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/medisain.jpg"
+              alt="medisain"
+            />
+          </div>
+          {/* <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/legrand.png"
+              alt="lengrad"
+            />
+          </div> */}
+          <div className="flex items-center justify-center h-36 p-6">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/tica.png"
+              alt="TICA"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/inos-putra-mahkota.png"
               alt="PT Inos Putra Mahkota"
             />
           </div>
-          <div className="flex items-center justify-center">
-            <img className="h-36 -ml-4" src="/sponsor/kone.jpg" alt="KONE" />
-          </div>
-          <div className="flex items-center justify-center">
+
+          {/* <div className="flex items-center justify-center h-36 p-2">
             <img
-              className="h-36 -ml-4"
-              src="/sponsor/socomec.jpeg"
-              alt="Socomec"
+              className="object-contain h-full"
+              src="/sponsor/metropolitan-bayu-industri.png"
+              alt="MBI"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
