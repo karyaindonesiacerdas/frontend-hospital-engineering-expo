@@ -9,7 +9,7 @@ export const Advertisement1 = ({ url }: { url?: string }) => {
 
   return (
     <div className={styles.advertisement}>
-      <div>
+      <div className="bg-black">
         <iframe
           width="100%"
           height="100%"
