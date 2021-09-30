@@ -39,7 +39,7 @@ const Board = ({ _exhibitors }: Props) => {
           >
             {Array.from(Array(totalSlide).keys()).map((i) => (
               <SwiperSlide key={i} style={{ paddingBottom: "1vw" }}>
-                <div className="grid grid-cols-3 grid-rows-2 gap-[0.5vw] p-[1vw] w-full h-full">
+                <div className="grid grid-cols-3 grid-rows-2 gap-[1vw] p-[1vw] w-full h-full">
                   {exhibitors
                     ?.filter?.(
                       (_, index) => index >= i * 6 && index <= (i + 1) * 6 - 1
@@ -51,7 +51,7 @@ const Board = ({ _exhibitors }: Props) => {
                           href={`/exhibitors/${exhibitor.id}`}
                         >
                           <a
-                            className="grid grid-rows-4 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full"
+                            className="grid grid-rows-4 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full relative"
                             style={{ padding: "0.5vw" }}
                           >
                             <div
@@ -76,10 +76,25 @@ const Board = ({ _exhibitors }: Props) => {
                             </div>
                             <span
                               className="row-span-1 flex items-center justify-center font-semibold text-gray-600"
-                              style={{ fontSize: "0.8vw" }}
+                              style={{ fontSize: "0.9vw" }}
                             >
                               {exhibitor.company_name}
                             </span>
+
+                            {[3, 4, 5].includes(exhibitor.package_id) && (
+                              <span
+                                className="absolute bg-primary-600 text-white inline-flex justify-center items-center rounded-full font-semibold shadow-2xl"
+                                style={{
+                                  fontSize: "0.9vw",
+                                  padding: "0 0.5vw",
+                                  height: "1.6vw",
+                                  top: "-0.5vw",
+                                  right: "0",
+                                }}
+                              >
+                                Open Consultation
+                              </span>
+                            )}
                           </a>
                         </Link>
                       );
