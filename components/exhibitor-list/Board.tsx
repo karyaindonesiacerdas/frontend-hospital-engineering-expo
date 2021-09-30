@@ -55,7 +55,7 @@ const Board = ({ _exhibitors }: Props) => {
                             style={{ padding: "0.5vw" }}
                           >
                             <div
-                              className="row-span-3 flex items-center justify-center"
+                              className="row-span-3 overflow-hidden"
                               style={{
                                 paddingRight: "2vw",
                                 paddingLeft: "2vw",
@@ -64,7 +64,8 @@ const Board = ({ _exhibitors }: Props) => {
                               }}
                             >
                               <img
-                                style={{ height: "100%", width: "auto" }}
+                                className="w-full object-contain h-full"
+                                // style={{ height: "100%", width: "auto" }}
                                 src={
                                   exhibitor.company_logo
                                     ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${exhibitor.company_logo}`
@@ -74,12 +75,12 @@ const Board = ({ _exhibitors }: Props) => {
                                 alt={exhibitor.company_name}
                               />
                             </div>
-                            <span
+                            <div
                               className="row-span-1 flex items-center justify-center font-semibold text-gray-600"
                               style={{ fontSize: "0.9vw" }}
                             >
                               {exhibitor.company_name}
-                            </span>
+                            </div>
 
                             {[3, 4, 5].includes(exhibitor.package_id) && (
                               <span
