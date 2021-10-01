@@ -75,7 +75,7 @@ export const SponsoredBy = () => {
               alt="TICA"
             />
           </div>
-          <div className="flex items-center justify-center h-36 p-2">
+          <div className="flex items-center justify-center h-36">
             <img
               className="object-contain h-full"
               src="/sponsor/inos-putra-mahkota.png"
@@ -90,7 +90,7 @@ export const SponsoredBy = () => {
               alt="MBI"
             />
           </div>
-          <div className="flex items-center justify-center h-36 p-2">
+          <div className="flex items-center justify-center h-36 p-6">
             <img
               className="object-contain h-full"
               src="/sponsor/pengsulindo.png"
