@@ -16,7 +16,7 @@ import { DeleteRundown } from "@/components/rundown/DeleteRundown";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
-  { name: "Visitor", href: "/admin/visitor", current: true },
+  { name: "Booth Visitors", href: "/admin/visitor", current: true },
   { name: "Webinar", href: "/admin/webinar", current: false },
   { name: "Consultation", href: "/admin/consultation", current: false },
 ];

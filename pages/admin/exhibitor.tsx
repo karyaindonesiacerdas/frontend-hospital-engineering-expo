@@ -16,7 +16,7 @@ import { UpdateExhibitorPackage } from "@/components/admin/UpdateExhibitorPackag
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: true },
-  { name: "Visitor", href: "/admin/visitor", current: false },
+  { name: "Booth Visitors", href: "/admin/visitor", current: false },
   { name: "Webinar", href: "/admin/webinar", current: false },
   { name: "Consultation", href: "/admin/consultation", current: false },
 ];

@@ -22,4 +22,7 @@
 
 .button svg {
   width: 15%;
+  border-width: 0.4vw;
+  border-color: #00b4bf;
+  border-radius: 50%;
 }

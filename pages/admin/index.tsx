@@ -22,7 +22,7 @@ import { useSettings } from "hooks/useSettings";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
-  { name: "Visitor", href: "/admin/visitor", current: false },
+  { name: "Booth Visitors", href: "/admin/visitor", current: false },
   { name: "Webinar", href: "/admin/webinar", current: false },
   { name: "Consultation", href: "/admin/consultation", current: false },
 ];
