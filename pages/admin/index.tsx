@@ -19,6 +19,7 @@ import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
 import { useSettings } from "hooks/useSettings";
+import { useSocket } from "socket/socket.context";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },

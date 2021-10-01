@@ -104,6 +104,13 @@ export const SponsoredBy = () => {
               alt="Sigmatech"
             />
           </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/bio-teknologi.png"
+              alt="Bio Teknologi"
+            />
+          </div>
         </div>
       </div>
     </section>

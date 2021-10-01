@@ -15,6 +15,7 @@ type SocketContextProps = {
   socket?: Socket;
   isNewMessageCome: boolean;
   setIsNewMessageCome: Dispatch<SetStateAction<boolean>>;
+  // totalOnlineUsers: number;
 };
 
 const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "ws://localhost:5000";
@@ -23,6 +24,7 @@ const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "ws://localhost:5000";
 const SocketContext = createContext<SocketContextProps>({
   isNewMessageCome: false,
   setIsNewMessageCome: () => {},
+  // totalOnlineUsers: 0,
 });
 
 // Custom hooks
@@ -34,6 +36,7 @@ export const useSocket = () => {
 export const SocketProvider = ({ children }: any) => {
   const [socket, setSocket] = useState<Socket>();
   const [isNewMessageCome, setIsNewMessageCome] = useState(false);
+  // const [totalOnlineUsers, setTotalOnlineUsers] = useState<number>(0);
 
   const { data } = useSettings();
 
@@ -59,12 +62,21 @@ export const SocketProvider = ({ children }: any) => {
     });
   }, [socket]);
 
+  // useEffect(() => {
+  //   socket?.on("getUsers", (data) => {
+  //     setTotalOnlineUsers(data.length);
+  //   });
+  // }, [socket]);
+
+  // console.log({ totalOnlineUsers });
+
   return (
     <SocketContext.Provider
       value={{
         socket,
         isNewMessageCome,
         setIsNewMessageCome,
+        // totalOnlineUsers,
       }}
     >
       {children}

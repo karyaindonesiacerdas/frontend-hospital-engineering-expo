@@ -17,7 +17,7 @@ import {
 import { useAuth } from "@/contexts/auth.context";
 import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
-import { SocketProvider } from "socket/socket.context";
+import { SocketProvider, useSocket } from "socket/socket.context";
 import { ButtonHelpDesk } from "@/components/main-hall/ButtonHelpDesk";
 
 const MainHall: NextPage = () => {
