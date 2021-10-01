@@ -98,7 +98,11 @@ const MainHall: NextPage = () => {
         />
         <Advertisement1 url={settings?.ads1_link} />
         <Advertisement2 url={settings?.ads2_link} />
-        <ButtonHelpDesk onClick={() => setOpenChatModal(true)} />
+        {settings?.is_chat === "1" &&
+          (user?.role !== "exhibitor" ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ButtonHelpDesk onClick={() => setOpenChatModal(true)} />
+          )}
       </div>
     </SocketProvider>
   );
