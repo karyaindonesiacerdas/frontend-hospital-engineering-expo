@@ -1,12 +1,17 @@
 import React from "react";
+import { matchYoutubeUrl } from "utils";
 import styles from "./OpenVideoButton.module.css";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  videoURL?: string;
 };
 
-export const OpenVideoButton = ({ onClick }: Props) => {
-  const videoId = "jS0qVrpKjY4";
+export const OpenVideoButton = ({ onClick, videoURL }: Props) => {
+  const defaultVideo =
+    "https://www.youtube.com/watch?v=c0bC3s8VU6k&ab_channel=HospitalEngineeringExpo";
+  const videoId = matchYoutubeUrl(videoURL || defaultVideo);
+
   const previewURL = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (

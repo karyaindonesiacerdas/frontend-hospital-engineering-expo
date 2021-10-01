@@ -16,7 +16,6 @@ import {
 } from "@/components/main-hall";
 import { useAuth } from "@/contexts/auth.context";
 import { useSettings } from "hooks/useSettings";
-import { youtubeParser } from "utils";
 import { useUser } from "hooks/useUser";
 
 const MainHall: NextPage = () => {
@@ -88,7 +87,10 @@ const MainHall: NextPage = () => {
         {/* Button Absolute Position */}
         <ExhibitorListLink />
         <SeminarRoomLink />
-        <OpenVideoButton onClick={() => setOpenVideoModal(true)} />
+        <OpenVideoButton
+          onClick={() => setOpenVideoModal(true)}
+          videoURL={settings?.webinar_link}
+        />
         <Advertisement1 url={settings?.ads1_link} />
         <Advertisement2 url={settings?.ads2_link} />
       </div>
