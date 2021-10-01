@@ -24,6 +24,9 @@ import { CatalogModal } from "@/components/CatalogModal";
 import { BookingConsultationModal } from "@/components/BookingConsultationModal";
 import { BackButton } from "@/components/BackButton";
 import type { Banner, ExhibitorDetails } from "types";
+import { useSettings } from "hooks/useSettings";
+import { useUser } from "hooks/useUser";
+import { useAuth } from "@/contexts/auth.context";
 
 // const catalogSrc = "/catalog-example.pdf";
 
@@ -41,6 +44,10 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
     useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
+
+  const { user } = useAuth();
+  const { data: dataUser } = useUser();
+  const { data: settings } = useSettings();
 
   return (
     <div
@@ -69,7 +76,13 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
             website: exhibitor.company_website,
           }}
         />
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {/* <ChatModal open={openChatModal} setOpen={setOpenChatModal} /> */}
+        {settings?.is_chat === "1" &&
+          (user?.role !== "exhibitor" ||
+            user?.id === 2 ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          )}
         {selectedOrder && (
           <>
             <PosterModal
@@ -186,7 +199,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           onClick={() => setOpenBookingConsultationModal(true)}
         />
       )}
-      {exhibitor?.package_id === 3 ? (
+      {settings?.is_chat === "1" && exhibitor?.package_id === 3 ? (
         <BoothChat
           onClick={() => setOpenChatModal(true)}
           company_logo={exhibitor.company_logo}
