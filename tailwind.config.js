@@ -37,6 +37,30 @@ module.exports = {
           // 900: "#0d2432",
         },
       },
+      animation: {
+        "pulse-full": "pulse-full 15s linear infinite",
+      },
+      keyframes: {
+        // "pulse-full": {
+        //   "25%, 60%": {
+        //     opacity: 1,
+        //   },
+        //   "50%": {
+        //     opacity: 0,
+        //   },
+        // },
+        "pulse-full": {
+          "0%, 10%": {
+            transform: "translateX(-100%)",
+          },
+          "50%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+      },
     },
   },
   variants: {

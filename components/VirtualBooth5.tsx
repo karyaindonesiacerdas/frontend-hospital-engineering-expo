@@ -201,6 +201,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           name: exhibitor.company_name,
           phone: exhibitor.mobile,
           website: exhibitor.company_website,
+          videoURL: exhibitor.company_video_url,
         }}
       />
 
