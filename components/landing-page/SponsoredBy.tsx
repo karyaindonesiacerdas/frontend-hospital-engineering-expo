@@ -61,13 +61,13 @@ export const SponsoredBy = () => {
               alt="medisain"
             />
           </div>
-          {/* <div className="flex items-center justify-center h-36 p-2">
+          <div className="flex items-center justify-center h-36 p-8">
             <img
               className="object-contain h-full"
               src="/sponsor/legrand.png"
               alt="lengrad"
             />
-          </div> */}
+          </div>
           <div className="flex items-center justify-center h-36 p-6">
             <img
               className="object-contain h-full"
@@ -83,13 +83,27 @@ export const SponsoredBy = () => {
             />
           </div>
 
-          {/* <div className="flex items-center justify-center h-36 p-2">
+          <div className="flex items-center justify-center h-36 p-2">
             <img
               className="object-contain h-full"
               src="/sponsor/metropolitan-bayu-industri.png"
               alt="MBI"
             />
-          </div> */}
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/pengsulindo.png"
+              alt="Pengsulindo"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/sigmatech.jpg"
+              alt="Sigmatech"
+            />
+          </div>
         </div>
       </div>
     </section>

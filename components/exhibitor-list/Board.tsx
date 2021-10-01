@@ -76,7 +76,7 @@ const Board = ({ _exhibitors }: Props) => {
                               />
                             </div>
                             <div
-                              className="row-span-1 flex items-center justify-center font-semibold text-gray-600"
+                              className="row-span-1 flex items-center text-center leading-normal justify-center font-semibold text-gray-600"
                               style={{ fontSize: "0.9vw" }}
                             >
                               {exhibitor.company_name}
@@ -84,7 +84,7 @@ const Board = ({ _exhibitors }: Props) => {
 
                             {[3, 4, 5].includes(exhibitor.package_id) && (
                               <span
-                                className="absolute bg-primary-600 text-white inline-flex justify-center items-center rounded-full font-semibold shadow-2xl"
+                                className="absolute bg-primary-600 text-white inline-flex justify-center items-center rounded-full font-semibold shadow-2xl animate-pulse"
                                 style={{
                                   fontSize: "0.9vw",
                                   padding: "0 0.5vw",

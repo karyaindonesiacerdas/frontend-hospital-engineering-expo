@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 
-const countDate = new Date("Oct 2, 2021 00:00:00").getTime();
+const countDate = new Date("Oct 2, 2021 07:30:00").getTime();
 
 export const CountDown = () => {
   const { t } = useTranslation("home");

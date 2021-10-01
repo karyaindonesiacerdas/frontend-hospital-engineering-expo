@@ -13,6 +13,8 @@ import { VirtualBooth5 } from "@/components/VirtualBooth5";
 import { VirtualBooth10 } from "@/components/VirtualBooth10";
 import type { ExhibitorDetails } from "types";
 import { useUser } from "hooks/useUser";
+import { useSettings } from "hooks/useSettings";
+import { SocketProvider } from "socket/socket.context";
 
 const useExhibitor = ({ id }: any) => {
   const cookies = parseCookies();
@@ -36,6 +38,7 @@ const Exhibitors: NextPage = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const { data: dataUser } = useUser();
+  const { data: settings } = useSettings();
 
   // Check is user authenticated
   useEffect(() => {
@@ -75,22 +78,26 @@ const Exhibitors: NextPage = () => {
   }
 
   return (
-    <>
+    <SocketProvider>
       {/* Chat Button */}
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <div
-          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-          style={{ backdropFilter: "4px" }}
-        >
-          <ChatButton onClick={() => setOpenChatModal(true)} />
-        </div>
-      )}
+      {settings?.is_chat === "1" &&
+        (user?.role !== "exhibitor" ||
+          user?.id === 2 ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <div
+            className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+            style={{ backdropFilter: "4px" }}
+          >
+            <ChatButton onClick={() => setOpenChatModal(true)} />
+          </div>
+        )}
 
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-      )}
+      {settings?.is_chat === "1" &&
+        (user?.role !== "exhibitor" ||
+          user?.id === 2 ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        )}
 
       {data.package_id ? (
         data.package_id === 4 || data.package_id === 5 ? (
@@ -99,7 +106,7 @@ const Exhibitors: NextPage = () => {
           <VirtualBooth5 exhibitor={data} />
         ) : null
       ) : null}
-    </>
+    </SocketProvider>
   );
 };
 

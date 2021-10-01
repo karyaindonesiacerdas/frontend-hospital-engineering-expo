@@ -190,6 +190,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
         <BoothChat
           onClick={() => setOpenChatModal(true)}
           company_logo={exhibitor.company_logo}
+          exhibitorId={exhibitor.id}
         />
       ) : (
         <NoBoothChat company_logo={exhibitor.company_logo} />

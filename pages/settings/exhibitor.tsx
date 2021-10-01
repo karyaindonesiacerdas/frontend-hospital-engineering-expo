@@ -19,6 +19,8 @@ import { UploadLogo } from "@/components/settings/UploadLogo";
 import { useUser } from "hooks/useUser";
 import { ListViewers } from "@/components/settings/ListViewers";
 import { useViews } from "hooks/useViews";
+import { useSettings } from "hooks/useSettings";
+import { SocketProvider } from "socket/socket.context";
 
 type Inputs = {
   name: string;
@@ -52,6 +54,7 @@ const SettingVirtualBoothPage: NextPage = () => {
   }, [isAuthenticated, isLoading, router, user?.role]);
 
   const { data: dataUser, isLoading: isLoadingUser } = useUser();
+  const { data: settings } = useSettings();
   const { data } = useViews();
 
   useEffect(() => {
@@ -115,239 +118,244 @@ const SettingVirtualBoothPage: NextPage = () => {
   // console.log({ user });
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Chat Button */}
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <div
-          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-          style={{ backdropFilter: "4px" }}
-        >
-          <ChatButton onClick={() => setOpenChatModal(true)} />
-        </div>
-      )}
+    <SocketProvider>
+      <div className="bg-gray-100 min-h-screen">
+        {/* Chat Button */}
+        {settings?.is_chat === "1" &&
+          (user?.role !== "exhibitor" ||
+            user?.id === 2 ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <div
+              className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+              style={{ backdropFilter: "4px" }}
+            >
+              <ChatButton onClick={() => setOpenChatModal(true)} />
+            </div>
+          )}
 
-      <Navbar variant="dark" currentHref="webinar-schedule" />
+        <Navbar variant="dark" currentHref="webinar-schedule" />
 
-      {/* Main Content */}
-      <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
-        {/* ### Modals ### */}
-        {(user?.role !== "exhibitor" ||
-          [3, 4, 5].includes(dataUser?.package_id)) && (
-          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-        )}
+        {/* Main Content */}
+        <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
+          {/* ### Modals ### */}
+          {settings?.is_chat === "1" &&
+            (user?.role !== "exhibitor" ||
+              user?.id === 2 ||
+              [3, 4, 5].includes(dataUser?.package_id)) && (
+              <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+            )}
 
-        {/* Form */}
-        {/* Personal Info */}
-        <div className="px-2 sm:px-8 mt-6 flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-800">
-            Exhibitor Settings
-          </h2>
-        </div>
+          {/* Form */}
+          {/* Personal Info */}
+          <div className="px-2 sm:px-8 mt-6 flex justify-between items-center">
+            <h2 className="text-3xl font-bold text-gray-800">
+              Exhibitor Settings
+            </h2>
+          </div>
 
-        {/* Company Info */}
-        <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
-              <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">
-                  Company Information
-                </h3>
-                <p className="mt-1 text-sm text-gray-600">
-                  This information will be displayed publicly so be careful what
-                  you share.
-                </p>
+          {/* Company Info */}
+          <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+              <div className="md:col-span-1">
+                <div className="px-4 sm:px-0">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Company Information
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-600">
+                    This information will be displayed publicly so be careful
+                    what you share.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-5 md:mt-0 md:col-span-2">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="shadow sm:rounded-md sm:overflow-hidden">
+                    <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="company-name"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Name
+                          </label>
+                          <input
+                            type="text"
+                            id="company-name"
+                            className="input-text"
+                            placeholder="Company Name"
+                            {...register("name")}
+                          />
+                        </div>
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="company-email"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            id="company-email"
+                            className="input-text"
+                            placeholder="Company Email"
+                            {...register("email")}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="company-website"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Website
+                          </label>
+                          <input
+                            type="text"
+                            id="company-website"
+                            className="input-text"
+                            placeholder="Company Website"
+                            {...register("website")}
+                          />
+                        </div>
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="company-phone"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Phone
+                          </label>
+                          <input
+                            id="company-phone"
+                            className="input-text"
+                            placeholder="Company Phone"
+                            {...register("phone")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="country"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Country
+                          </label>
+                          <div className="mt-1">
+                            <select
+                              id="country"
+                              className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                              {...register("country")}
+                            >
+                              <option value="">Choose</option>
+                              {countries.map((country) => (
+                                <option key={country.text} value={country.text}>
+                                  {country.text}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-span-2 sm:col-span-1">
+                          <label
+                            htmlFor="province"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Province
+                          </label>
+                          <div className="mt-1">
+                            <select
+                              id="province"
+                              className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                              {...register("province")}
+                            >
+                              <option value="">Choose</option>
+                              {provinces.map((province) => (
+                                <option key={province.id} value={province.name}>
+                                  {province.name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                      <div className="flex justify-end">
+                        <SubmitButton
+                          isLoading={isSubmitting}
+                          fullWidth={false}
+                          className="bg-primary-600 hover:bg-primary-700"
+                        >
+                          Save
+                        </SubmitButton>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-            <div className="mt-5 md:mt-0 md:col-span-2">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="shadow sm:rounded-md sm:overflow-hidden">
-                  <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="company-name"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          id="company-name"
-                          className="input-text"
-                          placeholder="Company Name"
-                          {...register("name")}
-                        />
-                      </div>
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="company-email"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="company-email"
-                          className="input-text"
-                          placeholder="Company Email"
-                          {...register("email")}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="company-website"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Website
-                        </label>
-                        <input
-                          type="text"
-                          id="company-website"
-                          className="input-text"
-                          placeholder="Company Website"
-                          {...register("website")}
-                        />
-                      </div>
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="company-phone"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Phone
-                        </label>
-                        <input
-                          id="company-phone"
-                          className="input-text"
-                          placeholder="Company Phone"
-                          {...register("phone")}
-                        />
-                      </div>
-                    </div>
+          </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="country"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Country
-                        </label>
-                        <div className="mt-1">
-                          <select
-                            id="country"
-                            className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                            {...register("country")}
-                          >
-                            <option value="">Choose</option>
-                            {countries.map((country) => (
-                              <option key={country.text} value={country.text}>
-                                {country.text}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-span-2 sm:col-span-1">
-                        <label
-                          htmlFor="province"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Province
-                        </label>
-                        <div className="mt-1">
-                          <select
-                            id="province"
-                            className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                            {...register("province")}
-                          >
-                            <option value="">Choose</option>
-                            {provinces.map((province) => (
-                              <option key={province.id} value={province.name}>
-                                {province.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <div className="flex justify-end">
-                      <SubmitButton
-                        isLoading={isSubmitting}
-                        fullWidth={false}
-                        className="bg-primary-600 hover:bg-primary-700"
-                      >
-                        Save
-                      </SubmitButton>
-                    </div>
-                  </div>
-                </div>
-              </form>
+          <div className="hidden sm:block" aria-hidden="true">
+            <div className="py-5">
+              <div className="border-t border-gray-200" />
             </div>
           </div>
-        </div>
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-gray-200" />
-          </div>
-        </div>
-
-        {/* Upload Logo */}
-        <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
-              <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">
-                  Company Logo
-                </h3>
-                {/* <p className="mt-1 text-sm text-gray-600">
+          {/* Upload Logo */}
+          <div className="mt-10 sm:mt-0 py-6 px-2 sm:px-8">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+              <div className="md:col-span-1">
+                <div className="px-4 sm:px-0">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Company Logo
+                  </h3>
+                  {/* <p className="mt-1 text-sm text-gray-600">
                   This information will be displayed publicly so be careful what
                   you share.
                 </p> */}
-              </div>
-            </div>
-            <div className="mt-5 md:mt-0 md:col-span-2">
-              <div className="grid grid-cols-3 gap-6">
-                <div className="aspect-w-3 aspect-h-2 max-w-[200px]">
-                  <Image
-                    // width={400}
-                    // height={300}
-                    // objectFit="contain"
-                    layout="fill"
-                    objectFit="contain"
-                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${dataUser?.company_logo}`}
-                    alt="Company Logo"
-                  />
-                </div>
-                <div className="col-span-2">
-                  <UploadLogo />
                 </div>
               </div>
-              {/* Upload Logo */}
+              <div className="mt-5 md:mt-0 md:col-span-2">
+                <div className="grid grid-cols-3 gap-6">
+                  <div className="aspect-w-3 aspect-h-2 max-w-[200px]">
+                    <Image
+                      // width={400}
+                      // height={300}
+                      // objectFit="contain"
+                      layout="fill"
+                      objectFit="contain"
+                      src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${dataUser?.company_logo}`}
+                      alt="Company Logo"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <UploadLogo />
+                  </div>
+                </div>
+                {/* Upload Logo */}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-gray-200" />
+          <div className="hidden sm:block" aria-hidden="true">
+            <div className="py-5">
+              <div className="border-t border-gray-200" />
+            </div>
           </div>
-        </div>
 
-        <div className="py-6 px-8">
-          <h3 className="text-2xl font-semibold mb-6">
-            Booth Viewers {data?.length ? `(${data?.length})` : ""}
-          </h3>
-          <div className="pb-20">
-            <ListViewers />
+          <div className="py-6 px-8">
+            <h3 className="text-2xl font-semibold mb-6">
+              Booth Viewers {data?.length ? `(${data?.length})` : ""}
+            </h3>
+            <div className="pb-20">
+              <ListViewers />
+            </div>
           </div>
-        </div>
-        {/* <div className="hidden sm:block" aria-hidden="true">
+          {/* <div className="hidden sm:block" aria-hidden="true">
           <div className="py-5">
             <div className="border-t border-gray-200" />
           </div>
@@ -1088,8 +1096,9 @@ const SettingVirtualBoothPage: NextPage = () => {
             <div className="border-t border-gray-200" />
           </div>
         </div> */}
-      </main>
-    </div>
+        </main>
+      </div>
+    </SocketProvider>
   );
 };
 

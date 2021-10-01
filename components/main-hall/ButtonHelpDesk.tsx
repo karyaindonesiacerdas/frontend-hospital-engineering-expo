@@ -1,27 +1,26 @@
 import { useAuth } from "@/contexts/auth.context";
 import React from "react";
 import { useQueryClient } from "react-query";
-import styles from "./BoothChat.module.css";
+import styles from "./ButtonHelpDesk.module.css";
 
 type Props = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  company_logo: string;
-  exhibitorId: number;
+  // company_logo: string;
 };
 
-export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
+export const ButtonHelpDesk = ({ onClick }: Props) => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    if (!user.id || !exhibitorId || user.id === exhibitorId) {
+    if (!user.id || user.id === 2) {
       onClick(e);
       return;
     }
 
     const data = {
       senderId: user.id,
-      receiverId: exhibitorId,
+      receiverId: 2, // ID Admin KIC
     };
 
     try {
@@ -55,15 +54,15 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
         <button
           onClick={handleClick}
           className={styles.button}
-          style={{
-            backgroundImage: company_logo
-              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
-              : "url('/logo-placeholder.svg')",
-          }}
+          // style={{
+          //   backgroundImage: company_logo
+          //     ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+          //     : "url('/logo-placeholder.svg')",
+          // }}
         >
-          <div className="absolute group-hover:bg-primary text-white flex justify-center items-center rounded-full border-transparent hover:border-primary">
+          <div className="absolute group-hover:bg-primary-600 bg-primary-500 text-white flex justify-center items-center rounded-full border-transparent hover:border-primary">
             <svg
-              className="hidden group-hover:block w-10 h-10"
+              className="w-10 h-10"
               width="24"
               height="24"
               fill="none"
@@ -92,23 +91,19 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
   );
 };
 
-type NoBoothProps = {
-  company_logo: string;
-};
-
-export const NoBoothChat = ({ company_logo }: NoBoothProps) => {
-  return (
-    <div>
-      <div className={styles.wrapper}>
-        <div
-          className={styles.button}
-          style={{
-            backgroundImage: company_logo
-              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
-              : "url('/logo-placeholder.svg')",
-          }}
-        ></div>
-      </div>
-    </div>
-  );
-};
+// export const NoButtonHelpDesk = ({ company_logo }: Props) => {
+//   return (
+//     <div>
+//       <div className={styles.wrapper}>
+//         <div
+//           className={styles.button}
+//           style={{
+//             backgroundImage: company_logo
+//               ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+//               : "url('/logo-placeholder.svg')",
+//           }}
+//         ></div>
+//       </div>
+//     </div>
+//   );
+// };

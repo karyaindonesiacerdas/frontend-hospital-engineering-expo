@@ -14,12 +14,15 @@ import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
 import { BackButton } from "@/components/BackButton";
 import { useUser } from "hooks/useUser";
+import { useSettings } from "hooks/useSettings";
+import { SocketProvider } from "socket/socket.context";
 
 const SeminarRoom: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
   const { data: dataUser } = useUser();
+  const { data: settings } = useSettings();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -32,17 +35,19 @@ const SeminarRoom: NextPage = () => {
   }
 
   return (
-    <>
+    <SocketProvider>
       {/* Chat Button */}
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <div
-          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-          style={{ backdropFilter: "4px" }}
-        >
-          <ChatButton onClick={() => setOpenChatModal(true)} />
-        </div>
-      )}
+      {settings?.is_chat === "1" &&
+        (user?.role !== "exhibitor" ||
+          user?.id === 2 ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <div
+            className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+            style={{ backdropFilter: "4px" }}
+          >
+            <ChatButton onClick={() => setOpenChatModal(true)} />
+          </div>
+        )}
 
       <div
         style={{
@@ -57,10 +62,12 @@ const SeminarRoom: NextPage = () => {
         <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
           {/* ### Modals ### */}
           <BackButton href="/main-hall" text="Main Hall" />
-          {(user?.role !== "exhibitor" ||
-            [3, 4, 5].includes(dataUser?.package_id)) && (
-            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-          )}
+          {settings?.is_chat === "1" &&
+            (user?.role !== "exhibitor" ||
+              user?.id === 2 ||
+              [3, 4, 5].includes(dataUser?.package_id)) && (
+              <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+            )}
         </main>
 
         {/* Absolute Position */}
@@ -68,7 +75,7 @@ const SeminarRoom: NextPage = () => {
         <SeminarLink />
         <SeminarScreen />
       </div>
-    </>
+    </SocketProvider>
   );
 };
 

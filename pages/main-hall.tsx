@@ -17,6 +17,8 @@ import {
 import { useAuth } from "@/contexts/auth.context";
 import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
+import { SocketProvider } from "socket/socket.context";
+import { ButtonHelpDesk } from "@/components/main-hall/ButtonHelpDesk";
 
 const MainHall: NextPage = () => {
   const router = useRouter();
@@ -32,24 +34,25 @@ const MainHall: NextPage = () => {
   }, [isAuthenticated, isLoading, router]);
 
   const { data: settings } = useSettings();
-  // console.log({ settings });
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;
   }
 
   return (
-    <>
+    <SocketProvider>
       {/* Chat Button */}
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <div
-          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-          style={{ backdropFilter: "4px" }}
-        >
-          <ChatButton onClick={() => setOpenChatModal(true)} />
-        </div>
-      )}
+      {settings?.is_chat === "1" &&
+        (user?.role !== "exhibitor" ||
+          user?.id === 2 ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <div
+            className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+            style={{ backdropFilter: "4px" }}
+          >
+            <ChatButton onClick={() => setOpenChatModal(true)} />
+          </div>
+        )}
 
       <div
         style={{
@@ -78,10 +81,12 @@ const MainHall: NextPage = () => {
               }}
             />
           )}
-          {(user?.role !== "exhibitor" ||
-            [3, 4, 5].includes(dataUser?.package_id)) && (
-            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-          )}
+          {settings?.is_chat === "1" &&
+            (user?.role !== "exhibitor" ||
+              user?.id === 2 ||
+              [3, 4, 5].includes(dataUser?.package_id)) && (
+              <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+            )}
         </main>
 
         {/* Button Absolute Position */}
@@ -93,8 +98,9 @@ const MainHall: NextPage = () => {
         />
         <Advertisement1 url={settings?.ads1_link} />
         <Advertisement2 url={settings?.ads2_link} />
+        <ButtonHelpDesk onClick={() => setOpenChatModal(true)} />
       </div>
-    </>
+    </SocketProvider>
   );
 };
 

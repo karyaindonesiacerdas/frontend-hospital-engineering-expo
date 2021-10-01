@@ -12,40 +12,7 @@ import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { useConsultations } from "hooks/useConsultation";
 import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
-// import { AddSlotTime } from "@/components/consultation/AddSlotTime";
-
-// type ConsultationDetail = {
-//   id: number;
-//   date: string;
-//   time: string;
-//   status: number;
-//   visitor: {
-//     id: number;
-//     name: string;
-//     institution_name: string;
-//   };
-//   exhibitor: {
-//     id: number;
-//     company_name: string;
-//   };
-// };
-
-// const useConsultations = () => {
-//   const cookies = parseCookies();
-
-//   return useQuery<ConsultationDetail[], Error>(
-//     ["consultations", cookies.access_token],
-//     () =>
-//       axios
-//         .get(`${process.env.NEXT_PUBLIC_API_URL}/consultation`, {
-//           headers: {
-//             Authorization: `Bearer ${cookies.access_token}`,
-//           },
-//         })
-//         .then((res) => res.data.data),
-//     { enabled: Boolean(cookies.access_token) }
-//   );
-// };
+import { SocketProvider } from "socket/socket.context";
 
 const Consultation: NextPage = () => {
   const router = useRouter();
@@ -53,7 +20,7 @@ const Consultation: NextPage = () => {
   const [openChatModal, setOpenChatModal] = useState(false);
   const [openChangeStatusModal, setOpenChangeStatusModal] = useState(false);
   const { data: dataUser, isLoading: isLoadingUser } = useUser();
-  // const [openAddSlotTimeModal, setOpenAddSlotTimeModal] = useState(false);
+
   const [selectedConsultation, setSelectedConsultation] =
     useState<{ id: number; status: number }>();
 
@@ -74,14 +41,7 @@ const Consultation: NextPage = () => {
   }, [dataUser, isLoadingUser, router]);
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
-  console.log({ data });
   const { data: settings } = useSettings();
-  // console.log({ consultation: data });
-
-  // console.log({ user });
-
-  // const { data: dataUser } = useUser();
-  // console.log({ user: dataUser });
 
   if (
     isLoading ||
@@ -92,7 +52,6 @@ const Consultation: NextPage = () => {
     return <FullPageLoader />;
   }
 
-  // console.log({ data });
   if (
     dataUser?.role === "exhibitor" &&
     ![3, 4, 5].includes(dataUser?.package_id)
@@ -101,27 +60,31 @@ const Consultation: NextPage = () => {
   }
 
   return (
-    <>
+    <SocketProvider>
       {/* Chat Button */}
-      {(user?.role !== "exhibitor" ||
-        [3, 4, 5].includes(dataUser?.package_id)) && (
-        <div
-          className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
-          style={{ backdropFilter: "4px" }}
-        >
-          <ChatButton onClick={() => setOpenChatModal(true)} />
-        </div>
-      )}
+      {settings?.is_chat === "1" &&
+        (user?.role !== "exhibitor" ||
+          user?.id === 2 ||
+          [3, 4, 5].includes(dataUser?.package_id)) && (
+          <div
+            className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
+            style={{ backdropFilter: "4px" }}
+          >
+            <ChatButton onClick={() => setOpenChatModal(true)} />
+          </div>
+        )}
 
       <Navbar variant="dark" currentHref="consultation" />
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
-        {(user?.role !== "exhibitor" ||
-          [3, 4, 5].includes(dataUser?.package_id)) && (
-          <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-        )}
+        {settings?.is_chat === "1" &&
+          (user?.role !== "exhibitor" ||
+            user?.id === 2 ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          )}
 
         {(user?.role === "exhibitor" || user?.role === "admin") &&
           selectedConsultation && (
@@ -133,30 +96,14 @@ const Consultation: NextPage = () => {
               />
             </>
           )}
-        {/* {user?.role === "exhibitor" && (
-          <AddSlotTime
-            open={openAddSlotTimeModal}
-            setOpen={setOpenAddSlotTimeModal}
-          />
-        )} */}
 
         <div className="px-2 xl:px-0 py-6">
           <div className="flex items-center justify-between">
             <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 mb-4 font-bold uppercase tracking-wide">
               Your Consultation Booking
             </h2>
-            {/* {user?.role === "exhibitor" && (
-              <button
-                onClick={() => {
-                  console.log("click");
-                  setOpenAddSlotTimeModal(true);
-                }}
-                className="py-2 px-4 bg-primary-600 text-white text-sm font-semibold rounded-md hover:bg-primary-700"
-              >
-                Add Slot Time
-              </button>
-            )} */}
           </div>
+
           {/* Table */}
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -235,9 +182,6 @@ const Consultation: NextPage = () => {
                                   {consultation?.exhibitor?.company_name}
                                 </a>
                               </Link>
-                              {/* <div className="text-sm text-gray-500">
-                                {consultation.engineering_areas.join(", ")}
-                              </div> */}
                             </td>
                           )}
                           {(user?.role === "exhibitor" ||
@@ -307,7 +251,7 @@ const Consultation: NextPage = () => {
           </div>
         </div>
       </main>
-    </>
+    </SocketProvider>
   );
 };
 

@@ -34,6 +34,7 @@
     "react-query": "^3.24.3",
     "react-table": "^7.7.0",
     "react-textarea-autosize": "^8.3.3",
+    "socket.io-client": "^4.2.0",
     "swiper": "^7.0.6",
     "timeago.js": "4.0.0-beta.3",
     "yup": "^0.32.9"

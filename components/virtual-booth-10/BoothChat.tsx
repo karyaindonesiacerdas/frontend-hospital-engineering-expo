@@ -1,18 +1,60 @@
+import { useAuth } from "@/contexts/auth.context";
 import React from "react";
+import { useQueryClient } from "react-query";
 import styles from "./BoothChat.module.css";
 
 type Props = {
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   company_logo: string;
+  exhibitorId: number;
 };
 
-export const BoothChat = ({ onClick, company_logo }: Props) => {
+export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
   // const {} = useExhibitor({id})
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    if (!user.id || !exhibitorId || user.id === exhibitorId) {
+      onClick(e);
+      return;
+    }
+
+    const data = {
+      senderId: user.id,
+      receiverId: exhibitorId,
+    };
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_CHAT_API}/conversations`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Error create conversations");
+      }
+
+      await res.json();
+      await queryClient.invalidateQueries(["conversations"]);
+
+      onClick(e);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <div className="animate-pulse group hover:animate-none">
       <div className={styles.wrapper}>
         <button
-          onClick={onClick}
+          onClick={handleClick}
           className={styles.button}
           style={{
             backgroundImage: company_logo

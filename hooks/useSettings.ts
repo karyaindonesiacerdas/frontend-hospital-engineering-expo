@@ -10,7 +10,7 @@ export type Settings = {
   webinar_link: string;
   ads1_link: string;
   ads2_link: string;
-  is_chat: number;
+  is_chat: string;
 };
 
 export const useSettings = () => {
