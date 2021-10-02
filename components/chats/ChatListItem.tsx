@@ -3,6 +3,8 @@ import Image from "next/image";
 
 import { useUserDetail } from "hooks/useUserDetail";
 import { ChatProps } from "../ChatModal";
+import { useMessages } from "hooks/useMessages";
+import { useAuth } from "@/contexts/auth.context";
 
 type ChatListItemProps = {
   chat: ChatProps;
@@ -23,9 +25,18 @@ export const ChatListItem = ({
   setNewMessagesFrom,
   searchTerm,
 }: ChatListItemProps) => {
+  const { user } = useAuth();
   const { data, isLoading } = useUserDetail(chat.chatBuddy);
 
+  // New
+  const { data: messages } = useMessages({
+    conversationId: chat?.conversationId,
+  });
+
   const isOnline = onlineUsers?.find((u) => u.userId === chat?.chatBuddy);
+
+  // New
+  if (user?.role === "exhibitor" && !messages?.length) return null;
 
   if (
     !data?.name.toLowerCase()?.includes(searchTerm?.toLowerCase()) &&
