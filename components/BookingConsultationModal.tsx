@@ -298,6 +298,7 @@ export const BookingConsultationModal = ({
                         timeSlots[dateWatch]
                           .filter((slot) => {
                             const today = new Date();
+
                             if (
                               today.toISOString().split("T")[0] !== dateWatch
                             ) {
@@ -305,7 +306,9 @@ export const BookingConsultationModal = ({
                             }
 
                             if (
-                              today.toLocaleTimeString().split(" ")[0] > slot
+                              today
+                                .toLocaleTimeString("en-US", { hour12: false })
+                                .split(" ")[0] > slot
                             ) {
                               return false;
                             }
