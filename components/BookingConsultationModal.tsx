@@ -100,6 +100,9 @@ const timeSlots: TimeSlots = {
     "16:00:00",
   ],
 };
+
+const dateSlots = ["2021-10-02", "2021-10-16", "2021-11-06"];
+
 type AvailableTime = {
   id: number;
   date: string;
@@ -250,9 +253,23 @@ export const BookingConsultationModal = ({
                     >
                       <option value="">Choose</option>
                       {/* <option value="2021-09-28">2021-09-28</option> */}
-                      <option value="2021-10-02">2021-10-02</option>
+                      {dateSlots
+                        ?.filter((slot) => {
+                          const today = new Date().toISOString().split("T")[0];
+
+                          if (today > slot) {
+                            return false;
+                          }
+                          return true;
+                        })
+                        ?.map((slot) => (
+                          <option value={slot} key={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      {/* <option value="2021-10-02">2021-10-02</option>
                       <option value="2021-10-16">2021-10-16</option>
-                      <option value="2021-11-06">2021-11-06</option>
+                      <option value="2021-11-06">2021-11-06</option> */}
                     </select>
                   </div>
                   {errors?.date && (
@@ -279,6 +296,22 @@ export const BookingConsultationModal = ({
                       <option value="">Choose</option>
                       {timeSlots[dateWatch] &&
                         timeSlots[dateWatch]
+                          .filter((slot) => {
+                            const today = new Date();
+                            if (
+                              today.toISOString().split("T")[0] !== dateWatch
+                            ) {
+                              return true;
+                            }
+
+                            if (
+                              today.toLocaleTimeString().split(" ")[0] > slot
+                            ) {
+                              return false;
+                            }
+
+                            return true;
+                          })
                           .filter((slot) => {
                             const found = booked?.find(
                               (b) => b.date === dateWatch && b.time === slot
