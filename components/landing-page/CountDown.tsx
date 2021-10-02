@@ -34,6 +34,10 @@ export const CountDown = () => {
     return () => clearInterval(intervalId);
   });
 
+  if (countDate < new Date().getTime()) {
+    return <div className="h-32"></div>;
+  }
+
   return (
     <div className="mb-6 2xl:mb-10 py-6 2xl:py-10 px-6">
       <div className="text-center text-[#116368]  sm:text-lg md:text-xl uppercase font-medium tracking-wider">
