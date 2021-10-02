@@ -11,7 +11,7 @@ export const SponsoredBy = () => {
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("sponsored-by")}
         </h3>
-        <div className="mt-10 grid grid-cols-3 gap-20">
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-20">
           <div className="flex items-center justify-center h-36 p-2">
             <img
               className="object-contain h-full"
