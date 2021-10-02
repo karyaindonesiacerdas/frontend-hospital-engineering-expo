@@ -13,6 +13,7 @@ import { RundownDetail, useRundowns } from "hooks/useRundowns";
 import { AddRundown } from "@/components/rundown/AddRundown";
 import { EditRundown } from "@/components/rundown/EditRundown";
 import { DeleteRundown } from "@/components/rundown/DeleteRundown";
+import { useBoothStatistics } from "hooks/useBoothStatistics";
 
 const tabs = [
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
@@ -33,6 +34,9 @@ const AdminVisitorPage: NextPage = () => {
   const [openEditRundownModal, setOpenEditRundownModal] = useState(false);
   const [openDeleteRundownModal, setOpenDeleteRundownModal] = useState(false);
   const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
+  const { data: statistics } = useBoothStatistics();
+
+  console.log({ statistics });
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -119,6 +123,24 @@ const AdminVisitorPage: NextPage = () => {
             </nav>
           </div>
           {/* Table */}
+          <div className="grid grid-cols-3 gap-6">
+            {statistics
+              ?.filter((statistic) => statistic.total_visitors > 0)
+              .map((statistic) => (
+                <div
+                  key={statistic.id}
+                  className="bg-white p-6 shadow rounded-md flex flex-col items-center justify-center space-y-4"
+                >
+                  <span className="font-semibold text-gray-700">
+                    {statistic.company_name}
+                  </span>
+                  <span className="text-2xl font-extrabold">
+                    {statistic.total_visitors}{" "}
+                    <span className="text-xs font-semibold">Visitors</span>
+                  </span>
+                </div>
+              ))}
+          </div>
         </div>
       </main>
     </div>
