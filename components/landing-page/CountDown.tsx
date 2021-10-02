@@ -35,7 +35,7 @@ export const CountDown = () => {
   });
 
   if (countDate < new Date().getTime()) {
-    return <div className="h-32"></div>;
+    return <div className="h-10 md:h-32"></div>;
   }
 
   return (

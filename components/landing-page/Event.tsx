@@ -8,13 +8,13 @@ export const Event = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-2 py-3 2xl:py-6 flex flex-col lg:flex-row lg:items-center z-10">
       <div>
-        <div className="text-[#063C40] uppercase text-2xl tracking-widest font-semibold text-center md:text-left">
+        <div className="text-[#063C40] uppercase text-xl sm:text-2xl tracking-widest font-semibold text-center md:text-left">
           {t("countdown.event-tag")}
         </div>
-        <h2 className="mt-1 text-5xl 2xl:text-6xl text-[#063C40] font-extrabold md:max-w-md text-center md:text-left">
+        <h2 className="mt-1 text-4xl 2xl:text-6xl text-[#063C40] font-extrabold md:max-w-md text-center md:text-left">
           {t("countdown.event-title")}
         </h2>
-        <div className="mt-4 text-xl uppercase tracking-widest font-medium text-center md:text-left md:max-w-xs">
+        <div className="mt-4 text-md sm:text-xl uppercase tracking-widest font-medium text-center md:text-left md:max-w-xs">
           {t("countdown.event-date")}
         </div>
       </div>
