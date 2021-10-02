@@ -2,7 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./Board.module.css";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper Styles
@@ -16,11 +22,14 @@ type Props = {
 };
 
 const Board = ({ _exhibitors }: Props) => {
+  SwiperCore.use([Autoplay]);
+
   const exhibitors = _exhibitors.filter(
     (exhibitor) => exhibitor.package_id !== 2
   );
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
+
   return (
     <div className={styles.boardWrapper}>
       <div className={styles.board}>
@@ -34,6 +43,8 @@ const Board = ({ _exhibitors }: Props) => {
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
             style={{ height: "25vw", paddingBottom: "1.5vw" }}
+            loop={true}
+            autoplay={{ delay: 6000 }}
             // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={() => console.log("slide change")}
           >
