@@ -55,7 +55,7 @@ const SettingVirtualBoothPage: NextPage = () => {
 
   const { data: dataUser, isLoading: isLoadingUser } = useUser();
   const { data: settings } = useSettings();
-  const { data } = useViews();
+  const { data } = useViews({ page: 1 });
 
   useEffect(() => {
     if (dataUser) {
@@ -349,7 +349,7 @@ const SettingVirtualBoothPage: NextPage = () => {
 
           <div className="py-6 px-8">
             <h3 className="text-2xl font-semibold mb-6">
-              Booth Viewers {data?.length ? `(${data?.length})` : ""}
+              Booth Viewers ({data?.total} Viewers)
             </h3>
             <div className="pb-20">
               <ListViewers />
