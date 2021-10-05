@@ -201,30 +201,28 @@ const WebinarSchedule: NextPage = () => {
                               </span>
                             ) : null}
                           </td>
-                          {/* {user.role === "admin" && (
-                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
-                              <div className="flex space-x-4">
-                                <button
-                                  onClick={() => {
-                                    setSelectedRundown(rundown);
-                                    setOpenEditRundownModal(true);
-                                  }}
-                                  className="text-sm font-medium text-primary-600 hover:text-primary-700"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    setSelectedRundown(rundown);
-                                    setOpenDeleteRundownModal(true);
-                                  }}
-                                  className="text-sm font-medium text-red-600 hover:text-red-700"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </td>
-                          )} */}
+                          <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                            {rundown.embedd_link ? (
+                              <a
+                                href={rundown.embedd_link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-sm mb-2 text-[#ff0000] font-semibold hover:underline cursor-pointer"
+                              >
+                                Watch
+                              </a>
+                            ) : null}
+                            {rundown.attachment_link ? (
+                              <a
+                                href={rundown.attachment_link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-sm text-primary-600 font-semibold hover:underline cursor-pointer"
+                              >
+                                Materials
+                              </a>
+                            ) : null}
+                          </td>
                         </tr>
                       ))}
                     </tbody>

@@ -244,38 +244,7 @@ export const EditRundown = ({
                       {/*  */}
                     </div>
                   </div>
-                  <div>
-                    <label
-                      htmlFor="embedd_link"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Link
-                    </label>
-                    <div className="mt-1 mb-4">
-                      <input
-                        type="text"
-                        id="embedd_link"
-                        className="input-text"
-                        {...register("embedd_link")}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="attachment_link"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Link
-                    </label>
-                    <div className="mt-1 mb-4">
-                      <input
-                        type="text"
-                        id="attachment_link"
-                        className="input-text"
-                        {...register("attachment_link")}
-                      />
-                    </div>
-                  </div>
+
                   <div>
                     <label
                       htmlFor="date"
@@ -330,6 +299,38 @@ export const EditRundown = ({
                         <option value={2}>Now Showing</option>
                         <option value={3}>Done</option>
                       </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="embedd_link"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Video Link
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <input
+                        type="text"
+                        id="embedd_link"
+                        className="input-text"
+                        {...register("embedd_link")}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="attachment_link"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Attachment Link (Materials)
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <input
+                        type="text"
+                        id="attachment_link"
+                        className="input-text"
+                        {...register("attachment_link")}
+                      />
                     </div>
                   </div>
                   <SubmitButton isLoading={isSubmitting}>Save</SubmitButton>

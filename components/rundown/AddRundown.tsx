@@ -48,7 +48,7 @@ export const AddRundown = ({ open, setOpen }: Props) => {
       title,
       subtitle,
       speakers,
-      embedd_link,
+      embedd_link: "",
       date,
       time,
       position,
@@ -190,7 +190,7 @@ export const AddRundown = ({ open, setOpen }: Props) => {
                       {/*  */}
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <label
                       htmlFor="embedd_link"
                       className="block text-sm font-medium text-gray-700"
@@ -205,7 +205,7 @@ export const AddRundown = ({ open, setOpen }: Props) => {
                         {...register("embedd_link")}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div>
                     <label
                       htmlFor="date"
