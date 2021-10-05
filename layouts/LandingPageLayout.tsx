@@ -17,7 +17,8 @@ export const LandingPageLayout: React.FC = ({ children }) => {
             speed={90}
             gradient={true}
             gradientColor={[0, 132, 140]}
-            style={{ height: "2.6vw" }}
+            className="h-10"
+            // style={{ height: "2.6vw" }}
           >
             <div className="font-semibold">
               The 2nd day of the event will be held on October 16, 2021!
