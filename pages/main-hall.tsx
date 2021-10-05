@@ -104,7 +104,7 @@ const MainHall: NextPage = () => {
             [3, 4, 5].includes(dataUser?.package_id)) && (
             <ButtonHelpDesk onClick={() => setOpenChatModal(true)} />
           )}
-        <RunningText />
+        {/* <RunningText /> */}
       </div>
     </SocketProvider>
   );
