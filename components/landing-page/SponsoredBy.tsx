@@ -111,6 +111,13 @@ export const SponsoredBy = () => {
               alt="Bio Teknologi"
             />
           </div>
+          <div className="flex items-center justify-center h-36 p-2">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/chint-electric.png"
+              alt="Chint Electric"
+            />
+          </div>
         </div>
       </div>
     </section>
