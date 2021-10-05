@@ -12,6 +12,7 @@ export type RundownDetail = {
   position: string;
   embedd_link: string;
   status: number;
+  attachment_link: string;
 };
 
 export const useRundowns = () => {

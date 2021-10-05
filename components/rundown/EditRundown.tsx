@@ -32,6 +32,7 @@ type Inputs = {
   time: string;
   embedd_link: string;
   status: number;
+  attachment_link: string;
 };
 
 export const EditRundown = ({
@@ -56,6 +57,7 @@ export const EditRundown = ({
       title: selectedRundown.title,
       subtitle: selectedRundown.subtitle,
       position: selectedRundown.position,
+      attachment_link: selectedRundown.attachment_link,
     },
   });
   const cookies = parseCookies();
@@ -71,6 +73,7 @@ export const EditRundown = ({
       title: selectedRundown.title,
       subtitle: selectedRundown.subtitle,
       position: selectedRundown.position,
+      attachment_link: selectedRundown.attachment_link,
     });
   }, [reset, selectedRundown]);
 
@@ -84,6 +87,7 @@ export const EditRundown = ({
       status,
       subtitle,
       position,
+      attachment_link,
     } = values;
 
     const data = {
@@ -95,6 +99,7 @@ export const EditRundown = ({
       date,
       time,
       status,
+      attachment_link,
       _method: "PUT",
     };
 
@@ -252,6 +257,22 @@ export const EditRundown = ({
                         id="embedd_link"
                         className="input-text"
                         {...register("embedd_link")}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="attachment_link"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Link
+                    </label>
+                    <div className="mt-1 mb-4">
+                      <input
+                        type="text"
+                        id="attachment_link"
+                        className="input-text"
+                        {...register("attachment_link")}
                       />
                     </div>
                   </div>
