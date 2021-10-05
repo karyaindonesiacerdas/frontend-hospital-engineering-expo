@@ -19,6 +19,7 @@ import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
 import { SocketProvider, useSocket } from "socket/socket.context";
 import { ButtonHelpDesk } from "@/components/main-hall/ButtonHelpDesk";
+import { RunningText } from "@/components/main-hall/RunningText";
 
 const MainHall: NextPage = () => {
   const router = useRouter();
@@ -103,6 +104,7 @@ const MainHall: NextPage = () => {
             [3, 4, 5].includes(dataUser?.package_id)) && (
             <ButtonHelpDesk onClick={() => setOpenChatModal(true)} />
           )}
+        <RunningText />
       </div>
     </SocketProvider>
   );
