@@ -8,6 +8,8 @@ export const ListViewers = () => {
   const [page, setPage] = useState(1);
   const { data: viewers, isLoading, isSuccess } = useViews({ page: page });
 
+  console.log({ viewers });
+
   return (
     <div>
       {/* Table */}
@@ -29,6 +31,12 @@ export const ListViewers = () => {
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Institution Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Province
                     </th>
                     <th
                       scope="col"
@@ -60,25 +68,34 @@ export const ListViewers = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div className="h-4 bg-gray-200 animate-pulse"></div>
                           </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="h-4 bg-gray-200 animate-pulse"></div>
+                          </td>
                         </tr>
                       ))
-                    : ""}
-                  {viewers?.data?.map((viewer) => (
-                    <tr key={viewer.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {viewer.visitor.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {viewer.visitor.institution_name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {viewer.visitor.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {viewer.visitor.mobile}
-                      </td>
-                    </tr>
-                  ))}
+                    : viewers?.data?.map((viewer) => (
+                        <tr key={viewer.id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.institution_name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.province}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.allow_share_info === 1
+                              ? viewer.visitor.email
+                              : "-"}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.allow_share_info === 1
+                              ? viewer.visitor.mobile
+                              : "-"}
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
             </div>

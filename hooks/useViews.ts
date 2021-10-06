@@ -9,6 +9,8 @@ export type View = {
     institution_name: string;
     email: string;
     mobile: string;
+    allow_share_info: number;
+    province: string;
   };
 };
 
