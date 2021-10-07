@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
 
 export const Event = () => {
@@ -19,110 +20,120 @@ export const Event = () => {
         </div>
       </div>
       <div className="mt-6 2xl:mt-0 flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3 lg:gap-5 p-2 max-w-xl md:max-w-3xl mx-auto">
-        <a
-          href="about-hef.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/about-hew.svg"
-            alt="About HEF 2021"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            About HEF 2021
-          </span>
-        </a>
-        <a
-          href="register-exhibitor.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/register-exhibitor.svg"
-            alt="Register as Exhibitor"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Register as Exhibitor
-          </span>
-        </a>
-        <a
-          href="why-exhibit.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/why-visit.svg"
-            alt="Why Visit?"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Why Exhibit?
-          </span>
-        </a>
-        <a
-          href="exhibitor-guideline.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/exhibitor-list.svg"
-            alt="Exhibitor List 2021"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Exhibitor Guideline
-          </span>
-        </a>
-        <a
-          href="webinar-rundown.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/seminar-rundown.svg"
-            alt="Seminar Rundown"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Seminar Rundown
-          </span>
-        </a>
-        <a
-          href="register-visitor.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/register-visitor.svg"
-            alt="Register as Visitor"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Register as Visitor
-          </span>
-        </a>
-        <a
-          href="why-attend.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/why-visit-2.svg"
-            alt="Why Visit"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Why Visit
-          </span>
-        </a>
-        <a
-          href="visitor-guideline.html"
-          className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
-        >
-          <img
-            className="w-12 md:w-20"
-            src="/icons/sponsor-partner.svg"
-            alt="Sponsorship and Partner"
-          />
-          <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
-            Visitor Guideline
-          </span>
-        </a>
+        <Link href="/about-hef">
+          <a className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none">
+            <img
+              className="w-12 md:w-20"
+              src="/icons/about-hew.svg"
+              alt="About HEF 2021"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              About HEF 2021
+            </span>
+          </a>
+        </Link>
+        <Link href="/register/exhibitor">
+          <a className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none">
+            <img
+              className="w-12 md:w-20"
+              src="/icons/register-exhibitor.svg"
+              alt="Register as Exhibitor"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Register as Exhibitor
+            </span>
+          </a>
+        </Link>
+        <Link href="/why-exhibit">
+          <a
+            href="why-exhibit.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/why-visit.svg"
+              alt="Why Visit?"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Why Exhibit?
+            </span>
+          </a>
+        </Link>
+        <Link href="/exhibitor-guideline">
+          <a
+            href="exhibitor-guideline.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/exhibitor-list.svg"
+              alt="Exhibitor List 2021"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Exhibitor Guideline
+            </span>
+          </a>
+        </Link>
+        <Link href="/webinar-rundown">
+          <a
+            href="webinar-rundown.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/seminar-rundown.svg"
+              alt="Seminar Rundown"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Seminar Rundown
+            </span>
+          </a>
+        </Link>
+        <Link href="/register/visitor">
+          <a
+            href="register-visitor.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/register-visitor.svg"
+              alt="Register as Visitor"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Register as Visitor
+            </span>
+          </a>
+        </Link>
+        <Link href="/why-attend">
+          <a
+            href="why-attend.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/why-visit-2.svg"
+              alt="Why Visit"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Why Visit
+            </span>
+          </a>
+        </Link>
+        <Link href="/visitor-guideline">
+          <a
+            href="visitor-guideline.html"
+            className="bg-white flex flex-col items-center py-2 px-2 md:py-6 md:px-6 rounded-3xl shadow-2xl hover:shadow-none"
+          >
+            <img
+              className="w-12 md:w-20"
+              src="/icons/sponsor-partner.svg"
+              alt="Sponsorship and Partner"
+            />
+            <span className="mt-4 uppercase font-medium tracking-wider text-xs md:text-sm text-center">
+              Visitor Guideline
+            </span>
+          </a>
+        </Link>
       </div>
     </div>
   );
