@@ -30,6 +30,8 @@ const Board = ({ _exhibitors }: Props) => {
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
 
+  console.log({ exhibitors });
+
   return (
     <div className={styles.boardWrapper}>
       <div className={styles.board}>
@@ -62,7 +64,7 @@ const Board = ({ _exhibitors }: Props) => {
                           href={`/exhibitors/${exhibitor.id}`}
                         >
                           <a
-                            className="grid grid-rows-4 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full relative"
+                            className="grid grid-rows-5 bg-gray-100 hover:shadow-lg cursor-pointer rounded-md h-full relative"
                             style={{ padding: "0.5vw" }}
                           >
                             <div
@@ -87,7 +89,7 @@ const Board = ({ _exhibitors }: Props) => {
                               />
                             </div>
                             <div
-                              className="row-span-1 flex items-center text-center leading-normal justify-center font-semibold text-gray-600"
+                              className="row-span-2 flex items-center text-center leading-tight justify-center font-semibold text-gray-600"
                               style={{ fontSize: "0.9vw" }}
                             >
                               {exhibitor.company_name}
@@ -107,6 +109,46 @@ const Board = ({ _exhibitors }: Props) => {
                                 Open Consultation
                               </span>
                             )}
+
+                            <span
+                              className="absolute bg-gray-200 text-primary-600 inline-flex justify-center items-center shadow-2xl leading-snug line-clamp-1 rounded-full font-semibold"
+                              style={{
+                                fontSize: "0.7vw",
+                                padding: "0 0.5vw",
+                                // height: "1.2vw",
+                                bottom: "-0.2vw",
+                                width: "100%",
+                              }}
+                            >
+                              {exhibitor.business_nature?.length > 0
+                                ? "Hospital "
+                                : ""}
+                              {exhibitor?.business_nature
+                                ?.map((bn) => {
+                                  if (bn === "Hospital Buildings") {
+                                    return "Buildings";
+                                  }
+                                  if (bn === "Hospital Mechanics") {
+                                    return "Mechanics";
+                                  }
+                                  if (bn === "Hospital Electrics") {
+                                    return "Electrics";
+                                  }
+                                  if (bn === "Hospital Environments") {
+                                    return "Environments";
+                                  }
+                                  if (bn === "Hospital Informatics") {
+                                    return "Informatics";
+                                  }
+                                  if (bn === "Hospital Devices") {
+                                    return "Devices";
+                                  }
+                                  if (bn === "COVID-19 Related Products") {
+                                    return "COVID-19";
+                                  }
+                                })
+                                .join(", ")}
+                            </span>
                           </a>
                         </Link>
                       );

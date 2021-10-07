@@ -19,7 +19,7 @@ import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
 import { SocketProvider, useSocket } from "socket/socket.context";
 import { ButtonHelpDesk } from "@/components/main-hall/ButtonHelpDesk";
-import { RunningText } from "@/components/main-hall/RunningText";
+import { RunningText } from "@/components/RunningText";
 
 const MainHall: NextPage = () => {
   const router = useRouter();
@@ -62,6 +62,7 @@ const MainHall: NextPage = () => {
         }}
         className="relative bg-center bg-cover bg-no-repeat w-full h-full"
       >
+        <RunningText />
         <Navbar currentHref="main-hall" />
 
         {/* Main Content */}
