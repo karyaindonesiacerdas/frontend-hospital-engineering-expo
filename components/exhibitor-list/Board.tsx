@@ -95,7 +95,10 @@ const Board = ({ _exhibitors }: Props) => {
                               {exhibitor.company_name}
                             </div>
 
-                            {[3, 4, 5].includes(exhibitor.package_id) && (
+                            {([3, 4, 5].includes(exhibitor.package_id) ||
+                              exhibitor?.ala_carte?.includes(
+                                "open_consultation"
+                              )) && (
                               <span
                                 className="absolute bg-primary-600 text-white inline-flex justify-center items-center rounded-full font-semibold shadow-2xl animate-pulse"
                                 style={{

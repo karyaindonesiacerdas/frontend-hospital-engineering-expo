@@ -54,6 +54,7 @@ export type Exhibitor = {
   business_nature: string[];
   package_id: number;
   package: Package;
+  ala_carte: string[];
 };
 
 export type Poster = {
