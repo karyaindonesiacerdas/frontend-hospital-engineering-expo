@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { GetStaticPropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -11,6 +12,25 @@ const Hero = dynamic(() => import("@/components/landing-page/Hero"));
 
 const Home: NextPage = () => {
   const { t } = useTranslation("seo");
+
+  useEffect(() => {
+    const tracking = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tracker`, {
+          method: "POST",
+        });
+
+        if (!res.ok) {
+          throw new Error("Error create tracking");
+        }
+
+        await res.json();
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    tracking();
+  }, []);
 
   return (
     <LandingPageLayout>

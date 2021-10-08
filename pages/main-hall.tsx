@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -27,12 +28,35 @@ const MainHall: NextPage = () => {
   const [openVideoModal, setOpenVideoModal] = useState(false);
   const [openChatModal, setOpenChatModal] = useState(false);
   const { data: dataUser } = useUser();
+  const cookies = parseCookies();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
     }
   }, [isAuthenticated, isLoading, router]);
+
+  useEffect(() => {
+    const tracking = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tracker`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Error create tracking");
+        }
+
+        await res.json();
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    tracking();
+  }, [cookies.access_token]);
 
   const { data: settings } = useSettings();
 
