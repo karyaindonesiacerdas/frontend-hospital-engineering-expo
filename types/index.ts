@@ -37,6 +37,7 @@ export type ExhibitorDetails = {
   banners: Banner[];
   booth_type: string;
   img_profile: string;
+  ala_carte: string[];
 };
 
 type Package = {

@@ -49,6 +49,8 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
 
+  console.log({ exhibitor });
+
   return (
     <div
       style={{
@@ -111,7 +113,8 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
             )}
           </>
         )}
-        {exhibitor?.package_id === 3 && (
+        {(exhibitor?.package_id === 3 ||
+          exhibitor.ala_carte.includes("open_consultation")) && (
           <BookingConsultationModal
             exhibitorId={exhibitor.id}
             open={openBookingConsultationModal}
@@ -194,7 +197,8 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      {exhibitor?.package_id === 3 && (
+      {(exhibitor?.package_id === 3 ||
+        exhibitor.ala_carte.includes("open_consultation")) && (
         <BookingConsultation
           onClick={() => setOpenBookingConsultationModal(true)}
         />
