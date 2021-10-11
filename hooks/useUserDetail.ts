@@ -10,6 +10,7 @@ type UserDetail = {
   institution_name: string | null;
   company_name: string | null;
   role: string;
+  allow_share_info: number;
 };
 
 export const useUserDetail = (id: number) => {

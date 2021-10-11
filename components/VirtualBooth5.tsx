@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
@@ -27,6 +27,8 @@ import type { Banner, ExhibitorDetails } from "types";
 import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
 import { useAuth } from "@/contexts/auth.context";
+import { ShareInfoModal } from "./ShareInfoModal";
+import { parseCookies, setCookie } from "nookies";
 
 // const catalogSrc = "/catalog-example.pdf";
 
@@ -44,12 +46,26 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
     useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
+  const [isOpenShareInfo, setIsOpenShareInfo] = useState(false);
+  const cookies = parseCookies();
 
   const { user } = useAuth();
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
 
-  console.log({ exhibitor });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (
+        Number(dataUser?.allow_share_info) !== 1 &&
+        cookies.answered !== "1"
+      ) {
+        setIsOpenShareInfo(true);
+      }
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dataUser?.allow_share_info, cookies.answered]);
 
   return (
     <div
@@ -65,6 +81,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         <BackButton href="/exhibitors" text="Exhibitor List" />
         {/* ### Modals ### */}
+        <ShareInfoModal open={isOpenShareInfo} setOpen={setIsOpenShareInfo} />
         <VideoModal
           videoType="booth"
           open={openVideoModal}
