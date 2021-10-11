@@ -7,76 +7,76 @@ import { useTranslation } from "next-i18next";
 const overview = (t: any) => [
   {
     name: t("about-hef"),
-    href: "about-hef",
+    href: "/about-hef",
   },
   {
     name: t("about-ihea"),
-    href: "about-iahe",
+    href: "/about-iahe",
   },
   {
     name: t("programs"),
-    href: "programs",
+    href: "/programs",
   },
   {
     name: t("webinar-rundown"),
-    href: "webinar-rundown",
+    href: "/webinar-rundown",
   },
   {
     name: t("news"),
-    href: "news",
+    href: "/news",
   },
   {
     name: t("important-dates"),
-    href: "important-dates",
+    href: "/important-dates",
   },
 ];
 
 const visitor = (t: any) => [
   {
     name: t("visitor-guideline"),
-    href: "visitor-guideline",
+    href: "/visitor-guideline",
   },
   {
     name: t("who-attends"),
-    href: "who-attends",
+    href: "/who-attends",
   },
   {
     name: t("why-attend"),
-    href: "why-attend",
+    href: "/why-attend",
   },
 ];
 
 const exhibitor = (t: any) => [
   {
     name: t("exhibitor-guideline"),
-    href: "exhibitor-guideline",
+    href: "/exhibitor-guideline",
   },
   {
     name: t("who-exhibits"),
-    href: "who-exhibits",
+    href: "/who-exhibit",
   },
   {
     name: t("why-exhibit"),
-    href: "why-exhibit",
+    href: "/why-exhibit",
   },
   {
     name: t("packages"),
-    href: "packages",
+    href: "/packages",
   },
 ];
 
 const faq = (t: any) => [
   {
     name: t("faq-general"),
-    href: "faq",
+    href: "/faq/general",
   },
   {
     name: t("faq-visitor"),
-    href: "faq/visitor",
+    href: "/faq/visitor",
   },
   {
     name: t("faq-exhibitor"),
-    href: "faq/exhibitor",
+    href: "/faq/exhibitor",
   },
 ];
 

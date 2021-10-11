@@ -62,6 +62,13 @@ export const SponsoredBy = () => {
               alt="medisain"
             />
           </div>
+          <div className="flex items-center justify-center h-36 p-6">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/schneider.png"
+              alt="Schneider"
+            />
+          </div>
           <div className="flex items-center justify-center h-36 p-2">
             <img
               className="object-contain h-full"
@@ -168,6 +175,13 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/medisain.jpg"
                 alt="medisain"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36 p-6">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/schneider.png"
+                alt="Schneider"
               />
             </div>
             <div className="flex items-center justify-center h-24 mx-6 p-2">
