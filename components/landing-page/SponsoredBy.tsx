@@ -7,7 +7,7 @@ export const SponsoredBy = () => {
   const { t } = useTranslation("home");
 
   return (
-    <section className="bg-white">
+    <section className="bg-white mt-14 lg:mt-24">
       <div className="md:pt-20 pb-40 px-4">
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("sponsored-by")}

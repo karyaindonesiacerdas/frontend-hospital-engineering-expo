@@ -45,7 +45,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
       </div>
       <Header />
       {children}
-      <CTA />
+      {/* <CTA /> */}
       <SponsoredBy />
       <OrganizedBy />
       <Footer />
