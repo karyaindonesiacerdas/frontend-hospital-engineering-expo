@@ -22,8 +22,9 @@ const Statistics = () => {
         }
 
         const json = await res.json();
-        setTotal(json.data.total);
-        setStatistics(json.data.data);
+        console.log({ json });
+        setTotal(json.total);
+        setStatistics(json.data);
       } catch (error) {
         console.log(error);
       }
@@ -48,6 +49,8 @@ const Statistics = () => {
       return obj;
     }, {});
 
+  console.log({ orderedData });
+
   // Data / province
   const provinceStatistics = statistics.reduce(function (map, obj) {
     const province = !obj.province
@@ -68,6 +71,8 @@ const Statistics = () => {
       data: Object.values(orderedData),
     },
   ];
+
+  console.log({ statistics });
 
   return (
     <>
