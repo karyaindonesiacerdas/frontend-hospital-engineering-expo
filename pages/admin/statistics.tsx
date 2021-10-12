@@ -1,24 +1,27 @@
 /* eslint-disable react/display-name */
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { FullPageLoader } from "@/components/common";
 import { useAuth } from "@/contexts/auth.context";
-import { RundownDetail, useRundowns } from "hooks/useRundowns";
-import { AddRundown } from "@/components/rundown/AddRundown";
-import { EditRundown } from "@/components/rundown/EditRundown";
-import { DeleteRundown } from "@/components/rundown/DeleteRundown";
-import { useBoothStatistics } from "hooks/useBoothStatistics";
+
+import { BackButton } from "@/components/BackButton";
+// import { Statistics } from "@/components/admin/Statistics";
+// import { useSettings } from "hooks/useSettings";
+const Statistics = dynamic(() => import("@/components/admin/Statistics"), {
+  ssr: false,
+});
 
 const tabs = [
-  { name: "Statistics", href: "/admin/statistics", current: false },
+  { name: "Statistics", href: "/admin/statistics", current: true },
   { name: "Exhibitor", href: "/admin/exhibitor", current: false },
-  { name: "Booth Visitors", href: "/admin/visitor", current: true },
+  { name: "Booth Visitors", href: "/admin/visitor", current: false },
   { name: "Webinar", href: "/admin/webinar", current: false },
   { name: "Consultation", href: "/admin/consultation", current: false },
 ];
@@ -27,17 +30,10 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AdminVisitorPage: NextPage = () => {
+const AdminConsultationPage: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [openChatModal, setOpenChatModal] = useState(false);
-  const [openAddRundownModal, setOpenAddRundownModal] = useState(false);
-  const [openEditRundownModal, setOpenEditRundownModal] = useState(false);
-  const [openDeleteRundownModal, setOpenDeleteRundownModal] = useState(false);
-  const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
-  const { data: statistics } = useBoothStatistics();
-
-  console.log({ statistics });
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -73,38 +69,15 @@ const AdminVisitorPage: NextPage = () => {
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
         {/* ### Modals ### */}
         <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
-        {user.email === "admin@mail.com" && (
-          <>
-            <AddRundown
-              open={openAddRundownModal}
-              setOpen={setOpenAddRundownModal}
-            />
-            {selectedRundown && (
-              <>
-                <EditRundown
-                  open={openEditRundownModal}
-                  setOpen={setOpenEditRundownModal}
-                  selectedRundown={selectedRundown}
-                  setSelectedRundown={setSelectedRundown}
-                />
-                <DeleteRundown
-                  open={openDeleteRundownModal}
-                  setOpen={setOpenDeleteRundownModal}
-                  selectedRundown={selectedRundown}
-                />
-              </>
-            )}
-          </>
-        )}
 
         <div className="px-2 xl:px-0 py-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 font-bold text-center uppercase tracking-wide">
-              Admin Page - Visitor
+            <h2 className="pl-0 lg:pl-1 text-xl text-gray-700 font-bold text-center lg:text-left uppercase tracking-wide">
+              Admin Page - Statistics
             </h2>
           </div>
 
-          <div className="bg-white p-2 shadow rounded-md mb-6">
+          <div className="bg-white p-2 shadow rounded-md mb-2">
             <nav className="-mb-px flex" aria-label="Tabs">
               {tabs.map((tab) => (
                 <Link key={tab.name} href={tab.href}>
@@ -123,29 +96,17 @@ const AdminVisitorPage: NextPage = () => {
               ))}
             </nav>
           </div>
-          {/* Table */}
-          <div className="grid grid-cols-3 gap-6">
-            {statistics
-              ?.filter((statistic) => statistic.total_visitors > 0)
-              .map((statistic) => (
-                <div
-                  key={statistic.id}
-                  className="bg-white p-6 shadow rounded-md flex flex-col items-center justify-center space-y-4"
-                >
-                  <span className="font-semibold text-gray-700">
-                    {statistic.company_name}
-                  </span>
-                  <span className="text-2xl font-extrabold">
-                    {statistic.total_visitors}{" "}
-                    <span className="text-xs font-semibold">Visitors</span>
-                  </span>
-                </div>
-              ))}
+
+          <div className="mb-4">
+            <BackButton href="/admin" text="Admin" />
           </div>
+
+          {/* Table */}
+          <Statistics />
         </div>
       </main>
     </div>
   );
 };
 
-export default AdminVisitorPage;
+export default AdminConsultationPage;

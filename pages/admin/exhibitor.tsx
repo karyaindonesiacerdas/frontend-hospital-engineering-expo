@@ -15,6 +15,7 @@ import { BackButton } from "@/components/BackButton";
 import { UpdateExhibitorPackage } from "@/components/admin/UpdateExhibitorPackage";
 
 const tabs = [
+  { name: "Statistics", href: "/admin/statistics", current: false },
   { name: "Exhibitor", href: "/admin/exhibitor", current: true },
   { name: "Booth Visitors", href: "/admin/visitor", current: false },
   { name: "Webinar", href: "/admin/webinar", current: false },
