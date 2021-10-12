@@ -52,10 +52,12 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const { user } = useAuth();
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
+  console.log({ dataUser });
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (
+        dataUser?.role === "visitor" &&
         Number(dataUser?.allow_share_info) !== 1 &&
         cookies.answered !== "1"
       ) {
@@ -65,7 +67,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [dataUser?.allow_share_info, cookies.answered]);
+  }, [dataUser?.allow_share_info, cookies.answered, dataUser?.role]);
 
   return (
     <div
