@@ -135,7 +135,7 @@ export const SponsoredBy = () => {
           <div className="flex items-center justify-center h-36">
             <img
               className="object-contain h-full "
-              src="/sponsor/parahyangan.png"
+              src="/sponsor/parahyangan.jpeg"
               alt="Parahyangan"
             />
           </div>
@@ -278,7 +278,7 @@ export const SponsoredBy = () => {
             <div className="flex items-center justify-center h-36 bg-gray-50">
               <img
                 className="object-contain h-full"
-                src="/sponsor/parahyangan.png"
+                src="/sponsor/parahyangan.jpeg"
                 alt="Parahyangan"
               />
             </div>
