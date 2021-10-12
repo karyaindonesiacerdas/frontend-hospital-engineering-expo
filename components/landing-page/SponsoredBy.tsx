@@ -125,6 +125,34 @@ export const SponsoredBy = () => {
               alt="Bio Teknologi"
             />
           </div>
+          <div className="flex items-center justify-center h-36 p-4">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/daikin.png"
+              alt="Daikin"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full "
+              src="/sponsor/parahyangan.png"
+              alt="Parahyangan"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/pandu.jpg"
+              alt="Pandu"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/ecosolusindo.png"
+              alt="Ecosolusindo"
+            />
+          </div>
         </div>
         <div className="md:hidden">
           <Marquee className="mt-10" gradientWidth={30} speed={100}>
@@ -238,6 +266,34 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/bio-teknologi.png"
                 alt="Bio Teknologi"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36 p-4">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/daikin.png"
+                alt="Daikin"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36 bg-gray-50">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/parahyangan.png"
+                alt="Parahyangan"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/pandu.jpg"
+                alt="Pandu"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/ecosolusindo.png"
+                alt="Ecosolusindo"
               />
             </div>
           </Marquee>
