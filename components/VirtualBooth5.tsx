@@ -72,7 +72,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   return (
     <div
       style={{
-        backgroundImage: "url('/virtual-booth-5-min.jpg')",
+        backgroundImage: "url('/virtual-booth-5-min-2.jpg')",
         aspectRatio: "2 / 1",
       }}
       className="relative bg-center bg-cover bg-no-repeat w-full h-full"
