@@ -4,26 +4,28 @@ import Chart from "react-apexcharts";
 
 const Statistics = () => {
   const [statistics, setStatistics] = useState<any[]>([]);
-  const [total, setTotal] = useState(0);
+  const [statisticsPerProvince, setStatisticsPerProvince] = useState<any[]>([]);
+  // const [total, setTotal] = useState(0);
   const cookies = parseCookies();
 
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tracker`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tracker/graph-total`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
+          }
+        );
 
         if (!res.ok) {
-          throw new Error("Error get statistics");
+          throw new Error("Error get statistics total");
         }
 
         const json = await res.json();
-        console.log({ json });
-        setTotal(json.total);
         setStatistics(json.data);
       } catch (error) {
         console.log(error);
@@ -32,55 +34,50 @@ const Statistics = () => {
     fetchStatistics();
   }, [cookies.access_token]);
 
-  // Data Total
-  const data = statistics.reduce(function (map, obj) {
-    const date = obj.date || "2021-10-07";
-    if (!map[date]) {
-      map[date] = 0;
-    }
-    map[date] = map[date] + obj.total;
-    return map;
-  }, {});
+  useEffect(() => {
+    const fetchStatisticsPerProvince = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tracker/graph-province`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
+          }
+        );
 
-  const orderedData = Object.keys(data)
-    .sort()
-    .reduce((obj: any, key) => {
-      obj[key] = data[key];
-      return obj;
-    }, {});
+        if (!res.ok) {
+          throw new Error("Error get statistics per province");
+        }
 
-  console.log({ orderedData });
-
-  // Data / province
-  const provinceStatistics = statistics.reduce(function (map, obj) {
-    const province = !obj.province
-      ? "Lainnya"
-      : obj.province === "-"
-      ? "Lainnya"
-      : obj.province;
-    if (!map[province]) {
-      map[province] = 0;
-    }
-    map[province] = map[province] + obj.total;
-    return map;
-  }, {});
+        const json = await res.json();
+        setStatisticsPerProvince(json.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStatisticsPerProvince();
+  }, [cookies.access_token]);
 
   const series = [
     {
       name: "Visitor",
-      data: Object.values(orderedData),
+      data: statistics.map((statistic) => statistic.total),
     },
   ];
 
-  console.log({ statistics });
+  const totalVisitor = statistics.reduce((acc, cur) => {
+    return acc + cur.total;
+  }, 0);
 
   return (
     <>
       <div className="mb-6 p-6 bg-white rounded-md shadow">
         <div className="text-xl text-center mb-2">Total Visitor</div>
-        <div className="text-4xl font-bold text-center">{total}</div>
+        <div className="text-4xl font-bold text-center">{totalVisitor}</div>
       </div>
-      {statistics.length ? (
+      {statistics.length && statisticsPerProvince ? (
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-white p-3 shadow rounded-md">
             <Chart
@@ -97,11 +94,11 @@ const Statistics = () => {
                 },
                 xaxis: {
                   type: "datetime",
-                  categories: Object.keys(orderedData),
+                  categories: statistics.map((statistic) => statistic.date),
                 },
                 yaxis: {
                   min: 0,
-                  max: 240,
+                  // max: 240,
                   title: {
                     text: "Visitor",
                   },
@@ -125,9 +122,17 @@ const Statistics = () => {
           <div className="bg-white p-3 shadow rounded-md">
             <Chart
               type="donut"
-              series={Object.values(provinceStatistics)}
+              series={statisticsPerProvince.map((statistic) => statistic.total)}
               options={{
-                labels: Object.keys(provinceStatistics),
+                labels: statisticsPerProvince.map((statistic) => {
+                  if (statistic.province === "") {
+                    return "Unknown";
+                  }
+                  if (!statistic.province) {
+                    return "Lainnya";
+                  }
+                  return statistic.province;
+                }),
                 title: {
                   text: "Visitor / Provinsi",
                   align: "left",
