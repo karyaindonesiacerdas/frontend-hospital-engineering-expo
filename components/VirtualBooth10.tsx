@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { VideoModal } from "@/components/VideoModal";
@@ -27,6 +27,10 @@ import { BookingConsultationModal } from "@/components/BookingConsultationModal"
 import { BackButton } from "@/components/BackButton";
 import { Banner, ExhibitorDetails } from "types";
 import { useSettings } from "hooks/useSettings";
+import { useUser } from "hooks/useUser";
+import { parseCookies } from "nookies";
+import { ShareInfoModal } from "./ShareInfoModal";
+import { useAuth } from "@/contexts/auth.context";
 
 // const card = {
 //   src: "/name-card-example.jpg",
@@ -48,10 +52,29 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
     useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
+  const [isOpenShareInfo, setIsOpenShareInfo] = useState(false);
+  const cookies = parseCookies();
 
+  const { user } = useAuth();
+  const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
 
-  console.log({ exhibitor });
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (
+        dataUser?.role === "visitor" &&
+        Number(dataUser?.allow_share_info) !== 1 &&
+        cookies.answered !== "1"
+      ) {
+        setIsOpenShareInfo(true);
+      }
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dataUser?.allow_share_info, cookies.answered, dataUser?.role]);
+
+  // console.log({ exhibitor });
 
   return (
     <div
@@ -68,6 +91,7 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
         <BackButton href="/exhibitors" text="Exhibitor List" />
 
         {/* ### Modals ### */}
+        <ShareInfoModal open={isOpenShareInfo} setOpen={setIsOpenShareInfo} />
         <VideoModal
           videoType="booth"
           open={openVideoModal}
@@ -81,7 +105,13 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
             website: exhibitor.company_website,
           }}
         />
-        <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+        {settings?.is_chat === "1" &&
+          (user?.role !== "exhibitor" ||
+            user?.id === 2 ||
+            [3, 4, 5].includes(dataUser?.package_id)) && (
+            <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
+          )}
+        {/* <ChatModal open={openChatModal} setOpen={setOpenChatModal} /> */}
         {selectedOrder && (
           <>
             <PosterModal

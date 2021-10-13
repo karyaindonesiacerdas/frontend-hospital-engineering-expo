@@ -52,7 +52,7 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const { user } = useAuth();
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
-  console.log({ dataUser });
+  // console.log({ dataUser });
 
   useEffect(() => {
     const timer = setTimeout(() => {
