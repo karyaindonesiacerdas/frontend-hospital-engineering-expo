@@ -2,8 +2,8 @@
   perspective: 1000px;
   position: absolute;
   top: 49.4%;
-  left: 77.25%;
-  width: 6.75%;
+  left: 78.25%;
+  width: 4.8%;
   height: 15.5%;
 }
 
@@ -12,7 +12,7 @@
   height: 100%;
   border-width: 4px;
   border-color: #00b4bf;
-  transform: rotateY(-50deg);
+  transform: rotateY(-29deg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

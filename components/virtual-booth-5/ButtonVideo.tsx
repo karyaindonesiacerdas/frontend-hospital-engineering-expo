@@ -14,13 +14,13 @@ type Props = {
 };
 
 export const ButtonVideo = ({ onClick, companyDetails }: Props) => {
-  console.log({ companyDetails });
+  // console.log({ companyDetails });
   const defaultVideo =
     "https://www.youtube.com/watch?v=c0bC3s8VU6k&ab_channel=HospitalEngineeringExpo";
   const videoId = matchYoutubeUrl(companyDetails.videoURL || defaultVideo);
 
   const previewURL = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-  console.log({ previewURL });
+  // console.log({ previewURL });
   return (
     <div className="group">
       <button

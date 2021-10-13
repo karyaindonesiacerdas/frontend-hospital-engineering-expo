@@ -1,10 +1,10 @@
 .wrapper {
   perspective: 1000px;
   position: absolute;
-  top: 66%;
-  left: 62.5%;
-  width: 3%;
-  height: 4%;
+  top: 61.5%;
+  left: 61.25%;
+  width: 5.5%;
+  height: 8%;
 }
 /* btn-consultation bg-white bg-opacity-65 text-[#00B4BF] border-[4px] border-[#00B4BF] animate-pulse flex items-center justify-center */
 .button {
@@ -28,4 +28,7 @@
 .button svg {
   width: 60%;
   height: auto;
+}
+.button span {
+  font-size: 0.9vw;
 }

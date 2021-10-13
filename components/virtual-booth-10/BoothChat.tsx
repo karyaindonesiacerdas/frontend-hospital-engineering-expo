@@ -56,15 +56,15 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
         <button
           onClick={handleClick}
           className={styles.button}
-          style={{
-            backgroundImage: company_logo
-              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
-              : "url('/logo-placeholder.svg')",
-          }}
+          // style={{
+          //   backgroundImage: company_logo
+          //     ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+          //     : "url('/logo-placeholder.svg')",
+          // }}
         >
-          <div className="absolute inset-0 group-hover:bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent hover:border-[#00b4bf]">
+          <div className="absolute inset-0 bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent border-[#00b4bf]">
             <svg
-              className="hidden group-hover:block w-10 h-10"
+              className="w-10 h-10"
               width="24"
               height="24"
               fill="none"
@@ -86,12 +86,34 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
               />
             </svg>
           </div>
-          <span className="sr-only">Booking Consultation</span>
+          <span className="sr-only">Open Chat</span>
         </button>
       </div>
     </div>
   );
 };
+
+type NoBoothProps = {
+  company_logo: string;
+};
+
+export const NoBoothChat = ({ company_logo }: NoBoothProps) => {
+  return (
+    <div>
+      <div className={styles.wrapperLogo}>
+        <div
+          className={styles.buttonLogo}
+          style={{
+            backgroundImage: company_logo
+              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+              : "url('/logo-placeholder.svg')",
+          }}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
 // export const BoothChat = () => {
 //   return (
 //     <button

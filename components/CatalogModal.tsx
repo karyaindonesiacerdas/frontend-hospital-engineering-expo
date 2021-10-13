@@ -26,7 +26,7 @@ type Props = {
   order: number;
 };
 
-const imagePlaceholder = "https://via.placeholder.com/297x420.png";
+// const imagePlaceholder = "https://via.placeholder.com/297x420.png";
 
 export const CatalogModal = ({
   open,

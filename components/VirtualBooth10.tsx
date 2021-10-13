@@ -17,6 +17,7 @@ import {
   Poster10,
   BookingConsultation,
   BoothChat,
+  NoBoothChat,
   ButtonVideo,
 } from "@/components/virtual-booth-10";
 import { PosterModal } from "@/components/PosterModal";
@@ -25,12 +26,13 @@ import { CatalogModal } from "@/components/CatalogModal";
 import { BookingConsultationModal } from "@/components/BookingConsultationModal";
 import { BackButton } from "@/components/BackButton";
 import { Banner, ExhibitorDetails } from "types";
+import { useSettings } from "hooks/useSettings";
 
-const card = {
-  src: "/name-card-example.jpg",
-};
+// const card = {
+//   src: "/name-card-example.jpg",
+// };
 
-const catalogSrc = "/catalog-example.pdf";
+// const catalogSrc = "/catalog-example.pdf";
 
 type Props = {
   exhibitor: ExhibitorDetails;
@@ -47,7 +49,9 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
   const [selectedBanner, setSelectedBanner] = useState<Banner>();
   const [selectedOrder, setSelectedOrder] = useState<number>();
 
-  // console.log({ exhibitor });
+  const { data: settings } = useSettings();
+
+  console.log({ exhibitor });
 
   return (
     <div
@@ -130,16 +134,18 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      <Poster1
-        banner={exhibitor.banners.find((banner) => banner.order === 1)}
-        onClick={() => {
-          setOpenPosterModal(true);
-          setSelectedOrder(1);
-          setSelectedBanner(
-            exhibitor.banners.find((banner) => banner.order === 1)
-          );
-        }}
-      />
+      {exhibitor.package_id === 5 && (
+        <Poster1
+          banner={exhibitor.banners.find((banner) => banner.order === 1)}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedOrder(1);
+            setSelectedBanner(
+              exhibitor.banners.find((banner) => banner.order === 1)
+            );
+          }}
+        />
+      )}
       <Poster2
         banner={exhibitor.banners.find((banner) => banner.order === 2)}
         onClick={() => {
@@ -220,24 +226,31 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
           );
         }}
       />
-      <Poster10
-        banner={exhibitor.banners.find((banner) => banner.order === 10)}
-        onClick={() => {
-          setOpenPosterModal(true);
-          setSelectedOrder(10);
-          setSelectedBanner(
-            exhibitor.banners.find((banner) => banner.order === 10)
-          );
-        }}
-      />
+      {exhibitor.package_id === 5 && (
+        <Poster10
+          banner={exhibitor.banners.find((banner) => banner.order === 10)}
+          onClick={() => {
+            setOpenPosterModal(true);
+            setSelectedOrder(10);
+            setSelectedBanner(
+              exhibitor.banners.find((banner) => banner.order === 10)
+            );
+          }}
+        />
+      )}
       <BookingConsultation
         onClick={() => setOpenBookingConsultationModal(true)}
       />
-      <BoothChat
-        onClick={() => setOpenChatModal(true)}
-        company_logo={exhibitor.company_logo}
-        exhibitorId={exhibitor.id}
-      />
+
+      <NoBoothChat company_logo={exhibitor.company_logo} />
+      {settings?.is_chat === "1" && (
+        <BoothChat
+          onClick={() => setOpenChatModal(true)}
+          company_logo={exhibitor.company_logo}
+          exhibitorId={exhibitor.id}
+        />
+      )}
+
       <ButtonVideo
         onClick={() => setOpenVideoModal(true)}
         companyDetails={{
@@ -245,6 +258,7 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
           name: exhibitor.company_name,
           phone: exhibitor.mobile,
           website: exhibitor.company_website,
+          videoURL: exhibitor.company_video_url,
         }}
       />
     </div>

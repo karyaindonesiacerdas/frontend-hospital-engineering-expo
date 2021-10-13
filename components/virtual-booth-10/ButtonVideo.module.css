@@ -9,7 +9,7 @@
   background-position: center;
   background: rgba(255, 255, 255, 0.65);
   color: #00b4bf;
-  border-width: 4px;
+  /* border-width: 4px; */
   border-color: transparent;
   display: flex;
   align-items: center;
@@ -22,4 +22,7 @@
 
 .button svg {
   width: 15%;
+  border-width: 0.4vw;
+  border-color: #00b4bf;
+  border-radius: 50%;
 }
