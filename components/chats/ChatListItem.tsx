@@ -34,7 +34,7 @@ export const ChatListItem = ({
   });
 
   const isOnline = onlineUsers?.find((u) => u.userId === chat?.chatBuddy);
-  console.log({ chat });
+  // console.log({ chat });
 
   // New
   if (user?.role === "exhibitor" && chat.chatBuddy !== 2 && !messages?.length)

@@ -8,7 +8,7 @@ export const ListViewers = () => {
   const [page, setPage] = useState(1);
   const { data: viewers, isLoading, isSuccess } = useViews({ page: page });
 
-  console.log({ viewers });
+  // console.log({ viewers });
 
   return (
     <div>

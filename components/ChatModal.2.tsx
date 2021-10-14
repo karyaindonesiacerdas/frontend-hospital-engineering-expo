@@ -330,7 +330,7 @@ const ChatInput = ({ message, setMessage, handleSubmit }: ChatInputTypes) => {
       <div
         className="mb-1 overflow-hidden flex justify-center w-52 rounded-md shadow relative group cursor-pointer"
         onClick={() => {
-          console.log("hit");
+          // console.log("hit");
         }}
       >
         {previewImg && (

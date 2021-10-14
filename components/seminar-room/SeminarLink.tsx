@@ -6,7 +6,7 @@ import { useSettings } from "hooks/useSettings";
 
 export const SeminarLink = () => {
   const { data } = useSettings();
-  console.log({ data });
+  // console.log({ data });
   return (
     <div className={styles.link}>
       <div className="grid grid-cols-2 gap-0.5 sm:gap-2 p-0 sm:p-1 rounded-lg transform -translate-y-3 sm:translate-y-0 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg">

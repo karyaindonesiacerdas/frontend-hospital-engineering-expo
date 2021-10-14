@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const ButtonVideo = ({ onClick, companyDetails }: Props) => {
-  console.log({ companyDetails });
+  // console.log({ companyDetails });
   const defaultVideo =
     "https://www.youtube.com/watch?v=c-jBYuYOuD0&ab_channel=HospitalEngineeringExpo";
   const videoId = matchYoutubeUrl(companyDetails.videoURL || defaultVideo);

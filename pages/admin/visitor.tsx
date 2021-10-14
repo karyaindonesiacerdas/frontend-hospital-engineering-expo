@@ -37,7 +37,7 @@ const AdminVisitorPage: NextPage = () => {
   const [selectedRundown, setSelectedRundown] = useState<RundownDetail>();
   const { data: statistics } = useBoothStatistics();
 
-  console.log({ statistics });
+  // console.log({ statistics });
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
