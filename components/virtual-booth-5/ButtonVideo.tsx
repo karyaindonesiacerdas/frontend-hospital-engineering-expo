@@ -14,20 +14,26 @@ type Props = {
 };
 
 export const ButtonVideo = ({ onClick, companyDetails }: Props) => {
-  // console.log({ companyDetails });
+  console.log({ companyDetails });
   const defaultVideo =
-    "https://www.youtube.com/watch?v=c0bC3s8VU6k&ab_channel=HospitalEngineeringExpo";
+    "https://www.youtube.com/watch?v=c-jBYuYOuD0&ab_channel=HospitalEngineeringExpo";
   const videoId = matchYoutubeUrl(companyDetails.videoURL || defaultVideo);
 
-  const previewURL = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  // const previewURL = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  // const previewURLDefault = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  // const previewURL =
+  //   `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` || previewURLDefault;
   // console.log({ previewURL });
+  const previewURL = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+
   return (
     <div className="group">
       <button
         style={{
+          // backgroundColor: "black",
           backgroundImage: `url(${previewURL})`,
           backgroundPosition: "center",
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           overflow: "hidden",
         }}

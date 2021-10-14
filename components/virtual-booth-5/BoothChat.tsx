@@ -55,15 +55,15 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
         <button
           onClick={handleClick}
           className={styles.button}
-          style={{
-            backgroundImage: company_logo
-              ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
-              : "url('/logo-placeholder.svg')",
-          }}
+          // style={{
+          //   backgroundImage: company_logo
+          //     ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
+          //     : "url('/logo-placeholder.svg')",
+          // }}
         >
-          <div className="absolute group-hover:bg-primary text-white flex justify-center items-center rounded-full border-transparent hover:border-primary">
+          <div className="absolute bg-primary text-white flex justify-center items-center rounded-full border-transparent border-primary">
             <svg
-              className="hidden group-hover:block w-10 h-10"
+              className="w-10 h-10"
               width="24"
               height="24"
               fill="none"
@@ -99,9 +99,9 @@ type NoBoothProps = {
 export const NoBoothChat = ({ company_logo }: NoBoothProps) => {
   return (
     <div>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapperLogo}>
         <div
-          className={styles.button}
+          className={styles.buttonLogo}
           style={{
             backgroundImage: company_logo
               ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`

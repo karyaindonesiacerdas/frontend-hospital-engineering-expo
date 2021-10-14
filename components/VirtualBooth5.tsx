@@ -54,6 +54,8 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const { data: settings } = useSettings();
   // console.log({ dataUser });
 
+  console.log({ exhibitor });
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (
@@ -222,7 +224,11 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           onClick={() => setOpenBookingConsultationModal(true)}
         />
       )}
-      {settings?.is_chat === "1" && exhibitor?.package_id === 3 ? (
+      <NoBoothChat company_logo={exhibitor.company_logo} />
+      <BoothCS />
+      {settings?.is_chat === "1" &&
+      (exhibitor?.package_id === 3 ||
+        exhibitor?.ala_carte?.includes("chat")) ? (
         <BoothChat
           onClick={() => setOpenChatModal(true)}
           company_logo={exhibitor.company_logo}
@@ -241,8 +247,6 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
           videoURL: exhibitor.company_video_url,
         }}
       />
-
-      <BoothCS />
     </div>
   );
 };
