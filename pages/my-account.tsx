@@ -133,6 +133,7 @@ const MyAccountPage: NextPage = () => {
         {settings?.is_chat === "1" &&
           (user?.role !== "exhibitor" ||
             user?.id === 2 ||
+            user?.ala_carte?.includes("chat") ||
             [3, 4, 5].includes(dataUser?.package_id)) && (
             <div
               className="fixed right-4 lg:right-6 bottom-4 lg:bottom-6 z-10"
@@ -150,6 +151,7 @@ const MyAccountPage: NextPage = () => {
           {settings?.is_chat === "1" &&
             (user?.role !== "exhibitor" ||
               user?.id === 2 ||
+              user?.ala_carte?.includes("chat") ||
               [3, 4, 5].includes(dataUser?.package_id)) && (
               <ChatModal open={openChatModal} setOpen={setOpenChatModal} />
             )}

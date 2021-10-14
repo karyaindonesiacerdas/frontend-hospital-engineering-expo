@@ -63,7 +63,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
           // }}
         >
           <div className="absolute inset-0 bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent border-[#00b4bf]">
-            <svg
+            {/* <svg
               className="w-10 h-10"
               width="24"
               height="24"
@@ -83,6 +83,44 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
                 strokeLinejoin="round"
                 strokeWidth="1.5"
                 d="M14 5.02936C16.4312 5.72562 18.3396 7.65944 19 10.1056"
+              />
+            </svg> */}
+            <svg
+              className="w-10 h-10"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="8"
+                r="3.25"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+              />
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M12.25 19.25H6.94953C5.77004 19.25 4.88989 18.2103 5.49085 17.1954C6.36247 15.7234 8.23935 14 12.25 14"
+              />
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M17 14.75V19.25"
+              />
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M19.25 17L14.75 17"
               />
             </svg>
           </div>

@@ -227,16 +227,16 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
       <NoBoothChat company_logo={exhibitor.company_logo} />
       <BoothCS />
       {settings?.is_chat === "1" &&
-      (exhibitor?.package_id === 3 ||
-        exhibitor?.ala_carte?.includes("chat")) ? (
-        <BoothChat
-          onClick={() => setOpenChatModal(true)}
-          company_logo={exhibitor.company_logo}
-          exhibitorId={exhibitor.id}
-        />
-      ) : (
-        <NoBoothChat company_logo={exhibitor.company_logo} />
-      )}
+        user?.role !== "exhibitor" &&
+        exhibitor.id !== user.id &&
+        (exhibitor?.package_id === 3 ||
+          exhibitor?.ala_carte?.includes("chat")) && (
+          <BoothChat
+            onClick={() => setOpenChatModal(true)}
+            company_logo={exhibitor.company_logo}
+            exhibitorId={exhibitor.id}
+          />
+        )}
       <ButtonVideo
         onClick={() => setOpenVideoModal(true)}
         companyDetails={{

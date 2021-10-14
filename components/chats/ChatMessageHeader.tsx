@@ -66,7 +66,7 @@ export const ChatMessageHeader = ({
             objectFit="cover"
             className="h-8 w-8 rounded-full"
             src={
-              img_profile
+              img_profile && img_profile !== "undefined"
                 ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${img_profile}`
                 : `https://ui-avatars.com/api/?name=${name}`
             }

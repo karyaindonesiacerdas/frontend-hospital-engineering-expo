@@ -34,9 +34,11 @@ export const ChatListItem = ({
   });
 
   const isOnline = onlineUsers?.find((u) => u.userId === chat?.chatBuddy);
+  console.log({ chat });
 
   // New
-  if (user?.role === "exhibitor" && !messages?.length) return null;
+  if (user?.role === "exhibitor" && chat.chatBuddy !== 2 && !messages?.length)
+    return null;
 
   if (
     !data?.name.toLowerCase()?.includes(searchTerm?.toLowerCase()) &&
@@ -48,6 +50,8 @@ export const ChatListItem = ({
   if (isLoading) {
     return <div className="bg-gray-200 w-full h-16 animate-pulse p-2"></div>;
   }
+
+  // console.log({ data });
 
   return (
     <li
@@ -70,7 +74,7 @@ export const ChatListItem = ({
           objectFit="cover"
           className="hidden sm:block rounded-full"
           src={
-            data?.img_profile
+            data?.img_profile && data?.img_profile !== "undefined"
               ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/profiles/${data?.img_profile}`
               : `https://ui-avatars.com/api/?name=${data?.name}`
           }

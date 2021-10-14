@@ -273,7 +273,7 @@ export const VirtualBooth10 = ({ exhibitor }: Props) => {
       />
 
       <NoBoothChat company_logo={exhibitor.company_logo} />
-      {settings?.is_chat === "1" && (
+      {settings?.is_chat === "1" && user?.role !== "exhibitor" && (
         <BoothChat
           onClick={() => setOpenChatModal(true)}
           company_logo={exhibitor.company_logo}
