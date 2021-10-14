@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ListConsultation } from "@/components/admin/ListConsultation";
+import { Tab } from "@headlessui/react";
 
 import { ChatButton } from "@/components/ChatButton";
 import { Navbar } from "@/components/Navbar";
@@ -237,14 +239,50 @@ const AdminConsultationPage: NextPage = () => {
             <BackButton href="/admin" text="Admin" />
           </div>
 
+          <Tab.Group>
+            <Tab.List className="grid grid-cols-2 gap-2 mb-2">
+              <Tab>
+                {({ selected }) => (
+                  <div
+                    className={`p-2 font-bold text-lg uppercase bg-white rounded-md shadow ${
+                      selected ? "bg-primary-600 text-white" : "bg-white"
+                    }`}
+                  >
+                    Action
+                  </div>
+                )}
+              </Tab>
+              <Tab>
+                {({ selected }) => (
+                  <div
+                    className={`p-2 font-bold text-lg uppercase bg-white rounded-md shadow ${
+                      selected ? "bg-primary-600 text-white" : "bg-white"
+                    }`}
+                  >
+                    List
+                  </div>
+                )}
+              </Tab>
+            </Tab.List>
+            <Tab.Panels>
+              <Tab.Panel>
+                {" "}
+                <PaginationTable
+                  showFooter={false}
+                  data={data || []}
+                  columns={columns}
+                  isLoading={isLoadingConsultations}
+                  skeletonCols={4}
+                />
+              </Tab.Panel>
+              <Tab.Panel>
+                <div className="overflow-hidden">
+                  <ListConsultation dataConsultations={dataConsultations} />
+                </div>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
           {/* Table */}
-          <PaginationTable
-            showFooter={false}
-            data={data || []}
-            columns={columns}
-            isLoading={isLoadingConsultations}
-            skeletonCols={4}
-          />
         </div>
       </main>
     </div>

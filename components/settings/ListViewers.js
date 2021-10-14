@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useViews } from "hooks/useViews";
 import React from "react";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 // import { PaginationTable } from "../common/table";
 
 export const ListViewers = () => {
@@ -13,11 +14,22 @@ export const ListViewers = () => {
   return (
     <div>
       {/* Table */}
+      <ReactHTMLTableToExcel
+        id="test-table-xls-button"
+        className="download-table-xls-button bg-primary-600 px-3 py-1 text-white hover:bg-primary-700 mb-2 rounded-md shadow"
+        table="table-to-xls"
+        filename="tablexls"
+        sheet="tablexls"
+        buttonText="Download as XLS"
+      />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table
+                id="table-to-xls"
+                className="min-w-full divide-y divide-gray-200"
+              >
                 <thead className="bg-gray-50">
                   <tr>
                     <th

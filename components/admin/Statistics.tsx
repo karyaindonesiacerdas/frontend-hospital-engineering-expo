@@ -1,6 +1,7 @@
 import { parseCookies } from "nookies";
 import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import CountUp from "react-countup";
 
 const Statistics = () => {
   const [statistics, setStatistics] = useState<any[]>([]);
@@ -112,20 +113,27 @@ const Statistics = () => {
       <div className="grid grid-cols-2 gap-6">
         <div className="mb-6 p-6 bg-white rounded-md shadow">
           <div className="text-xl text-center mb-2">Total Visitor</div>
-          <div className="text-4xl font-bold text-center">{totalVisitor}</div>
+          <div className="text-4xl font-bold text-center">
+            <CountUp end={totalVisitor} duration={1} />
+          </div>
         </div>
         <div className="mb-6 p-6 bg-white rounded-md shadow">
           <div className="text-xl text-center mb-2">Total Unique Visitor</div>
           <div className="text-4xl font-bold text-center">
-            {
-              statisticsAccumulative.map((statistic) => statistic.total)[
-                statisticsAccumulative.length - 1
-              ]
-            }
+            <CountUp
+              end={
+                statisticsAccumulative.map((statistic) => statistic.total)[
+                  statisticsAccumulative.length - 1
+                ]
+              }
+              duration={1}
+            />
           </div>
         </div>
       </div>
-      {statistics.length && statisticsPerProvince ? (
+      {statistics.length &&
+      statisticsPerProvince.length &&
+      setStatisticsAccumulative.length ? (
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-white p-3 shadow rounded-md">
             <Chart
