@@ -4,6 +4,9 @@ import Chart from "react-apexcharts";
 
 const Statistics = () => {
   const [statistics, setStatistics] = useState<any[]>([]);
+  const [statisticsAccumulative, setStatisticsAccumulative] = useState<any[]>(
+    []
+  );
   const [statisticsPerProvince, setStatisticsPerProvince] = useState<any[]>([]);
   // const [total, setTotal] = useState(0);
   const cookies = parseCookies();
@@ -60,10 +63,43 @@ const Statistics = () => {
     fetchStatisticsPerProvince();
   }, [cookies.access_token]);
 
+  useEffect(() => {
+    const fetchStatisticsAccumulative = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tracker/graph-accumulative`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Error get statistics accumulative");
+        }
+
+        const json = await res.json();
+        setStatisticsAccumulative(json.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStatisticsAccumulative();
+  }, [cookies.access_token]);
+
   const series = [
     {
       name: "Visitor",
       data: statistics.map((statistic) => statistic.total),
+    },
+  ];
+
+  const series2 = [
+    {
+      name: "Visitor Accumulative",
+      data: statisticsAccumulative.map((statistic) => statistic.total),
     },
   ];
 
@@ -73,9 +109,21 @@ const Statistics = () => {
 
   return (
     <>
-      <div className="mb-6 p-6 bg-white rounded-md shadow">
-        <div className="text-xl text-center mb-2">Total Visitor</div>
-        <div className="text-4xl font-bold text-center">{totalVisitor}</div>
+      <div className="grid grid-cols-2 gap-6">
+        <div className="mb-6 p-6 bg-white rounded-md shadow">
+          <div className="text-xl text-center mb-2">Total Visitor</div>
+          <div className="text-4xl font-bold text-center">{totalVisitor}</div>
+        </div>
+        <div className="mb-6 p-6 bg-white rounded-md shadow">
+          <div className="text-xl text-center mb-2">Total Unique Visitor</div>
+          <div className="text-4xl font-bold text-center">
+            {
+              statisticsAccumulative.map((statistic) => statistic.total)[
+                statisticsAccumulative.length - 1
+              ]
+            }
+          </div>
+        </div>
       </div>
       {statistics.length && statisticsPerProvince ? (
         <div className="grid grid-cols-2 gap-6">
@@ -115,6 +163,48 @@ const Statistics = () => {
                 },
               }}
               series={series}
+              type="area"
+              width="100%"
+            />
+          </div>
+          <div className="bg-white p-3 shadow rounded-md">
+            <Chart
+              options={{
+                chart: {
+                  height: 350,
+                  type: "area",
+                },
+                dataLabels: {
+                  enabled: false,
+                },
+                stroke: {
+                  curve: "smooth",
+                },
+                xaxis: {
+                  type: "datetime",
+                  categories: statisticsAccumulative.map(
+                    (statistic) => statistic.date
+                  ),
+                },
+                yaxis: {
+                  min: 0,
+                  // max: 240,
+                  title: {
+                    text: "Visitor Accumulative",
+                  },
+                },
+                tooltip: {
+                  x: {
+                    format: "dd/MM/yy HH:mm",
+                  },
+                },
+
+                title: {
+                  text: "Visitor Accumulative",
+                  align: "left",
+                },
+              }}
+              series={series2}
               type="area"
               width="100%"
             />
