@@ -62,7 +62,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
           //     : "url('/logo-placeholder.svg')",
           // }}
         >
-          <div className="absolute inset-0 bg-[#00b4bf] text-white flex justify-center items-center rounded-full border-transparent border-[#00b4bf]">
+          <div className="absolute inset-0 bg-red-500 text-white flex justify-center items-center rounded-full border-transparent border-red-500 group">
             {/* <svg
               className="w-10 h-10"
               width="24"
@@ -86,7 +86,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
               />
             </svg> */}
             <svg
-              className="w-10 h-10"
+              className="w-10 h-10 group-hover:block hidden"
               width="24"
               height="24"
               fill="none"
@@ -123,6 +123,12 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
                 d="M19.25 17L14.75 17"
               />
             </svg>
+            <span
+              className="group-hover:hidden block font-semibold"
+              style={{ fontSize: "0.9vw" }}
+            >
+              Add Contact
+            </span>
           </div>
           <span className="sr-only">Open Chat</span>
         </button>

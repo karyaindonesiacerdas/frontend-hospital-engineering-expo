@@ -18,9 +18,13 @@ export const ChatButton = ({ onClick, openChatModal }: Props) => {
           }
           onClick && onClick(e);
         }}
-        className={`bg-white bg-opacity-30 hover:bg-primary-50 transition-all duration-200 p-1.5 rounded-full shadow-2xl backdrop-filter backdrop-blur-lg `}
+        className={`bg-white bg-opacity-50 hover:bg-primary-50 transition-all duration-200 p-2 rounded-full shadow-2xl backdrop-filter backdrop-blur-lg `}
       >
-        <img className="w-16 h-1w-16" src="/chat-icon.png" alt="Chat Icon" />
+        <img
+          className="w-16 h-16 lg:w-20 lg:h-20"
+          src="/chat-icon.png"
+          alt="Chat Icon"
+        />
       </button>
 
       {/* New Message Indicator */}

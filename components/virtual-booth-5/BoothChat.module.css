@@ -1,9 +1,9 @@
 .wrapper {
   perspective: 1000px;
   position: absolute;
-  top: 67%;
-  left: 31%;
-  width: 10%;
+  top: 66%;
+  left: 30.25%;
+  width: 12%;
   aspect-ratio: 3/2;
   
 }
