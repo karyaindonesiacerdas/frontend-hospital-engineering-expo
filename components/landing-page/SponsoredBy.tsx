@@ -97,6 +97,13 @@ export const SponsoredBy = () => {
               alt="paramount"
             />
           </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/7energi.png"
+              alt="7 Energi"
+            />
+          </div>
           <div className="flex items-center justify-center h-36 p-6">
             <img
               className="object-contain h-full"
@@ -252,6 +259,13 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/paramount.png"
                 alt="paramount"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/7energi.png"
+                alt="7 Energi"
               />
             </div>
             <div className="flex items-center justify-center h-24 mx-6 p-6">
