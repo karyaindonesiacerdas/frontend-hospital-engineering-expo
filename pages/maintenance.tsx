@@ -25,7 +25,7 @@ const MainHall: NextPage = () => {
           Maintenance
         </h1>
         <h2 className="mt-2 text-4xl font-bold text-center text-primary-600">
-          We will back soon
+          We will be back soon
         </h2>
         <div ref={container}></div>
         <div className="flex justify-center">
