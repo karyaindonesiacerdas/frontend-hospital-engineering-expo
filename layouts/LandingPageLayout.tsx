@@ -13,7 +13,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
   return (
     <>
       <div className="bg-white border-gray-200 border">
-        <div className="max-w-7xl mx-auto text-white rounded-md overflow-hidden backdrop-filter backdrop-blur-xl">
+        <div className="text-white rounded-md overflow-hidden backdrop-filter backdrop-blur-xl">
           <Marquee
             speed={80}
             gradient={true}

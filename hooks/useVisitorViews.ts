@@ -2,17 +2,19 @@ import axios from "axios";
 import { parseCookies } from "nookies";
 import { useQuery } from "react-query";
 
+export type Counter = {
+  id: number;
+  exhibitor: {
+    id: number;
+    company_name: string;
+  };
+};
+
 export type View = {
   id: number;
-  exhibitor_id: number;
-  visitor: {
-    name: string;
-    institution_name: string;
-    email: string;
-    mobile: string;
-    allow_share_info: number;
-    province: string;
-  };
+  name: string;
+  institution_name: string;
+  counters: Counter[];
 };
 
 type Response = {
@@ -24,15 +26,15 @@ type Response = {
   prev_page_url: string | null;
 };
 
-export const useViews = ({ page }: { page: number }) => {
+export const useVisitorViews = ({ page }: { page: number }) => {
   const cookies = parseCookies();
 
   return useQuery<Response, Error>(
-    ["views", page],
+    ["visitor-views", page],
     () =>
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_URL}/list-visitor-views?page=${page}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/admin/list-visitor-booth-views?page=${page}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.access_token}`,
