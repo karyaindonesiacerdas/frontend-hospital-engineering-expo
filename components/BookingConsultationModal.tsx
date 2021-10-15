@@ -101,7 +101,8 @@ const timeSlots: TimeSlots = {
   ],
 };
 
-const dateSlots = ["2021-10-02", "2021-10-16", "2021-11-06"];
+// const dateSlots = ["2021-10-02", "2021-10-16", "2021-11-06"];
+const dateSlots = ["2021-10-02", "2021-10-16"];
 
 type AvailableTime = {
   id: number;
