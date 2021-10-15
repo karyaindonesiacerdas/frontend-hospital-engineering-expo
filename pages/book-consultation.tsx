@@ -262,6 +262,7 @@ const AboutHEF: NextPage = () => {
                       className="input-text"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      disabled
                     />
                   </div>
                 </div>
