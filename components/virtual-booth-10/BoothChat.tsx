@@ -132,7 +132,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
               className="group-hover:hidden block font-semibold"
               style={{ fontSize: "0.9vw" }}
             >
-              {isLoading ? "Loading.." : "Add Contact"}
+              {isLoading ? "Loading.." : "First Time Chat"}
             </span>
           </div>
           <span className="sr-only">Open Chat</span>
