@@ -40,6 +40,14 @@ const Exhibitors: NextPage = () => {
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
 
+  // =================================
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
+      router.push("/maintenance");
+    }
+  }, [router]);
+  // =================================
+
   // Check is user authenticated
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {

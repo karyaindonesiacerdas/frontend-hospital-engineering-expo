@@ -43,6 +43,14 @@ const Login: NextPage = () => {
   const cookies = parseCookies();
   // console.log({ isLoading, isAuthenticated });
 
+  // =================================
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
+      router.push("/maintenance");
+    }
+  }, [router]);
+  // =================================
+
   useEffect(() => {
     if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
       router.push("/main-hall");

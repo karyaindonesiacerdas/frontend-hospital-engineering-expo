@@ -30,6 +30,14 @@ const MainHall: NextPage = () => {
   const { data: dataUser } = useUser();
   const cookies = parseCookies();
 
+  // =================================
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
+      router.push("/maintenance");
+    }
+  }, [router]);
+  // =================================
+
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");

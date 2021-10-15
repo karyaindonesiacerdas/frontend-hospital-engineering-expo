@@ -69,6 +69,14 @@ const RegisterExhibitor: NextPage = () => {
   const confirmPasswordWatch = watch("password_confirmation");
   const countryWatch = watch("country");
 
+  // =================================
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
+      router.push("/maintenance");
+    }
+  }, [router]);
+  // =================================
+
   useEffect(() => {
     if (!isLoading && isAuthenticated && cookies.access_token && cookies.user) {
       router.push("/main-hall");
