@@ -456,7 +456,8 @@ const AboutHEF: NextPage = () => {
                     !time ||
                     !name ||
                     !email ||
-                    !mobile
+                    !mobile ||
+                    !institutionName
                   }
                 >
                   {isLoading ? (
