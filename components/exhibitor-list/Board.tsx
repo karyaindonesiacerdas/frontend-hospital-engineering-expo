@@ -143,6 +143,12 @@ const Board = ({ _exhibitors }: Props) => {
                                   if (bn === "Hospital Informatics") {
                                     return "Informatics";
                                   }
+                                  if (
+                                    bn === "Hospital Devices" &&
+                                    exhibitor.id === 590
+                                  ) {
+                                    return "Devices, Medical Gas";
+                                  }
                                   if (bn === "Hospital Devices") {
                                     return "Devices";
                                   }

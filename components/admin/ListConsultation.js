@@ -1,8 +1,8 @@
 import { useMemo } from "react";
+
 import { PaginationTable } from "../common/table";
 
 export const ListConsultation = ({ dataConsultations }) => {
-  console.log({ dataConsultations });
   const data = useMemo(
     () =>
       dataConsultations?.map((consultation) => ({
