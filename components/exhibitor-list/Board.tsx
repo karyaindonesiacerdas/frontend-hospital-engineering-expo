@@ -29,7 +29,7 @@ const Board = ({ _exhibitors }: Props) => {
   );
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
-
+  //
   // console.log({ exhibitors });
 
   return (

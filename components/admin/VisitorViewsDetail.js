@@ -8,10 +8,14 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 export const VisitorViewsDetail = () => {
   const [page, setPage] = useState(1);
-  const { data: viewers, isLoading, isSuccess } = useViews({ page: page });
+  const {
+    data: viewers,
+    isLoading,
+    isSuccess,
+  } = useViews({ page: page, limit: 1000 });
   // const { data } = useVisitorViews({ page });
 
-  // console.log({ viewers });
+  console.log({ viewers });
   // console.log({ data });
 
   return (
@@ -68,12 +72,6 @@ export const VisitorViewsDetail = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div className="h-4 bg-gray-200 animate-pulse"></div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div className="h-4 bg-gray-200 animate-pulse"></div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div className="h-4 bg-gray-200 animate-pulse"></div>
-                          </td>
                         </tr>
                       ))
                     : viewers?.data?.map((viewer) => (
@@ -85,7 +83,7 @@ export const VisitorViewsDetail = () => {
                             {viewer.visitor.institution_name}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {viewer.exhibitor_id}
+                            {viewer.exhibitor?.company_name}
                           </td>
                         </tr>
                       ))}

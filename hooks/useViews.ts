@@ -13,6 +13,10 @@ export type View = {
     allow_share_info: number;
     province: string;
   };
+  exhibitor: {
+    id: number;
+    company_name: string;
+  };
 };
 
 type Response = {
@@ -24,7 +28,12 @@ type Response = {
   prev_page_url: string | null;
 };
 
-export const useViews = ({ page }: { page: number }) => {
+type Props = {
+  page: number;
+  limit?: number;
+};
+
+export const useViews = ({ page, limit = 50 }: Props) => {
   const cookies = parseCookies();
 
   return useQuery<Response, Error>(
@@ -32,7 +41,7 @@ export const useViews = ({ page }: { page: number }) => {
     () =>
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_URL}/list-visitor-views?page=${page}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/list-visitor-views?page=${page}&limit=${limit}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.access_token}`,
