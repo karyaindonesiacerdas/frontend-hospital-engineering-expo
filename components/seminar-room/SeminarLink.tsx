@@ -17,7 +17,7 @@ export const SeminarLink = () => {
         </Link> */}
         <a
           className="flex items-center justify-center py-1 sm:py-0 bg-red-50 text-red-500 hover:text-white font-bold sm:rounded-md cursor-pointer hover:bg-red-500 transition"
-          href={data?.webinar_link}
+          href={data?.youtube_link}
           target="_blank"
           rel="noreferrer"
         >

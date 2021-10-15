@@ -48,7 +48,7 @@ export const AddRundown = ({ open, setOpen }: Props) => {
       title,
       subtitle,
       speakers,
-      embedd_link: "",
+      embedd_link: "-",
       date,
       time,
       position,
