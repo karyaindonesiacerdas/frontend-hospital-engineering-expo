@@ -6,7 +6,6 @@ import { CheckCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
 import { Navbar } from "@/components/landing-page";
-import { SubmitButton } from "@/components/common";
 import toast from "react-hot-toast";
 
 type TimeSlots = {
@@ -177,6 +176,24 @@ const AboutHEF: NextPage = () => {
         mobile,
       };
       console.log(data);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/guest`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("booking failed");
+      }
+
+      const json = await res.json();
+      console.log({ json });
 
       toast.success("Booking success", { position: "top-right" });
       setStep(3);
