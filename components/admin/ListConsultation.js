@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 import { PaginationTable } from "../common/table";
 
@@ -69,6 +70,16 @@ export const ListConsultation = ({ dataConsultations }) => {
         columns={columns}
         // isLoading={isLoadingConsultations}
         skeletonCols={4}
+        action={
+          <ReactHTMLTableToExcel
+            id="test-table-xls-button"
+            className="download-table-xls-button bg-white px-3 py-1 text-primary-600 hover:bg-primary-600 hover:text-white mb-2 rounded-md shadow"
+            table="table-to-xls"
+            filename="tablexls"
+            sheet="tablexls"
+            buttonText="Download as XLS"
+          />
+        }
       />
     </div>
   );

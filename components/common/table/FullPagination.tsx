@@ -17,6 +17,7 @@ interface FullPaginationProps {
   pageIndex: number;
   pageSize: number;
   setPageSize: Function;
+  totalData: number;
 }
 
 export const FullPagination = ({
@@ -32,6 +33,7 @@ export const FullPagination = ({
   pageIndex,
   pageSize,
   setPageSize,
+  totalData,
 }: FullPaginationProps) => {
   return (
     <nav
@@ -72,6 +74,7 @@ export const FullPagination = ({
                 {v}
               </option>
             ))}
+            <option value={totalData}>All</option>
           </select>
         </span>
         <button

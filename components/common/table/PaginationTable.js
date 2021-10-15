@@ -88,6 +88,7 @@ export const PaginationTable = ({
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-md">
             <table
+              id="table-to-xls"
               className="min-w-full divide-y divide-gray-200"
               {...getTableProps()}
             >
@@ -181,6 +182,7 @@ export const PaginationTable = ({
             pageIndex={pageIndex}
             pageSize={pageSize}
             setPageSize={setPageSize}
+            totalData={data?.length}
           />
         </div>
       )}
