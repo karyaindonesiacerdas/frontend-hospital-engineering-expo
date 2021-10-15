@@ -39,6 +39,14 @@ const AdminWebinarPage: NextPage = () => {
 
   const { data: rundowns, isLoading: isLoadingRundowns } = useRundowns();
 
+  // =================================
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
+      router.push("/maintenance");
+    }
+  }, [router]);
+  // =================================
+
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");

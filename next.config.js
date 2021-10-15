@@ -34,6 +34,7 @@ module.exports = {
       "images.unsplash.com",
       "ui-avatars.com",
       "api.hospital-engineering-expo.com",
+      "expo.sehat-ri.net",
     ],
   },
   i18n,
