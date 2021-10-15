@@ -39,7 +39,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
                 Chint Electric &quot;Empower The World&quot;
               </span>
             </a>
-            <div className="mx-28 font-semibold">
+            <div className="mx-28 font-semibold text-primary-600">
               The 2nd day of the event will be held on October 16, 2021!
             </div>
             {/* <img
@@ -77,7 +77,18 @@ export const LandingPageLayout: React.FC = ({ children }) => {
                   Texcell, Perancis
                 </div>
               </div>
+              <Image
+                src="/sponsor/panasonic-shield.png"
+                alt="Panasonic"
+                height={60}
+                width={100}
+                objectFit="contain"
+                className="bg-white"
+              />
             </a>
+            <div className="mx-28 font-semibold text-primary-600">
+              The 2nd day of the event will be held on October 16, 2021!
+            </div>
           </Marquee>
           {/* <Marquee
             speed={80}
