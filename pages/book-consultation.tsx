@@ -112,6 +112,7 @@ const AboutHEF: NextPage = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [institutionName, setInstitutionName] = useState("");
   // const [isExists, setIsExists] = useState(false);
   const [step, setStep] = useState(1);
   const [exhibitors, setExhibitors] = useState<any[]>([]);
@@ -161,7 +162,15 @@ const AboutHEF: NextPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!selectedExhibitor || !date || !time || !name || !email || !mobile) {
+    if (
+      !selectedExhibitor ||
+      !date ||
+      !time ||
+      !name ||
+      !email ||
+      !mobile ||
+      !institutionName
+    ) {
       return;
     }
 
@@ -174,6 +183,7 @@ const AboutHEF: NextPage = () => {
         email,
         name,
         mobile,
+        institution_name: institutionName,
       };
       console.log(data);
 
@@ -284,6 +294,22 @@ const AboutHEF: NextPage = () => {
                       className="input-text"
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="institution_name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Nama Institusi
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="institution_name"
+                      className="input-text"
+                      value={institutionName}
+                      onChange={(e) => setInstitutionName(e.target.value)}
                     />
                   </div>
                 </div>
