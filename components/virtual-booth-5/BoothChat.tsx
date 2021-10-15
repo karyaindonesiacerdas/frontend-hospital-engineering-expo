@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts/auth.context";
-import React from "react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styles from "./BoothChat.module.css";
 
@@ -12,6 +12,7 @@ type Props = {
 export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     if (!user.id || !exhibitorId || user.id === exhibitorId) {
@@ -25,6 +26,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
     };
 
     try {
+      setIsLoading(true);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_CHAT_API}/conversations`,
         {
@@ -42,9 +44,11 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
 
       await res.json();
       await queryClient.invalidateQueries(["conversations"]);
+      setIsLoading(false);
 
       onClick(e);
     } catch (error) {
+      setIsLoading(false);
       console.log({ error });
     }
   };
@@ -55,6 +59,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
         <button
           onClick={handleClick}
           className={styles.button}
+          disabled={isLoading}
           // style={{
           //   backgroundImage: company_logo
           //     ? `url(${process.env.NEXT_PUBLIC_STORAGE_URL}/companies/${company_logo})`
@@ -126,7 +131,7 @@ export const BoothChat = ({ onClick, company_logo, exhibitorId }: Props) => {
               className="group-hover:hidden block font-semibold"
               style={{ fontSize: "1.1vw" }}
             >
-              Add Contact
+              {isLoading ? "Loading" : "Add Contact"}
             </span>
           </div>
           <span className="sr-only">Add Contact</span>
