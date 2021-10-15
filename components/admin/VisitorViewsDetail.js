@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useViews } from "hooks/useViews";
 import React from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import { useVisitorViews } from "hooks/useVisitorViews";
+// import { useVisitorViews } from "hooks/useVisitorViews";
 // import { PaginationTable } from "../common/table";
 
 export const VisitorViewsDetail = () => {
