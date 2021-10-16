@@ -42,7 +42,8 @@ const Consultation: NextPage = () => {
     if (
       !isLoadingUser &&
       dataUser?.role === "exhibitor" &&
-      ![3, 4, 5].includes(dataUser?.package_id)
+      ![3, 4, 5].includes(dataUser?.package_id) &&
+      !dataUser?.ala_carte?.includes("open_consultation")
     ) {
       router.push("/main-hall");
     }

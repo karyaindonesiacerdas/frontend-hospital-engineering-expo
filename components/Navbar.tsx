@@ -350,7 +350,8 @@ export const Navbar = ({ variant = "light", currentHref }: Props) => {
                     if (
                       item.name === "Consultation" &&
                       dataUser?.role === "exhibitor" &&
-                      ![3, 4, 5].includes(dataUser?.package_id)
+                      ![3, 4, 5].includes(dataUser?.package_id) &&
+                      !dataUser?.ala_carte?.includes("open_consultation")
                     ) {
                       return false;
                     }
