@@ -3,7 +3,6 @@ import { useState, useEffect, useMemo } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { ListConsultation } from "@/components/admin/ListConsultation";
 import { Tab } from "@headlessui/react";
 
 import { ChatButton } from "@/components/ChatButton";
@@ -17,6 +16,8 @@ import { UpdateStatus } from "@/components/consultation/UpdateStatus";
 import { BackButton } from "@/components/BackButton";
 import { useSettings } from "hooks/useSettings";
 import { DeleteConsultation } from "@/components/consultation/DeleteConsultation";
+import { ListConsultation } from "@/components/admin/ListConsultation";
+import { ActionConsultation } from "@/components/admin/ActionConsultation";
 
 const tabs = [
   { name: "Statistics", href: "/admin/statistics", current: false },
@@ -46,6 +47,8 @@ const AdminConsultationPage: NextPage = () => {
   } = useConsultations();
   const { data: settings } = useSettings();
 
+  // console.log({ dataConsultations });
+
   // =================================
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_WEB_STATUS === "maintenance") {
@@ -66,118 +69,118 @@ const AdminConsultationPage: NextPage = () => {
     }
   }, [router, user, isLoading]);
 
-  const data = useMemo(
-    () =>
-      isSuccessConsultations &&
-      dataConsultations?.map((consultation) => ({
-        id: consultation.id,
-        date: consultation.date,
-        time: consultation.time,
-        exhibitor: consultation.exhibitor?.company_name,
-        visitor: consultation.visitor,
-        status: consultation.status,
-      })),
-    [isSuccessConsultations, dataConsultations]
-  );
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Date",
-        Footer: "Date",
-        accessor: "date",
-      },
-      {
-        Header: "Time",
-        Footer: "Time",
-        accessor: "time",
-      },
-      {
-        Header: "Exhibitor",
-        Footer: "Exhibitor",
-        accessor: "exhibitor",
-      },
-      {
-        Header: "Visitor",
-        Footer: "Visitor",
-        accessor: "visitor",
-        Cell: ({ value }: any) => (
-          <div>
-            <div className="text-gray-900">{value?.name}</div>
-            <div className="text-sm text-gray-500">
-              {value?.institution_name}
-            </div>
-            <div className="text-sm text-gray-500">{value?.mobile}</div>
-          </div>
-        ),
-      },
-      {
-        Header: "Status",
-        Footer: "Status",
-        accessor: "status",
-        Cell: ({ value }: any) => (
-          <div>
-            {value === 3 ? (
-              <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
-                Done
-              </span>
-            ) : value === 4 ? (
-              <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-red-100 text-red-800">
-                Timeout
-              </span>
-            ) : value === 2 ? (
-              <a
-                href={settings?.zoom_business_link}
-                target="_blank"
-                rel="noreferrer"
-                className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
-              >
-                Join Zoom
-              </a>
-            ) : value === 1 ? (
-              <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-gray-100 text-gray-800">
-                Upcoming
-              </span>
-            ) : null}
-          </div>
-        ),
-      },
-      {
-        Header: "Action",
-        Footer: "Action",
-        Cell: ({ row }: any) => {
-          return (
-            <div className="flex space-x-3">
-              <button
-                className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
-                onClick={() => {
-                  setSelectedConsultation({
-                    id: row.original.id,
-                    status: row.original.status,
-                  });
-                  setOpenChangeStatusModal(true);
-                }}
-              >
-                Update Status
-              </button>
-              <button
-                onClick={() => {
-                  setSelectedConsultation({
-                    id: row.original.id,
-                    status: row.original.status,
-                  });
-                  setOpenDeleteModal(true);
-                }}
-                className="text-sm font-medium text-red-600 hover:text-red-700"
-              >
-                Delete
-              </button>
-            </div>
-          );
-        },
-      },
-    ],
-    [settings?.zoom_business_link]
-  );
+  // const data = useMemo(
+  //   () =>
+  //     isSuccessConsultations &&
+  //     dataConsultations?.map((consultation) => ({
+  //       id: consultation.id,
+  //       date: consultation.date,
+  //       time: consultation.time,
+  //       exhibitor: consultation.exhibitor?.company_name,
+  //       visitor: consultation.visitor,
+  //       status: consultation.status,
+  //     })),
+  //   [isSuccessConsultations, dataConsultations]
+  // );
+  // const columns = useMemo(
+  //   () => [
+  //     {
+  //       Header: "Date",
+  //       Footer: "Date",
+  //       accessor: "date",
+  //     },
+  //     {
+  //       Header: "Time",
+  //       Footer: "Time",
+  //       accessor: "time",
+  //     },
+  //     {
+  //       Header: "Exhibitor",
+  //       Footer: "Exhibitor",
+  //       accessor: "exhibitor",
+  //     },
+  //     {
+  //       Header: "Visitor",
+  //       Footer: "Visitor",
+  //       accessor: "visitor",
+  //       Cell: ({ value }: any) => (
+  //         <div>
+  //           <div className="text-gray-900">{value?.name}</div>
+  //           <div className="text-sm text-gray-500">
+  //             {value?.institution_name}
+  //           </div>
+  //           <div className="text-sm text-gray-500">{value?.mobile}</div>
+  //         </div>
+  //       ),
+  //     },
+  //     {
+  //       Header: "Status",
+  //       Footer: "Status",
+  //       accessor: "status",
+  //       Cell: ({ value }: any) => (
+  //         <div>
+  //           {value === 3 ? (
+  //             <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-green-100 text-green-800">
+  //               Done
+  //             </span>
+  //           ) : value === 4 ? (
+  //             <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-red-100 text-red-800">
+  //               Timeout
+  //             </span>
+  //           ) : value === 2 ? (
+  //             <a
+  //               href={settings?.zoom_business_link}
+  //               target="_blank"
+  //               rel="noreferrer"
+  //               className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-blue-500 hover:bg-blue-600 hover:animate-none transition text-white animate-pulse"
+  //             >
+  //               Join Zoom
+  //             </a>
+  //           ) : value === 1 ? (
+  //             <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md uppercase bg-gray-100 text-gray-800">
+  //               Upcoming
+  //             </span>
+  //           ) : null}
+  //         </div>
+  //       ),
+  //     },
+  //     {
+  //       Header: "Action",
+  //       Footer: "Action",
+  //       Cell: ({ row }: any) => {
+  //         return (
+  //           <div className="flex space-x-3">
+  //             <button
+  //               className="text-primary-600 hover:bg-gray-100 px-2 py-1.5 rounded-md text-sm font-semibold transition"
+  //               onClick={() => {
+  //                 setSelectedConsultation({
+  //                   id: row.original.id,
+  //                   status: row.original.status,
+  //                 });
+  //                 setOpenChangeStatusModal(true);
+  //               }}
+  //             >
+  //               Update Status
+  //             </button>
+  //             <button
+  //               onClick={() => {
+  //                 setSelectedConsultation({
+  //                   id: row.original.id,
+  //                   status: row.original.status,
+  //                 });
+  //                 setOpenDeleteModal(true);
+  //               }}
+  //               className="text-sm font-medium text-red-600 hover:text-red-700"
+  //             >
+  //               Delete
+  //             </button>
+  //           </div>
+  //         );
+  //       },
+  //     },
+  //   ],
+  //   [settings?.zoom_business_link]
+  // );
 
   if (isLoading || !isAuthenticated || isLoadingConsultations) {
     return <FullPageLoader />;
@@ -275,13 +278,22 @@ const AdminConsultationPage: NextPage = () => {
             <Tab.Panels>
               <Tab.Panel>
                 {" "}
-                <PaginationTable
+                {/* <PaginationTable
                   showFooter={false}
                   data={data || []}
                   columns={columns}
                   isLoading={isLoadingConsultations}
                   skeletonCols={4}
-                />
+                /> */}
+                <div className="overflow-hidden">
+                  <ActionConsultation
+                    dataConsultations={dataConsultations}
+                    setOpenChangeStatusModal={setOpenChangeStatusModal}
+                    setOpenDeleteModal={setOpenDeleteModal}
+                    setSelectedConsultation={setSelectedConsultation}
+                    settings={settings}
+                  />
+                </div>
               </Tab.Panel>
               <Tab.Panel>
                 <div className="overflow-hidden">

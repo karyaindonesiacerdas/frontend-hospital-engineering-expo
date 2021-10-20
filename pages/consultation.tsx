@@ -50,6 +50,7 @@ const Consultation: NextPage = () => {
   }, [dataUser, isLoadingUser, router]);
 
   const { data, isLoading: isLoadingConsultations } = useConsultations();
+
   const { data: settings } = useSettings();
 
   if (
