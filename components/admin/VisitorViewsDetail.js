@@ -29,9 +29,9 @@ export const VisitorViewsDetail = () => {
         sheet="tablexls"
         buttonText="Download as XLS"
       />
-      <div className="flex flex-col">
-        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div className="flex flex-col ">
+        <div className="-my-2 overflow-x-auto">
+          <div className="py-2 align-middle inline-block min-w-full">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table
                 id="table-to-xls"
@@ -49,13 +49,31 @@ export const VisitorViewsDetail = () => {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
+                      Email
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Mobile
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Province
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
                       Institution Name
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Exhibitor ID
+                      Exhibitor
                     </th>
                   </tr>
                 </thead>
@@ -63,6 +81,15 @@ export const VisitorViewsDetail = () => {
                   {isLoading
                     ? [0, 1, 2, 3, 4, 5, 6].map((i) => (
                         <tr key={i}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="h-4 bg-gray-200 animate-pulse"></div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="h-4 bg-gray-200 animate-pulse"></div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="h-4 bg-gray-200 animate-pulse"></div>
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div className="h-4 bg-gray-200 animate-pulse"></div>
                           </td>
@@ -80,7 +107,21 @@ export const VisitorViewsDetail = () => {
                             {viewer.visitor.name}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.allow_share_info === 1
+                              ? viewer.visitor.email
+                              : "-"}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.allow_share_info === 1
+                              ? viewer.visitor.mobile
+                              : "-"}
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {viewer.visitor.institution_name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor.province}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {viewer.exhibitor?.company_name}
