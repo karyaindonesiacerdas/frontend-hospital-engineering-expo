@@ -130,13 +130,13 @@ export const Header = () => {
 
       {/* <!-- Select Language --> */}
       <div className="flex space-x-6 items-center">
-        {/* <div>
+        <div>
           <Link href="/book-consultation">
             <a className="text-white bg-primary-600 px-4 py-2 rounded-md shadow hover:bg-primary-700 whitespace-nowrap text-xs sm:text-base font-semibold">
               Book Consultation
             </a>
           </Link>
-        </div> */}
+        </div>
         <label htmlFor="language" className="sr-only">
           Select Language
         </label>
