@@ -25,11 +25,10 @@ const Board = ({ _exhibitors }: Props) => {
   SwiperCore.use([Autoplay]);
 
   const exhibitors = _exhibitors.filter(
-    (exhibitor) => exhibitor.package_id !== 2
+    (exhibitor) => exhibitor.package_id !== 2 && exhibitor.published === 1
   );
   const totalExhibitor = exhibitors.length;
   const totalSlide = Math.ceil(totalExhibitor / 6);
-  //
   // console.log({ exhibitors });
 
   return (

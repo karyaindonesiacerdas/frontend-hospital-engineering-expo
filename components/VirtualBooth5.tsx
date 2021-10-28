@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ChatButton } from "@/components/ChatButton";
+// import { ChatButton } from "@/components/ChatButton";
+import axios from "axios";
+import { parseCookies } from "nookies";
+import { Switch } from "@headlessui/react";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
 import { Navbar } from "@/components/Navbar";
 import { ChatModal } from "@/components/ChatModal";
 import { VideoModal } from "@/components/VideoModal";
@@ -28,7 +33,6 @@ import { useSettings } from "hooks/useSettings";
 import { useUser } from "hooks/useUser";
 import { useAuth } from "@/contexts/auth.context";
 import { ShareInfoModal } from "./ShareInfoModal";
-import { parseCookies, setCookie } from "nookies";
 
 // const catalogSrc = "/catalog-example.pdf";
 
@@ -48,13 +52,12 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
   const [selectedOrder, setSelectedOrder] = useState<number>();
   const [isOpenShareInfo, setIsOpenShareInfo] = useState(false);
   const cookies = parseCookies();
+  const queryClient = useQueryClient();
+  // const [published, setPublished] = useState(false);
 
   const { user } = useAuth();
   const { data: dataUser } = useUser();
   const { data: settings } = useSettings();
-  // console.log({ dataUser });
-
-  console.log({ exhibitor });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -71,6 +74,34 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
     };
   }, [dataUser?.allow_share_info, cookies.answered, dataUser?.role]);
 
+  // console.log({ exhibitor });
+  const handleUpdatePublished = async (published: number) => {
+    const data = {
+      _method: "PUT",
+      published,
+    };
+
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+        },
+      }
+    );
+
+    if (res?.data?.code === 200) {
+      await queryClient.invalidateQueries(["exhibitors"]);
+      await queryClient.invalidateQueries(["exhibitor"]);
+      toast.success("Booth status updated successfully!", {
+        position: "top-right",
+      });
+    } else {
+      toast.error("Booth status failed to update", { position: "top-right" });
+    }
+  };
+
   return (
     <div
       style={{
@@ -83,7 +114,33 @@ export const VirtualBooth5 = ({ exhibitor }: Props) => {
 
       {/* Main Content */}
       <main className="px-1.5 lg:px-2 pb-2 max-w-7xl mx-auto">
-        <BackButton href="/exhibitors" text="Exhibitor List" />
+        <div className="flex justify-between">
+          <BackButton href="/exhibitors" text="Exhibitor List" />
+          {exhibitor?.id === dataUser?.id && (
+            <div className="bg-white py-0.5 lg:py-2 px-2 lg:px-3 rounded-md shadow-2xl flex space-x-2 items-center">
+              <span className="text-gray-900 font-semibold">Open Booth: </span>
+              <Switch
+                checked={exhibitor.published === 1}
+                onChange={(e) => handleUpdatePublished(e ? 1 : 0)}
+                className={`${
+                  exhibitor.published === 1 ? "bg-primary-600" : "bg-gray-200"
+                }
+          relative inline-flex flex-shrink-0 h-[28px] w-[52px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+              >
+                <span className="sr-only">Published</span>
+                <span
+                  aria-hidden="true"
+                  className={`${
+                    exhibitor.published === 1
+                      ? "translate-x-6"
+                      : "translate-x-0"
+                  }
+            pointer-events-none inline-block h-[24px] w-[24px] rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
+                />
+              </Switch>
+            </div>
+          )}
+        </div>
         {/* ### Modals ### */}
         <ShareInfoModal open={isOpenShareInfo} setOpen={setIsOpenShareInfo} />
         <VideoModal

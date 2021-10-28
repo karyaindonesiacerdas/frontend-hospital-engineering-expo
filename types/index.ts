@@ -38,6 +38,7 @@ export type ExhibitorDetails = {
   booth_type: string;
   img_profile: string;
   ala_carte: string[];
+  published: number;
 };
 
 type Package = {
@@ -55,6 +56,7 @@ export type Exhibitor = {
   package_id: number;
   package: Package;
   ala_carte: string[];
+  published: number;
 };
 
 export type Poster = {

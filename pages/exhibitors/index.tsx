@@ -46,7 +46,7 @@ const Exhibitors: NextPage = () => {
 
   const { data, error } = useExhibitors({ showAll: false });
 
-  console.log({ data });
+  // console.log({ data });
 
   if (isLoading || !isAuthenticated) {
     return <FullPageLoader />;

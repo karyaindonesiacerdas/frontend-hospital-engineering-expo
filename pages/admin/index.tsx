@@ -42,6 +42,10 @@ type Inputs = {
   webinar_link: string;
 };
 
+type InputResetPassword = {
+  email: string;
+};
+
 const AdminPage: NextPage = () => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -57,6 +61,12 @@ const AdminPage: NextPage = () => {
     formState: { isSubmitting, errors },
     reset,
   } = useForm<Inputs>();
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { isSubmitting: isSubmitting2, errors: errors2 },
+    reset: reset2,
+  } = useForm<InputResetPassword>();
   const cookies = parseCookies();
   const queryClient = useQueryClient();
 
@@ -145,6 +155,38 @@ const AdminPage: NextPage = () => {
     }
   };
 
+  const onResetPassword: SubmitHandler<InputResetPassword> = async ({
+    email,
+  }) => {
+    const data = {
+      email,
+    };
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/reset/password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
+
+      await res.json();
+      toast.success("Password successfully reset");
+      reset2({});
+    } catch (error: any) {
+      toast.error(error.message || "Error Reset Password");
+    }
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Chat Button */}
@@ -212,165 +254,199 @@ const AdminPage: NextPage = () => {
             </nav>
           </div>
 
-          <div className="max-w-lg mx-auto bg-white shadow p-6 rounded-md">
-            <h2 className="text-2xl font-semibold text-center mb-6">
-              App Settings
-            </h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4">
-                <label
-                  htmlFor="youtube-link"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Youtube Live Link
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="youtube-link"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("youtube_link")}
-                  />
-                  {errors?.youtube_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.youtube_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="zoom-webinar-link"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Zoom Webinar Link
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="zoom-webinar-link"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("zoom_link")}
-                  />
-                  {errors?.zoom_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.zoom_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="zoom-business-matching-link"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Zoom Business Matching Link
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="zoom-business-matching-link"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("zoom_business_link")}
-                  />
-                  {errors?.zoom_business_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.zoom_business_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="main-video"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Main Video (Youtube Link)
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="main-video"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("webinar_link")}
-                  />
-                  {errors?.webinar_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.webinar_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="advertisement-1"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Advertisement 1 (Youtube link)
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="advertisement-1"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("ads1_link")}
-                  />
-                  {errors?.ads1_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.ads1_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="advertisement-2"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Advertisement 2 (Youtube link)
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="advertisement-2"
-                    type="text"
-                    className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
-                    {...register("ads2_link")}
-                  />
-                  {errors?.ads2_link && (
-                    <span className="text-sm text-red-500">
-                      {errors?.ads2_link?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="ve-chat"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  VE Chat
-                </label>
-                <div className="mt-1">
-                  <Switch
-                    checked={enabledChat}
-                    onChange={setEnabledChat}
-                    className={`${
-                      enabledChat ? "bg-primary-600" : "bg-gray-200"
-                    } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500`}
+          <div className="grid grid-cols-2 gap-10 items-start max-w-5xl mx-auto">
+            <div className="bg-white shadow p-6 rounded-md">
+              <h2 className="text-2xl font-semibold text-center mb-6">
+                App Settings
+              </h2>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="youtube-link"
+                    className="block text-sm font-medium text-gray-700"
                   >
-                    <span className="sr-only">VE Chat</span>
-                    <span
-                      aria-hidden="true"
-                      className={classNames(
-                        enabledChat ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-                      )}
+                    Youtube Live Link
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="youtube-link"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("youtube_link")}
                     />
-                  </Switch>
+                    {errors?.youtube_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.youtube_link?.message}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <SubmitButton isLoading={isSubmitting}>Save</SubmitButton>
-            </form>
+                <div className="mb-4">
+                  <label
+                    htmlFor="zoom-webinar-link"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Zoom Webinar Link
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="zoom-webinar-link"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("zoom_link")}
+                    />
+                    {errors?.zoom_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.zoom_link?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="zoom-business-matching-link"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Zoom Business Matching Link
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="zoom-business-matching-link"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("zoom_business_link")}
+                    />
+                    {errors?.zoom_business_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.zoom_business_link?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="main-video"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Main Video (Youtube Link)
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="main-video"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("webinar_link")}
+                    />
+                    {errors?.webinar_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.webinar_link?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="advertisement-1"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Advertisement 1 (Youtube link)
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="advertisement-1"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("ads1_link")}
+                    />
+                    {errors?.ads1_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.ads1_link?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="advertisement-2"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Advertisement 2 (Youtube link)
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="advertisement-2"
+                      type="text"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register("ads2_link")}
+                    />
+                    {errors?.ads2_link && (
+                      <span className="text-sm text-red-500">
+                        {errors?.ads2_link?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="ve-chat"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    VE Chat
+                  </label>
+                  <div className="mt-1">
+                    <Switch
+                      checked={enabledChat}
+                      onChange={setEnabledChat}
+                      className={`${
+                        enabledChat ? "bg-primary-600" : "bg-gray-200"
+                      } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500`}
+                    >
+                      <span className="sr-only">VE Chat</span>
+                      <span
+                        aria-hidden="true"
+                        className={classNames(
+                          enabledChat ? "translate-x-5" : "translate-x-0",
+                          "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                        )}
+                      />
+                    </Switch>
+                  </div>
+                </div>
+                <SubmitButton isLoading={isSubmitting}>Save</SubmitButton>
+              </form>
+            </div>
+            <div className="bg-white shadow p-6 rounded-md">
+              <h2 className="text-2xl font-semibold text-center mb-6">
+                Reset Password User
+              </h2>
+              <form onSubmit={handleSubmit2(onResetPassword)}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Email
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="email"
+                      type="email"
+                      className="appearance-none block w-full px-3 py-2 border  rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm border-gray-300"
+                      {...register2("email")}
+                    />
+                    {errors2?.email && (
+                      <span className="text-sm text-red-500">
+                        {errors2?.email?.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <SubmitButton isLoading={isSubmitting2}>
+                  Reset Password
+                </SubmitButton>
+              </form>
+            </div>
           </div>
         </div>
       </main>
