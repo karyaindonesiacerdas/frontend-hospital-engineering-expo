@@ -19,6 +19,8 @@ export const ActionConsultation = ({
         time: consultation.time,
         exhibitor: consultation.exhibitor?.company_name,
         visitor: consultation.visitor,
+        visitorName: consultation.visitor.name,
+        visitorInstitution: consultation.visitor.institution_name,
         mobile: consultation.visitor?.mobile,
         status: consultation.status,
       })),
@@ -41,19 +43,29 @@ export const ActionConsultation = ({
         Footer: "Exhibitor",
         accessor: "exhibitor",
       },
+      // {
+      //   Header: "Visitor",
+      //   Footer: "Visitor",
+      //   accessor: "visitor",
+      //   Cell: ({ value }) => (
+      //     <div>
+      //       <div className="text-gray-900">{value?.name}</div>
+      //       <div className="text-sm text-gray-500">
+      //         {value?.institution_name}
+      //       </div>
+      //       {/* <div className="text-sm text-gray-500">{value?.mobile}</div> */}
+      //     </div>
+      //   ),
+      // },
       {
-        Header: "Visitor",
-        Footer: "Visitor",
-        accessor: "visitor",
-        Cell: ({ value }) => (
-          <div>
-            <div className="text-gray-900">{value?.name}</div>
-            <div className="text-sm text-gray-500">
-              {value?.institution_name}
-            </div>
-            {/* <div className="text-sm text-gray-500">{value?.mobile}</div> */}
-          </div>
-        ),
+        Header: "Visitor Name",
+        Footer: "Visitor Name",
+        accessor: "visitorName",
+      },
+      {
+        Header: "Visitor Institution",
+        Footer: "Visitor Institution",
+        accessor: "visitorInstitution",
       },
       {
         Header: "Contact",

@@ -174,6 +174,13 @@ export const SponsoredBy = () => {
               alt="Ecosolusindo"
             />
           </div>
+          <div className="flex items-center justify-center h-36 p-4">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/edwards.png"
+              alt="edwards"
+            />
+          </div>
         </div>
         <div className="md:hidden">
           <Marquee className="mt-10" gradientWidth={30} speed={100}>
@@ -336,6 +343,13 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/ecosolusindo.png"
                 alt="Ecosolusindo"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36 p-4">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/edwards.png"
+                alt="edwards"
               />
             </div>
           </Marquee>
