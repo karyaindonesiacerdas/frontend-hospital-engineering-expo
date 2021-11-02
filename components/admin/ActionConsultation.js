@@ -22,6 +22,7 @@ export const ActionConsultation = ({
         visitorName: consultation.visitor.name,
         visitorInstitution: consultation.visitor.institution_name,
         mobile: consultation.visitor?.mobile,
+        referral: consultation.visitor?.referral,
         status: consultation.status,
       })),
     [dataConsultations]
@@ -71,6 +72,11 @@ export const ActionConsultation = ({
         Header: "Contact",
         Footer: "Contact",
         accessor: "mobile",
+      },
+      {
+        Header: "Referral",
+        Footer: "Referral",
+        accessor: "referral",
       },
       {
         Header: "Status",
