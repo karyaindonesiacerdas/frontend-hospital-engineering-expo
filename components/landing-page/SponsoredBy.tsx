@@ -125,6 +125,13 @@ export const SponsoredBy = () => {
               alt="MBI"
             />
           </div>
+          <div className="flex items-center justify-center h-36 p-4">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/edwards.png"
+              alt="edwards"
+            />
+          </div>
           <div className="flex items-center justify-center h-36 p-6">
             <img
               className="object-contain h-full"
@@ -172,13 +179,6 @@ export const SponsoredBy = () => {
               className="object-contain h-full"
               src="/sponsor/ecosolusindo.png"
               alt="Ecosolusindo"
-            />
-          </div>
-          <div className="flex items-center justify-center h-36 p-4">
-            <img
-              className="object-contain h-full"
-              src="/sponsor/edwards.png"
-              alt="edwards"
             />
           </div>
         </div>
@@ -296,6 +296,13 @@ export const SponsoredBy = () => {
                 alt="MBI"
               />
             </div>
+            <div className="flex items-center justify-center h-36 p-4">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/edwards.png"
+                alt="edwards"
+              />
+            </div>
             <div className="flex items-center justify-center h-24 mx-6 p-4">
               <img
                 className="object-contain h-full"
@@ -343,13 +350,6 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/ecosolusindo.png"
                 alt="Ecosolusindo"
-              />
-            </div>
-            <div className="flex items-center justify-center h-36 p-4">
-              <img
-                className="object-contain h-full"
-                src="/sponsor/edwards.png"
-                alt="edwards"
               />
             </div>
           </Marquee>
