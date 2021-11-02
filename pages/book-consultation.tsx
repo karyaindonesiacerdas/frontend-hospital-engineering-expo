@@ -80,6 +80,20 @@ const timeSlots: TimeSlots = {
     "15:30:00",
     // "16:00:00",
   ],
+  "2021-11-13": [
+    "09:00:00",
+    "09:30:00",
+    "10:00:00",
+    "10:30:00",
+    "11:00:00",
+    "11:30:00",
+    "13:00:00",
+    "13:30:00",
+    "14:00:00",
+    "14:30:00",
+    "15:00:00",
+    "15:30:00",
+  ],
 };
 
 const dateSlots = ["2021-10-02", "2021-10-16", "2021-11-06"];
@@ -369,22 +383,26 @@ const AboutHEF: NextPage = () => {
                         >
                           <option value="">Pilih Tanggal</option>
                           {/* <option value="2021-09-28">2021-09-28</option> */}
-                          {dateSlots
-                            ?.filter((slot) => {
-                              const today = new Date()
-                                .toISOString()
-                                .split("T")[0];
+                          {selectedExhibitor === 2 ? (
+                            <option value="2021-11-13">2021-11-13</option>
+                          ) : (
+                            dateSlots
+                              ?.filter((slot) => {
+                                const today = new Date()
+                                  .toISOString()
+                                  .split("T")[0];
 
-                              if (today > slot) {
-                                return false;
-                              }
-                              return true;
-                            })
-                            ?.map((slot) => (
-                              <option value={slot} key={slot}>
-                                {slot}
-                              </option>
-                            ))}
+                                if (today > slot) {
+                                  return false;
+                                }
+                                return true;
+                              })
+                              ?.map((slot) => (
+                                <option value={slot} key={slot}>
+                                  {slot}
+                                </option>
+                              ))
+                          )}
                           {/* <option value="2021-10-02">2021-10-02</option>
                       <option value="2021-10-16">2021-10-16</option>
                       <option value="2021-11-06">2021-11-06</option> */}
