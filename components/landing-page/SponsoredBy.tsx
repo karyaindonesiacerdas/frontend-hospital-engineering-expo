@@ -100,6 +100,13 @@ export const SponsoredBy = () => {
           <div className="flex items-center justify-center h-36">
             <img
               className="object-contain h-full"
+              src="/sponsor/philips.jpeg"
+              alt="philips"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36">
+            <img
+              className="object-contain h-full"
               src="/sponsor/7energi.png"
               alt="7 Energi"
             />
@@ -109,6 +116,13 @@ export const SponsoredBy = () => {
               className="object-contain h-full"
               src="/sponsor/tica.png"
               alt="TICA"
+            />
+          </div>
+          <div className="flex items-center justify-center h-36 p-4">
+            <img
+              className="object-contain h-full"
+              src="/sponsor/edwards.png"
+              alt="edwards"
             />
           </div>
           <div className="flex items-center justify-center h-36">
@@ -123,13 +137,6 @@ export const SponsoredBy = () => {
               className="object-contain h-full"
               src="/sponsor/metropolitan-bayu-industri.png"
               alt="MBI"
-            />
-          </div>
-          <div className="flex items-center justify-center h-36 p-4">
-            <img
-              className="object-contain h-full"
-              src="/sponsor/edwards.png"
-              alt="edwards"
             />
           </div>
           <div className="flex items-center justify-center h-36 p-6">
@@ -266,6 +273,13 @@ export const SponsoredBy = () => {
                 className="object-contain h-full"
                 src="/sponsor/paramount.png"
                 alt="paramount"
+              />
+            </div>
+            <div className="flex items-center justify-center h-36">
+              <img
+                className="object-contain h-full"
+                src="/sponsor/philips.jpeg"
+                alt="philips"
               />
             </div>
             <div className="flex items-center justify-center h-36">

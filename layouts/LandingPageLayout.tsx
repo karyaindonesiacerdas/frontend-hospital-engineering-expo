@@ -40,7 +40,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
               </span>
             </a>
             <div className="mx-28 font-semibold text-primary-600">
-              The 2nd day of the event will be held on October 16, 2021!
+              The 3rd day of the event will be held on November 6, 2021!
             </div>
             {/* <img
             className="object-contain h-full mx-28"
@@ -87,7 +87,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
               />
             </a>
             <div className="mx-28 font-semibold text-primary-600">
-              The 2nd day of the event will be held on October 16, 2021!
+              The 3rd day of the event will be held on November 6, 2021!
             </div>
           </Marquee>
           {/* <Marquee
@@ -114,7 +114,7 @@ export const LandingPageLayout: React.FC = ({ children }) => {
               <span>Chint Electric &quot;Empower The World&quot;</span>
             </a>
             <div className="mx-28 font-semibold">
-              The 2nd day of the event will be held on October 16, 2021!
+              The 3rd day of the event will be held on November 6, 2021!
             </div>
           </Marquee> */}
         </div>
