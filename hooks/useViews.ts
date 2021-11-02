@@ -12,6 +12,7 @@ export type View = {
     mobile: string;
     allow_share_info: number;
     province: string;
+    referral: string;
   };
   exhibitor: {
     id: number;

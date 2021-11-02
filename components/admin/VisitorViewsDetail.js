@@ -15,7 +15,7 @@ export const VisitorViewsDetail = () => {
   } = useViews({ page: page, limit: 1000 });
   // const { data } = useVisitorViews({ page });
 
-  console.log({ viewers });
+  // console.log({ viewers });
   // console.log({ data });
 
   return (
@@ -75,12 +75,21 @@ export const VisitorViewsDetail = () => {
                     >
                       Exhibitor
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Referral
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {isLoading
                     ? [0, 1, 2, 3, 4, 5, 6].map((i) => (
                         <tr key={i}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="h-4 bg-gray-200 animate-pulse"></div>
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div className="h-4 bg-gray-200 animate-pulse"></div>
                           </td>
@@ -125,6 +134,9 @@ export const VisitorViewsDetail = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {viewer.exhibitor?.company_name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {viewer.visitor?.referral}
                           </td>
                         </tr>
                       ))}
