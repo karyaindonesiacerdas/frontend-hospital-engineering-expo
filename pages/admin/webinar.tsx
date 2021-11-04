@@ -160,6 +160,128 @@ const AdminWebinarPage: NextPage = () => {
             </div>
           </div>
           {/* Table */}
+          <h3 className="text-2xl font-bold mb-4 text-gray-800">Day 3</h3>
+          <div className="flex flex-col mb-10">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Date
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Time
+                        </th>
+                        <th
+                          scope="col"
+                          className="hidden sm:block px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Title
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Speaker
+                        </th>
+                        <th
+                          scope="col"
+                          className="relative px-3 sm:px-6 py-3"
+                        ></th>
+                        <th
+                          scope="col"
+                          className="relative px-3 sm:px-6 py-3"
+                        ></th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {rundowns
+                        ?.filter((rundown) => rundown.date === "2021-11-06")
+                        .map((rundown) => (
+                          <tr key={rundown.id}>
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {rundown.date &&
+                                  formatDate(new Date(rundown.date))}
+                              </div>
+                            </td>
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {rundown.time}
+                              </div>
+                            </td>
+                            <td className="hidden sm:table-cell px-4 py-2  sm:px-6 sm:py-4 whitespace-wrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {rundown.title}
+                              </div>
+                              <div className="text-sm font-medium text-gray-500">
+                                {rundown.subtitle}
+                              </div>
+                            </td>
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-wrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {rundown.speakers}
+                              </div>
+                              <div className="text-sm font-medium text-gray-500">
+                                {rundown.position}
+                              </div>
+                            </td>
+                            <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                              {rundown.status === 3 ? (
+                                <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-green-100 text-green-800 uppercase">
+                                  Done
+                                </span>
+                              ) : rundown.status === 2 ? (
+                                <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-yellow-100 text-yellow-800 uppercase animate-pulse">
+                                  Now Showing
+                                </span>
+                              ) : rundown.status === 1 ? (
+                                <span className="px-2 py-1 sm:px-4 sm:py-1.5 inline-flex text-xs leading-5 font-semibold rounded-md bg-gray-100 text-gray-800 uppercase">
+                                  Upcoming
+                                </span>
+                              ) : null}
+                            </td>
+                            {user.role === "admin" && (
+                              <td className="px-4 py-2  sm:px-6 sm:py-4 whitespace-nowrap">
+                                <div className="flex space-x-4">
+                                  <button
+                                    onClick={() => {
+                                      setSelectedRundown(rundown);
+                                      setOpenEditRundownModal(true);
+                                    }}
+                                    className="text-sm font-medium text-primary-600 hover:text-primary-700"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setSelectedRundown(rundown);
+                                      setOpenDeleteRundownModal(true);
+                                    }}
+                                    className="text-sm font-medium text-red-600 hover:text-red-700"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            )}
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Table */}
           <h3 className="text-2xl font-bold mb-4 text-gray-800">Day 2</h3>
           <div className="flex flex-col mb-10">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
