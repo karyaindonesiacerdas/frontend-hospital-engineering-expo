@@ -12,7 +12,7 @@ export const SponsoredBy = () => {
         <h3 className="text-3xl text-gray-700 text-center font-medium">
           {t("sponsored-by")}
         </h3>
-        <div className="max-w-7xl mx-auto mt-10 grid-cols-2 md:grid-cols-3 gap-8 md:gap-20 hidden md:grid">
+        <div className="max-w-7xl mx-auto mt-10 grid-cols-2 md:grid-cols-3 items-center gap-8 md:gap-20 hidden md:grid">
           <div className="flex items-center justify-center h-36 p-2">
             <img
               className="object-contain h-full"
@@ -27,7 +27,7 @@ export const SponsoredBy = () => {
               alt="Panasonic"
             />
           </div>
-          <div className="flex items-center justify-center h-36">
+          <div className="flex items-center justify-center h-40">
             <img
               className="object-contain h-full"
               src="/sponsor/matesu.png"
@@ -41,7 +41,7 @@ export const SponsoredBy = () => {
               alt="PNP"
             />
           </div>
-          <div className="flex items-center justify-center h-36 p-2">
+          <div className="flex items-center justify-center h-40 p-2">
             <img
               className="object-contain h-full"
               src="/sponsor/kawan-abadi-selaras.png"
@@ -104,7 +104,7 @@ export const SponsoredBy = () => {
               alt="philips"
             />
           </div>
-          <div className="flex items-center justify-center h-36">
+          <div className="flex items-center justify-center h-40">
             <img
               className="object-contain h-full"
               src="/sponsor/7energi.png"
@@ -125,7 +125,7 @@ export const SponsoredBy = () => {
               alt="edwards"
             />
           </div>
-          <div className="flex items-center justify-center h-36">
+          <div className="flex items-center justify-center h-40">
             <img
               className="object-contain h-full"
               src="/sponsor/inos-putra-mahkota.png"
@@ -146,7 +146,7 @@ export const SponsoredBy = () => {
               alt="Pengsulindo"
             />
           </div>
-          <div className="flex items-center justify-center h-36">
+          <div className="flex items-center justify-center h-52">
             <img
               className="object-contain h-full"
               src="/sponsor/mee.png"
