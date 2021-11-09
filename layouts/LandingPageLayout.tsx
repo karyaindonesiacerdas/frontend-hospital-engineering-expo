@@ -39,9 +39,9 @@ export const LandingPageLayout: React.FC = ({ children }) => {
                 Chint Electric &quot;Empower The World&quot;
               </span>
             </a>
-            <div className="mx-28 font-semibold text-primary-600">
+            {/* <div className="mx-28 font-semibold text-primary-600">
               The 3rd day of the event will be held on November 6, 2021!
-            </div>
+            </div> */}
             {/* <img
             className="object-contain h-full mx-28"
             src="/sponsor/running-text-panasonic.jpeg"
@@ -86,9 +86,9 @@ export const LandingPageLayout: React.FC = ({ children }) => {
                 className="bg-white"
               />
             </a>
-            <div className="mx-28 font-semibold text-primary-600">
+            {/* <div className="mx-28 font-semibold text-primary-600">
               The 3rd day of the event will be held on November 6, 2021!
-            </div>
+            </div> */}
           </Marquee>
           {/* <Marquee
             speed={80}
